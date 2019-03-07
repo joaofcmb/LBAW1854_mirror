@@ -1,0 +1,70 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: rgb(230, 230, 230);
+}
+
+.container-fluid {
+    height: 100%;
+}
+
+.navbar {
+    height: 10%;
+    background-color: grey;
+    opacity: 0.9;
+    
+    font-size: 1.5em;
+}
+
+a {
+    font-family: 'Comfortaa', sans-serif;
+    color:whitesmoke;
+}
+
+.navbar-brand {
+    margin-right: 2em;
+    
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.25em;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.navbar-brand:hover{
+    color:whitesmoke;
+}
+
+.navbar-nav li a:hover {
+    color: rgb(13, 189, 196);
+    font-weight: bold;
+}
+
+#authentication {
+    margin-bottom: 1em;
+    
+}
+
+#home {
+    background-image: url("./background.jpg");
+    background-size: cover;
+}
+
+/* *********************************/
+
+#nav-pos {
+    height: 10%;
+}
+
+.col {
+    width: 45%;
+    height: 45%;
+}
+
+.img-benefits {
+    max-width: 90%;
+    max-height: 90%;
+    display: block;
+    margin: 1em auto;
+}
