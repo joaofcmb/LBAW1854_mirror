@@ -6,11 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="home.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
         <title>EPMA</title>
     </head>
-    <body>
+    <body class="d-flex flex-column justify-content-between">
         <nav class="nav nav-pills align-items-center p-2">
             <h1 class="mr-sm-3 mr-lg-5">EPMA</h1>
             <a class="nav-link active mx-sm-3 mx-lg-5" href="#">HOME</a>
@@ -19,12 +20,83 @@
             <a class="nav-link mx-sl-3 mx-lg-5" href="#">PROFILE</a>
         </nav>
 
-        <div class="container">
+        <div id="content" class="container-fluid py-3 mb-auto">
+            <div class="row">
+                    <div class="col-md-8">
+                        <div class="card px-1">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h3>Project Management</h3>
+                                <div class="d-flex justify-content-end align-items-center">
+                                    1 Projects
+                                    <button data-toggle="collapse" data-target="#ProjectManagement">COLLAPSE</button>
+                                </div>
+                            </div>
+                            <div class="collapse" id="ProjectManagement">
+                                Lorem Ipsum
+                            </div>
+                        </div>
 
+                        <div class="card px-1">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h3>Team Projects</h3>
+                                <div class="d-flex justify-content-end align-items-center">
+                                    2 Projects
+                                    <button data-toggle="collapse" data-target="#TeamProjects">COLLAPSE</button>
+                                </div>
+                            </div>
+                            <div class="collapse" id="TeamProjects">
+                                Lorem Epsum
+                            </div>
+                        </div>
+
+                        <div class="card px-1">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h3>Team Tasks</h3>
+                                <div class="d-flex justify-content-end align-items-center">
+                                    2 Projects
+                                    <button data-toggle="collapse" data-target="#TeamTasks">COLLAPSE</button>
+                                </div>
+                            </div>
+                            <div class="collapse" id="TeamTasks">
+                                Lorem Epsum
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h2>COMPANY FORUM</h2>
+                            <a><button>ADD</button></a>
+                        </div>
+
+                        <section class="card sticky-thread p-2 my-2">
+                            <div class="d-flex justify-content-between align-items-top">
+                                <h5>New Employee Guide</h5>
+                                M 2
+                            </div>
+                            Chefao
+                        </section>
+
+                        <section class="card sticky-thread p-2 my-2">
+                                <div class="d-flex justify-content-between align-items-top">
+                                    <h5>Code of Conduct</h5>
+                                </div>
+                                Chefao
+                        </section>
+
+                        <section class="card sticky-thread p-2 my-2">
+                                <div class="d-flex justify-content-between align-items-top">
+                                    <h5>New snack policy feedback</h5>
+                                    M 5
+                                </div>
+                                John Doe
+                        </section>
+                    </div>
+            </div>
         </div>
 
         <footer class="p-2">
-            <span id="copyright">COPYRIGHT © EPMA 2019<span>
+            COPYRIGHT © EPMA 2019
         </footer>
 
 
