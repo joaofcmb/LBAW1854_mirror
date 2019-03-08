@@ -1,4 +1,41 @@
+body * {
+    font-family: 'Roboto', sans-serif;
+}
+
 .task {
     width: 15em;
     height: 17em;
+}
+
+div.main-tab {
+    background-color: #f8f9fa;
+}
+
+div.main-tab {
+    border: 4px solid rgb(13, 189, 196);
+}
+
+.main-tab > div > h3 {
+    font-size: 1.5em;
+}
+
+.collapse-element {
+    width: 8em;
+}
+
+.collapse-element > a.collapsed > .fa-angle-up {
+    display: none;
+}
+
+.collapse-element > a[aria-expanded=true] > .fa-angle-down {
+    display: none;
+}
+
+.fa-angle-down, .fa-angle-up {
+    font-size: 2rem;
+    color: rgb(75, 75, 75);
+}
+
+.fa-angle-down:hover, .fa-angle-up:hover {
+    color: rgb(13, 189, 196);
 }
