@@ -6,7 +6,7 @@
 
         <link rel="stylesheet" href="home.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa|Roboto:300,400">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa|Roboto:300,400,700">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
         <script defer src="main.js"></script>
@@ -17,12 +17,31 @@
         <title>EPMA</title>
     </head>
     <body class="bg-light">
-        <nav class="nav nav-pills sticky-top align-items-center p-2">
-            <h1 class="mr-sm-3 mr-lg-5">EPMA</h1>
-            <a class="nav-link active mx-sm-3 mx-lg-5" href="#">HOME</a>
-            <a class="nav-link mx-sm-3 mx-lg-5" href="#">SEARCH</a>
-            <a class="nav-link mx-sm-3 mx-lg-5" href="#">FORUM</a>
-            <a class="nav-link mx-sl-3 mx-lg-5" href="#">PROFILE</a>
+        <nav class="navbar sticky-top navbar-expand-sm navbar-dark py-0 px-1 px-lg-3">
+            <a class="navbar-brand" href="#">
+                <img src="logo.png" width="35" class="d-inline-block" alt="Website Logo">
+                <span class="font-weight-bold font-italic">EPMA</span>
+            </a>
+    
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <a class="nav-item nav-link active mx-lg-3" href="#">HOME</a>
+                <a class="nav-item nav-link mx-lg-3" href="#">SEARCH</a>
+                <a class="nav-item nav-link mx-lg-3" href="#">FORUM</a>
+                <a class="nav-item nav-link mx-lg-3" href="#">PROFILE</a>
+
+                
+                <div id="authentication" class="nav-item ml-auto">
+                    <a href="index.html" class="pr-2">
+                        <span class="font-weight-bold font-italic">Sign out</span>
+                    </a>
+                    <a href=""><img class="profile-img d-inline-block rounded-circle my-auto" src="joao.jpg" width="50" height="50" alt="Website Logo"></a>
+                </div>
+            </div>
         </nav>
 
         <div id="content" class="container py-3 mb-5">
@@ -199,7 +218,6 @@
                 </div>
             </div>
         </div>
-
         <footer class="fixed-bottom p-2">
             COPYRIGHT © EPMA 2019
         </footer>
