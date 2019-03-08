@@ -57,14 +57,51 @@ a {
     height: 10%;
 }
 
-.col {
-    width: 45%;
-    height: 45%;
+.img-fluid {
+    max-width: 45%;
 }
 
-.img-benefits {
-    max-width: 90%;
-    max-height: 90%;
-    display: block;
-    margin: 1em auto;
+#idea-img {
+    margin-top: 1.5em;
+}
+
+.d-flex {
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 2.5vw;
+}
+
+span {
+    padding: 0em 0.25em;
+    color: rgb(13, 189, 196);
+}
+
+
+/* *********************************/
+
+#founders {
+    height: 90%;
+}
+
+.thumbnail {
+    margin: 45% auto;
+    
+}
+
+.thumbnail img {
+    height: 40%;
+    width: 100%;
+}
+
+.thumbnail a {
+    text-decoration: none;
+}
+
+.thumbnail p {
+    margin: 2em auto;
+    text-align: center;
+    color: black;
+}
+
+.thumbnail p:hover {
+    color: rgb(13, 189, 196);
 }
