@@ -2,3 +2,40 @@
     width: 15em;
     height: 17em;
 }
+
+.navbar {
+    
+    background-color: rgb(88, 88, 88);
+    color: whitesmoke;
+}
+
+.navbar-brand {
+    margin-right: 2em;
+    
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.nav-item {
+    border-radius: 0.25em;
+    color: whitesmoke;
+}
+
+.nav-item:hover {
+    color: rgb(88, 88, 88);
+    background-color: whitesmoke;
+    font-weight: bold;
+}
+
+#authentication a {
+    color: whitesmoke;
+    font-weight: bold;
+    font-style: italic;
+    text-decoration: none;
+}
+
+#authentication:hover {
+    color: whitesmoke;
+    background-color: rgb(88, 88, 88);
+}

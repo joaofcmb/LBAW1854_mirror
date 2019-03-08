@@ -1,200 +1,232 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <link rel="stylesheet" href="home.css">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <title>EPMA</title>
-    </head>
-    <body>
-        <nav class="nav nav-pills sticky-top align-items-center p-2">
-            <h1 class="mr-sm-3 mr-lg-5">EPMA</h1>
-            <a class="nav-link active mx-sm-3 mx-lg-5" href="#">HOME</a>
-            <a class="nav-link mx-sm-3 mx-lg-5" href="#">SEARCH</a>
-            <a class="nav-link mx-sm-3 mx-lg-5" href="#">FORUM</a>
-            <a class="nav-link mx-sl-3 mx-lg-5" href="#">PROFILE</a>
-        </nav>
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-        <div id="content" class="container py-3 mb-5">
-            <div class="row">
-                    <div class="col-md-8">
-                        <div class="card px-2">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h3>Project Management</h3>
-                                <div class="d-flex justify-content-end align-items-center">
-                                    1 Projects
-                                    <button data-toggle="collapse" data-target="#ProjectManagement">COLLAPSE</button>
-                                </div>
-                            </div>
-                            <div class="collapse mb-2" id="ProjectManagement">
-                                <section class="project card py-2 my-2">
-                                    <div class="container-fluid">
-                                        <div class="d-flex justify-content-between">
-                                            <h4 class="card-title mb-3">Company Website</h4>
-                                            Star
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-7">
-                                                <h5 class="mb-0 d-inline-block">Project Manager: </h5> 
-                                                John Doe
-                                                <h5 class="mt-3 mb-0 d-inline-block">Brief Description: </h5> 
-                                                Company website for exposing our products.
-                                            </div>
-                                            <div class="col-5">
-                                                <h5>Statistics</h5>
-                                                <p class="m-0">10 Teams involved</p>
-                                                <p class="m-0">124 Tasks concluded</p>
-                                                <p class="m-0">32 Tasks remaining</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
-                            </div>
-                        </div>
+    <title>EPMA</title>
+</head>
 
-                        <div class="card px-2">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h3>Team Projects</h3>
-                                <div class="d-flex justify-content-end align-items-center">
-                                    2 Projects
-                                    <button data-toggle="collapse" data-target="#TeamProjects">COLLAPSE</button>
-                                </div>
-                            </div>
-                            <div class="collapse" id="TeamProjects">
-                                <section class="project card py-2 my-2">
-                                    <div class="container-fluid">
-                                        <div class="d-flex justify-content-between">
-                                            <h4 class="card-title mb-3">Company Website</h4>
-                                            Star
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-7">
-                                                <h5 class="mb-0 d-inline-block">Project Manager: </h5> 
-                                                John Doe
-                                                <h5 class="mt-3 mb-0 d-inline-block">Brief Description: </h5> 
-                                                Company website for exposing our products.
-                                            </div>
-                                            <div class="col-5">
-                                                <h5>Statistics</h5>
-                                                <p class="m-0">10 Teams involved</p>
-                                                <p class="m-0">124 Tasks concluded</p>
-                                                <p class="m-0">32 Tasks remaining</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
-                                <section class="project card py-2 my-2">
-                                    <div class="container-fluid">
-                                        <div class="d-flex justify-content-between">
-                                            <h4 class="card-title mb-3">Vendor Machine</h4>
-                                            Star
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-7">
-                                                <h5 class="mb-0 d-inline-block">Project Manager: </h5> 
-                                                Jefferson Clark
-                                                <h5 class="mt-3 mb-0 d-inline-block">Brief Description: </h5> 
-                                                Software for controlling a vending machine according to the MDB/ICP v4.2 specification.
-                                            </div>
-                                            <div class="col-5">
-                                                <h5>Statistics</h5>
-                                                <p class="m-0">10 Teams involved</p>
-                                                <p class="m-0">124 Tasks concluded</p>
-                                                <p class="m-0">32 Tasks remaining</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
-                            </div>
-                        </div>
+<body>
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark py-1 px-2">
+        <a class="navbar-brand" href="#">
+            <img src="logo.png" width="35" height="70" class="d-inline-block align-self-center" alt="Website Logo">
+            EPMA
+        </a>
 
-                        <div class="card px-2">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h3>Team Tasks</h3>
-                                <div class="d-flex justify-content-end align-items-center">
-                                    2 Tasks
-                                    <button data-toggle="collapse" data-target="#TeamTasks">COLLAPSE</button>
-                                </div>
-                            </div>
-                            <div class="collapse mx-auto" id="TeamTasks">
-                                
-                                <section class="task card float-left p-2 m-2">
-                                    <h5 class="card-title text-center">Company Website</h5>
-                                    <h6 class="text-center mb-auto">Add Responsive Design</h6>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-                                    <p class="m-0">1 Teams</p>
-                                    <p>9 Developers</p>
-
-                                    <div class="progress my-1">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width:63%" aria-valuenow="63" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <div class="progress my-1">
-                                        <div class="progress-bar bg-warning" role="progressbar" style="width:46%" aria-valuenow="46" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-
-                                </section>
-
-                                <section class="task card float-left p-2 m-2">
-                                    <h5 class="card-title text-center">Vendor Machine</h5>
-                                    <h6 class="text-center mb-auto">User Interface</h6>
-
-                                    <p class="m-0">2 Teams</p>
-                                    <p>21 Developers</p>
-
-                                    <div class="progress my-1">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width:15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    <div class="progress my-1">
-                                        <div class="progress-bar bg-warning" role="progressbar" style="width:28%" aria-valuenow="28" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-
-                                </section>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h2>COMPANY FORUM</h2>
-                            <a><button>ADD</button></a>
-                        </div>
-
-                        <section class="card sticky-thread p-2 my-2">
-                            <div class="d-flex justify-content-between align-items-top">
-                                <h5>New Employee Guide</h5>
-                                M 2
-                            </div>
-                            Chefao
-                        </section>
-
-                        <section class="card sticky-thread p-2 my-2">
-                                <div class="d-flex justify-content-between align-items-top">
-                                    <h5>Code of Conduct</h5>
-                                </div>
-                                Chefao
-                        </section>
-
-                        <section class="card sticky-thread p-2 my-2">
-                                <div class="d-flex justify-content-between align-items-top">
-                                    <h5>New snack policy feedback</h5>
-                                    M 5
-                                </div>
-                                John Doe
-                        </section>
-                    </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <a class="nav-item nav-link active" href="#">HOME</a>
+            <a class="nav-item nav-link" href="#">SEARCH</a>
+            <a class="nav-item nav-link" href="#">FORUM</a>
+            <a class="nav-item nav-link" href="#">PROFILE</a>
+            <div id="authentication" class="nav-item ml-auto pl-3">
+                <a href="index.html" class="pr-2">
+                Sign out
+                </a>
+               <a href=""><img src="joao.jpg" width="50" height="50" class="d-inline-block rounded-circle align-self-center my-auto" alt="Website Logo"></a>
             </div>
         </div>
+    </nav>
 
-        <footer class="fixed-bottom p-2">
-            COPYRIGHT © EPMA 2019
-        </footer>
+    <div id="content" class="container py-3 mb-5">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card px-2">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3>Project Management</h3>
+                        <div class="d-flex justify-content-end align-items-center">
+                            1 Projects
+                            <button data-toggle="collapse" data-target="#ProjectManagement">COLLAPSE</button>
+                        </div>
+                    </div>
+                    <div class="collapse mb-2" id="ProjectManagement">
+                        <section class="project card py-2 my-2">
+                            <div class="container-fluid">
+                                <div class="d-flex justify-content-between">
+                                    <h4 class="card-title mb-3">Company Website</h4>
+                                    Star
+                                </div>
+                                <div class="row">
+                                    <div class="col-7">
+                                        <h5 class="mb-0 d-inline-block">Project Manager: </h5>
+                                        John Doe
+                                        <h5 class="mt-3 mb-0 d-inline-block">Brief Description: </h5>
+                                        Company website for exposing our products.
+                                    </div>
+                                    <div class="col-5">
+                                        <h5>Statistics</h5>
+                                        <p class="m-0">10 Teams involved</p>
+                                        <p class="m-0">124 Tasks concluded</p>
+                                        <p class="m-0">32 Tasks remaining</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
 
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    </body>
+                <div class="card px-2">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3>Team Projects</h3>
+                        <div class="d-flex justify-content-end align-items-center">
+                            2 Projects
+                            <button data-toggle="collapse" data-target="#TeamProjects">COLLAPSE</button>
+                        </div>
+                    </div>
+                    <div class="collapse" id="TeamProjects">
+                        <section class="project card py-2 my-2">
+                            <div class="container-fluid">
+                                <div class="d-flex justify-content-between">
+                                    <h4 class="card-title mb-3">Company Website</h4>
+                                    Star
+                                </div>
+                                <div class="row">
+                                    <div class="col-7">
+                                        <h5 class="mb-0 d-inline-block">Project Manager: </h5>
+                                        John Doe
+                                        <h5 class="mt-3 mb-0 d-inline-block">Brief Description: </h5>
+                                        Company website for exposing our products.
+                                    </div>
+                                    <div class="col-5">
+                                        <h5>Statistics</h5>
+                                        <p class="m-0">10 Teams involved</p>
+                                        <p class="m-0">124 Tasks concluded</p>
+                                        <p class="m-0">32 Tasks remaining</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="project card py-2 my-2">
+                            <div class="container-fluid">
+                                <div class="d-flex justify-content-between">
+                                    <h4 class="card-title mb-3">Vendor Machine</h4>
+                                    Star
+                                </div>
+                                <div class="row">
+                                    <div class="col-7">
+                                        <h5 class="mb-0 d-inline-block">Project Manager: </h5>
+                                        Jefferson Clark
+                                        <h5 class="mt-3 mb-0 d-inline-block">Brief Description: </h5>
+                                        Software for controlling a vending machine according to the MDB/ICP v4.2
+                                        specification.
+                                    </div>
+                                    <div class="col-5">
+                                        <h5>Statistics</h5>
+                                        <p class="m-0">10 Teams involved</p>
+                                        <p class="m-0">124 Tasks concluded</p>
+                                        <p class="m-0">32 Tasks remaining</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+
+                <div class="card px-2">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3>Team Tasks</h3>
+                        <div class="d-flex justify-content-end align-items-center">
+                            2 Tasks
+                            <button data-toggle="collapse" data-target="#TeamTasks">COLLAPSE</button>
+                        </div>
+                    </div>
+                    <div class="collapse mx-auto" id="TeamTasks">
+
+                        <section class="task card float-left p-2 m-2">
+                            <h5 class="card-title text-center">Company Website</h5>
+                            <h6 class="text-center mb-auto">Add Responsive Design</h6>
+
+                            <p class="m-0">1 Teams</p>
+                            <p>9 Developers</p>
+
+                            <div class="progress my-1">
+                                <div class="progress-bar bg-success" role="progressbar" style="width:63%"
+                                    aria-valuenow="63" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="progress my-1">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width:46%"
+                                    aria-valuenow="46" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+
+                        </section>
+
+                        <section class="task card float-left p-2 m-2">
+                            <h5 class="card-title text-center">Vendor Machine</h5>
+                            <h6 class="text-center mb-auto">User Interface</h6>
+
+                            <p class="m-0">2 Teams</p>
+                            <p>21 Developers</p>
+
+                            <div class="progress my-1">
+                                <div class="progress-bar bg-success" role="progressbar" style="width:15%"
+                                    aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="progress my-1">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width:28%"
+                                    aria-valuenow="28" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+
+                        </section>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2>COMPANY FORUM</h2>
+                    <a><button>ADD</button></a>
+                </div>
+
+                <section class="card sticky-thread p-2 my-2">
+                    <div class="d-flex justify-content-between align-items-top">
+                        <h5>New Employee Guide</h5>
+                        M 2
+                    </div>
+                    Chefao
+                </section>
+
+                <section class="card sticky-thread p-2 my-2">
+                    <div class="d-flex justify-content-between align-items-top">
+                        <h5>Code of Conduct</h5>
+                    </div>
+                    Chefao
+                </section>
+
+                <section class="card sticky-thread p-2 my-2">
+                    <div class="d-flex justify-content-between align-items-top">
+                        <h5>New snack policy feedback</h5>
+                        M 5
+                    </div>
+                    John Doe
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <footer class="fixed-bottom p-2">
+        COPYRIGHT © EPMA 2019
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
 </html>
