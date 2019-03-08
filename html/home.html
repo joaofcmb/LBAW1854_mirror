@@ -9,8 +9,8 @@
 
         <title>EPMA</title>
     </head>
-    <body class="d-flex flex-column justify-content-between">
-        <nav class="nav nav-pills align-items-center p-2">
+    <body>
+        <nav class="nav nav-pills sticky-top align-items-center p-2">
             <h1 class="mr-sm-3 mr-lg-5">EPMA</h1>
             <a class="nav-link active mx-sm-3 mx-lg-5" href="#">HOME</a>
             <a class="nav-link mx-sm-3 mx-lg-5" href="#">SEARCH</a>
@@ -18,10 +18,10 @@
             <a class="nav-link mx-sl-3 mx-lg-5" href="#">PROFILE</a>
         </nav>
 
-        <div id="content" class="container-fluid py-3 mb-auto">
+        <div id="content" class="container py-3 mb-5">
             <div class="row">
                     <div class="col-md-8">
-                        <div class="card px-1">
+                        <div class="card px-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h3>Project Management</h3>
                                 <div class="d-flex justify-content-end align-items-center">
@@ -29,12 +29,33 @@
                                     <button data-toggle="collapse" data-target="#ProjectManagement">COLLAPSE</button>
                                 </div>
                             </div>
-                            <div class="collapse" id="ProjectManagement">
-                                Lorem Ipsum
+                            <div class="collapse mb-2" id="ProjectManagement">
+                                <section class="project card py-2 my-2">
+                                    <div class="container-fluid">
+                                        <div class="d-flex justify-content-between">
+                                            <h4 class="card-title mb-3">Company Website</h4>
+                                            Star
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-7">
+                                                <h5 class="mb-0 d-inline-block">Project Manager: </h5> 
+                                                John Doe
+                                                <h5 class="mt-3 mb-0 d-inline-block">Brief Description: </h5> 
+                                                Company website for exposing our products.
+                                            </div>
+                                            <div class="col-5">
+                                                <h5>Statistics</h5>
+                                                <p class="m-0">10 Teams involved</p>
+                                                <p class="m-0">124 Tasks concluded</p>
+                                                <p class="m-0">32 Tasks remaining</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
                             </div>
                         </div>
 
-                        <div class="card px-1">
+                        <div class="card px-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h3>Team Projects</h3>
                                 <div class="d-flex justify-content-end align-items-center">
@@ -43,11 +64,54 @@
                                 </div>
                             </div>
                             <div class="collapse" id="TeamProjects">
-                                Lorem Epsum
+                                <section class="project card py-2 my-2">
+                                    <div class="container-fluid">
+                                        <div class="d-flex justify-content-between">
+                                            <h4 class="card-title mb-3">Company Website</h4>
+                                            Star
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-7">
+                                                <h5 class="mb-0 d-inline-block">Project Manager: </h5> 
+                                                John Doe
+                                                <h5 class="mt-3 mb-0 d-inline-block">Brief Description: </h5> 
+                                                Company website for exposing our products.
+                                            </div>
+                                            <div class="col-5">
+                                                <h5>Statistics</h5>
+                                                <p class="m-0">10 Teams involved</p>
+                                                <p class="m-0">124 Tasks concluded</p>
+                                                <p class="m-0">32 Tasks remaining</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                                <section class="project card py-2 my-2">
+                                    <div class="container-fluid">
+                                        <div class="d-flex justify-content-between">
+                                            <h4 class="card-title mb-3">Vendor Machine</h4>
+                                            Star
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-7">
+                                                <h5 class="mb-0 d-inline-block">Project Manager: </h5> 
+                                                Jefferson Clark
+                                                <h5 class="mt-3 mb-0 d-inline-block">Brief Description: </h5> 
+                                                Software for controlling a vending machine according to the MDB/ICP v4.2 specification.
+                                            </div>
+                                            <div class="col-5">
+                                                <h5>Statistics</h5>
+                                                <p class="m-0">10 Teams involved</p>
+                                                <p class="m-0">124 Tasks concluded</p>
+                                                <p class="m-0">32 Tasks remaining</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
                             </div>
                         </div>
 
-                        <div class="card px-1">
+                        <div class="card px-2">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h3>Team Tasks</h3>
                                 <div class="d-flex justify-content-end align-items-center">
@@ -55,14 +119,14 @@
                                     <button data-toggle="collapse" data-target="#TeamTasks">COLLAPSE</button>
                                 </div>
                             </div>
-                            <div class="collapse" id="TeamTasks">
+                            <div class="collapse mx-auto" id="TeamTasks">
                                 
                                 <section class="task card float-left p-2 m-2">
                                     <h5 class="card-title text-center">Company Website</h5>
                                     <h6 class="text-center mb-auto">Add Responsive Design</h6>
 
-                                    <p class="m-0">2 Teams</p>
-                                    <p>21 Developers</p>
+                                    <p class="m-0">1 Teams</p>
+                                    <p>9 Developers</p>
 
                                     <div class="progress my-1">
                                         <div class="progress-bar bg-success" role="progressbar" style="width:63%" aria-valuenow="63" aria-valuemin="0" aria-valuemax="100"></div>
@@ -74,17 +138,17 @@
                                 </section>
 
                                 <section class="task card float-left p-2 m-2">
-                                    <h5 class="card-title text-center">Company Website</h5>
-                                    <h6 class="text-center mb-auto">Add Responsive Design</h6>
+                                    <h5 class="card-title text-center">Vendor Machine</h5>
+                                    <h6 class="text-center mb-auto">User Interface</h6>
 
                                     <p class="m-0">2 Teams</p>
                                     <p>21 Developers</p>
 
                                     <div class="progress my-1">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width:63%" aria-valuenow="63" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-success" role="progressbar" style="width:15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                     <div class="progress my-1">
-                                        <div class="progress-bar bg-warning" role="progressbar" style="width:46%" aria-valuenow="46" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width:28%" aria-valuenow="28" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
 
                                 </section>
@@ -125,7 +189,7 @@
             </div>
         </div>
 
-        <footer class="p-2">
+        <footer class="fixed-bottom p-2">
             COPYRIGHT © EPMA 2019
         </footer>
 
