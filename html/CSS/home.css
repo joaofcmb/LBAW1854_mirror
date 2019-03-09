@@ -111,7 +111,7 @@ section.sticky {
     #side-forum {
         position: fixed;
         right: 0em;
-        height: calc(100vh - 160px);
+        height: calc(100vh - 145px);
         border-left: 3px solid var(--light-grey-color);
     }
 }
