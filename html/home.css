@@ -68,6 +68,10 @@ div.main-tab {
     display: none;
 }
 
+section.project {
+    border-top: 4px solid;
+}
+
 .task {
     width: 14em;
     height: 17em;
@@ -102,7 +106,10 @@ section.sticky {
 
 @media (min-width: 992px) {
     #side-forum {
-        height: calc(100vh - 145px);
+        /*position: fixed;*/
+        /*right: 0em;*/
+        /*width: 30em;*/
+        height: calc(100vh - 143px);
         border-left: 3px solid var(--light-grey-color);
     }
 }
