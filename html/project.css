@@ -1,0 +1,128 @@
+:root {
+    --bg-light: #f8f9fa;
+    --dark-grey-color: rgb(88, 88, 88);
+    --light-grey-color: rgb(176, 176, 176);
+    --brand-color: rgb(13, 189, 196);
+    --light-brand-color: rgb(94, 233, 238);
+}
+
+html, body {
+    height: 100%;
+}
+
+body * {
+    font-family: 'Roboto', sans-serif;
+}
+
+#main-menu {
+    background-color: var(--dark-grey-color);
+    color: whitesmoke;
+}
+
+#main-menu .nav-item {
+    border-radius: 0.25em;
+    color: whitesmoke;
+}
+
+#main-menu .nav-item:hover {
+    color: var(--dark-grey-color);
+    background-color: whitesmoke;
+    font-weight: bold;
+}
+
+#authentication a {
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+#authentication a:hover {
+    color: var(--brand-color);
+}
+
+.profile-img {
+    object-fit: cover;
+}
+
+#sub-menu {
+    background-color: var(--light-grey-color);
+    color: whitesmoke;
+}
+
+#sub-menu .navbar-brand {
+    background-color: #f8f9fa;
+    border-bottom-right-radius: 1em;
+}
+
+#sub-menu .nav-item {    
+    color: black;
+}
+
+#sub-menu .nav-item:hover {
+    font-weight: bolder;
+}
+
+#sub-menu .active {
+    font-weight: bold;
+    text-decoration: underline;
+    text-decoration-style: solid;
+    text-underline-position: under;
+}
+
+div.main-tab {
+    background-color: var(--bg-light);
+}
+
+div.main-tab {
+    border: 4px solid var(--brand-color);
+}
+
+.main-tab > div > h3 {
+    font-size: 1.5em;
+}
+
+.collapse-element {
+    width: 8em;
+}
+
+.collapse-element > a.collapsed > .fa-angle-up {
+    display: none;
+}
+
+.collapse-element > a[aria-expanded=true] > .fa-angle-down {
+    display: none;
+}
+
+.task {
+    width: 14em;
+    height: 17em;
+}
+
+section.sticky {
+    background-color: var(--light-brand-color);
+    border-color: var(--light-grey-color);
+}
+
+.notification {
+    width: 3em;
+}
+
+.border-hover:hover {
+    border-color: var(--dark-grey-color);
+    opacity: .9;
+}
+
+.fa-angle-down, .fa-angle-up, .fa-plus-circle {
+    font-size: 2rem;
+    color: var(--dark-grey-color);
+}
+
+.fa-angle-down:hover, .fa-angle-up:hover, .fa-plus-circle:hover {
+    color: var(--brand-color);
+}
+
+@media (min-width: 992px) {
+    #side-forum {
+        height: calc(100vh - 145px);
+        border-right: 3px solid var(--light-grey-color);
+    }
+}
