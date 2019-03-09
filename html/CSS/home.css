@@ -6,16 +6,6 @@
     --light-brand-color: rgb(94, 233, 238);
 }
 
-a.card {
-    color: inherit;
-    text-decoration: none;
-}
-
-a.card:hover {
-    color: inherit;
-    text-decoration: none;
-}
-
 html, body {
     height: 100%;
 }
@@ -24,7 +14,7 @@ body * {
     font-family: 'Roboto', sans-serif;
 }
 
-.navbar {
+.navbar, footer {
     background-color: var(--dark-grey-color);
     color: whitesmoke;
 }
@@ -42,12 +32,11 @@ body * {
 
 #authentication a {
     color: whitesmoke;
-    text-decoration: none;
 }
 
-#authentication:hover {
-    color: whitesmoke;
-    background-color: var(--dark-grey-color);
+#authentication a:hover {
+    color: var(--light-brand-color);
+    text-decoration: none;
 }
 
 .profile-img {
@@ -76,6 +65,16 @@ div.main-tab {
 
 .collapse-element > a[aria-expanded=true] > .fa-angle-down {
     display: none;
+}
+
+a.card {
+    color: inherit;
+    text-decoration: none;
+}
+
+a.card:hover {
+    color: inherit;
+    text-decoration: none;
 }
 
 a.project {
