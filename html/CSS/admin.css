@@ -109,12 +109,8 @@ body * {
 #create .col-sm- a {
     font-size: 1.3em;
     
-    color: var(--dark-grey-color);
-    text-decoration: none;
-}
-
-#create .col-sm- a:hover {
     color: white;
+    text-decoration: none;
 }
 
 #team-name {
