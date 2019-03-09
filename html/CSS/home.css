@@ -91,7 +91,7 @@ section.sticky {
 }
 
 .border-hover:hover {
-    border-color: var(--dark-grey-color);
+    border-color: var(--dark-grey-color) !important;
     opacity: .9;
 }
 
@@ -105,9 +105,6 @@ section.sticky {
 }
 
 @media (min-width: 992px) {
-    #content {
-        
-    }
     #side-forum {
         position: fixed;
         right: 0em;
