@@ -1,0 +1,95 @@
+:root {
+    --bg-light: #f8f9fa;
+    --dark-grey-color: rgb(88, 88, 88);
+    --light-grey-color: rgb(176, 176, 176);
+    --brand-color: rgb(13, 189, 196);
+    --light-brand-color: rgb(94, 233, 238);
+}
+
+html, body {
+    height: 100%;
+}
+
+body * {
+    font-family: 'Roboto', sans-serif;
+}
+
+#main-menu {
+    background-color: var(--dark-grey-color);
+    color: whitesmoke;
+}
+
+#main-menu .nav-item {
+    border-radius: 0.25em;
+    color: whitesmoke;
+}
+
+#main-menu .nav-item:hover {
+    color: var(--dark-grey-color);
+    background-color: whitesmoke;
+    font-weight: bold;
+}
+
+#authentication a {
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+#authentication a:hover {
+    color: var(--brand-color);
+}
+
+#admin {
+    padding: 0.25em;    
+    background-color: var(--brand-color);
+}
+
+#admin:hover {
+    background-color: var(--light-grey-color);
+}
+
+.profile-img {
+    object-fit: cover;
+}
+
+
+#menu-options .col-sm-3 {
+    border: solid var(--dark-grey-color) 2px;
+    border-radius: 0.35em; 
+    text-align: center;
+}
+
+#menu-options .col-sm-3:hover {
+    cursor: pointer;
+}
+
+#menu-options .active {
+    background-color: var(--brand-color);
+}
+
+#search-content .card {
+    border: 2px solid darkgrey;
+    background-color: lightgrey
+}
+
+#search-content .card a {
+    text-decoration: none;
+    color: black;
+    font-size: 1.1em;
+}
+
+#search-content .card a.float-right {
+    font-size: 1.3em;
+}
+
+#search-content .restore > .card-body > img, #search-content .restore > .card-body > span {
+    opacity: 0.5;
+}
+
+#search-content .card a:hover {
+    color: var(--brand-color);
+}
+
+
+
+
