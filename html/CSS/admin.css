@@ -59,12 +59,22 @@ body * {
     text-align: center;
 }
 
-#menu-options .col-sm-3:hover {
-    cursor: pointer;
+#menu-options .col-sm-3 a {
+    color: black;
+    text-decoration: none;
+    width: 100%;
+}
+
+#menu-options .col-sm-3 a:hover{
+    font-weight: bold;
 }
 
 #menu-options .active {
     background-color: var(--brand-color);
+}
+
+#menu-options .active a {
+    color: white;
 }
 
 #search-content .card {
@@ -90,6 +100,34 @@ body * {
     color: var(--brand-color);
 }
 
+#create .col-sm- {
+    border: solid var(--dark-grey-color) 2px;
+    border-radius: 0.35em; 
+    background-color: var(--brand-color);
+}
 
+#create .col-sm- a {
+    font-size: 1.3em;
+    
+    color: var(--dark-grey-color);
+    text-decoration: none;
+}
 
+#create .col-sm- a:hover {
+    color: white;
+}
 
+#team-name {
+    font-weight: bold;
+    color: var(--brand-color);
+}
+
+#edit-button {
+    border-radius: 0.5em;
+    border: solid rgb(49, 49, 49) 2px;
+    background-color: rgb(216, 215, 215);
+}
+
+#edit-button:hover  {
+    background-color: var(--dark-grey-color);
+}

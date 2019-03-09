@@ -5,14 +5,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="CSS/admin.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa|Roboto:300,400,500,700">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
         integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
-    <script defer src="main.js"></script>
+    <script defer src="JS/main.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -29,7 +29,7 @@
 <body class="bg-light">
     <nav id="main-menu" class="navbar sticky-top navbar-expand-sm navbar-dark py-0 px-3 px-sm-1 px-lg-3">
         <a class="navbar-brand" href="#">
-            <img src="logo.png" width="35" class="d-inline-block" alt="Website Logo">
+            <img src="IMG/logo.png" width="35" class="d-inline-block" alt="Website Logo">
             <span class="font-weight-bold font-italic">EPMA</span>
         </a>
 
@@ -41,31 +41,31 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div id="authentication" class="my-1 ml-auto">
                 <a href="home.html" class="pr-2">
-                    <img id="admin" class="profile-img d-inline-block rounded-circle my-auto" src="admin.png" width="50"
+                    <img id="admin" class="profile-img d-inline-block rounded-circle my-auto" src="IMG/admin.png" width="50"
                         height="50" alt="Website Logo">
                 </a>
                 <a href="index.html" class="pr-2">
                     <span class="font-weight-bold px-2">Sign out</span>
                 </a>
-                <a href=""><img class="profile-img d-inline-block rounded-circle my-auto" src="joao.jpg" width="50"
+                <a href=""><img class="profile-img d-inline-block rounded-circle my-auto" src="IMG/joao.jpg" width="50"
                         height="50" alt="Website Logo"></a>
             </div>
         </div>
     </nav>
 
     <div id="menu-options" class="container-fluid mx-auto">
-        <div class="row my-5 p-4 justify-content-center">
-            <div class="active col-sm-3">
-                <span>Users</span>
-            </div>
-            <div class="col-sm-3">
-                <span>Teams</span>
-            </div>
-            <div class="col-sm-3">
-                <span>Projects</span>
+            <div class="row my-5 p-4 justify-content-center">
+                <div class="active col-sm-3">
+                    <a href="#">Users</a>
+                </div>
+                <div class="col-sm-3">
+                    <a href="./admin-teams.html">Teams</a>                
+                </div>
+                <div class="col-sm-3">
+                    <a href="./admin-projects.html">Projects</a>            
+                </div>
             </div>
         </div>
-    </div>
 
     <div id="search-content" class="container">
         <div class="row justify-content-center pb-4">
@@ -73,7 +73,7 @@
                 <div class="card">
                     <div class="card-body p-2">
                         <a href="profile.html">
-                            <img src="profile.png" width="50" height="50"
+                            <img src="IMG/profile.png" width="50" height="50"
                                 class="d-inline-block rounded-circle align-self-center my-auto" alt="User photo">
                             <span class="pl-4">Jane Doe</span> 
                         </a>
@@ -89,7 +89,7 @@
                 <div class="card">
                     <div class="card-body p-2">
                         <a href="profile.html">
-                            <img src="profile.png" width="50" height="50"
+                            <img src="IMG/profile.png" width="50" height="50"
                                 class="d-inline-block rounded-circle align-self-center my-auto" alt="User photo">                            
                                 <span class="pl-4">Joseph Doe</span> 
                         </a>
@@ -104,7 +104,7 @@
             <div class="col-11 col-md-8 ali">
                 <div class="restore card">
                     <div class="card-body p-2">
-                        <img src="profile.png" width="50" height="50"
+                        <img src="IMG/profile.png" width="50" height="50"
                             class="d-inline-block rounded-circle align-self-center my-auto" alt="User photo">
                         <span class="pl-4">Robert Smith</span>
                         <a href="#" class="float-right pt-2 pr-2">
@@ -116,7 +116,6 @@
             </div>
         </div>
     </div>
-
     <footer class="fixed-bottom navbar navbar-dark p-1">
         COPYRIGHT © EPMA 2019
     </footer>
