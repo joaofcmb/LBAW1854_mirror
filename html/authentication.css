@@ -1,0 +1,59 @@
+.container-fluid {
+    height: 96%;
+}
+
+.navbar {
+    font-size: 1.5em;
+}
+
+a {
+    font-family: 'Comfortaa', sans-serif;
+    color:whitesmoke;
+}
+
+.navbar-brand {
+    margin-right: 2em;
+    
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.25em;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.navbar-brand:hover{
+    color:whitesmoke;
+}
+
+.nav-item:hover {
+    color: rgb(13, 189, 196);
+    font-weight: bold;
+}
+
+#authentication {
+    font-size: 1.5em;  
+}
+
+#home {
+    background-image: url("./authentication-background.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#auth-zone , #auth-zone > .row {
+    height: 88%;
+}
+
+#login-zone {
+    width: 60%;
+    background-color: grey;
+    border-radius: 1em;
+}
+
+footer {
+    height: 4%;
+    background-color: rgb(95, 95, 95);
+    color: whitesmoke;
+    opacity: 0.7;
+    font-style: italic;
+}
