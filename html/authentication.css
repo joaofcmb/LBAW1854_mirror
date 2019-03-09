@@ -1,8 +1,9 @@
-.container-fluid {
-    height: 96%;
+html, body {
+    min-height: 100%;
 }
 
 .navbar {
+    height: 12%;
     font-size: 1.5em;
 }
 
@@ -33,25 +34,70 @@ a {
     font-size: 1.5em;  
 }
 
-#home {
+body {
     background-image: url("./authentication-background.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    
 }
 
 #auth-zone , #auth-zone > .row {
-    height: 88%;
+    min-height: 84%;
 }
 
-#login-zone {
-    width: 60%;
-    background-color: grey;
+#login-zone {    
+    background-color: rgba(173, 171, 171, 0.678);
     border-radius: 1em;
 }
 
+.sep-bar > div:first-child , .sep-bar > div:last-child {
+    margin: 0.75em;
+    border-top: solid white 2px;
+}
+
+p {
+    font-weight: bold;  
+    margin: 0em;
+    font-size: 1.5em; 
+    color: black;
+}
+ 
+.blue-text > p {
+    font-weight: bold;  
+    color: rgb(13, 189, 196);
+}
+
+p > span {
+    color: black;
+}
+
+.form-control {
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    border: solid rgb(49, 49, 49) 2px;
+    background-color: rgba(216, 215, 215, 0.678);
+    
+}
+
+.form-control:focus {
+    border-color: rgb(49, 49, 49);
+    background-color: whitesmoke;
+}
+
+.btn {
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 0.5em;
+    border: solid rgb(49, 49, 49) 2px;
+    background-color: rgb(216, 215, 215);
+}
+
+.btn:hover {
+    background-color: rgb(13, 189, 196);
+}
+
 footer {
-    height: 4%;
+    width: 100%;
     background-color: rgb(95, 95, 95);
     color: whitesmoke;
     opacity: 0.7;
