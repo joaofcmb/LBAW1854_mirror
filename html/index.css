@@ -6,10 +6,6 @@ body {
     background-color: rgb(230, 230, 230);
 }
 
-.container-fluid {
-    height: 100%;
-}
-
 .navbar {
     background-color: grey;
     opacity: 0.9;
@@ -50,13 +46,35 @@ a {
     background-size: cover;
 }
 
+.container-fluid {
+    min-height: 100%;
+}
+
 /* *********************************/
+.about-title {
+    background-color: darkgrey;
+    border: 3px solid darkblue;
+    
+    z-index: 4;
+}
+
+.about-text {
+    background-color: darkgrey;
+    border: 3px solid darkblue; 
+}
+
+/* *********************************/
+
+#benefits-devices.container-fluid {
+    min-height: fit-content;
+    height: auto;
+}
 
 #nav-pos {
     height: 10%;
 }
 
-.img-fluid {
+#benefits-text .img-fluid {
     max-width: 45%;
 }
 
@@ -76,14 +94,9 @@ span {
     height: 90%;
 }
 
-.thumbnail {
-    margin: 45% auto;
-    
-}
-
 .thumbnail img {
     height: 40%;
-    width: 100%;
+    max-width: 100%;
 }
 
 .thumbnail a {
