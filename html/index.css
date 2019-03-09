@@ -45,6 +45,8 @@ a {
 
 #home {
     background-image: url("./background.jpg");
+    background-position: center;
+    background-repeat: no-repeat; 
     background-size: cover;
 }
 
@@ -58,20 +60,15 @@ a {
     max-width: 45%;
 }
 
-#idea-img {
-    margin-top: 1.5em;
-}
-
 .d-flex {
     font-family: 'Comfortaa', sans-serif;
-    font-size: 2.5vw;
+    font-size: 2.2vmax;
 }
 
 span {
     padding: 0em 0.25em;
     color: rgb(13, 189, 196);
 }
-
 
 /* *********************************/
 
