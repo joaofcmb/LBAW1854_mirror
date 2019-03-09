@@ -73,6 +73,10 @@ div.main-tab {
     height: 17em;
 }
 
+.task > .card-title {
+    border-bottom: 2px solid;
+}
+
 section.sticky {
     background-color: var(--light-brand-color);
     border-color: var(--light-grey-color);
@@ -99,6 +103,6 @@ section.sticky {
 @media (min-width: 992px) {
     #side-forum {
         height: calc(100vh - 145px);
-        border-right: 3px solid var(--light-grey-color);
+        border-left: 3px solid var(--light-grey-color);
     }
 }
