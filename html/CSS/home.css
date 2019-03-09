@@ -1,0 +1,123 @@
+:root {
+    --bg-light: #f8f9fa;
+    --dark-grey-color: rgb(88, 88, 88);
+    --light-grey-color: rgb(176, 176, 176);
+    --brand-color: rgb(13, 189, 196);
+    --light-brand-color: rgb(94, 233, 238);
+}
+
+html, body {
+    height: 100%;
+}
+
+body * {
+    font-family: 'Roboto', sans-serif;
+}
+
+.navbar, footer {
+    background-color: var(--dark-grey-color);
+    color: whitesmoke;
+}
+
+.nav-item {
+    border-radius: 0.25em;
+    color: whitesmoke;
+}
+
+.nav-item:hover, .nav-item.active {
+    color: var(--dark-grey-color);
+    background-color: whitesmoke;
+    font-weight: bold;
+}
+
+#authentication a {
+    color: whitesmoke;
+}
+
+#authentication a:hover {
+    color: var(--light-brand-color);
+    text-decoration: none;
+}
+
+.profile-img {
+    object-fit: cover;
+}
+
+div.main-tab {
+    background-color: var(--bg-light);
+}
+
+div.main-tab {
+    border: 5px solid var(--brand-color);
+}
+
+.main-tab > div > h3 {
+    font-size: 1.5em;
+}
+
+.collapse-element {
+    width: 8em;
+}
+
+.collapse-element > a.collapsed > .fa-angle-up {
+    display: none;
+}
+
+.collapse-element > a[aria-expanded=true] > .fa-angle-down {
+    display: none;
+}
+
+a.card {
+    color: inherit;
+    text-decoration: none;
+}
+
+a.card:hover {
+    color: inherit;
+    text-decoration: none;
+}
+
+a.project {
+    border-top: 4px solid;
+}
+
+.task {
+    width: 14em;
+    height: 17em;
+}
+
+.task > .card-title {
+    border-bottom: 2px solid;
+}
+
+section.sticky {
+    background-color: var(--light-brand-color);
+    border-color: var(--light-grey-color);
+}
+
+.notification {
+    width: 3em;
+}
+
+.border-hover:hover {
+    border-color: var(--dark-grey-color) !important;
+    opacity: .9;
+}
+
+.fa-angle-down, .fa-angle-up, .fa-plus-circle {
+    font-size: 2rem;
+    color: var(--dark-grey-color);
+}
+
+.fa-angle-down:hover, .fa-angle-up:hover, .fa-plus-circle:hover {
+    color: var(--brand-color);
+}
+
+@media (min-width: 992px) {
+    #side-forum {
+        position: fixed;
+        right: 0em;
+        height: calc(100vh - 145px);
+        border-left: 3px solid var(--light-grey-color);
+    }
+}

@@ -4,12 +4,12 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <link rel="stylesheet" href="home.css">
+        <link rel="stylesheet" href="css/home.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa|Roboto:300,400,500,700">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
-        <script defer src="main.js"></script>
+        <script defer src="js/main.js"></script>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -19,7 +19,7 @@
     <body class="bg-light">
         <nav class="navbar sticky-top navbar-expand-sm navbar-dark py-0 px-3 px-sm-1 px-lg-3">
             <a class="navbar-brand" href="#">
-                <img src="logo.png" width="35" class="d-inline-block" alt="Website Logo">
+                <img src="img/logo.png" width="35" class="d-inline-block" alt="Website Logo">
                 <span class="font-weight-bold font-italic">EPMA</span>
             </a>
     
@@ -28,25 +28,25 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
     
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <a class="nav-item nav-link active mx-lg-3" href="#">HOME</a>
-                <a class="nav-item nav-link mx-lg-3" href="#">SEARCH</a>
+            <div class="collapse navbar-collapse pb-2" id="navbarSupportedContent">
+                <a class="nav-item nav-link active mx-lg-3" href="">HOME</a>
+                <a class="nav-item nav-link mx-lg-3" href="search.html">SEARCH</a>
                 <a class="nav-item nav-link mx-lg-3" href="#">FORUM</a>
                 <a class="nav-item nav-link mx-lg-3" href="#">PROFILE</a>
 
                 
-                <div id="authentication" class="nav-item ml-auto">
+                <div id="authentication" class="ml-auto">
                     <a href="index.html" class="pr-2">
-                        <span class="font-weight-bold font-italic">Sign out</span>
+                        <span class="font-weight-bold pl-3">Sign out</span>
                     </a>
-                    <a href=""><img class="profile-img d-inline-block rounded-circle my-auto" src="joao.jpg" width="50" height="50" alt="Website Logo"></a>
+                    <a href=""><img class="profile-img d-none d-md-inline-block rounded-circle my-auto" src="img/joao.jpg" width="50" height="50" alt="Profile Image"></a>
                 </div>
             </div>
         </nav>
 
-        <div id="content" class="container py-3">
-            <div class="row">
-                <div class="col-lg-8">
+        <div class="row w-100 mx-auto">
+            <div class="col-lg-8 px-0">
+                <div id="content" class="container py-3 mb-4">
                     <div class="main-tab card border-left-0 border-right-0 border-bottom-0 rounded-0 p-2">
                         <div class="d-flex justify-content-between align-items-center">
                             <h3>Project Management</h3>
@@ -57,29 +57,29 @@
                             </div>
                         </div>
                         <div class="collapse mb-2" id="ProjectManagement">
-                            <section class="project card py-2 my-2">
+                            <a href="project.html" class="project card border-hover py-2 mt-4 mx-3 mx-sm-5" style="border-top-color: cornflowerblue">
                                 <div class="container-fluid">
                                     <div class="d-flex justify-content-between">
                                         <h5 class="card-title mb-3">Company Website</h5>
-                                        Star
+                                        <h5><i class="far fa-star"></i></h5>
                                     </div>
                                     <div class="row">
-                                        <div class="col-7">
+                                        <div class="col-sm-7">
                                             <h6 class="d-inline-block mb-3">Project Manager: </h6>
                                             John Doe
                                             <br>
                                             <h6 class="d-inline">Brief Description: </h6> 
                                             Company website for exposing our products.
                                         </div>
-                                        <div class="col-5">
-                                            <h5>Statistics</h5>
-                                            <p class="m-0">10 Teams involved</p>
-                                            <p class="m-0">124 Tasks concluded</p>
-                                            <p class="m-0">32 Tasks remaining</p>
+                                        <div class="col-sm-5 mt-3 mt-sm-0">
+                                            <h6>Statistics</h6>
+                                            <p class="m-0"><i class="far fa-fw fa-user mr-1"></i>10 Teams involved</p>
+                                            <p class="m-0"><i class="fas fa-fw fa-check text-success mr-1"></i>124 Tasks concluded</p>
+                                            <p class="m-0"><i class="fas fa-fw fa-times text-danger mr-1"></i>32 Tasks remaining</p>
                                         </div>
                                     </div>
                                 </div>
-                            </section>
+                            </a>
                         </div>
                     </div>
 
@@ -93,52 +93,52 @@
                             </div>
                         </div>
                         <div class="collapse" id="TeamProjects">
-                            <section class="project card py-2 my-2">
+                            <a href="project.html" class="project card border-hover py-2 mt-4 mx-3 mx-sm-5" style="border-top-color: cornflowerblue">
                                 <div class="container-fluid">
                                     <div class="d-flex justify-content-between">
                                         <h5 class="card-title mb-3">Company Website</h5>
-                                        Star
+                                        <h5><i class="far fa-star"></i></h5>
                                     </div>
                                     <div class="row">
-                                        <div class="col-7">
+                                        <div class="col-sm-7">
                                             <h6 class="d-inline-block mb-3">Project Manager: </h6> 
                                             John Doe
                                             <br>
                                             <h6 class="d-inline">Brief Description: </h6>
                                             Company website for exposing our products.
                                         </div>
-                                        <div class="col-5">
+                                        <div class="col-sm-5 mt-3 mt-sm-0">
                                             <h6>Statistics</h6>
-                                            <p class="m-0">10 Teams involved</p>
-                                            <p class="m-0">124 Tasks concluded</p>
-                                            <p class="m-0">32 Tasks remaining</p>
+                                            <p class="m-0"><i class="far fa-fw fa-user mr-1"></i>10 Teams involved</p>
+                                            <p class="m-0"><i class="fas fa-fw fa-check text-success mr-1"></i>124 Tasks concluded</p>
+                                            <p class="m-0"><i class="fas fa-fw fa-times text-danger mr-1"></i>32 Tasks remaining</p>
                                         </div>
                                     </div>
                                 </div>
-                            </section>
-                            <section class="project card py-2 my-2">
+                            </a>
+                            <a class="project card border-hover py-2 mt-4 mx-3 mx-sm-5" style="border-top-color: red">
                                 <div class="container-fluid">
                                     <div class="d-flex justify-content-between">
                                         <h5 class="card-title mb-3">Vendor Machine</h5>
-                                        Star
+                                        <h5><i class="far fa-star"></i></h5>
                                     </div>
                                     <div class="row">
-                                        <div class="col-7">
+                                        <div class="col-sm-7">
                                             <h6 class="d-inline-block mb-3">Project Manager: </h6> 
                                             Jefferson Clark
                                             <br>
                                             <h6 class="d-inline">Brief Description: </h6> 
                                             Software for controlling a vending machine according to the MDB/ICP v4.2 specification.
                                         </div>
-                                        <div class="col-5">
+                                        <div class="col-sm-5 mt-3 mt-sm-0">
                                             <h6>Statistics</h6>
-                                            <p class="m-0">10 Teams involved</p>
-                                            <p class="m-0">124 Tasks concluded</p>
-                                            <p class="m-0">32 Tasks remaining</p>
+                                            <p class="m-0"><i class="far fa-fw fa-user mr-1"></i>10 Teams involved</p>
+                                            <p class="m-0"><i class="fas fa-fw fa-check text-success mr-1"></i>124 Tasks concluded</p>
+                                            <p class="m-0"><i class="fas fa-fw fa-times text-danger mr-1"></i>32 Tasks remaining</p>
                                         </div>
                                     </div>
                                 </div>
-                            </section>
+                            </a>
                         </div>
                     </div>
 
@@ -152,42 +152,54 @@
                             </div>
                         </div>
                         <div class="collapse mx-auto" id="TeamTasks">     
-                            <section class="task card float-left p-2 m-2">
-                                <h5 class="card-title text-center">Company Website</h5>
+                            <section class="task card border-hover float-sm-left p-2 m-2 mt-3">
+                                <h5 class="card-title text-center pb-2 mb-2" style="border-color: cornflowerblue">Company Website</h5>
                                 <h6 class="text-center mb-auto">Add Responsive Design</h6>
 
-                                <p class="m-0">1 Teams</p>
-                                <p>9 Developers</p>
+                                <p class="ml-1 m-0">1 Teams</p>
+                                <p class="ml-1 mb-2">9 Developers</p>
 
-                                <div class="progress my-1">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width:63%" aria-valuenow="63" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="work-progress mx-2 mb-1">
+                                    <h6 class="text-center mb-1"><i class="fas fa-chart-line mr-1"></i>66% done</h6>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width:63%" aria-valuenow="63" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
                                 </div>
-                                <div class="progress my-1">
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width:46%" aria-valuenow="46" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="time-progress mx-2 my-1">
+                                    <h6 class="text-center mb-1"><i class="far fa-clock mr-1"></i>2 days left</h6>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width:46%" aria-valuenow="46" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
                                 </div>
-
                             </section>
 
-                            <section class="task card float-left p-2 m-2">
-                                <h5 class="card-title text-center">Vendor Machine</h5>
+                            <section class="task card border-hover float-sm-left p-2 m-2 mt-3">
+                                <h5 class="card-title text-center pb-2 mb-2" style="border-color: red">Vendor Machine</h5>
                                 <h6 class="text-center mb-auto">User Interface</h6>
 
-                                <p class="m-0">2 Teams</p>
-                                <p>21 Developers</p>
-
-                                <div class="progress my-1">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width:15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                <p class="ml-1 m-0">2 Teams</p>
+                                <p class="ml-1 mb-2">21 Developers</p>
+                                
+                                <div class="work-progress mx-2 mb-1">
+                                    <h6 class="text-center mb-1"><i class="fas fa-chart-line mr-1"></i>15% done</h6>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width:15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
                                 </div>
-                                <div class="progress my-1">
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width:28%" aria-valuenow="28" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="time-progress mx-2 my-1">
+                                    <h6 class="text-center mb-1"><i class="far fa-clock mr-1"></i>13 days left</h6>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width:28%" aria-valuenow="28" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
                                 </div>
 
                             </section>
                         </div>
                     </div>
                 </div>
-
-                <div id="side-forum" class="col-lg-4  mt-5 mt-lg-0 mb-3">
+            </div>
+            <div id="side-forum" class="col-lg-4 px-0 mt-md-5 mt-lg-3 mb-3">
+                <div class="container">
                     <div class="d-flex justify-content-between align-items-center">
                         <h3 class="m-0">COMPANY FORUM</h3>
                         <a href="#"><i class="fas fa-plus-circle"></i></a>
@@ -218,7 +230,7 @@
                 </div>
             </div>
         </div>
-        <footer class="fixed-bottom navbar navbar-dark p-1">
+        <footer class="fixed-bottom p-1">
             COPYRIGHT © EPMA 2019
         </footer>
     </body>

@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="CSS/admin.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa|Roboto:300,400,500,700">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+    <script defer src="JS/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+    <title>EPMA</title>
+</head>
+
+<body class="bg-light">
+    <nav id="main-menu" class="navbar sticky-top navbar-expand-sm navbar-dark py-0 px-3 px-sm-1 px-lg-3">
+        <a class="navbar-brand" href="#">
+            <img src="IMG/logo.png" width="35" class="d-inline-block" alt="Website Logo">
+            <span class="font-weight-bold font-italic">EPMA</span>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div id="authentication" class="my-1 ml-auto">
+                <a href="home.html" class="pr-2">
+                    <img id="admin" class="profile-img d-inline-block rounded-circle my-auto" src="IMG/admin.png"
+                        width="50" height="50" alt="Website Logo">
+                </a>
+                <a href="index.html" class="pr-2">
+                    <span class="font-weight-bold px-2">Sign out</span>
+                </a>
+                <a href=""><img class="profile-img d-inline-block rounded-circle my-auto" src="IMG/joao.jpg" width="50"
+                        height="50" alt="Website Logo"></a>
+            </div>
+        </div>
+    </nav>
+
+    <div id="menu-options" class="container-fluid mx-auto p-3">
+        <div class="row mt-5 p-4 justify-content-center">
+            <div class="col-sm-3 p-2">
+                <a href="./admin-users.html">Users</a>
+            </div>
+            <div class="active col-sm-3 p-2">
+                <a href="#">Teams</a>
+            </div>
+            <div class="col-sm-3 p-2">
+                <a href="./admin-projects.html">Projects</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="create" class="container-fluid mx-auto">
+        <div class="row mt-4 justify-content-center">
+            <div class="col-sm- py-2 px-3">
+                <a href="">
+                    <span>Create Team</span>
+                    <i class="fas fa-plus-circle"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="search-content" class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-4 my-5">
+                <div class="card text-center">
+                    <div class="card-header" style="clear: both;">
+                        <p id="team-name" class="m-0" style="float: left;">Alpha</p>
+                        <p class="m-0" style="float: right;">Design</p>
+                    </div>
+                    <div class="card-body">
+                        <a href="#">
+                            <p style="font-weight: bold;">Jane Doe</p>
+                        </a>
+                        <div class="mt-3">
+                            <a href="#">
+                                <p>Robert Spencer</p>
+                            </a>
+                            <a href="#">
+                                <p>Alexa Smith</p>
+                            </a>
+                            <a href="#">
+                                <p>Mathieu Patterson</p>
+                            </a>
+                        </div>
+                        <a id="edit-button" href="#" class="btn mt-3" role="button">Edit</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 my-5">
+                <div class="card text-center">
+                    <div class="card-header" style="clear: both;">
+                        <p id="team-name" class="m-0" style="float: left;">Alpha</p>
+                        <p class="m-0" style="float: right;">Design</p>
+                    </div>
+                    <div class="card-body">
+                        <a href="#">
+                            <p style="font-weight: bold;">Jane Doe</p>
+                        </a>
+                        <div class="mt-3">
+                            <a href="#">
+                                <p>Robert Spencer</p>
+                            </a>
+                            <a href="#">
+                                <p>Alexa Smith</p>
+                            </a>
+                            <a href="#">
+                                <p>Mathieu Patterson</p>
+                            </a>
+                        </div>
+                        <a id="edit-button" href="#" class="btn mt-3" role="button">Edit</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 my-5">
+                <div class="card text-center">
+                    <div class="card-header" style="clear: both;">
+                        <p id="team-name"class="m-0" style="float: left;">Alpha</p>
+                        <p class="m-0" style="float: right;">Design</p>
+                    </div>
+                    <div class="card-body">
+                        <a href="#">
+                            <p style="font-weight: bold;">Jane Doe</p>
+                        </a>
+                        <div class="mt-3">
+                            <a href="#">
+                                <p>Robert Spencer</p>
+                            </a>
+                            <a href="#">
+                                <p>Alexa Smith</p>
+                            </a>
+                            <a href="#">
+                                <p>Mathieu Patterson</p>
+                            </a>
+                        </div>                        
+                        <a id="edit-button" href="#" class="btn mt-3" role="button">Edit</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+                <div class="col-sm-4 my-5">
+                    <div class="card text-center">
+                        <div class="card-header" style="clear: both;">
+                            <p id="team-name" class="m-0" style="float: left;">Alpha</p>
+                            <p class="m-0" style="float: right;">Design</p>
+                        </div>
+                        <div class="card-body">
+                            <a href="#">
+                                <p style="font-weight: bold;">Jane Doe</p>
+                            </a>
+                            <div class="mt-3">
+                                <a href="#">
+                                    <p>Robert Spencer</p>
+                                </a>
+                                <a href="#">
+                                    <p>Alexa Smith</p>
+                                </a>
+                                <a href="#">
+                                    <p>Mathieu Patterson</p>
+                                </a>
+                            </div>
+                            <a id="edit-button" href="#" class="btn mt-3" role="button">Edit</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 my-5">
+                    <div class="card text-center">
+                        <div class="card-header" style="clear: both;">
+                            <p id="team-name" class="m-0" style="float: left;">Alpha</p>
+                            <p class="m-0" style="float: right;">Design</p>
+                        </div>
+                        <div class="card-body">
+                            <a href="#">
+                                <p style="font-weight: bold;">Jane Doe</p>
+                            </a>
+                            <div class="mt-3">
+                                <a href="#">
+                                    <p>Robert Spencer</p>
+                                </a>
+                                <a href="#">
+                                    <p>Alexa Smith</p>
+                                </a>
+                                <a href="#">
+                                    <p>Mathieu Patterson</p>
+                                </a>
+                            </div>
+                            <a id="edit-button" href="#" class="btn mt-3" role="button">Edit</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 my-5">
+                    <div class="card text-center">
+                        <div class="card-header" style="clear: both;">
+                            <p id="team-name"class="m-0" style="float: left;">Alpha</p>
+                            <p class="m-0" style="float: right;">Design</p>
+                        </div>
+                        <div class="card-body">
+                            <a href="#">
+                                <p style="font-weight: bold;">Jane Doe</p>
+                            </a>
+                            <div class="mt-3">
+                                <a href="#">
+                                    <p>Robert Spencer</p>
+                                </a>
+                                <a href="#">
+                                    <p>Alexa Smith</p>
+                                </a>
+                                <a href="#">
+                                    <p>Mathieu Patterson</p>
+                                </a>
+                            </div>                        
+                            <a id="edit-button" href="#" class="btn mt-3" role="button">Edit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <footer class="fixed-bottom navbar navbar-dark p-1">
+        COPYRIGHT © EPMA 2019
+    </footer>
+</body>
+
+</html>
