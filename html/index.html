@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
     integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Comfortaa|Montserrat|Open+Sans" rel="stylesheet">
-  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="./CSS/index.css">
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -30,7 +30,7 @@
   <div id="home" class="container-fluid">
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark">
       <a class="navbar-brand" href="#">
-        <img src="logo.png" width="40" height="80" class="d-inline-block align-self-center" alt="Website Logo">
+        <img src="./IMG/logo.png" width="40" height="80" class="d-inline-block align-self-center" alt="Website Logo">
         EPMA
       </a>
 
@@ -39,7 +39,7 @@
       </button>
     
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <a class="nav-item nav-link" href="#">Home</a>
+        <a class="nav-item nav-link" href="#home">Home</a>
         <a class="nav-item nav-link" href="#about">About</a>
         <a class="nav-item nav-link" href="#benefits-text">Benefits</a>
         <a class="nav-item nav-link" href="#founders">Founders</a>            
@@ -50,14 +50,54 @@
     </nav>
   </div>
   <div id="about" class="container-fluid mt-2">
-
+    <div id="nav-pos" class="row mb-5"></div>
+    <div class="row">
+      <div class="row col-12">
+        <div class="about-title col-10 col-lg-6 ml-5 text-center">
+          Enterprise Project Management Assistant
+        </div>
+      </div>
+      <div class="row col-12">
+        <div class="about-text col-11 col-lg-7 ml-4 mt-n3 pt-4 pb-2">
+          EPMA is a system providing tools to facilitate management of projects and teams, 
+          in order to allow companies to better manage their human resources and their 
+          employees to coordinate better with each other.
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-end mt-5 mr-0">
+      <div class="row col-12 justify-content-end">
+        <div class="about-title col-8 col-lg-5 mr-4 text-center">EPMA for Agile Development</div>
+      </div>
+      <div class="row col-12 justify-content-end">
+        <div class="about-text col-9 col-lg-7 mr-3 mt-n3 pt-4 pb-2">
+          EPMA allows for flexible teams working on multiple projects and provides communication 
+          tools for discussing projects and tasks between contributors.
+          <br><br>
+          EPMA features roadmaps for projects, where tasks are assigned to milestones. Prioritize 
+          your tasks and change your roadmap as needed throughout development.
+        </div>
+      </div>
+    </div>
+    <div class="row mt-5">
+      <div class="row col-12">
+        <div class="about-title col-7 col-lg-4 ml-5 text-center">Management of Resources</div>
+      </div>
+      <div class="row col-12">
+        <div class="about-text col-9 col-lg-7 ml-4 mt-n3 pt-4 pb-2">
+          EPMA offers administrators the ability to easily manage their users and projects. 
+          Create new projects and assign them a manager, rearrange your teams as needed, 
+          and remove users and projects from the system. Manage your company’s resources 
+          through a single interface.
+        </div>
+      </div>
+    </div>
   </div>
   <div id="benefits-text" class="container-fluid">
     <div id="nav-pos" class="row mb-5"></div>
-
     <div class="row justify-content-center mx-lg-5">
       <div class="col-12 col-lg-6 mb-lg-n4 mt-lg-4">
-        <img id="idea-img" class="img-fluid mx-auto d-block" src="idea.png" alt="">
+        <img id="idea-img" class="img-fluid mx-auto d-block" src="./IMG/idea.png" alt="">
       </div>
       <div class="col-12 col-lg-6 align-self-center py-3 py-lg-0">
         <div class="d-flex flex-column">
@@ -73,51 +113,65 @@
         </div>
       </div>
       <div class="col-12 col-lg-6 mt-lg-n4 order-1 order-lg-12">
-        <img id="share-img" class="img-fluid mx-auto d-block" src="share.png" alt="">
+        <img id="share-img" class="img-fluid mx-auto d-block" src="./IMG/share.png" alt="">
       </div>
+    </div>
+  </div>
+  <div id="benefits-devices" class="container-fluid">
+    <div class="row justify-content-center my-5">
+        <div class="d-flex "><span>Work</span> from anywhere</div>
+    </div>
+    <div class="row align-items-end justify-content-center offset-md-1">
+      <div class="col-3 col-md-2 col-lg-1 text-right">
+        <img id="mobile-img" class="img-fluid" src="./IMG/mobile.png" alt="Mobile Home Page">
+      </div>
+      <div class="col-11 col-md-6 col-lg-4 text-center mt-4 mt-md-0">
+        <img id="desktop-img" class="img-fluid" src="./IMG/desktop.png" alt="Desktop Work Page">
+      </div>
+      <div class="col-7 col-md-4 col-lg-3 text-left mt-4 mt-md-0">
+        <img id="tablet-img" class="img-fluid" src="./IMG/tablet.png" alt="Tablet Login">
+      </div>
+        
     </div>
 
   </div>
-  <div id="benefits-devices" class="container-fluid">
-
-  </div>
   <div id="founders" class="container-fluid">
-    <div id="nav-pos"></div>
+    <div id="nav-pos" class="row mb-5"></div>
     <div class="row">
-      <div class="col">
-        <div class="thumbnail">
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3 ">
+        <div class="thumbnail my-3 my-lg-5 text-center">
           <a href="https://github.com/cesarpinho">
-            <img src="cesar.png" alt="Founder Picture">
+            <img src="./IMG/cesar.png" alt="Founder Picture">
             <div class="caption">
               <p>César Pinho</p>
             </div>
           </a>
         </div>
       </div>
-      <div class="col">
-        <div class="thumbnail">
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="thumbnail my-3 my-lg-5 text-center">
           <a href="https://github.com/RuiGuedes">
-            <img src="rui.png" alt="Founder Picture">
+            <img src="./IMG/rui.png" alt="Founder Picture">
             <div class="caption">
               <p>Rui Guedes</p>
             </div>
           </a>
         </div>
       </div>
-      <div class="col">
-        <div class="thumbnail">
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="thumbnail my-3 my-lg-5 text-center">
           <a href="https://github.com/joaofcmb">
-            <img src="joao.jpg" alt="Founder Picture">
+            <img src="./IMG/joao.jpg" alt="Founder Picture">
             <div class="caption">
               <p>João Barbosa</p>
             </div>
           </a>
         </div>
       </div>
-      <div class="col">
-        <div class="thumbnail">
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="thumbnail my-3 my-lg-5 text-center">
           <a href="https://github.com/Gwenevere">
-            <img src="alexandra.png" alt="Founder Picture">
+            <img src="./IMG/alexandra.png" alt="Founder Picture">
             <div class="caption">
               <p>Alexandra Mendes</p>
             </div>
@@ -125,8 +179,9 @@
         </div>
       </div>
     </div>
+    <div class="row mb-5"></div>
   </div>
-  <footer class="p-2">
+  <footer class="bottom p-2">
     <span id="copyright">COPYRIGHT © EPMA 2019<span>
   </footer>
 </body>

@@ -35,7 +35,7 @@ a {
 }
 
 body {
-    background-image: url("./authentication-background.jpg");
+    background-image: url("../IMG/authentication-background.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -59,7 +59,7 @@ body {
 p {
     font-weight: bold;  
     margin: 0em;
-    font-size: 1.5em; 
+    font-size: 1.5rem; 
     color: black;
 }
  

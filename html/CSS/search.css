@@ -1,20 +1,22 @@
-.task {
-    width: 15em;
-    height: 17em;
+:root {
+    --bg-light: #f8f9fa;
+    --dark-grey-color: rgb(88, 88, 88);
+    --light-grey-color: rgb(176, 176, 176);
+    --brand-color: rgb(13, 189, 196);
+    --light-brand-color: rgb(94, 233, 238);
 }
 
-.navbar {
-    
-    background-color: rgb(88, 88, 88);
+html, body {
+    height: 100%;
+}
+
+body * {
+    font-family: 'Roboto', sans-serif;
+}
+
+.navbar, footer {
+    background-color: var(--dark-grey-color);
     color: whitesmoke;
-}
-
-.navbar-brand {
-    margin-right: 2em;
-    
-    font-family: 'Montserrat', sans-serif;
-    font-weight: bold;
-    font-style: italic;
 }
 
 .nav-item {
@@ -22,27 +24,28 @@
     color: whitesmoke;
 }
 
-.nav-item:hover {
-    color: rgb(88, 88, 88);
+.nav-item:hover, .nav-item.active {
+    color: var(--dark-grey-color);
     background-color: whitesmoke;
     font-weight: bold;
 }
 
 #authentication a {
     color: whitesmoke;
-    font-weight: bold;
-    font-style: italic;
+}
+
+#authentication a:hover {
+    color: var(--light-brand-color);
     text-decoration: none;
 }
 
-#authentication:hover {
-    color: whitesmoke;
-    background-color: rgb(88, 88, 88);
+.profile-img {
+    object-fit: cover;
 }
 
-span {
+#content span {
     padding: 0em 0.25em;
-    color: rgb(13, 189, 196);
+    color: var(--brand-color);
 }
 
 /*************************/
@@ -59,11 +62,36 @@ span {
 
 #filter label.active {
     color: white;
-    background-color: rgb(13, 189, 196);
+    background-color: var(--brand-color);
 }
 
+/*****************************/
+
+#looking-img {
+    max-height: 300px;
+}
+
+p#question{
+    font-size: 2em;
+}
 
 /*****************************/
+
+#search-content .card {
+    border: 2px solid #a9a9a9;
+    background-color: lightgrey
+}
+
+#search-content .card a {
+    text-decoration: none;
+    color: black;
+    font-size: 1.1em;
+}
+
+#search-content .card a.float-right {
+    font-size: 1.3em;
+}
+
 #search-content .card {
     border: 2px solid darkgrey;
     background-color: lightgrey
@@ -77,4 +105,12 @@ span {
 
 #search-content .card a.float-right {
     font-size: 1.3em;
+}
+
+#search-content .restore > .card-body > img, #search-content .restore > .card-body > span {
+    opacity: 0.5;
+}
+
+#search-content .card a:hover {
+    color: var(--brand-color);
 }

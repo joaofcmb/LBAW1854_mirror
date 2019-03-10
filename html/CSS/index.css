@@ -6,10 +6,6 @@ body {
     background-color: rgb(230, 230, 230);
 }
 
-.container-fluid {
-    height: 100%;
-}
-
 .navbar {
     background-color: grey;
     opacity: 0.9;
@@ -44,19 +40,46 @@ a {
 }
 
 #home {
-    background-image: url("./background.jpg");
+    background-image: url("../IMG/background.jpg");
     background-position: center;
     background-repeat: no-repeat; 
     background-size: cover;
 }
 
+.container-fluid {
+    min-height: 100%;
+}
+
 /* *********************************/
+.about-title {
+    background-color: rgb(13, 189, 196);
+    border: 1px solid grey;
+    border-radius: 10px;
+    z-index: 4;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.about-text {
+    background-color: lightgrey;
+    border: 1px solid grey;
+    border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* *********************************/
+
+#benefits-devices.container-fluid {
+    min-height: fit-content;
+    height: auto;
+}
 
 #nav-pos {
     height: 10%;
 }
 
-.img-fluid {
+#benefits-text .img-fluid {
     max-width: 45%;
 }
 
@@ -76,14 +99,9 @@ span {
     height: 90%;
 }
 
-.thumbnail {
-    margin: 45% auto;
-    
-}
-
 .thumbnail img {
     height: 40%;
-    width: 100%;
+    max-width: 100%;
 }
 
 .thumbnail a {

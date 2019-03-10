@@ -7,8 +7,8 @@
 }
 
 html, body {
-    height: 100%;
-    background-color: rgb(230, 230, 230);
+    min-height: 100%;
+    background-color: rgb(240, 240, 240)
 }
 
 body * {
@@ -53,34 +53,19 @@ body * {
     object-fit: cover;
 }
 
-
-#menu-options .col-sm-3 {
-    border: solid var(--dark-grey-color) 2px;
-    border-radius: 0.35em; 
-    text-align: center;
-}
-
-#menu-options .col-sm-3 a {
-    color: black;
+#menu-option .col-sm-4 a {
+    color: var(--dark-grey-color); 
     text-decoration: none;
-    width: 100%;
+    font-size: 1.35em;
 }
 
-#menu-options .col-sm-3 a:hover{
-    font-weight: bold;
-}
-
-#menu-options .active {
-    background-color: var(--brand-color);
-}
-
-#menu-options .active a {
-    color: white;
+#menu-option .col-sm-4 a:hover {
+    color: var(--brand-color);
 }
 
 #search-content .card {
-    border: 2px solid darkgrey;
-    background-color: white;
+    border: none;
+    background-color: transparent;
 }
 
 #search-content .card a {
@@ -101,39 +86,32 @@ body * {
     color: var(--brand-color);
 }
 
-#create .col-sm- {
-    border: solid var(--dark-grey-color) 2px;
-    border-radius: 0.35em; 
-    background-color: var(--brand-color);
+#search-content .card-header {
+    background-color: transparent;
+    border-bottom: solid var(--brand-color) 3px;
 }
 
-#create .col-sm- a {
-    font-size: 1.3em;    
-    color: white;
-    text-decoration: none;
-}
-
-#team-name {
-    font-weight: bold;
-    color: var(--brand-color);
-}
-
-#edit-button {
+#search-content .profile {
+    background-color: white;
+    border: solid var(--dark-grey-color) 1px;
     border-radius: 0.5em;
-    border: solid rgb(49, 49, 49) 2px;
-    background-color: rgb(209, 209, 209);
 }
 
-#search-content .col-sm-4 .card-body #edit-button:hover {
+#search-button:hover {
+    background-color: transparent;
+}
+
+#action-button a {
+    background-color: lightgray;
+    border: solid rgb(134, 134, 134) 2px;
+}
+
+#search-content .card .card-body #action-button a {
     color: white;
-    background-color: var(--brand-color);
 }
 
-#project {
-    color: black;
-    text-decoration: none;
-    transition: 1s;
-    background-color: rgb(233, 233, 233);
+#search-content .card .card-body #action-button a:hover {
+    background-color: var(--brand-color);
 }
 
 footer {
