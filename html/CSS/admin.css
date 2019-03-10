@@ -108,8 +108,7 @@ body * {
 }
 
 #create .col-sm- a {
-    font-size: 1.3em;
-    
+    font-size: 1.3em;    
     color: white;
     text-decoration: none;
 }
@@ -135,4 +134,9 @@ body * {
     text-decoration: none;
     transition: 1s;
     background-color: rgb(233, 233, 233);
+}
+
+footer {
+    color: var(--brand-color);
+    background-color: var(--dark-grey-color);
 }
