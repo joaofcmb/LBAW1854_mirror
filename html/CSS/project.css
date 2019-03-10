@@ -73,6 +73,10 @@ div.main-tab {
     background-color: var(--bg-light);
 }
 
+div.open {
+    background-color: #f1f2f3; 
+}
+
 div.main-tab {
     border: 5px solid var(--brand-color);
 }
@@ -85,11 +89,7 @@ div.main-tab {
     width: 8em;
 }
 
-.collapse-element > a.collapsed > .fa-angle-up {
-    display: none;
-}
-
-.collapse-element > a[aria-expanded=true] > .fa-angle-down {
+.collapse-element > a.collapsed > .fa-angle-up, .collapse-element > a[aria-expanded=true] > .fa-angle-down{
     display: none;
 }
 
@@ -148,6 +148,18 @@ section.sticky {
 .milestone-description {
     width: 7.5em;
     position: relative;
+}
+
+.milestone-info {
+    width: 6em;
+}
+
+.milestone-info.active {
+    border-bottom: 4px solid;
+}
+
+.milestone-info:hover {
+    border-bottom: 4px solid var(--light-grey-color);
 }
 
 .fa-circle, .fa-dot-circle {
