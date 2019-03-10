@@ -120,6 +120,35 @@ section.sticky {
     width: 3em;
 }
 
+.roadmap-diagram {
+    border: 3px solid black;
+}
+
+.milestone {
+    background-color: var(--bg-light);
+    position: relative;
+    z-index: 1;
+}
+
+.roadmap-left {
+    border-bottom: 2px solid black;
+    position: relative;
+    top: 22px;
+    z-index: 0;
+}
+
+.roadmap-right {
+    border-bottom: 2px dotted black;
+    position: relative;
+    bottom: 21px;
+    z-index: 0;  
+}
+
+.fa-circle, .fa-dot-circle {
+    font-size: 1.5rem;
+    color: black;
+}
+
 .border-hover:hover {
     border-color: var(--dark-grey-color) !important;
     opacity: .9;
