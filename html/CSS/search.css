@@ -1,28 +1,22 @@
 :root {
-    --bg-light: rgb(248, 249, 250);
+    --bg-light: #f8f9fa;
     --dark-grey-color: rgb(88, 88, 88);
     --light-grey-color: rgb(176, 176, 176);
     --brand-color: rgb(13, 189, 196);
     --light-brand-color: rgb(94, 233, 238);
 }
 
-.task {
-    width: 15em;
-    height: 17em;
+html, body {
+    height: 100%;
 }
 
-.navbar {
-    
+body * {
+    font-family: 'Roboto', sans-serif;
+}
+
+.navbar, footer {
     background-color: var(--dark-grey-color);
-    color: #f5f5f5;
-}
-
-.navbar-brand {
-    margin-right: 2em;
-    
-    font-family: 'Montserrat', sans-serif;
-    font-weight: bold;
-    font-style: italic;
+    color: whitesmoke;
 }
 
 .nav-item {
@@ -30,7 +24,7 @@
     color: whitesmoke;
 }
 
-.nav-item:hover {
+.nav-item:hover, .nav-item.active {
     color: var(--dark-grey-color);
     background-color: whitesmoke;
     font-weight: bold;
@@ -38,17 +32,18 @@
 
 #authentication a {
     color: whitesmoke;
-    font-weight: bold;
-    font-style: italic;
+}
+
+#authentication a:hover {
+    color: var(--light-brand-color);
     text-decoration: none;
 }
 
-#authentication:hover {
-    color: whitesmoke;
-    background-color: var(--dark-grey-color);
+.profile-img {
+    object-fit: cover;
 }
 
-span {
+#content span {
     padding: 0em 0.25em;
     color: var(--brand-color);
 }
