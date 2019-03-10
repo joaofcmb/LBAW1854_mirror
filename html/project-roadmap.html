@@ -87,23 +87,23 @@
                     <div class="roadmap-right"></div>
                     <div class="d-none d-lg-flex justify-content-between align-items-center">
                         <div class="p-4"></div>
-                        <div id="ProjectSetup" class="milestone-info text-center pb-3">
+                        <a data-toggle="collapse" href="#ProjectSetup" class="collapsed milestone-info text-center pb-3" style="border-color: rgb(12, 116, 214);">
                             <h6 class="mb-1">18/03/2019</h6>
                             Elapsed
-                        </div>
-                        <div id="FrontendPolish" class="milestone-info active text-center pb-3" style="border-color: rgb(12, 116, 214);">
+                        </a>
+                        <a data-toggle="collapse" href="#FrontendPolish" aria-expanded="true" class="milestone-info active text-center pb-3" style="border-color: rgb(12, 116, 214);">
                             <h6 class="mb-1">27/03/2019</h6>
                             14 days left
-                        </div>
-                        <div id="DeliveryPreperation" class="milestone-info text-center pb-3">
+                        </a>
+                        <a data-toggle="collapse" href="#DeliveryPreperation" class="collapsed milestone-info text-center pb-3" style="border-color: rgb(12, 116, 214);">
                             <h6 class="mb-1">9/03/2019</h6>
                             27 days left
-                        </div>
+                        </a>
                         <div class="p-4"></div>
                     </div>
                 </div>
 
-                <div class="main-tab card open border-left-0 border-right-0 rounded-0 p-2">
+                <div id="ProjectSetup" data-parent="#content" class="collapse main-tab card open border-left-0 border-right-0 rounded-0 p-2">
                     <div class="d-flex justify-content-between align-items-center">
                         <h3>Project Setup</h3>
                         <span class="font-weight-light mr-2">0 remaining</span>
@@ -141,6 +141,99 @@
                             <div class="time-progress mx-2 my-1">
                                 <h6 class="text-center mb-1"><i class="far fa-clock mr-1"></i>Deadline Elapsed</h6>
                                 <div class="progress"></div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <div id="FrontendPolish" data-parent="#content" class="collapse show main-tab card open border-left-0 border-right-0 rounded-0 p-2">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3>Frontend Polish</h3>
+                        <span class="font-weight-light mr-2">2 remaining</span>
+                    </div>
+                    <div class="mx-auto">   
+                        <section class="task card border-hover float-sm-left p-2 m-2 mt-3">
+                            <h6 class="text-center mb-auto">Add Responsive Design</h6>
+
+                            <p class="ml-1 m-0">1 Teams</p>
+                            <p class="ml-1 mb-2">9 Developers</p>
+
+                            <div class="work-progress mx-2 mb-1">
+                                <h6 class="text-center mb-1"><i class="fas fa-chart-line mr-1"></i>66% done</h6>
+                                <div class="progress">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width:63%" aria-valuenow="63" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="time-progress mx-2 my-1">
+                                <h6 class="text-center mb-1"><i class="far fa-clock mr-1"></i>2 days left</h6>
+                                <div class="progress">
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width:46%" aria-valuenow="46" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="task card border-hover float-sm-left p-2 m-2 mt-3">
+                            <h6 class="text-center mb-auto">Improve Interactivity with navbars</h6>
+
+                            <p class="ml-1 m-0">1 Team</p>
+                            <p class="ml-1 mb-2">4 Developers</p>
+                            
+                            <div class="work-progress mx-2 mb-1">
+                                <h6 class="text-center mb-1"><i class="fas fa-chart-line mr-1"></i>47% done</h6>
+                                <div class="progress">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width:47%" aria-valuenow="47" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="time-progress mx-2 my-1">
+                                <h6 class="text-center mb-1"><i class="far fa-clock mr-1"></i>2 days left</h6>
+                                <div class="progress">
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width:56%" aria-valuenow="56" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <div id="DeliveryPreperation" data-parent="#content" class="collapse main-tab card open border-left-0 border-right-0 rounded-0 p-2">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3>Delivery Preperation</h3>
+                        <span class="font-weight-light mr-2">2 remaining</span>
+                    </div>
+                    <div class="mx-auto">   
+                        <section class="task card border-hover float-sm-left p-2 m-2 mt-3">
+                            <h6 class="text-center mb-auto">Test database performance</h6>
+
+                            <p class="ml-1 m-0">1 Team</p>
+                            <p class="ml-1 mb-2">6 Developers</p>
+                            
+                            <div class="work-progress mx-2 mb-1">
+                                <h6 class="text-center mb-1"><i class="fas fa-chart-line mr-1"></i>18% done</h6>
+                                <div class="progress">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width:18%" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="time-progress mx-2 my-1">
+                                <h6 class="text-center mb-1"><i class="far fa-clock mr-1"></i>13 days left</h6>
+                                <div class="progress">
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width:15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="task card border-hover float-sm-left p-2 m-2 mt-3">
+                            <h6 class="text-center mb-auto">Setup deployment hardware</h6>
+
+                            <p class="ml-1 m-0">2 Teams</p>
+                            <p class="ml-1 mb-2">19 Developers</p>
+
+                            <div class="work-progress mx-2 mb-1">
+                                <h6 class="text-center mb-1"><i class="fas fa-chart-line mr-1"></i>No Progress</h6>
+                                <div class="progress">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width:0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="time-progress mx-2 my-1">
+                                <h6 class="text-center mb-1"><i class="far fa-clock mr-1"></i>13 days left</h6>
+                                <div class="progress">
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width:9%" aria-valuenow="46" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
                             </div>
                         </section>
                     </div>
