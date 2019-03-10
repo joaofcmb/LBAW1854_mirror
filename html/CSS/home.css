@@ -51,6 +51,10 @@ div.main-tab {
     border: 5px solid var(--brand-color);
 }
 
+div.open {
+    background-color: #f1f2f3; 
+}
+
 .main-tab > div > h3 {
     font-size: 1.5em;
 }
@@ -59,11 +63,7 @@ div.main-tab {
     width: 8em;
 }
 
-.collapse-element > a.collapsed > .fa-angle-up {
-    display: none;
-}
-
-.collapse-element > a[aria-expanded=true] > .fa-angle-down {
+.collapse-element > a.collapsed > .fa-angle-up, .collapse-element > a[aria-expanded=true] > .fa-angle-down {
     display: none;
 }
 
