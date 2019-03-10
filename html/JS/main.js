@@ -15,4 +15,5 @@ if (milestoneCount > 0) {
 
     $('.roadmap-left').css('width', leftWidth + "%");
     $('.roadmap-right').css({"left": leftWidth + "%", "width": 100 - leftWidth + "%"});
+    $('.milestone-description').css('left', (milestoneDoneCount + 1) * 100 / (milestoneCount + 1) - 50 + "%");
 }
