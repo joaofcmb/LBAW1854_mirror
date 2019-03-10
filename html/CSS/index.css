@@ -52,15 +52,20 @@ a {
 
 /* *********************************/
 .about-title {
-    background-color: darkgrey;
-    border: 3px solid darkblue;
-    
+    background-color: rgb(13, 189, 196);
+    border: 1px solid grey;
+    border-radius: 10px;
     z-index: 4;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 1.5rem;
+    color: white;
 }
 
 .about-text {
-    background-color: darkgrey;
-    border: 3px solid darkblue; 
+    background-color: lightgrey;
+    border: 1px solid grey;
+    border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
 }
 
 /* *********************************/
