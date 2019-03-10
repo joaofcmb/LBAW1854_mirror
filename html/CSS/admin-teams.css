@@ -113,3 +113,8 @@ body * {
 #search-content .card .card-body #action-button a:hover {
     background-color: var(--brand-color);
 }
+
+footer {
+    color: var(--brand-color);
+    background-color: var(--dark-grey-color);
+}
