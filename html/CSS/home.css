@@ -48,7 +48,7 @@ div.main-tab {
 }
 
 div.main-tab {
-    border: 5px solid var(--brand-color);
+    border: 2px solid var(--brand-color);
 }
 
 .main-tab > div > h3 {
@@ -113,11 +113,22 @@ section.sticky {
     color: var(--brand-color);
 }
 
+#companyForum {
+    color: var(--dark-grey-color);
+    text-decoration: none;
+}
+
+#companyForum:hover {
+    color: black;
+    -webkit-transition-duration: 0.4s; /* Safari */
+   transition-duration: 0.4s;
+}
+
 @media (min-width: 992px) {
     #side-forum {
         position: fixed;
         right: 0em;
         height: calc(100vh - 145px);
-        border-left: 3px solid var(--light-grey-color);
+        border-left: 1px solid var(--light-grey-color);
     }
 }
