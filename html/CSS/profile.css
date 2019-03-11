@@ -6,8 +6,13 @@
     --light-brand-color: rgb(94, 233, 238);
 }
 
-body {
+html {
+    height: 100%;
     background-color: rgb(230, 230, 230);
+}
+
+body {
+    min-height: 100%;
 }
 
 html, body {
@@ -44,8 +49,52 @@ body * {
     text-decoration: none;
 }
 
-.profile-img {
+.profile-img {    
     object-fit: cover;
+    transition: 1s;
+}
+
+.profile-img-team {    
+    object-fit: cover;
+}
+
+#change-picture {    
+    position: absolute;
+    transform: translate(0%, 130%);    
+    opacity: 0;
+    transition: 1s;
+}
+
+#profile-picture:hover > img {
+    cursor: pointer;
+    opacity: 0.5;
+    background-color: var(--light-grey-color);
+}
+
+#profile-picture:hover #change-picture {
+    opacity: 1;
+    font-family: 'Roboto', sans-serif;
+}
+
+#change-picture > i {
+    font-size: 2em;
+}
+
+#change-picture > p {
+    font-size: 1.25em;
+}
+
+#change-picture:hover {
+    cursor: pointer;
+}
+
+#edit-biography {
+    color: var(--dark-grey-color);    
+}
+
+#edit-biography:hover {
+    color: black;
+    cursor: pointer;
 }
 
 #sub-menu {
@@ -76,7 +125,7 @@ body * {
 
 /***********************************/
 #main-container {
-    min-height: 82%;
+    min-height: 84%;
     background-image: url(../IMG/profile-background.jpg);
     background-position: center;
     background-repeat: no-repeat; 
@@ -94,8 +143,13 @@ body * {
 
 #name-container, #biography, #variable-container {
     background-color: var(--bg-light);
-    border: 1.5px solid var(--dark-grey-color);
-    border-radius: 5px;
+    border: 1.5px solid var(--light-grey-color);
+    border-radius: 0.35em;
+}
+
+#variable-container h5 , #biography h5 {
+    font-weight: bold;
+    color: var(--brand-color);
 }
 
 #action-button a {
