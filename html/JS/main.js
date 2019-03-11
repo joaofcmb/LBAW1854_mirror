@@ -7,8 +7,8 @@ $('.main-tab > .collapse').on('hide.bs.collapse', function() {
 })
 
 $('.border-hover').hover(
-    function() {$(this).find('.hover-icon').css('display', 'inline-block')},
-    function() {$(this).find('.hover-icon').css('display', 'none')}
+    function() {$(this).find('>:first-child .hover-icon').css('display', 'inline-block')},
+    function() {$(this).find('>:first-child .hover-icon').css('display', 'none')}
 )
 
 let milestoneCount = $('.milestone').length

@@ -63,7 +63,7 @@
                 </button>
 
                 <div class="collapse navbar-collapse py-2 py-sm-0" id="navbarSupportedContent2">
-                    <a class="nav-item nav-link active mx-lg-3" href="#">Overview</a>
+                    <a class="nav-item nav-link mx-lg-3" href="project.html">Overview</a>
                     <a class="nav-item nav-link mx-lg-3" href="project-roadmap.html">Roadmap</a>
                     <a class="nav-item nav-link mx-lg-3" href="project-tasks.html">Tasks</a>
                     <a class="nav-item nav-link mx-lg-3" href="#">Forum</a>
@@ -76,32 +76,38 @@
         <div class="row w-100 mx-auto">
             <div class="col-lg-8 px-0">
                 <div id="content" class="container py-3 mb-4">
-                    <div class="roadmap m-sm-5 my-4"> <!--Max 6 milestones-->
-                        <div class="roadmap-left"></div>
-                        <div class="roadmap-diagram border-top-0 border-bottom-0 d-flex justify-content-between align-items-center">
-                            <div class="p-1"></div>
-                            <div class="milestone py-2"><i class="far fa-dot-circle align-middle"></i></div>
-                            <div class="milestone py-2"><i class="far fa-circle align-middle"></i></div>
-                            <div class="milestone py-2"><i class="far fa-circle align-middle"></i></div>
-                            <div class="p-1"></div>
-                        </div>
-                        <div class="roadmap-right"></div>
-                        <div class="milestone-description mx-auto text-center">
-                            14 days left
-                            <h6>Frontend Polish</h6>
-                        </div>
-                    </div>
-
-                    <div class="main-tab card border-left-0 border-right-0 border-bottom-0 rounded-0 p-2">
+                    <div class="main-tab card open border-left-0 border-right-0 rounded-0 p-2">
                         <div class="d-flex justify-content-between align-items-center">
-                            <h3>Todo Tasks</h3>
-                            <div class="collapse-element d-flex justify-content-end align-items-center">
-                                <span class="font-weight-light mr-2">1 Task</span>
-                                <a data-toggle="collapse" href="#TodoTasks"><i class="fas fa-angle-down mt-1"></i></a>
-                                <a class="collapsed" data-toggle="collapse" href="#TodoTasks"><i class="fas fa-angle-up mt-1"></i></a>
+                            <h3>Task List</h3>
+                            <div class="d-flex justify-content-end align-items-center">
+                                <span class="font-weight-light mr-2">6 Tasks</span>
                             </div>
                         </div>
-                        <div class="collapse mx-auto" id="TodoTasks">     
+                        <div class="mx-auto">
+                            <section class="task card border-hover sticky float-sm-left p-2 m-2 mt-3">
+                                <div class="mx-auto mb-1">
+                                    <i class="far fa-edit hover-icon mr-2"></i>
+                                    <i class="fas fa-link fa-fw hover-icon mx-2"></i>
+                                    <i class="far fa-trash-alt fa-fw hover-icon ml-2"></i>
+                                </div>
+                                <h6 class="text-center mb-auto">Add Responsive Design</h6>
+
+                                <p class="ml-1 m-0">1 Teams</p>
+                                <p class="ml-1 mb-2">9 Developers</p>
+
+                                <div class="work-progress mx-2 mb-1">
+                                    <h6 class="text-center mb-1"><i class="fas fa-chart-line mr-1"></i>66% done</h6>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width:63%" aria-valuenow="63" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                                <div class="time-progress mx-2 my-1">
+                                    <h6 class="text-center mb-1"><i class="far fa-clock mr-1"></i>2 days left</h6>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width:46%" aria-valuenow="46" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </section>    
                             <section class="task card border-hover float-sm-left p-2 m-2 mt-3">
                                 <div class="mx-auto mb-1">
                                     <i class="far fa-edit hover-icon mr-2"></i>
@@ -116,53 +122,16 @@
                                 <div class="work-progress mx-2 mb-1">
                                     <h6 class="text-center mb-1"><i class="fas fa-chart-line mr-1"></i>No Progress</h6>
                                     <div class="progress">
-                                        <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" style="width:0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-success" role="progressbar" style="width:0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
                                 <div class="time-progress mx-2 my-1">
                                     <h6 class="text-center mb-1"><i class="far fa-clock mr-1"></i>13 days left</h6>
                                     <div class="progress">
-                                        <div class="progress-bar progress-bar-striped bg-warning progress-bar-animated" role="progressbar" style="width:9%" aria-valuenow="46" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width:9%" aria-valuenow="46" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
                             </section>
-                        </div>
-                    </div>
-                    <div class="main-tab card open border-left-0 border-right-0 border-bottom-0 rounded-0 p-2">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h3>Ongoing Tasks</h3>
-                            <div class="collapse-element d-flex justify-content-end align-items-center">
-                                <span class="font-weight-light mr-2">3 Tasks</span>
-                                <a data-toggle="collapse" href="#OngoingTasks" aria-expanded="true"><i class="fas fa-angle-down mt-1"></i></a>
-                                <a data-toggle="collapse" href="#OngoingTasks"><i class="fas fa-angle-up mt-1"></i></a>
-                            </div>
-                        </div>
-                        <div class="collapse show mx-auto" id="OngoingTasks">
-                            <section class="task card border-hover float-sm-left p-2 m-2 mt-3">
-                                <div class="mx-auto mb-1">
-                                    <i class="far fa-edit hover-icon mr-2"></i>
-                                    <a href="project-assign.html"><i class="fas fa-link fa-fw hover-icon mx-2"></i></a>
-                                    <i class="far fa-trash-alt fa-fw hover-icon ml-2"></i>
-                                </div>
-                                <h6 class="text-center mb-auto">Add Responsive Design</h6>
-
-                                <p class="ml-1 m-0">1 Teams</p>
-                                <p class="ml-1 mb-2">9 Developers</p>
-
-                                <div class="work-progress mx-2 mb-1">
-                                    <h6 class="text-center mb-1"><i class="fas fa-chart-line mr-1"></i>66% done</h6>
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" style="width:63%" aria-valuenow="63" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                                <div class="time-progress mx-2 my-1">
-                                    <h6 class="text-center mb-1"><i class="far fa-clock mr-1"></i>2 days left</h6>
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-striped bg-warning progress-bar-animated" role="progressbar" style="width:46%" aria-valuenow="46" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </section>
-
                             <section class="task card border-hover float-sm-left p-2 m-2 mt-3">
                                 <div class="mx-auto mb-1">
                                     <i class="far fa-edit hover-icon mr-2"></i>
@@ -177,17 +146,16 @@
                                 <div class="work-progress mx-2 mb-1">
                                     <h6 class="text-center mb-1"><i class="fas fa-chart-line mr-1"></i>47% done</h6>
                                     <div class="progress">
-                                        <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" style="width:47%" aria-valuenow="47" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-success" role="progressbar" style="width:47%" aria-valuenow="47" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
                                 <div class="time-progress mx-2 my-1">
                                     <h6 class="text-center mb-1"><i class="far fa-clock mr-1"></i>2 days left</h6>
                                     <div class="progress">
-                                        <div class="progress-bar progress-bar-striped bg-warning progress-bar-animated" role="progressbar" style="width:56%" aria-valuenow="56" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width:56%" aria-valuenow="56" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
                             </section>
-
                             <section class="task card border-hover float-sm-left p-2 m-2 mt-3">
                                 <div class="mx-auto mb-1">
                                     <i class="far fa-edit hover-icon mr-2"></i>
@@ -202,28 +170,16 @@
                                 <div class="work-progress mx-2 mb-1">
                                     <h6 class="text-center mb-1"><i class="fas fa-chart-line mr-1"></i>18% done</h6>
                                     <div class="progress">
-                                        <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" style="width:18%" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-success" role="progressbar" style="width:18%" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
                                 <div class="time-progress mx-2 my-1">
                                     <h6 class="text-center mb-1"><i class="far fa-clock mr-1"></i>13 days left</h6>
                                     <div class="progress">
-                                        <div class="progress-bar progress-bar-striped bg-warning progress-bar-animated" role="progressbar" style="width:15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width:15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
                             </section>
-                        </div>
-                    </div>
-                    <div class="main-tab card border-left-0 border-right-0 rounded-0 p-2">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h3>Done Tasks</h3>
-                            <div class="collapse-element d-flex justify-content-end align-items-center">
-                                <span class="font-weight-light mr-2">2 Tasks</span>
-                                <a data-toggle="collapse" href="#DoneTasks"><i class="fas fa-angle-down mt-1"></i></a>
-                                <a class="collapsed" data-toggle="collapse" href="#DoneTasks"><i class="fas fa-angle-up mt-1"></i></a>
-                            </div>
-                        </div>
-                        <div class="collapse mx-auto" id="DoneTasks">     
                             <section class="task card border-hover float-sm-left p-2 m-2 mt-3">
                                 <div class="mx-auto mb-1">
                                     <i class="far fa-edit hover-icon mr-2"></i>
@@ -238,7 +194,7 @@
                                 <div class="work-progress mx-2 mb-1">
                                     <h6 class="text-center mb-1"><i class="fas fa-chart-line mr-1"></i>Done</h6>
                                     <div class="progress">
-                                        <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" style="width:100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-success" role="progressbar" style="width:100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
                                 <div class="time-progress mx-2 my-1">
@@ -260,7 +216,7 @@
                                 <div class="work-progress mx-2 mb-1">
                                     <h6 class="text-center mb-1"><i class="fas fa-chart-line mr-1"></i>Done</h6>
                                     <div class="progress">
-                                        <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" style="width:100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-success" role="progressbar" style="width:100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
                                 <div class="time-progress mx-2 my-1">
@@ -275,7 +231,7 @@
             <div id="side-forum" class="col-lg-4 px-0 mt-md-5 mt-lg-3 mb-4">
                 <div class="container">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h3 class="m-0">PROJECT FORUM</h3>
+                        <h3 class="m-0">COMPANY FORUM</h3>
                         <a href="#"><i class="fas fa-plus-circle"></i></a>
                     </div>
 
