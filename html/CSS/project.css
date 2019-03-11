@@ -89,6 +89,11 @@ body * {
     color: var(--brand-color);
 }
 
+#add-group:hover {
+    color: var(--brand-color);
+    cursor: pointer;
+}
+
 div.main-tab {
     background-color: var(--bg-light);
 }
@@ -207,12 +212,12 @@ i.hover-icon {
     display: none;
 }
 
-.fa-angle-down, .fa-angle-up, .fa-plus-circle {
+.fa-angle-down, .fa-angle-up, #side-forum .fa-plus-circle {
     font-size: 2rem;
     color: var(--dark-grey-color);
 }
 
-.fa-angle-down:hover, .fa-angle-up:hover, .fa-plus-circle:hover, .fa-edit:hover, .fa-link:hover, .fa-trash-alt:hover {
+.fa-angle-down:hover, .fa-angle-up:hover, #side-forum .fa-plus-circle:hover, .fa-edit:hover, .fa-link:hover, .fa-trash-alt:hover {
     color: var(--brand-color);
     cursor: pointer;
 }
