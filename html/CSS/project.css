@@ -217,6 +217,6 @@ i.hover-icon {
         position: fixed;
         right: 0em;
         height: calc(100vh - 155px);
-        border-left: 3px solid var(--light-grey-color);
+        border-left: 1px solid var(--light-grey-color);
     }
 }
