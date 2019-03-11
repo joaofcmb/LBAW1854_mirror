@@ -42,23 +42,18 @@ body * {
     background-color: var(--dark-grey-color);
 }
 
+#menu-option .col-sm-4 a {
+    color: var(--dark-grey-color); 
+    text-decoration: none;
+    font-size: 1.35em;
+}
+
+#menu-option .col-sm-4 a:hover {
+    color: var(--brand-color);
+}
+
 .profile-img {
     object-fit: cover;
 }
 
-#search-content .card .card-body #back-button{
-    margin-left: 20px;
-}
 
-.card-body #myComment:hover {
-    background-color: rgb(250,250,250);
-}
-
-.form input[type=text]:focus {
-    width: 200%;
-}
-
-.card-body #myComment #commenterInfo i:hover {
-    cursor: pointer;
-    transform: scale(1.2);
-}
