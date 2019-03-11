@@ -1,0 +1,160 @@
+:root {
+    --bg-light: #f8f9fa;
+    --dark-grey-color: rgb(88, 88, 88);
+    --light-grey-color: rgb(176, 176, 176);
+    --brand-color: rgb(13, 189, 196);
+    --light-brand-color: rgb(94, 233, 238);
+}
+
+body {
+    background-color: rgb(230, 230, 230);
+}
+
+html, body {
+    height: 100%;
+}   
+
+body * {
+    font-family: 'Roboto', sans-serif;
+    
+}
+
+#main-menu, footer {
+    background-color: var(--dark-grey-color);
+    color: whitesmoke;
+}
+
+#main-menu .nav-item {
+    border-radius: 0.25em;
+    color: whitesmoke;
+}
+
+#main-menu .nav-item:hover {
+    color: var(--dark-grey-color);
+    background-color: whitesmoke;
+    font-weight: bold;
+}
+
+#authentication a {
+    color: whitesmoke;
+}
+
+#authentication a:hover {
+    color: var(--light-brand-color);
+    text-decoration: none;
+}
+
+.profile-img {
+    object-fit: cover;
+}
+
+#sub-menu {
+    background-color: var(--light-grey-color);
+    color: whitesmoke;
+}
+
+#sub-menu a.navbar-brand {
+    background-color: var(--brand-color);
+    border: 1px solid var(--brand-color);
+    border-bottom-right-radius: 1em;
+}
+
+#sub-menu .nav-item {    
+    color: black;
+}
+
+#sub-menu .nav-item:hover {
+    font-weight: bolder;
+}
+
+#sub-menu .active {
+    font-weight: bold;
+    text-decoration: underline;
+    text-decoration-style: solid;
+    text-underline-position: under;
+}
+
+/***********************************/
+#main-container {
+    min-height: 82%;
+    background-image: url(../IMG/profile-background.jpg);
+    background-position: center;
+    background-repeat: no-repeat; 
+    background-size: cover;
+}
+  
+#name-container h5, #variable-container h5, #variable-container h6  {
+    margin-top: .5rem;
+}
+
+#variable-container h5 span {
+    text-decoration-line: underline;
+    color: var(--brand-color);
+}
+
+#name-container, #biography, #variable-container {
+    background-color: var(--bg-light);
+    border: 1.5px solid var(--dark-grey-color);
+    border-radius: 5px;
+}
+
+#action-button a {
+    background-color: lightgray;
+    border: solid rgb(134, 134, 134) 2px;
+    color: white;
+}
+
+#action-button a:hover {
+    background-color: var(--brand-color);
+}
+
+@media (min-width: 768px) {
+    #background-button {
+        position: fixed;
+        bottom: 5%;
+        right: 1%;
+    }
+}
+
+#background-button a {
+    font-size:1.8em;
+    color: black;  
+}
+
+#background-button a:hover, #project.card a:hover, .profile.card .card-body a:hover  {
+    color: var(--brand-color);  
+}
+
+#project {
+    color: black;
+    text-decoration: none;
+    transition: 1s;
+    background-color: rgb(233, 233, 233);
+}
+
+#project.card {
+    border: 2px solid darkgrey;
+    background-color: white;
+}
+
+#project.card a, .profile.card a {
+    text-decoration: none;
+    color: black;
+    font-size: 1.1em;
+}
+
+.card a.float-right i, .profile a.float-right i {
+    font-size: 1.3em;
+}
+
+.profile {
+    background-color: white;
+    border: solid var(--dark-grey-color) 1px;
+    border-radius: 0.5em;
+}
+
+footer {
+    color: var(--brand-color);
+    background-color: var(--dark-grey-color);
+}
+
