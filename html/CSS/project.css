@@ -124,6 +124,10 @@ div.open {
     height: calc(100vh - 190px);
 }
 
+.tab-content {
+    background-color: white;
+}
+
 .collapse-element {
     width: 8em;
 }
