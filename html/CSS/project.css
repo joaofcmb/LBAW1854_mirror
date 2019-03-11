@@ -93,7 +93,7 @@ div.open {
     display: none;
 }
 
-a.card, .roadmap a {
+a.card, .roadmap a, #discusion a, .team.card a{
     color: inherit;
     text-decoration: none;
 }
@@ -184,7 +184,7 @@ section.sticky {
     color: var(--dark-grey-color);
 }
 
-.fa-angle-down:hover, .fa-angle-up:hover, .fa-plus-circle:hover {
+.fa-angle-down:hover, .fa-angle-up:hover, .fa-plus-circle:hover , .team.card h6 {
     color: var(--brand-color);
 }
 
@@ -195,4 +195,12 @@ section.sticky {
         height: calc(100vh - 155px);
         border-left: 3px solid var(--light-grey-color);
     }
+}
+
+.team {
+    width: 14em;
+}
+
+#discusion a:hover, .team.card a:hover{
+    color: var(--brand-color);
 }
