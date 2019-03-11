@@ -39,7 +39,7 @@
                 </button>
 
                 <div class="collapse navbar-collapse py-2" id="navbarSupportedContent">
-                    <a class="nav-item nav-link active mx-lg-3" href="home.html">HOME</a>
+                    <a class="nav-item nav-link mx-lg-3" href="home.html">HOME</a>
                     <a class="nav-item nav-link mx-lg-3" href="search.html">SEARCH</a>
                     <a class="nav-item nav-link mx-lg-3" href="#">FORUM</a>
                     <a class="nav-item nav-link mx-lg-3" href="#">PROFILE</a>
@@ -65,7 +65,7 @@
                 <div class="collapse navbar-collapse py-2 py-sm-0" id="navbarSupportedContent2">
                     <a class="nav-item nav-link mx-lg-3" href="project.html">Overview</a>
                     <a class="nav-item nav-link active mx-lg-3" href="#">Roadmap</a>
-                    <a class="nav-item nav-link mx-lg-3" href="#">Tasks</a>
+                    <a class="nav-item nav-link mx-lg-3" href="project-tasks.html">Tasks</a>
                     <a class="nav-item nav-link mx-lg-3" href="#">Forum</a>
 
                     <a class="text-danger font-weight-bolder ml-3 ml-sm-auto" href="#"><i class="fas fa-times"></i><span class="d-sm-none d-md-inline"> Close Project</span></a>
@@ -75,7 +75,18 @@
 
         <div class="row w-100 mx-auto">
             <div id="content" class="container py-3 mb-4">
-                <div class="roadmap m-sm-5 my-4"> <!--Max 6 milestones-->
+                <div id="create" class="container-fluid mx-auto">
+                    <div class="row mt-4 justify-content-center">
+                        <a href="#">
+                            <div class="col-sm- py-2 px-3">
+                                    <span>Create Milestone</span>
+                                    <i class="fas fa-plus-circle ml-2"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="roadmap my-5 mx-sm-5"> <!--Max 6 milestones-->
                     <div class="roadmap-left"></div>
                     <div class="roadmap-diagram border-top-0 border-bottom-0 d-flex justify-content-between align-items-center">
                         <div class="p-1"></div>
@@ -105,11 +116,16 @@
 
                 <div id="ProjectSetup" data-parent="#content" class="collapse main-tab card open border-left-0 border-right-0 rounded-0 p-2">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h3>Project Setup</h3>
+                        <h3>Project Setup<i class="far fa-edit ml-2"></i></h3>
                         <span class="font-weight-light mr-2 flex-shrink-0">0 remaining</span>
                     </div>
                     <div class="mx-auto">   
                         <section class="task card border-hover float-sm-left p-2 m-2 mt-3">
+                            <div class="mx-auto mb-1">
+                                <i class="far fa-edit hover-icon mr-2"></i>
+                                <i class="fas fa-link fa-fw hover-icon mx-2"></i>
+                                <i class="far fa-trash-alt fa-fw hover-icon ml-2"></i>
+                            </div>
                             <h6 class="text-center mb-auto">Import project tasks to EPMA</h6>
 
                             <p class="ml-1 m-0">1 Team</p>
@@ -127,6 +143,11 @@
                             </div>
                         </section>
                         <section class="task card border-hover float-sm-left p-2 m-2 mt-3">
+                            <div class="mx-auto mb-1">
+                                <i class="far fa-edit hover-icon mr-2"></i>
+                                <i class="fas fa-link fa-fw hover-icon mx-2"></i>
+                                <i class="far fa-trash-alt fa-fw hover-icon ml-2"></i>
+                            </div>
                             <h6 class="text-center mb-auto">Integration of components</h6>
 
                             <p class="ml-1 m-0">3 Teams</p>
@@ -147,11 +168,17 @@
                 </div>
                 <div id="FrontendPolish" data-parent="#content" class="collapse show main-tab card open border-left-0 border-right-0 rounded-0 p-2">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h3>Frontend Polish</h3>
+                        <h3>Frontend Polish<i class="far fa-edit ml-2"></i></h3>
                         <span class="font-weight-light mr-2 flex-shrink-0">2 remaining</span>
                     </div>
                     <div class="mx-auto">   
                         <section class="task card border-hover float-sm-left p-2 m-2 mt-3">
+                            <div class="mx-auto mb-1">
+                                <i class="far fa-edit hover-icon mr-2"></i>
+                                <i class="fas fa-link fa-fw hover-icon mx-2"></i>
+                                <i class="far fa-trash-alt fa-fw hover-icon ml-2"></i>
+                            </div>
+
                             <h6 class="text-center mb-auto">Add Responsive Design</h6>
 
                             <p class="ml-1 m-0">1 Teams</p>
@@ -172,6 +199,12 @@
                         </section>
 
                         <section class="task card border-hover float-sm-left p-2 m-2 mt-3">
+                            <div class="mx-auto mb-1">
+                                <i class="far fa-edit hover-icon mr-2"></i>
+                                <i class="fas fa-link fa-fw hover-icon mx-2"></i>
+                                <i class="far fa-trash-alt fa-fw hover-icon ml-2"></i>
+                            </div>
+
                             <h6 class="text-center mb-auto">Improve Interactivity with navbars</h6>
 
                             <p class="ml-1 m-0">1 Team</p>
@@ -194,11 +227,16 @@
                 </div>
                 <div id="DeliveryPreperation" data-parent="#content" class="collapse main-tab card open border-left-0 border-right-0 rounded-0 p-2">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h3>Delivery Preperation</h3>
+                        <h3>Delivery Preperation<i class="far fa-edit ml-2"></i></h3>
                         <span class="font-weight-light mr-2 flex-shrink-0">2 remaining</span>
                     </div>
                     <div class="mx-auto">   
                         <section class="task card border-hover float-sm-left p-2 m-2 mt-3">
+                            <div class="mx-auto mb-1">
+                                <i class="far fa-edit hover-icon mr-2"></i>
+                                <i class="fas fa-link fa-fw hover-icon mx-2"></i>
+                                <i class="far fa-trash-alt fa-fw hover-icon ml-2"></i>
+                            </div>
                             <h6 class="text-center mb-auto">Test database performance</h6>
 
                             <p class="ml-1 m-0">1 Team</p>
@@ -218,6 +256,11 @@
                             </div>
                         </section>
                         <section class="task card border-hover float-sm-left p-2 m-2 mt-3">
+                            <div class="mx-auto mb-1">
+                                <i class="far fa-edit hover-icon mr-2"></i>
+                                <i class="fas fa-link fa-fw hover-icon mx-2"></i>
+                                <i class="far fa-trash-alt fa-fw hover-icon ml-2"></i>
+                            </div>
                             <h6 class="text-center mb-auto">Setup deployment hardware</h6>
 
                             <p class="ml-1 m-0">2 Teams</p>

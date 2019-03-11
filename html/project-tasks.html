@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="css/project.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa|Roboto:300,400,500,700">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+            integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+        <script defer src="js/main.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+
+        <title>EPMA</title>
+    </head>
+
+    <body class="bg-light">
+        <div class="navbar-dark sticky-top">
+            <nav id="main-menu" class="navbar navbar-expand-sm py-0 px-3 px-sm-1 px-lg-3">
+                <a class="navbar-brand" href="#">
+                    <img src="img/logo.png" width="35" class="d-inline-block" alt="Website Logo">
+                    <span class="font-weight-bold font-italic">EPMA</span>
+                </a>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse py-2" id="navbarSupportedContent">
+                    <a class="nav-item nav-link mx-lg-3" href="home.html">HOME</a>
+                    <a class="nav-item nav-link mx-lg-3" href="search.html">SEARCH</a>
+                    <a class="nav-item nav-link mx-lg-3" href="#">FORUM</a>
+                    <a class="nav-item nav-link mx-lg-3" href="#">PROFILE</a>
+
+
+                    <div id="authentication" class="ml-auto">
+                        <a href="index.html" class="pr-2">
+                            <span class="font-weight-bold pl-3">Sign out</span>
+                        </a>
+                        <a href=""><img class="profile-img d-none d-md-inline-block rounded-circle my-auto " src="img/joao.jpg" width="50"
+                                height="50" alt="Website Logo"></a>
+                    </div>
+                </div>
+            </nav>
+            <nav id="sub-menu" class="navbar navbar-expand-sm p-0 pr-3 pr-sm-1 pr-lg-3">
+                <a class="navbar-brand h-100 px-3 py-2" href="#" style="background-color: rgb(12, 116, 214);">Company Website</a>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent2"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse py-2 py-sm-0" id="navbarSupportedContent2">
+                    <a class="nav-item nav-link mx-lg-3" href="project.html">Overview</a>
+                    <a class="nav-item nav-link mx-lg-3" href="project-roadmap.html">Roadmap</a>
+                    <a class="nav-item nav-link active mx-lg-3" href="#">Tasks</a>
+                    <a class="nav-item nav-link mx-lg-3" href="#">Forum</a>
+
+                    <a class="text-danger font-weight-bolder ml-3 ml-sm-auto" href="#"><i class="fas fa-times"></i><span class="d-sm-none d-md-inline"> Close Project</span></a>
+                </div>
+            </nav>
+        </div>
+
+        <div id="task-groups" class="container-fluid d-flex flex-nowrap overflow-auto py-3 mb-4 mr-3">
+            <div class="main-tab task-group flex-shrink-0 card open border-left-0 border-right-0 rounded-0 py-2 mr-5">
+                <div class="d-flex flex-shrink-0 justify-content-between align-items-center my-1 mx-auto">
+                    <h3>Ungrouped Tasks</h3>
+                </div>
+                <div class="px-3 overflow-auto pr-2 pl-2 mt-1 mb-2">
+                    <section class="task card border-hover p-2 m-2 mt-3">
+                        <div class="mx-auto mb-1">
+                            <i class="far fa-edit hover-icon mr-2"></i>
+                            <i class="fas fa-link fa-fw hover-icon mx-2"></i>
+                            <i class="far fa-trash-alt fa-fw hover-icon ml-2"></i>
+                        </div>
+                        <h6 class="text-center mb-auto">Test database performance</h6>
+
+                        <p class="ml-1 m-0">1 Team</p>
+                        <p class="ml-1 mb-2">6 Developers</p>
+                        
+                        <div class="work-progress mx-2 mb-1">
+                            <h6 class="text-center mb-1"><i class="fas fa-chart-line mr-1"></i>18% done</h6>
+                            <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar" style="width:18%" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="time-progress mx-2 my-1">
+                            <h6 class="text-center mb-1"><i class="far fa-clock mr-1"></i>13 days left</h6>
+                            <div class="progress">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width:15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="task card border-hover p-2 m-2 mt-3">
+                        <div class="mx-auto mb-1">
+                            <i class="far fa-edit hover-icon mr-2"></i>
+                            <i class="fas fa-link fa-fw hover-icon mx-2"></i>
+                            <i class="far fa-trash-alt fa-fw hover-icon ml-2"></i>
+                        </div>
+                        <h6 class="text-center mb-auto">Setup deployment hardware</h6>
+
+                        <p class="ml-1 m-0">2 Teams</p>
+                        <p class="ml-1 mb-2">19 Developers</p>
+
+                        <div class="work-progress mx-2 mb-1">
+                            <h6 class="text-center mb-1"><i class="fas fa-chart-line mr-1"></i>No Progress</h6>
+                            <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar" style="width:0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="time-progress mx-2 my-1">
+                            <h6 class="text-center mb-1"><i class="far fa-clock mr-1"></i>13 days left</h6>
+                            <div class="progress">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width:9%" aria-valuenow="46" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </section>  
+                    <section class="task card border-hover p-2 m-2 mt-3">
+                        <div class="mx-auto mb-1">
+                            <i class="far fa-edit hover-icon mr-2"></i>
+                            <i class="fas fa-link fa-fw hover-icon mx-2"></i>
+                            <i class="far fa-trash-alt fa-fw hover-icon ml-2"></i>
+                        </div>
+                        <h6 class="text-center mb-auto">Import project tasks to EPMA</h6>
+
+                        <p class="ml-1 m-0">1 Team</p>
+                        <p class="ml-1 mb-2">2 Developers</p>
+
+                        <div class="work-progress mx-2 mb-1">
+                            <h6 class="text-center mb-1"><i class="fas fa-chart-line mr-1"></i>Done</h6>
+                            <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar" style="width:100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="time-progress mx-2 my-1">
+                            <h6 class="text-center mb-1"><i class="far fa-clock mr-1"></i>Deadline Elapsed</h6>
+                            <div class="progress"></div>
+                        </div>
+                    </section>
+                    <section class="task card border-hover p-2 m-2 mt-3">
+                        <div class="mx-auto mb-1">
+                            <i class="far fa-edit hover-icon mr-2"></i>
+                            <i class="fas fa-link fa-fw hover-icon mx-2"></i>
+                            <i class="far fa-trash-alt fa-fw hover-icon ml-2"></i>
+                        </div>
+                        <h6 class="text-center mb-auto">Integration of components</h6>
+
+                        <p class="ml-1 m-0">3 Teams</p>
+                        <p class="ml-1 mb-2">25 Developers</p>
+
+                        <div class="work-progress mx-2 mb-1">
+                            <h6 class="text-center mb-1"><i class="fas fa-chart-line mr-1"></i>Done</h6>
+                            <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar" style="width:100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="time-progress mx-2 my-1">
+                            <h6 class="text-center mb-1"><i class="far fa-clock mr-1"></i>Deadline Elapsed</h6>
+                            <div class="progress"></div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <div class="main-tab task-group border-hover flex-shrink-0 card open border-left-0 border-right-0 rounded-0 py-2 mr-5">
+                <div class="mx-auto mb-1">
+                    <i class="far fa-edit fa-fw hover-icon mr-2"></i>
+                    <i class="far fa-trash-alt fa-fw hover-icon ml-2"></i>
+                </div>
+                <div class="d-flex flex-shrink-0 justify-content-between align-items-center my-1 mx-auto">
+                    <h3>Frontend</h3>
+                </div>
+                <div class="px-3 overflow-auto pr-2 pl-2 mt-1 mb-2">
+                    <section class="task card border-hover p-2 m-2 mt-3">
+                        <div class="mx-auto mb-1">
+                            <i class="far fa-edit hover-icon mr-2"></i>
+                            <i class="fas fa-link fa-fw hover-icon mx-2"></i>
+                            <i class="far fa-trash-alt fa-fw hover-icon ml-2"></i>
+                        </div>
+
+                        <h6 class="text-center mb-auto">Add Responsive Design</h6>
+
+                        <p class="ml-1 m-0">1 Teams</p>
+                        <p class="ml-1 mb-2">9 Developers</p>
+
+                        <div class="work-progress mx-2 mb-1">
+                            <h6 class="text-center mb-1"><i class="fas fa-chart-line mr-1"></i>66% done</h6>
+                            <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar" style="width:63%" aria-valuenow="63" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="time-progress mx-2 my-1">
+                            <h6 class="text-center mb-1"><i class="far fa-clock mr-1"></i>2 days left</h6>
+                            <div class="progress">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width:46%" aria-valuenow="46" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="task card border-hover p-2 m-2 mt-3">
+                        <div class="mx-auto mb-1">
+                            <i class="far fa-edit hover-icon mr-2"></i>
+                            <i class="fas fa-link fa-fw hover-icon mx-2"></i>
+                            <i class="far fa-trash-alt fa-fw hover-icon ml-2"></i>
+                        </div>
+
+                        <h6 class="text-center mb-auto">Improve Interactivity with navbars</h6>
+
+                        <p class="ml-1 m-0">1 Team</p>
+                        <p class="ml-1 mb-2">4 Developers</p>
+                        
+                        <div class="work-progress mx-2 mb-1">
+                            <h6 class="text-center mb-1"><i class="fas fa-chart-line mr-1"></i>47% done</h6>
+                            <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar" style="width:47%" aria-valuenow="47" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="time-progress mx-2 my-1">
+                            <h6 class="text-center mb-1"><i class="far fa-clock mr-1"></i>2 days left</h6>
+                            <div class="progress">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width:56%" aria-valuenow="56" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <div class="main-tab flex-shrink-0 card open border-left-0 border-right-0 rounded-0 py-2 mr-3 mb-auto">
+                <div id="add-group" class="my-1 mx-5">
+                    <h4 class="m-0">Add Group <i class="fas fa-plus-circle"></i></h4>
+                </div>
+            </div>
+            <div class="pr-3"></div>
+        </div>
+
+        <footer class="fixed-bottom p-1">
+                COPYRIGHT © EPMA 2019
+        </footer>
+    </body>
+</html>

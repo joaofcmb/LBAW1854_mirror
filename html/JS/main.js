@@ -6,6 +6,11 @@ $('.main-tab > .collapse').on('hide.bs.collapse', function() {
     $(this).parent().css('background-color', '#f8f9fa')
 })
 
+$('.border-hover').hover(
+    function() {$(this).find('>:first-child .hover-icon').css('display', 'inline-block')},
+    function() {$(this).find('>:first-child .hover-icon').css('display', 'none')}
+)
+
 let milestoneCount = $('.milestone').length
 let milestoneDoneCount = $('.milestone > .fa-dot-circle').length
 
