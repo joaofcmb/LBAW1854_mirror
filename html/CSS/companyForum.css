@@ -101,6 +101,11 @@ section.sticky {
     }
 
     #side-forum h3 {
-         color: var(--brand-color);
+         color: var(--dark-grey-color);
     }
+}
+
+#myComment .col i:hover {
+    cursor: pointer;
+    transform: scale(1.2);
 }
