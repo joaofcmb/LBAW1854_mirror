@@ -46,43 +46,15 @@ body * {
     object-fit: cover;
 }
 
-#search-content .card .card-body #back-button{
-    background-image: url('../IMG/back.png');
-    background-size: 40px;
-    background-repeat: no-repeat;
-    background-position: center left;
+#search-content .card .card-body #back-button {
     margin-left: 15px;
 }
-
-#search-content .card .card-body #back-button a:hover {
-    color:var(--brand-color);
-    margin-left: 20px;
-    -webkit-transition-duration: 0.4s; /* Safari */
-    transition-duration: 0.4s;
-}
-
-#search-content .card .card-body #back-button:hover {
- background-image: url('../IMG/backHover.png');
- -webkit-transition-duration: 0.4s; /* Safari */
-  transition-duration: 0.4s;
-  cursor:pointer;
-}
-
 
 #action-button a {
     background-color: lightgray;
     border: solid rgb(134, 134, 134) 2px;
 }
 
-
-#search-content .card .card-body #back-button a {
-    color: transparent;
-}
-
-#search-content .card .card-body #action-button a {
-    color: white;
-}
-
-#search-content .card .card-body #action-button a:hover {
-    background-color: var(--brand-color);
+#search-content .card .card-body #action-button {
+    margin-right: 15px;
 }
