@@ -69,6 +69,26 @@ body * {
     text-underline-position: under;
 }
 
+#create .col-sm- {
+    border: solid var(--dark-grey-color) 2px;
+    border-radius: 0.35em; 
+    background-color: var(--brand-color);
+}
+
+#create a, #create .fa-plus-circle {
+    font-size: 1.3em;    
+    color: white;
+    text-decoration: none;
+}
+
+#create .col-sm-:hover {
+    background-color: white;
+}
+
+#create a:hover, #create a:hover .fa-plus-circle {
+    color: var(--brand-color);
+}
+
 div.main-tab {
     background-color: var(--bg-light);
 }
@@ -179,12 +199,16 @@ section.sticky {
     opacity: .9;
 }
 
+i.hover-icon {
+    display: none;
+}
+
 .fa-angle-down, .fa-angle-up, .fa-plus-circle {
     font-size: 2rem;
     color: var(--dark-grey-color);
 }
 
-.fa-angle-down:hover, .fa-angle-up:hover, .fa-plus-circle:hover {
+.fa-angle-down:hover, .fa-angle-up:hover, .fa-plus-circle:hover, .fa-edit:hover, .fa-link:hover, .fa-trash-alt:hover {
     color: var(--brand-color);
 }
 
