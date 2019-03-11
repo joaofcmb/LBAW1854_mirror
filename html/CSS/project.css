@@ -105,6 +105,10 @@ div.open {
     font-size: 1.5em;
 }
 
+.task-group {
+    height: calc(100vh - 190px);
+}
+
 .collapse-element {
     width: 8em;
 }
@@ -210,13 +214,14 @@ i.hover-icon {
 
 .fa-angle-down:hover, .fa-angle-up:hover, .fa-plus-circle:hover, .fa-edit:hover, .fa-link:hover, .fa-trash-alt:hover {
     color: var(--brand-color);
+    cursor: pointer;
 }
 
 @media (min-width: 992px) {
     #side-forum {
         position: fixed;
         right: 0em;
-        height: calc(100vh - 155px);
+        height: calc(100vh - 190px);
         border-left: 3px solid var(--light-grey-color);
     }
 }
