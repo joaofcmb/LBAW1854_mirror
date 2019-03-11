@@ -1,0 +1,64 @@
+:root {
+    --bg-light: #f8f9fa;
+    --dark-grey-color: rgb(88, 88, 88);
+    --light-grey-color: rgb(176, 176, 176);
+    --brand-color: rgb(13, 189, 196);
+    --light-brand-color: rgb(94, 233, 238);
+}
+
+html, body {
+    height: 100%;
+    overflow-x: hidden;
+}
+
+body * {
+    font-family: 'Roboto', sans-serif;
+}
+
+.navbar, footer {
+    background-color: var(--dark-grey-color);
+    color: whitesmoke;
+}
+
+
+.nav-item {
+    border-radius: 0.25em;
+    color: whitesmoke;
+}
+
+.nav-item:hover {
+    color: var(--dark-grey-color);
+    background-color: whitesmoke;
+    font-weight: bold;
+}
+
+#authentication a {
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+#authentication:hover {
+    color: whitesmoke;
+    background-color: var(--dark-grey-color);
+}
+
+.profile-img {
+    object-fit: cover;
+}
+
+#search-content .card .card-body #back-button{
+    margin-left: 20px;
+}
+
+.card-body #myComment:hover {
+    background-color: rgb(250,250,250);
+}
+
+.form input[type=text]:focus {
+    width: 200%;
+}
+
+.card-body #myComment #commenterInfo i:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+}
