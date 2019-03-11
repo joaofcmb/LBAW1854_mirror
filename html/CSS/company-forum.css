@@ -48,6 +48,10 @@ body * {
     color: black;
 }
 
+#forum-header > div:first-child {
+    border-bottom: solid var(--brand-color) 4px;
+}
+
 .profile-img {
     object-fit: cover;
 }
@@ -70,7 +74,7 @@ body * {
     height: 17em;
 }
 
-section.sticky {
+div.sticky {
     background-color: var(--light-brand-color);
     border-color: var(--light-grey-color);
 }
