@@ -1,0 +1,111 @@
+:root {
+    --bg-light: #f8f9fa;
+    --dark-grey-color: rgb(88, 88, 88);
+    --light-grey-color: rgb(176, 176, 176);
+    --brand-color: rgb(13, 189, 196);
+    --light-brand-color: rgb(94, 233, 238);
+}
+
+html, body {
+    height: 100%;
+    overflow-x: hidden;
+}
+
+body * {
+    font-family: 'Roboto', sans-serif;
+}
+
+.navbar {
+    background-color: var(--dark-grey-color);
+    color: whitesmoke;
+}
+
+.nav-item {
+    border-radius: 0.25em;
+    color: whitesmoke;
+}
+
+.nav-item:hover, .nav-item.active {
+    color: var(--dark-grey-color);
+    background-color: whitesmoke;
+    font-weight: bold;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+#authentication a {
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+#authentication:hover {
+    color: whitesmoke;
+    background-color: var(--dark-grey-color);
+}
+
+#side-forum a {
+    text-decoration: none;
+    color: black;
+}
+
+.profile-img {
+    object-fit: cover;
+}
+
+
+.collapse-element {
+    width: 8em;
+}
+
+.collapse-element > a.collapsed > .fa-angle-up {
+    display: none;
+}
+
+.collapse-element > a[aria-expanded=true] > .fa-angle-down {
+    display: none;
+}
+
+.task {
+    width: 14em;
+    height: 17em;
+}
+
+section.sticky {
+    background-color: var(--light-brand-color);
+    border-color: var(--light-grey-color);
+}
+
+.notification {
+    width: 3em;
+}
+
+.border-hover:hover {
+    border-color: var(--dark-grey-color);
+    opacity: .9;
+}
+
+.fa-angle-down, .fa-angle-up, .fa-plus-circle {
+    font-size: 2rem;
+    color: var(--dark-grey-color);
+}
+
+.fa-angle-down:hover, .fa-angle-up:hover, .fa-plus-circle:hover {
+    color: var(--brand-color);
+     -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+@media (min-width: 992px) {
+    #side-forum {
+        height: calc(100vh - 145px);
+    }
+
+    #side-forum h3 {
+         color: var(--dark-grey-color);
+    }
+}
+
+#comment i:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+}
