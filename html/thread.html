@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link href="IMG/logo.png" rel="shortcut icon">
+        <link rel="stylesheet" href="CSS/thread.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa|Roboto:300,400,500,700">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+        <script defer src="main.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+        <title></title>
+    </head>
+    <body class="bg-light">
+        <nav class="navbar sticky-top navbar-expand-sm navbar-dark py-0 px-3 px-sm-1 px-lg-3">
+            <a class="navbar-brand" href="#">
+                <img src="IMG/logo.png" width="35" class="d-inline-block" alt="Website Logo">
+                <span class="font-weight-bold font-italic">EPMA</span>
+            </a>
+    
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <a class="nav-item nav-link active mx-lg-3" href="home.html">HOME</a>
+                <a class="nav-item nav-link mx-lg-3" href="search.html">SEARCH</a>
+                <a class="nav-item nav-link mx-lg-3" href="companyForum.html">FORUM</a>
+                <a class="nav-item nav-link mx-lg-3" href="#">PROFILE</a>
+
+                
+                <div id="authentication" class="nav-item ml-auto">
+                    <a href="index.html" class="pr-2">
+                        <span class="font-weight-bold font-italic">Sign out</span>
+                    </a>
+                    <a href=""><img class="profile-img d-inline-block rounded-circle my-auto" src="IMG/joao.jpg" width="50" height="50" alt="Website Logo"></a>
+                </div>
+            </div>
+        </nav>
+
+                <div id="search-content" class="container-fluid px-3">
+                 <div class="row">
+                     <div class="col-lg-12 px-sm-3 px-lg-5">
+                         <div class="card my-2">
+
+                         <div class="card-body">
+
+                             <div class="card my-2 p-2" style="background-color: var(--brand-color); border: none;">
+                                <h4 style="color:white;">Title thread </h4>
+                                 <div class="row" id="commenterInfo" >
+                                 <i class="fas fa-user mx-3" style="color: white;"></i><h5 style="color:white;">Commenter </h5></div>
+                                <p style="color:white;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vulputate, sem vitae consectetur sollicitudin, magna justo aliquet ex, nec aliquam neque neque et mi. Proin volutpat sem id vulputate vestibulum. Vestibulum elementum, sem at efficitur vestibulum, nibh orci lobortis magna, in mattis urna nisl eu velit. Pellentesque scelerisque aliquet mauris. Ut libero nulla, egestas sed nisi vel, rhoncus ultrices neque. Duis ullamcorper fermentum elit non rhoncus. Integer a pellentesque massa, at congue risus. Nulla facilisi. Curabitur id consequat quam. Aliquam feugiat enim sit amet mattis luctus. Mauris semper id libero nec laoreet. Nulla nulla ligula, gravida quis est eget, ultricies fermentum lacus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eleifend lectus et risus finibus interdum. Morbi hendrerit ligula ac urna eleifend, ut laoreet ante iaculis.<p>
+
+                             <div id="myComment" class="card p-2 my-1" style="border: none;">
+                              <div class="row" id="commenterInfo" >
+                                <div class="col">
+                                    <div class="row">
+                                <i class="far fa-user mx-3" style="color: var(--brand-color);"></i> <h6 style="color:var(--brand-color);">Commenter I</h6></div></div>
+                                <div class="col text-right">
+                                <i class="fas fa-pen mx-3" style="color: var(--brand-color);"></i> 
+                                <i class="fas fa-trash-alt mx-3" style="color: var(--brand-color);"></i></div>
+                              </div>
+                                <p style="color:var(--brand-color);">Nulla facilisi. Curabitur id consequat quam. Aliquam feugiat enim sit amet mattis luctus. Mauris semper id libero nec laoreet. Nulla nulla ligula, gravida quis est eget, ultricies fermentum lacus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eleifend lectus et risus finibus interdum. Morbi hendrerit ligula ac urna eleifend, ut laoreet ante iaculis.<p>
+                             </div>
+
+                              <div class="card p-2 my-1" style="border: none;">
+                               <div class="row" id="commenterInfo" >
+                                <i class="fas fa-user mx-3" style="color: var(--brand-color);"></i> <h6 style="color:var(--brand-color);">Commenter II</h6>
+                              </div>
+                                <p style="color:var(--brand-color);">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vulputate, sem vitae consectetur sollicitudin, magna justo aliquet ex, nec aliquam neque neque et mi. Proin volutpat sem id vulputate vestibulum. Vestibulum elementum, sem at efficitur vestibulum, nibh orci lobortis magna, in mattis urna nisl eu velit. Pellentesque scelerisque aliquet mauris. Ut libero nulla, egestas sed nisi vel, rhoncus ultrices neque. Duis ullamcorper fermentum elit non rhoncus. Integer a pellentesque massa, at congue risus.<p>
+                             </div>
+                             </div>
+                        <form>
+                            <div class="form-row">
+                                <div class="form-group col-md-10">
+                                    <input type="text" class="form-control" id="threadName" placeholder="Add your comment...">
+                                </div>   
+                            </div>
+                        </form>
+                        <div class="row">
+                         <a id="back-button" href="companyForum.html" class="btn btn-outline-info btn-md mt-3 mb-5 p-2">
+                           <i class="fas fa-chevron-left"></i> Back
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <footer class="fixed-bottom navbar navbar-dark p-1">
+            COPYRIGHT © EPMA 2019
+        </footer>
+    </body>
+</html>
