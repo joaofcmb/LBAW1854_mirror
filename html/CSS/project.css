@@ -262,6 +262,11 @@ i.hover-icon {
     color: var(--brand-color);
 }
 
+.team-name {
+    font-weight: bold;
+    color: var(--brand-color);
+}
+
 #comment-header h6 a:hover, .team.card a:hover, .team.card h6{
     color: var(--brand-color);
     text-decoration: none;
