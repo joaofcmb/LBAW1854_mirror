@@ -8,13 +8,14 @@
 
 html, body {
     height: 100%;
+    overflow-x: hidden;
 }
 
 body * {
     font-family: 'Roboto', sans-serif;
 }
 
-.navbar, footer {
+.navbar {
     background-color: var(--dark-grey-color);
     color: whitesmoke;
 }
@@ -28,66 +29,45 @@ body * {
     color: var(--dark-grey-color);
     background-color: whitesmoke;
     font-weight: bold;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
 }
 
 #authentication a {
     color: whitesmoke;
+    text-decoration: none;
 }
 
-#authentication a:hover {
-    color: var(--light-brand-color);
+#authentication:hover {
+    color: whitesmoke;
+    background-color: var(--dark-grey-color);
+}
+
+#side-forum a {
     text-decoration: none;
+    color: black;
 }
 
 .profile-img {
     object-fit: cover;
 }
 
-div.main-tab {
-    background-color: var(--bg-light);
-}
-
-div.main-tab {
-    border: 2px solid var(--brand-color);
-}
-
-div.open {
-    background-color: #f1f2f3; 
-}
-
-.main-tab > div > h3 {
-    font-size: 1.5em;
-}
 
 .collapse-element {
     width: 8em;
 }
 
-.collapse-element > a.collapsed > .fa-angle-up, .collapse-element > a[aria-expanded=true] > .fa-angle-down {
+.collapse-element > a.collapsed > .fa-angle-up {
     display: none;
 }
 
-a.card {
-    color: inherit;
-    text-decoration: none;
-}
-
-a.card:hover {
-    color: inherit;
-    text-decoration: none;
-}
-
-a.project {
-    border-top: 4px solid;
+.collapse-element > a[aria-expanded=true] > .fa-angle-down {
+    display: none;
 }
 
 .task {
     width: 14em;
     height: 17em;
-}
-
-.task > .card-title {
-    border-bottom: 2px solid;
 }
 
 section.sticky {
@@ -100,7 +80,7 @@ section.sticky {
 }
 
 .border-hover:hover {
-    border-color: var(--dark-grey-color) !important;
+    border-color: var(--dark-grey-color);
     opacity: .9;
 }
 
@@ -111,24 +91,21 @@ section.sticky {
 
 .fa-angle-down:hover, .fa-angle-up:hover, .fa-plus-circle:hover {
     color: var(--brand-color);
-}
-
-#companyForum {
-    color: var(--dark-grey-color);
-    text-decoration: none;
-}
-
-#companyForum:hover {
-    color: black;
-    -webkit-transition-duration: 0.4s; /* Safari */
-   transition-duration: 0.4s;
+     -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
 }
 
 @media (min-width: 992px) {
     #side-forum {
-        position: fixed;
-        right: 0em;
         height: calc(100vh - 145px);
-        border-left: 1px solid var(--light-grey-color);
     }
+
+    #side-forum h3 {
+         color: var(--dark-grey-color);
+    }
+}
+
+#comment i:hover {
+    cursor: pointer;
+    transform: scale(1.2);
 }

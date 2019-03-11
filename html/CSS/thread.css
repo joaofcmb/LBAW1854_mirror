@@ -1,0 +1,59 @@
+:root {
+    --bg-light: #f8f9fa;
+    --dark-grey-color: rgb(88, 88, 88);
+    --light-grey-color: rgb(176, 176, 176);
+    --brand-color: rgb(13, 189, 196);
+    --light-brand-color: rgb(94, 233, 238);
+}
+
+html, body {
+    height: 100%;
+    overflow-x: hidden;
+}
+
+body * {
+    font-family: 'Roboto', sans-serif;
+}
+
+.navbar, footer {
+    background-color: var(--dark-grey-color);
+    color: whitesmoke;
+}
+
+
+.nav-item {
+    border-radius: 0.25em;
+    color: whitesmoke;
+}
+
+.nav-item:hover {
+    color: var(--dark-grey-color);
+    background-color: whitesmoke;
+    font-weight: bold;
+}
+
+#authentication a {
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+#authentication:hover {
+    color: whitesmoke;
+    background-color: var(--dark-grey-color);
+}
+
+#menu-option .col-sm-4 a {
+    color: var(--dark-grey-color); 
+    text-decoration: none;
+    font-size: 1.35em;
+}
+
+#menu-option .col-sm-4 a:hover {
+    color: var(--brand-color);
+}
+
+.profile-img {
+    object-fit: cover;
+}
+
+

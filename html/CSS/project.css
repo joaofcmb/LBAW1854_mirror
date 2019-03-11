@@ -69,6 +69,16 @@ body * {
     text-underline-position: under;
 }
 
+#menu-option .col-sm-4 a {
+    color: var(--dark-grey-color); 
+    text-decoration: none;
+    font-size: 1.35em;
+}
+
+#menu-option .col-sm-4 a:hover {
+    color: var(--brand-color);
+}
+
 #create .col-sm- {
     border: solid var(--dark-grey-color) 2px;
     border-radius: 0.35em; 
@@ -126,7 +136,7 @@ div.open {
     display: none;
 }
 
-a.card, .roadmap a, .card a, #discusion a, .team.card a{
+a.card, .roadmap a, .card a, #discusion #comment-header a, .team.card a{
     color: inherit;
     text-decoration: none;
 }
@@ -238,7 +248,22 @@ i.hover-icon {
 .team {
     width: 14em;
 }
+.team.card {
+    border: 2px solid darkgrey;
+    background-color: white;
+}
 
-#discusion a:hover, .team.card a:hover{
+.team.card a.float-right i {
+    font-size: 1.3em;
+}
+
+#team-name {
+    font-weight: bold;
     color: var(--brand-color);
 }
+
+#comment-header h6 a:hover, .team.card a:hover, .team.card h6{
+    color: var(--brand-color);
+    text-decoration: none;
+}
+
