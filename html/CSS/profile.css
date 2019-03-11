@@ -147,7 +147,7 @@ body * {
     border-radius: 0.35em;
 }
 
-#variable-container h5 , #biography h5 {
+#title h5, #biography h5 {
     font-weight: bold;
     color: var(--brand-color);
 }
