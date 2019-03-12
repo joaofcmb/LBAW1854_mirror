@@ -207,8 +207,3 @@ body * {
     border-radius: 0.5em;
 }
 
-footer {
-    color: var(--brand-color);
-    background-color: var(--dark-grey-color);
-}
-

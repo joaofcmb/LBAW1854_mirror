@@ -1,3 +1,11 @@
+:root {
+    --bg-light: #f8f9fa;
+    --dark-grey-color: rgb(88, 88, 88);
+    --light-grey-color: rgb(176, 176, 176);
+    --brand-color: rgb(13, 189, 196);
+    --light-brand-color: rgb(94, 233, 238);
+}
+
 html, body {
     min-height: 100%;
 }
@@ -14,8 +22,7 @@ a {
 
 .navbar-brand {
     margin-right: 2em;
-    
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 1.25em;
     font-weight: bold;
     font-style: italic;
@@ -26,7 +33,7 @@ a {
 }
 
 .nav-item:hover {
-    color: rgb(13, 189, 196);
+    color: var(--brand-color);
     font-weight: bold;
 }
 
@@ -39,7 +46,6 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    
 }
 
 #auth-zone , #auth-zone > .row {
@@ -65,7 +71,7 @@ p {
  
 .blue-text > p {
     font-weight: bold;  
-    color: rgb(13, 189, 196);
+    color: var(--brand-color);
 }
 
 p > span {
@@ -73,7 +79,7 @@ p > span {
 }
 
 .form-control {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Roboto', sans-serif;
     text-align: center;
     border: solid rgb(49, 49, 49) 2px;
     background-color: rgba(216, 215, 215, 0.678);
@@ -86,20 +92,12 @@ p > span {
 }
 
 .btn {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Roboto', sans-serif;
     border-radius: 0.5em;
     border: solid rgb(49, 49, 49) 2px;
-    background-color: rgb(216, 215, 215);
+    background-color: var(--bg-light);
 }
 
 .btn:hover {
-    background-color: rgb(13, 189, 196);
-}
-
-footer {
-    width: 100%;
-    background-color: rgb(95, 95, 95);
-    color: whitesmoke;
-    opacity: 0.7;
-    font-style: italic;
+    background-color: var(--brand-color);
 }
