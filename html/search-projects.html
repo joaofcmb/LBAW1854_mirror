@@ -3,52 +3,70 @@
 
 <head>
 	<title>EPMA</title>
-	
+
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+	<link rel="stylesheet" href="./CSS/search.css">
+	<link rel="stylesheet" href="./CSS/nav-bar.css">
+	<link rel="stylesheet" href="./CSS/footer.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
 		integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
 		integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/css?family=Comfortaa|Montserrat|Open+Sans" rel="stylesheet">
-	<link rel="stylesheet" href="./CSS/search.css">
+
+	<script defer src="./JS/main.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+		integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+		integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+		crossorigin="anonymous"></script>
 </head>
 
 <body>
-		<nav class="navbar sticky-top navbar-expand-sm navbar-dark py-0 px-3 px-sm-1 px-lg-3">
-				<a class="navbar-brand" href="#">
-						<img src="./IMG/logo.png" width="35" class="d-inline-block" alt="Website Logo">
-						<span class="font-weight-bold font-italic">EPMA</span>
-				</a>
+	<nav class="navbar sticky-top navbar-expand-sm navbar-dark py-0 px-3 px-sm-1 px-lg-3">
+        <a class="navbar-brand" href="">
+            <img src="./IMG/logo.png" width="35" class="d-inline-block" alt="Website Logo">
+            <span class="font-weight-bold font-italic">EPMA</span>
+        </a>
 
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-						aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-				</button>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-				<div class="collapse navbar-collapse pb-2" id="navbarSupportedContent">
-						<a class="nav-item nav-link mx-lg-3" href="home.html">HOME</a>
-						<a class="nav-item nav-link active mx-lg-3" href="search.html">SEARCH</a>
-						<a class="nav-item nav-link mx-lg-3" href="#">FORUM</a>
-						<a class="nav-item nav-link mx-lg-3" href="#">PROFILE</a>
+        <div class="collapse navbar-collapse py-2" id="navbarSupportedContent">
+            <a class="nav-item nav-link mx-lg-3" href="home.html">HOME</a>
+            <a class="nav-item nav-link active mx-lg-3" href="search.html">SEARCH</a>
+            <a class="nav-item nav-link mx-lg-3" href="company-forum.html">FORUM</a>
+            <a class="nav-item nav-link mx-lg-3" href="profile.html">PROFILE</a>
 
-						
-						<div id="authentication" class="ml-auto">
-								<a href="index.html" class="pr-2">
-										<span class="font-weight-bold pl-3">Sign out</span>
-								</a>
-								<a href=""><img class="profile-img d-none d-md-inline-block rounded-circle my-auto" src="./IMG/joao.jpg" width="50" height="50" alt="Profile Image"></a>
-						</div>
-				</div>
-		</nav>
+
+            <div id="authentication" class="ml-auto">
+                <a href="admin-users.html">
+                    <img id="admin" class="profile-img d-none d-md-inline-block rounded-circle my-auto" src="IMG/admin.png" width="50"
+                        height="50" alt="Website Logo">
+                </a>
+                <a href="index.html">
+                    <span class="font-weight-bold pl-3">Sign out</span>
+                </a>
+                <a href="" class="pl-lg-3"><img class="profile-img d-none d-md-inline-block rounded-circle my-auto" src="./IMG/joao.jpg"
+                        width="50" height="50" alt="Profile Image"></a>
+            </div>
+        </div>
+    </nav>
 
 	<div id="content" class="container">
 		<div class="row" id="search-bar">
 			<div id="search" class=" col-12 col-md-9 pt-3 pb-2 py-md-4">
 				<div class="input-group ">
-					<input type="text" class="form-control" placeholder="Users or Projects ..." aria-label="Users or Projects ..."
-						aria-describedby="basic-addon2">
+					<input type="text" class="form-control" placeholder="Users or Projects ..."
+						aria-label="Users or Projects ..." aria-describedby="basic-addon2">
 					<div class="input-group-append">
 						<button class="btn btn-outline-secondary" type="button" id="search-button">
 							<a href="./search.html"> <i class="fa fa-search" aria-hidden="true"></i> Search</a>
@@ -71,8 +89,8 @@
 		</div>
 		<div id="search-content" class="container">
 			<div class="mb-5">
-				<div id="project" class="card border-hover py-2 px-3 mt-4 mx-3 mx-md-5" 
-				style="border-top-width: 0.25em; border-top-color: cornflowerblue;">
+				<div id="project" class="card border-hover py-2 px-3 mt-4 mx-3 mx-md-5"
+					style="border-top-width: 0.25em; border-top-color: cornflowerblue;">
 					<div class="d-flex justify-content-between">
 						<a href="./project.html">
 							<h5 class="card-title mb-3 ">Company Website</h5>
@@ -131,21 +149,9 @@
 		</div>
 	</div>
 
-		<footer class="fixed-bottom p-2">
-			<span id="copyright">COPYRIGHT © EPMA 2019<span>
-		</footer>
-
-		<!-- Optional JavaScript -->
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-			integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-			crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-			integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-			crossorigin="anonymous"></script>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-			integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-			crossorigin="anonymous"></script>
-
+	<footer class="fixed-bottom p-1 pl-2">
+        COPYRIGHT © EPMA 2019
+    </footer>
 </body>
 
 </html>

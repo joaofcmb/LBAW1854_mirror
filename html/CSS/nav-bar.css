@@ -7,7 +7,7 @@
     --light-brand-color: rgb(94, 233, 238);
 }
 
-.navbar, footer {
+.navbar {
     background-color: var(--dark-grey-color);
     color: whitesmoke;
 }
