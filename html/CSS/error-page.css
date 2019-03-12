@@ -11,7 +11,7 @@ html, body {
     background-color: var(--bg-light);
 }
 
-.navbar, footer {
+.navbar {
     background-color: var(--dark-grey-color);
     color: whitesmoke;
 }
