@@ -19,44 +19,6 @@ body * {
     font-family: 'Roboto', sans-serif;
 }
 
-#main-menu {
-    background-color: var(--dark-grey-color);
-    color: whitesmoke;
-}
-
-#main-menu .nav-item {
-    border-radius: 0.25em;
-    color: whitesmoke;
-}
-
-#main-menu .nav-item:hover {
-    color: var(--dark-grey-color);
-    background-color: whitesmoke;
-    font-weight: bold;
-}
-
-#authentication a {
-    color: whitesmoke;
-    text-decoration: none;
-}
-
-#authentication a:hover {
-    color: var(--brand-color);
-}
-
-#admin {
-    padding: 0.25em;    
-    background-color: var(--brand-color);
-}
-
-#admin:hover {
-    background-color: var(--light-grey-color);
-}
-
-.profile-img {
-    object-fit: cover;
-}
-
 #menu-option .col-sm-4 a {
     color: var(--dark-grey-color); 
     text-decoration: none;
@@ -116,9 +78,4 @@ body * {
 
 #search-content .card .card-body #action-button a:hover {
     background-color: var(--brand-color);
-}
-
-footer {
-    color: var(--brand-color);
-    background-color: var(--dark-grey-color);
 }

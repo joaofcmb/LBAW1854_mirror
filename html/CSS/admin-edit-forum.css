@@ -15,43 +15,10 @@ body * {
     font-family: 'Roboto', sans-serif;
 }
 
-.navbar {
-    background-color: var(--dark-grey-color);
-    color: whitesmoke;
-}
-
-.nav-item {
-    border-radius: 0.25em;
-    color: whitesmoke;
-}
-
-.nav-item:hover, .nav-item.active {
-    color: var(--dark-grey-color);
-    background-color: whitesmoke;
-    font-weight: bold;
-    -webkit-transition-duration: 0.4s; /* Safari */
-    transition-duration: 0.4s;
-}
-
-#authentication a {
-    color: whitesmoke;
-    text-decoration: none;
-}
-
-#authentication:hover {
-    color: whitesmoke;
-    background-color: var(--dark-grey-color);
-}
-
 #side-forum a {
     text-decoration: none;
     color: black;
 }
-
-.profile-img {
-    object-fit: cover;
-}
-
 
 .collapse-element {
     width: 8em;
