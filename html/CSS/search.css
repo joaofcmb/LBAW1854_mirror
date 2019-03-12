@@ -65,7 +65,7 @@ p#question{
 
 #search-content .card {
     border: 2px solid darkgrey;
-    background-color: lightgrey
+    background-color: transparent;
 }
 
 #search-content .card a {
