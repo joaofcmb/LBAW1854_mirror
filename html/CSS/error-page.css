@@ -8,10 +8,7 @@
 
 html, body {
     height: 100%;
-}
-
-body * {
-    font-family: 'Roboto', sans-serif;
+    background-color: var(--bg-light);
 }
 
 .navbar, footer {
@@ -19,98 +16,12 @@ body * {
     color: whitesmoke;
 }
 
-.nav-item {
-    border-radius: 0.25em;
-    color: whitesmoke;
-}
-
-.nav-item:hover, .nav-item.active {
+#error-text {
+    font-family: 'Comfortaa', sans-serif;
     color: var(--dark-grey-color);
-    background-color: whitesmoke;
-    font-weight: bold;
+    font-size: 3rem;
 }
 
-#authentication a {
-    color: whitesmoke;
-}
-
-#authentication a:hover {
-    color: var(--light-brand-color);
-    text-decoration: none;
-}
-
-.profile-img {
-    object-fit: cover;
-}
-
-#content span {
-    padding: 0em 0.25em;
-    color: var(--brand-color);
-}
-
-/*************************/
-
-#search-button {
-    color: black;
-    background-color: lightgrey;
-}
-
-#filter label {
-    color: black;
-    background-color:lightgrey;
-}
-
-#filter label.active {
-    color: white;
-    background-color: var(--brand-color);
-}
-
-/*****************************/
-
-#looking-img {
-    max-height: 300px;
-}
-
-p#question{
-    font-size: 2em;
-}
-
-/*****************************/
-
-#search-content .card {
-    border: 2px solid #a9a9a9;
-    background-color: lightgrey
-}
-
-#search-content .card a {
-    text-decoration: none;
-    color: black;
-    font-size: 1.1em;
-}
-
-#search-content .card a.float-right {
-    font-size: 1.3em;
-}
-
-#search-content .card {
-    border: 2px solid darkgrey;
-    background-color: lightgrey
-}
-
-#search-content .card a {
-    text-decoration: none;
-    color: black;
-    font-size: 1.1em;
-}
-
-#search-content .card a.float-right {
-    font-size: 1.3em;
-}
-
-#search-content .restore > .card-body > img, #search-content .restore > .card-body > span {
-    opacity: 0.5;
-}
-
-#search-content .card a:hover {
+#error-text span {
     color: var(--brand-color);
 }
