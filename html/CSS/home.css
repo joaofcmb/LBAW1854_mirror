@@ -44,6 +44,15 @@ body * {
     text-decoration: none;
 }
 
+#admin {
+    padding: 0.25em;    
+    background-color: var(--light-grey-color);
+}
+
+#admin:hover {
+    background-color: var(--brand-color);
+}
+
 .profile-img {
     object-fit: cover;
 }
