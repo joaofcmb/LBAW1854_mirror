@@ -72,6 +72,15 @@ body * {
     background-color: var(--brand-color);
 }
 
+#create .col-sm-:hover {
+    cursor: pointer;
+    background-color: transparent;
+}
+
+#create .col-sm-:hover a {
+    color: var(--brand-color);
+}
+
 #create .col-sm- a {
     font-size: 1.3em;    
     color: white;
