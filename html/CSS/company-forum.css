@@ -1,82 +1,23 @@
 :root {
     --bg-light: #f8f9fa;
+    --bg-light-div: #f1f2f3;
     --dark-grey-color: rgb(88, 88, 88);
     --light-grey-color: rgb(176, 176, 176);
     --brand-color: rgb(13, 189, 196);
-    --dark-brand-color: rgb(3, 141, 146);
     --light-brand-color: rgb(94, 233, 238);
 }
 
-html, body {
+html {
     height: 100%;
+    background-color: var(--bg-light);
+}
+
+body {
+    min-height: 100%;
 }
 
 body * {
     font-family: 'Roboto', sans-serif;
-}
-
-#main-menu, footer {
-    background-color: var(--dark-grey-color);
-    color: whitesmoke;
-}
-
-#main-menu .nav-item {
-    border-radius: 0.25em;
-    color: whitesmoke;
-}
-
-#main-menu .nav-item:hover {
-    color: var(--dark-grey-color);
-    background-color: whitesmoke;
-    font-weight: bold;
-}
-
-#authentication a {
-    color: whitesmoke;
-}
-
-#authentication a:hover {
-    color: var(--light-brand-color);
-    text-decoration: none;
-}
-
-.profile-img {
-    object-fit: cover;
-}
-
-#sub-menu {
-    background-color: var(--light-grey-color);
-    color: whitesmoke;
-}
-
-#sub-menu .navbar-brand {
-    background-color: #f8f9fa;
-    border-bottom-right-radius: 1em;
-}
-
-#sub-menu .nav-item {    
-    color: black;
-}
-
-#sub-menu .nav-item:hover {
-    font-weight: bolder;
-}
-
-#sub-menu .active {
-    font-weight: bold;
-    text-decoration: underline;
-    text-decoration-style: solid;
-    text-underline-position: under;
-}
-
-#menu-option .col-sm-4 a {
-    color: var(--dark-grey-color); 
-    text-decoration: none;
-    font-size: 1.35em;
-}
-
-#menu-option .col-sm-4 a:hover {
-    color: var(--brand-color);
 }
 
 #side-forum a {
@@ -140,7 +81,7 @@ div.sticky {
     }
 }
 
-#myComment .col i:hover {
+i:hover {
     cursor: pointer;
-    transform: scale(1.2);
+    font-weight: bold;
 }
