@@ -1,8 +1,10 @@
 html {
     scroll-behavior: smooth;
+    height: 100%;
 }
 
 body {
+    min-height: 100%;
     background-color: rgb(230, 230, 230);
 }
 
@@ -50,7 +52,6 @@ a {
     min-height: 100%;
 }
 
-/* *********************************/
 .about-title {
     background-color: rgb(13, 189, 196);
     border: 1px solid grey;
@@ -67,8 +68,6 @@ a {
     border-radius: 10px;
     font-family: 'Montserrat', sans-serif;
 }
-
-/* *********************************/
 
 #benefits-devices.container-fluid {
     min-height: fit-content;
@@ -93,8 +92,6 @@ span {
     color: rgb(13, 189, 196);
 }
 
-/* *********************************/
-
 #founders {
     height: 90%;
 }
@@ -116,4 +113,9 @@ span {
 
 .thumbnail p:hover {
     color: rgb(13, 189, 196);
+}
+
+footer {
+    background-color: var(--dark-grey-color);
+    color: whitesmoke;
 }
