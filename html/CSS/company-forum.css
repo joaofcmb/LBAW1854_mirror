@@ -3,44 +3,80 @@
     --dark-grey-color: rgb(88, 88, 88);
     --light-grey-color: rgb(176, 176, 176);
     --brand-color: rgb(13, 189, 196);
+    --dark-brand-color: rgb(3, 141, 146);
     --light-brand-color: rgb(94, 233, 238);
 }
 
 html, body {
     height: 100%;
-    overflow-x: hidden;
 }
 
 body * {
     font-family: 'Roboto', sans-serif;
 }
 
-.navbar {
+#main-menu, footer {
     background-color: var(--dark-grey-color);
     color: whitesmoke;
 }
 
-.nav-item {
+#main-menu .nav-item {
     border-radius: 0.25em;
     color: whitesmoke;
 }
 
-.nav-item:hover, .nav-item.active {
+#main-menu .nav-item:hover {
     color: var(--dark-grey-color);
     background-color: whitesmoke;
     font-weight: bold;
-    -webkit-transition-duration: 0.4s; /* Safari */
-    transition-duration: 0.4s;
 }
 
 #authentication a {
     color: whitesmoke;
+}
+
+#authentication a:hover {
+    color: var(--light-brand-color);
     text-decoration: none;
 }
 
-#authentication:hover {
+.profile-img {
+    object-fit: cover;
+}
+
+#sub-menu {
+    background-color: var(--light-grey-color);
     color: whitesmoke;
-    background-color: var(--dark-grey-color);
+}
+
+#sub-menu .navbar-brand {
+    background-color: #f8f9fa;
+    border-bottom-right-radius: 1em;
+}
+
+#sub-menu .nav-item {    
+    color: black;
+}
+
+#sub-menu .nav-item:hover {
+    font-weight: bolder;
+}
+
+#sub-menu .active {
+    font-weight: bold;
+    text-decoration: underline;
+    text-decoration-style: solid;
+    text-underline-position: under;
+}
+
+#menu-option .col-sm-4 a {
+    color: var(--dark-grey-color); 
+    text-decoration: none;
+    font-size: 1.35em;
+}
+
+#menu-option .col-sm-4 a:hover {
+    color: var(--brand-color);
 }
 
 #side-forum a {
@@ -51,11 +87,6 @@ body * {
 #forum-header > div:first-child {
     border-bottom: solid var(--brand-color) 4px;
 }
-
-.profile-img {
-    object-fit: cover;
-}
-
 
 .collapse-element {
     width: 8em;
