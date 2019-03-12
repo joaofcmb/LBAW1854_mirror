@@ -12,46 +12,13 @@ html {
 }
 
 body {
-    min-height: 100%;
-}
-
-html, body {
     height: 100%;
-}   
+    min-height: 100%;
+} 
 
 body * {
     font-family: 'Roboto', sans-serif;
     
-}
-
-#main-menu, footer {
-    background-color: var(--dark-grey-color);
-    color: whitesmoke;
-}
-
-#main-menu .nav-item {
-    border-radius: 0.25em;
-    color: whitesmoke;
-}
-
-#main-menu .nav-item:hover {
-    color: var(--dark-grey-color);
-    background-color: whitesmoke;
-    font-weight: bold;
-}
-
-#authentication a {
-    color: whitesmoke;
-}
-
-#authentication a:hover {
-    color: var(--light-brand-color);
-    text-decoration: none;
-}
-
-.profile-img {    
-    object-fit: cover;
-    transition: 1s;
 }
 
 .profile-img-team {    
@@ -60,7 +27,7 @@ body * {
 
 #change-picture {    
     position: absolute;
-    transform: translate(0%, 130%);    
+    transform: translate(0%, 100%);    
     opacity: 0;
     transition: 1s;
 }
@@ -108,22 +75,6 @@ body * {
     border-bottom-right-radius: 1em;
 }
 
-#sub-menu .nav-item {    
-    color: black;
-}
-
-#sub-menu .nav-item:hover {
-    font-weight: bolder;
-}
-
-#sub-menu .active {
-    font-weight: bold;
-    text-decoration: underline;
-    text-decoration-style: solid;
-    text-underline-position: under;
-}
-
-/***********************************/
 #main-container {
     min-height: 84%;
     background-image: url(../IMG/profile-background.jpg);
