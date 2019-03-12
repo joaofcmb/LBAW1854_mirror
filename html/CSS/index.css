@@ -114,8 +114,3 @@ span {
 .thumbnail p:hover {
     color: rgb(13, 189, 196);
 }
-
-footer {
-    background-color: var(--dark-grey-color);
-    color: whitesmoke;
-}
