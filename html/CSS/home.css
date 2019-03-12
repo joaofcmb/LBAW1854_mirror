@@ -63,6 +63,16 @@ a.project {
     height: 17em;
 }
 
+.task.card h6 a{
+    color: inherit;
+    text-decoration: none;
+}
+
+.task.card h6 a:hover{
+    color: var(--brand-color);
+    text-decoration: none;
+}
+
 .task > .card-title {
     border-bottom: 2px solid;
 }

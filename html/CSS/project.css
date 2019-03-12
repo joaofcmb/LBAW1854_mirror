@@ -218,7 +218,7 @@ i.hover-icon {
     color: var(--brand-color);
 }
 
-#comment-header h6 a:hover, .team.card a:hover, .team.card h6{
+#comment-header h6 a:hover, .team.card a:hover, .team.card h6 , .task.card h6 a:hover{
     color: var(--brand-color);
     text-decoration: none;
 }
