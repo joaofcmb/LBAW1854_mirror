@@ -7,66 +7,17 @@
     --light-brand-color: rgb(94, 233, 238);
 }
 
-html, body {
+html {
     height: 100%;
+    background-color: var(--bg-light);
+}
+
+body {
+    min-height: 100%;
 }
 
 body * {
     font-family: 'Roboto', sans-serif;
-}
-
-#main-menu, footer {
-    background-color: var(--dark-grey-color);
-    color: whitesmoke;
-}
-
-#main-menu .nav-item {
-    border-radius: 0.25em;
-    color: whitesmoke;
-}
-
-#main-menu .nav-item:hover {
-    color: var(--dark-grey-color);
-    background-color: whitesmoke;
-    font-weight: bold;
-}
-
-#authentication a {
-    color: whitesmoke;
-}
-
-#authentication a:hover {
-    color: var(--light-brand-color);
-    text-decoration: none;
-}
-
-.profile-img {
-    object-fit: cover;
-}
-
-#sub-menu {
-    background-color: var(--light-grey-color);
-    color: whitesmoke;
-}
-
-#sub-menu .navbar-brand {
-    background-color: #f8f9fa;
-    border-bottom-right-radius: 1em;
-}
-
-#sub-menu .nav-item {    
-    color: black;
-}
-
-#sub-menu .nav-item:hover {
-    font-weight: bolder;
-}
-
-#sub-menu .active {
-    font-weight: bold;
-    text-decoration: underline;
-    text-decoration-style: solid;
-    text-underline-position: under;
 }
 
 #menu-option .col-sm-4 a {
