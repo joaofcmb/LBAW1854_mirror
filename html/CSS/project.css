@@ -55,6 +55,10 @@ body * {
     cursor: pointer;
 }
 
+.nav-tabs .nav-link[aria-selected="false"] {
+    color: #495057;
+}
+
 div.main-tab {
     background-color: var(--bg-light);
 }
