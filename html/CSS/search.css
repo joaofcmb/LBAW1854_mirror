@@ -57,25 +57,15 @@ p#question{
     text-decoration: none;
     color: black;
     font-size: 1.1em;
-}
+} 
 
-#search-content .card a.float-right {
+#search-content .card a.float-right i {
     font-size: 1.3em;
 }
 
 #search-content .card {
     border: 2px solid darkgrey;
     background-color: transparent;
-}
-
-#search-content .card a {
-    text-decoration: none;
-    color: black;
-    font-size: 1.1em;
-}
-
-#search-content .card a.float-right {
-    font-size: 1.3em;
 }
 
 #search-content .restore > .card-body > img, #search-content .restore > .card-body > span {

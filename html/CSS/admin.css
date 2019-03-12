@@ -109,8 +109,3 @@ body * {
     transition: 1s;
     background-color: rgb(233, 233, 233);
 }
-
-footer {
-    color: var(--brand-color);
-    background-color: var(--dark-grey-color);
-}
