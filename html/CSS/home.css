@@ -1,5 +1,6 @@
 :root {
     --bg-light: #f8f9fa;
+    --bg-light-div: #f1f2f3;
     --dark-grey-color: rgb(88, 88, 88);
     --light-grey-color: rgb(176, 176, 176);
     --brand-color: rgb(13, 189, 196);
@@ -8,7 +9,7 @@
 
 html {
     height: 100%;
-    background-color: rgb(230, 230, 230);
+    background-color: --bg-light: #f8f9fa;
 }
 
 body {
@@ -17,44 +18,6 @@ body {
 
 body * {
     font-family: 'Roboto', sans-serif;
-}
-
-.navbar, footer {
-    background-color: var(--dark-grey-color);
-    color: whitesmoke;
-}
-
-.nav-item {
-    border-radius: 0.25em;
-    color: whitesmoke;
-}
-
-.nav-item:hover, .nav-item.active {
-    color: var(--dark-grey-color);
-    background-color: whitesmoke;
-    font-weight: bold;
-}
-
-#authentication a {
-    color: whitesmoke;
-}
-
-#authentication a:hover {
-    color: var(--light-brand-color);
-    text-decoration: none;
-}
-
-#admin {
-    padding: 0.25em;    
-    background-color: var(--light-grey-color);
-}
-
-#admin:hover {
-    background-color: var(--brand-color);
-}
-
-.profile-img {
-    object-fit: cover;
 }
 
 div.main-tab {
@@ -66,7 +29,7 @@ div.main-tab {
 }
 
 div.open {
-    background-color: #f1f2f3; 
+    background-color: var(--bg-light-div); 
 }
 
 .main-tab > div > h3 {

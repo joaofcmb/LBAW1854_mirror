@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="./CSS/home.css">
+    <link rel="stylesheet" href="./CSS/nav-bar.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
         crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa|Roboto:300,400,500,700">
@@ -39,18 +40,18 @@
             <a class="nav-item nav-link active mx-lg-3" href="">HOME</a>
             <a class="nav-item nav-link mx-lg-3" href="search.html">SEARCH</a>
             <a class="nav-item nav-link mx-lg-3" href="company-forum.html">FORUM</a>
-            <a class="nav-item nav-link mx-lg-3" href="#">PROFILE</a>
+            <a class="nav-item nav-link mx-lg-3" href="profile.html">PROFILE</a>
 
 
             <div id="authentication" class="ml-auto">
-                <a href="admin-users.html" class="pr-lg-1">
+                <a href="admin-users.html">
                     <img id="admin" class="profile-img d-none d-md-inline-block rounded-circle my-auto" src="IMG/admin.png" width="50"
                         height="50" alt="Website Logo">
                 </a>
-                <a href="index.html" class="pr-2">
+                <a href="index.html">
                     <span class="font-weight-bold pl-3">Sign out</span>
                 </a>
-                <a href="" class="pl-lg-2"><img class="profile-img d-none d-md-inline-block rounded-circle my-auto" src="./IMG/joao.jpg"
+                <a href="" class="pl-lg-3"><img class="profile-img d-none d-md-inline-block rounded-circle my-auto" src="./IMG/joao.jpg"
                         width="50" height="50" alt="Profile Image"></a>
             </div>
         </div>
@@ -234,14 +235,16 @@
                     </a>
                     <a href="create-thread.html"><i class="fas fa-plus-circle"></i></a>
                 </div>
-
-                <section class="card border-hover sticky p-2 my-3">
-                    <div class="d-flex justify-content-between align-items-top">
-                        <h5>New Employee Guide</h5>
-                        <div class="notification"><i class="far fa-envelope mx-2"></i>2</div>
-                    </div>
-                    Chefao
-                </section>
+                
+                <a href="thread.html" style="text-decoration: none; color: black;">
+                    <section class="card border-hover sticky p-2 my-3">
+                        <div class="d-flex justify-content-between align-items-top">
+                            <h5>New Employee Guide</h5>
+                            <div class="notification"><i class="far fa-envelope mx-2"></i>2</div>
+                        </div>
+                        Chefao
+                    </section>
+                </a>            
 
                 <section class="card border-hover sticky p-2 my-3">
                     <div class="d-flex justify-content-between align-items-top">
@@ -260,7 +263,8 @@
             </div>
         </div>
     </div>
-    <footer class="fixed-bottom p-1">
+    
+    <footer class="fixed-bottom p-1 pl-2">
         COPYRIGHT © EPMA 2019
     </footer>
 </body>

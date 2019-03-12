@@ -1,0 +1,46 @@
+:root {
+    --bg-light: #f8f9fa;
+    --bg-light-div: #f1f2f3;
+    --dark-grey-color: rgb(88, 88, 88);
+    --light-grey-color: rgb(176, 176, 176);
+    --brand-color: rgb(13, 189, 196);
+    --light-brand-color: rgb(94, 233, 238);
+}
+
+.navbar, footer {
+    background-color: var(--dark-grey-color);
+    color: whitesmoke;
+}
+
+.nav-item {
+    border-radius: 0.25em;
+    color: whitesmoke;
+}
+
+.nav-item:hover, .nav-item.active {
+    color: var(--dark-grey-color);
+    background-color: whitesmoke;
+    font-weight: bold;
+}
+
+#authentication a {
+    color: whitesmoke;
+}
+
+#authentication a:hover {
+    color: var(--brand-color);
+    text-decoration: none;
+}
+
+#admin {
+    padding: 0.25em;    
+    background-color: var(--light-grey-color);
+}
+
+#admin:hover {
+    background-color: var(--brand-color);
+}
+
+.profile-img {
+    object-fit: cover;
+}
