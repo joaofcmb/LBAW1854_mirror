@@ -1,0 +1,109 @@
+:root {
+    --bg-light: #f8f9fa;
+    --dark-grey-color: rgb(88, 88, 88);
+    --light-grey-color: rgb(176, 176, 176);
+    --brand-color: rgb(13, 189, 196);
+    --light-brand-color: rgb(94, 233, 238);
+}
+
+/********************** NAV-BAR ************************/
+
+
+.navbar {
+    background-color: var(--dark-grey-color);
+    color: whitesmoke;
+}
+
+.nav-item {
+    border-radius: 0.25em;
+    color: whitesmoke;
+}
+
+.nav-item:hover, .nav-item.active {
+    color: var(--dark-grey-color);
+    background-color: whitesmoke;
+    font-weight: bold;
+}
+
+#authentication a {
+    color: whitesmoke;
+}
+
+#authentication a:hover {
+    color: var(--brand-color);
+    text-decoration: none;
+}
+
+#admin {
+    padding: 0.25em;    
+    background-color: var(--light-grey-color);
+}
+
+#admin:hover {
+    background-color: var(--brand-color);
+}
+
+.profile-img {
+    object-fit: cover;
+}
+
+#sub-menu {
+    background-color: var(--light-grey-color);
+    color: whitesmoke;
+}
+
+#sub-menu .navbar-brand {
+    background-color: #f8f9fa;
+    border-bottom-right-radius: 1em;
+}
+
+#sub-menu .nav-item {    
+    color: black;
+}
+
+#sub-menu .nav-item:hover {
+    font-weight: bolder;
+    background-color: transparent;
+}
+
+#sub-menu .active {
+    font-weight: bold;
+    text-decoration: underline;
+    text-decoration-style: solid;
+    text-underline-position: under;
+    background-color: transparent;
+}
+
+
+#menu-option .col-sm-4 a {
+    color: var(--dark-grey-color); 
+    text-decoration: none;
+    font-size: 1.35em;
+}
+
+#menu-option .col-sm-4 a:hover {
+    color: var(--brand-color);
+}
+
+/*********************** FOOTER ************************/
+
+
+footer {
+    background-color: var(--dark-grey-color);
+    color: whitesmoke;
+}
+
+/* ---------------------- OTHER ----------------------- */
+
+/* FONT */
+
+body * {
+    font-family: 'Roboto', sans-serif;
+}
+
+
+
+html, body {
+    min-height: 100%;
+    background-color: var(--bg-light);
+}

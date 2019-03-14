@@ -1,20 +1,8 @@
-:root {
-    --bg-light: #f8f9fa;
-    --dark-grey-color: rgb(88, 88, 88);
-    --light-grey-color: rgb(176, 176, 176);
-    --brand-color: rgb(13, 189, 196);
-    --light-brand-color: rgb(94, 233, 238);
-}
-
 html {
     scroll-behavior: smooth;
     height: 100%;
 }
 
-body {
-    min-height: 100%;
-    background-color: var(--bg-light);
-}
 
 .navbar {
     background-color: var(--dark-grey-color);

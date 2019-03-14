@@ -1,34 +1,3 @@
-:root {
-    --bg-light: #f8f9fa;
-    --dark-grey-color: rgb(88, 88, 88);
-    --light-grey-color: rgb(176, 176, 176);
-    --brand-color: rgb(13, 189, 196);
-    --light-brand-color: rgb(94, 233, 238);
-}
-
-html {
-    height: 100%;
-    background-color: rgb(230, 230, 230);
-}
-
-body {
-    min-height: 100%;
-}
-
-body * {
-    font-family: 'Roboto', sans-serif;
-}
-
-#menu-option .col-sm-4 a {
-    color: var(--dark-grey-color); 
-    text-decoration: none;
-    font-size: 1.35em;
-}
-
-#menu-option .col-sm-4 a:hover {
-    color: var(--brand-color);
-}
-
 #search-content .card {
     border: none;
     background-color: transparent;

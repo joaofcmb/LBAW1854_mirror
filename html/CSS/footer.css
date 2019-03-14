@@ -1,8 +1,0 @@
-:root {
-    --dark-grey-color: rgb(88, 88, 88);
-}
-
-footer {
-    background-color: var(--dark-grey-color);
-    color: whitesmoke;
-}
