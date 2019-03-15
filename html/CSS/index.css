@@ -1,21 +1,20 @@
 html {
     scroll-behavior: smooth;
-    height: 100%;
+    min-height: 100%;
 }
 
-
-.navbar {
+#index-navbar.navbar {
     background-color: var(--dark-grey-color);
     opacity: 0.9;
     font-size: 1.5em;
 }
 
-a {
+#index-navbar a {
     font-family: 'Comfortaa', sans-serif;
     color:whitesmoke;
 }
 
-.navbar-brand {
+#index-navbar .navbar-brand {
     margin-right: 2em;
     
     font-family: 'Roboto', sans-serif;
@@ -24,18 +23,19 @@ a {
     font-style: italic;
 }
 
-.navbar-brand:hover{
+#index-navbar .navbar-brand:hover{
     color:whitesmoke;
 }
 
-.nav-item:hover {
+#index-navbar .nav-item:hover {
     color: var(--brand-color);
     font-weight: bold;
+    background-color: unset;
 }
 
-#authentication {
+#index-navbar #authentication {
     font-size: 1.5em;  
-}
+} 
 
 #home {
     background-image: url("../IMG/background.jpg");
@@ -44,7 +44,7 @@ a {
     background-size: cover;
 }
 
-.container-fluid {
+.container-fluid , .container{
     min-height: 100%;
 }
 
@@ -75,21 +75,22 @@ a {
 }
 
 #benefits-text .img-fluid {
-    max-width: 45%;
+    max-width: 100%;
 }
 
 .d-flex {
     font-family: 'Comfortaa', sans-serif;
-    font-size: 2.2vmax;
+    font-size: 120%;
 }
 
-span {
+.d-flex span {
+    font-family: 'Comfortaa', sans-serif;
     padding: 0em 0.25em;
     color: var(--brand-color);
 }
 
-#founders {
-    height: 90%;
+#benefits-devices .d-flex, #founders .d-flex{
+    font-size: 140%;
 }
 
 .thumbnail img {
