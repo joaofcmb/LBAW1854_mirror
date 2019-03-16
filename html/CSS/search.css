@@ -3,9 +3,8 @@
     color: var(--brand-color);
 }
 
-#search-button {
-    color: black;
-    background-color: lightgrey;
+#content.container {
+    height: 88vmin;
 }
 
 #filter label {
@@ -26,11 +25,6 @@ p#question{
     font-size: 2em;
 }
 
-#search-content .card {
-    border: 2px solid #a9a9a9;
-    background-color: lightgrey
-}
-
 #search-content .card a {
     text-decoration: none;
     color: black;
@@ -42,7 +36,7 @@ p#question{
 }
 
 #search-content .card {
-    border: 2px solid darkgrey;
+    border: 1px solid darkgrey;
     background-color: transparent;
 }
 
