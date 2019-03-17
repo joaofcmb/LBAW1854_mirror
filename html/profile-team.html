@@ -9,7 +9,7 @@
 
 	<link rel="shortcut icon" href="./IMG/logo-square.png" type="image/x-icon">
 	<link rel="stylesheet" href="./CSS/profile.css">
-    <link rel="stylesheet" href="./CSS/common.css">
+	<link rel="stylesheet" href="./CSS/common.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
 		integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa|Roboto:300,400,500,700">
@@ -27,7 +27,7 @@
 		crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body class="bg-light">
 	<div class="navbar-dark sticky-top">
 		<nav class="navbar sticky-top navbar-expand-sm navbar-dark py-0 px-3 px-sm-1 px-lg-3">
 			<a class="navbar-brand" href="">
@@ -49,8 +49,8 @@
 
 				<div id="authentication" class="ml-auto">
 					<a href="admin-users.html">
-						<img id="admin" class="profile-img d-inline-block rounded-circle my-auto"
-							src="IMG/admin.png" width="50" height="50" alt="Website Logo">
+						<img id="admin" class="profile-img d-inline-block rounded-circle my-auto" src="IMG/admin.png"
+							width="50" height="50" alt="Website Logo">
 					</a>
 					<a href="index.html">
 						<span class="font-weight-bold pl-3">Sign out</span>
@@ -78,113 +78,91 @@
 		</nav>
 	</div>
 
-	<div id="main-container" class="row mx-0">
-		<div id="fixed-container" class="col-md-4 justify-content-center mt-5 pt-5 text-center ">
-			<div id="profile-picture" class="row justify-content-center mx-auto mb-5">
-				<img class="profile-img rounded-circle" src="./IMG/avatar.png" width="250" height="250" alt="User Photo">
-				<div id="change-picture">
-					<i class="fas fa-camera"></i>
-					<p>Update</p>
-				</div>
-			</div>
-			<div class="row justify-content-center pt-2 pb-3">
-				<div id="name-container" class="col-4 align-self-center">
-					<h5>John Doe</h5>
-				</div>
-			</div>
-			<div class="row justify-content-center py-2 mb-5">
-				<div id="biography" class="col-7 py-3">
-					<h5>Biography</h5>
-					<p>My name is Barbosa, João Barbosa !</p>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-8 align-self-center">
-			<div class="row justify-content-center mb-5 mt-3">
-				<div id="variable-container" class="col-11 col-lg-9 py-3 px-md-4">
-					<div id="title" class="row pl-lg-4">
+	<div id="main-content" class="row mx-auto align-items-center">
+		<div class="col-lg-8 px-0 order-12 order-lg-1">
+			<div id="content" class="container p-lg-5 align-self-center justify-content-center">
+				<div class="main-tab card border-left-0 border-right-0 rounded-0 p-2">
+					<div class="row">
 						<div class="col-6">
-							<h5 class="m-0">Team - <span>Alpha</span> </h5>
+							<h4>Team - <span>Alpha</span> </h4>
 						</div>
 						<div class="col-6 text-right">
 							Skill: Design
 						</div>
 					</div>
-					<div class="row mt-5">
-						<div class="col-12 col-sm-5 col-md-12 col-lg-5">
-							<div id="team-tag" class="card mx-5 text-center">
-								<h6>Leader</h6>
-							</div>
-							<div class="profile card my-3">
-								<div class="card-body text-center">
-									<a href="profile.html">
-										<img src="IMG/profile.png" width="125px" height="125px"
-											class="profile-img-team d-inline-block rounded-circle align-self-center my-3 my-md-1 p-md-0 p-lg-3 p-xl-0 "
-											alt="User photo">
-										<p class="m-0 pt-2">Joseph Doe</p>
-									</a>
-									<a href="" class="float-right">
-										<i class="fas fa-star"></i>
-									</a>
+					<div class="container px-5">
+						<div class="row mt-3 justify-content-center">
+							<div class="col-12 col-sm-8 col-lg-5">
+								<h5 class="text-center">Leader</h5>
+								<div class="profile card my-3">
+									<div class="card-body text-center">
+										<a href="profile.html">
+											<img src="IMG/profile.png" width="125px" height="125px"
+												class="profile-img-team d-inline-block rounded-circle align-self-center my-3 my-md-1 p-md-0 p-lg-3 p-xl-0 "
+												alt="User photo">
+											<p class="m-0 pt-2">Joseph Doe</p>
+										</a>
+										<a href="" class="float-right">
+											<i class="fas fa-star"></i>
+										</a>
+									</div>
 								</div>
-							</div>
-						</div>
-
-						<div class="col-12 col-sm-7 col-md-12 col-lg-7">
-							<div id="team-tag" class="card mx-5 text-center">
-								<h6>Member</h6>
 							</div>
 
-							<div class="profile card my-3">
-								<div class="card-body p-2">
-									<a href="profile.html">
-										<img src="IMG/profile.png" width="50" height="50"
-											class="d-inline-block rounded-circle align-self-center my-auto"
-											alt="User photo">
-										<span class="pl-4">Jane Doe</span>
-									</a>
-									<a href="" class="float-right pt-2 pr-2">
-										<i class="far fa-star"></i>
-									</a>
+							<div class="col-12 col-lg-7">
+								<h5 class="text-center">Member</h5>
+
+								<div class="profile card my-3">
+									<div class="card-body p-2">
+										<a href="profile.html">
+											<img src="IMG/profile.png" width="50" height="50"
+												class="d-inline-block rounded-circle align-self-center my-auto"
+												alt="User photo">
+											<span class="pl-4">Jane Doe</span>
+										</a>
+										<a href="" class="float-right pt-2 pr-2">
+											<i class="far fa-star"></i>
+										</a>
+									</div>
 								</div>
-							</div>
-							<div class="profile card my-3">
-								<div class="card-body p-2">
-									<a href="profile.html">
-										<img src="IMG/profile.png" width="50" height="50"
-											class="d-inline-block rounded-circle align-self-center my-auto"
-											alt="User photo">
-										<span class="pl-4">Robert Spencer</span>
-									</a>
-									<a href="" class="float-right pt-2 pr-2">
-										<i class="far fa-star"></i>
-									</a>
+								<div class="profile card my-3">
+									<div class="card-body p-2">
+										<a href="profile.html">
+											<img src="IMG/profile.png" width="50" height="50"
+												class="d-inline-block rounded-circle align-self-center my-auto"
+												alt="User photo">
+											<span class="pl-4">Robert Spencer</span>
+										</a>
+										<a href="" class="float-right pt-2 pr-2">
+											<i class="far fa-star"></i>
+										</a>
+									</div>
 								</div>
-							</div>
-							<div class="profile card my-3">
-								<div class="card-body p-2">
-									<a href="profile.html">
-										<img src="IMG/profile.png" width="50" height="50"
-											class="d-inline-block rounded-circle align-self-center my-auto"
-											alt="User photo">
-										<span class="pl-4">Alexa Smith</span>
-									</a>
-									<a href="" class="float-right pt-2 pr-2">
-										<i class="fas fa-star"></i>
-									</a>
+								<div class="profile card my-3">
+									<div class="card-body p-2">
+										<a href="profile.html">
+											<img src="IMG/profile.png" width="50" height="50"
+												class="d-inline-block rounded-circle align-self-center my-auto"
+												alt="User photo">
+											<span class="pl-4">Alexa Smith</span>
+										</a>
+										<a href="" class="float-right pt-2 pr-2">
+											<i class="fas fa-star"></i>
+										</a>
+									</div>
 								</div>
-							</div>
-							<div class="profile card my-3">
-								<div class="card-body p-2">
-									<a href="profile.html">
-										<img src="IMG/profile.png" width="50" height="50"
-											class="d-inline-block rounded-circle align-self-center my-auto"
-											alt="User photo">
-										<span class="pl-4">Michael Bishop</span>
-									</a>
-									<a href="" class="float-right pt-2 pr-2">
-										<i class="fas fa-star"></i>
-									</a>
+								<div class="profile card my-3">
+									<div class="card-body p-2">
+										<a href="profile.html">
+											<img src="IMG/profile.png" width="50" height="50"
+												class="d-inline-block rounded-circle align-self-center my-auto"
+												alt="User photo">
+											<span class="pl-4">Michael Bishop</span>
+										</a>
+										<a href="" class="float-right pt-2 pr-2">
+											<i class="fas fa-star"></i>
+										</a>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -192,13 +170,38 @@
 				</div>
 			</div>
 		</div>
-		<div id="background-button" class="row col-12 mb-5 mb-md-0">
-			<div class="col-12 text-right">
-				<a href="" class="btn px-2 py-1" role="button">
-					<i class="fa fa-camera" aria-hidden="true"></i>
-				</a>
-			</div>
 
+		<div id="side-forum" class="col-lg-4 px-0 my-5 order-1 order-lg-12">
+			<div class="container pb-4">
+				<div class="row justify-content-center">
+					<div id="profile-picture" class="col-  mx-auto">
+						<img class="profile-img rounded-circle" src="./IMG/avatar.png" width="250" height="250"
+							alt="User Photo">
+						<div id="change-picture" class="text-center">
+							<i class="fas fa-camera"></i>
+							<p>Update</p>
+						</div>
+					</div>
+				</div>
+				<div class="row justify-content-center pt-4 pb-3">
+					<div id="name-container" class=" col-8 col-md-5 align-self-center text-center">
+						<h5>John Doe</h5>
+					</div>
+				</div>
+				<div class="row justify-content-center">
+					<div id="biography" class="col-10 col-md-8 pt-3">
+						<h5>Biography<i id="edit-biography" class="fas fa-edit ml-2 float-right"></i></h5>
+						<p class="pt-2">My name is Doe, John Doe!</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="background-button" class="row col-12 mt-2 mb-4 my-md-0 p-0">
+		<div class="col-12 text-right p-0">
+			<a href="" class="btn px-2 py-1" role="button">
+				<i class="fa fa-camera" aria-hidden="true"></i>
+			</a>
 		</div>
 	</div>
 	<footer class="fixed-bottom p-1 pl-2">
