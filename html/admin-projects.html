@@ -41,6 +41,10 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <a class="nav-item nav-link mx-lg-3" href="./admin-users.html">USERS</a>
+            <a class="nav-item nav-link mx-lg-3" href="./admin-teams.html">TEAMS</a>
+            <a class="nav-item nav-link active mx-lg-3" href="./admin-projects.html">PROJECTS</a>
+
             <div id="authentication" class="my-1 ml-auto">
                 <a href="home.html" class="pr-2">
                     <img id="admin" class="profile-img d-inline-block rounded-circle my-auto" src="IMG/admin.png"
@@ -55,26 +59,7 @@
         </div>
     </nav>
 
-    <div id="menu-options" class="container  p-5">
-        <div class="row justify-content-center">
-            <div class="col-12 col-sm-10 col-lg-6">
-                <ul class="nav nav-pills nav-fill">
-                    <li class="nav-item">
-                        <a class="nav-link" href="./admin-users.html"><i class="fa fa-user" aria-hidden="true"></i>
-                            Users</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./admin-teams.html"><i class="fas fa-users"></i> Teams</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#"><i class="fas fa-project-diagram"></i> Project</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div id="create" class="container-fluid mx-auto">
+    <div id="create" class="container-fluid mx-auto mt-4">
         <div class="row justify-content-center">
             <div class="col-sm- py-2 px-3">
                 <a href="./admin-create-project.html">
@@ -84,6 +69,22 @@
             </div>
         </div>
     </div>
+
+    <div id="content" class="container">
+        <div class="row justify-content-center" id="search-bar">
+            <div id="search" class="col-12 col-sm-10 col-md-8 pt-4">
+                <div class="input-group ">
+                    <input type="text" class="form-control" placeholder="Teams..." aria-label="Teams..."
+                        aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" id="search-button">
+                            <a href="./search-users.html"> <i class="fa fa-search" aria-hidden="true"></i> Search</a>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
 
     <div id="search-content" class="container mt-4">
         <div id="project" class="card border-hover py-2 px-3 mx-3 mx-md-5 mb-5" style="border-top-width: 0.25em;

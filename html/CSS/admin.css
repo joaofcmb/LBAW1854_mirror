@@ -1,6 +1,6 @@
 #menu-options .nav-item {
     color: black;
-    background-color:lightgrey;
+    border:1px solid lightgrey;
 }
 
 #menu-options a {
@@ -8,7 +8,7 @@
     text-decoration: none;
 }
 
-#menu-options a.active {
+#menu-options .active {
     color: white;
     background-color: var(--brand-color);
 }
@@ -39,6 +39,7 @@
 #create .col-sm- {
     border-radius: 0.35em; 
     background-color: var(--brand-color);
+    border: 1px solid var(--brand-color);
 }
 
 #create .col-sm-:hover {

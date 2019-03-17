@@ -1,8 +1,6 @@
 body nav.navbar {
     height: 12%;
     font-size: 1.5em;
-    background-color: inherit;
-    color: var(--dark-grey-color);
 }
 
 body nav a#nav-logo.navbar-brand {
@@ -15,8 +13,7 @@ body nav a#nav-logo.navbar-brand {
 }
 
 body nav a#authentication {
-    font-size: 1.5em;  
-    color: var(--dark-grey-color);
+    font-size: 1.5em;
 }
 
 body nav a#authentication:hover {

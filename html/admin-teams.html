@@ -29,53 +29,37 @@
 </head>
 
 <body class="bg-light">
-    <div class="navbar-dark sticky-top">
-        <nav id="main-menu" class="navbar sticky-top navbar-expand-sm navbar-dark py-0 px-3 px-sm-1 px-lg-3">
-            <a class="navbar-brand" href="#">
-                <img src="IMG/logo.png" width="35" class="d-inline-block" alt="Website Logo">
-                <span class="font-weight-bold font-italic">EPMA</span>
-            </a>
+    <nav id="main-menu" class="navbar sticky-top navbar-expand-sm navbar-dark py-0 px-3 px-sm-1 px-lg-3">
+        <a class="navbar-brand" href="#">
+            <img src="IMG/logo.png" width="35" class="d-inline-block" alt="Website Logo">
+            <span class="font-weight-bold font-italic">EPMA</span>
+        </a>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <a class="nav-item nav-link mx-lg-3" href="admin-users.html">Users</a>
-                <a class="nav-item nav-link active mx-lg-3" href="admin-teams.html">Teams</a>
-                <a class="nav-item nav-link mx-lg-3" href="admin-projects.html">Projects</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <a class="nav-item nav-link mx-lg-3" href="./admin-users.html">USERS</a>
+            <a class="nav-item nav-link active mx-lg-3" href="./admin-teams.html">TEAMS</a>
+            <a class="nav-item nav-link mx-lg-3" href="./admin-projects.html">PROJECTS</a>
 
-                <div id="authentication" class="my-1 ml-auto">
-                    <a href="home.html" class="pr-2">
-                        <img id="admin" class="profile-img d-inline-block rounded-circle my-auto" src="IMG/admin.png" width="50"
-                            height="50" alt="Website Logo">
-                    </a>
-                    <a href="index.html" class="pr-2">
-                        <span class="font-weight-bold px-2">Sign out</span>
-                    </a>
-                    <a href=""><img class="profile-img d-inline-block rounded-circle my-auto" src="./IMG/avatar.png" width="50"
-                            height="50" alt="Website Logo"></a>
-                </div>
+            <div id="authentication" class="my-1 ml-auto">
+                <a href="home.html" class="pr-2">
+                    <img id="admin" class="profile-img d-inline-block rounded-circle my-auto" src="IMG/admin.png"
+                        width="50" height="50" alt="Website Logo">
+                </a>
+                <a href="index.html" class="pr-2">
+                    <span class="font-weight-bold px-2">Sign out</span>
+                </a>
+                <a href=""><img class="profile-img d-inline-block rounded-circle my-auto" src="./IMG/avatar.png"
+                        width="50" height="50" alt="Website Logo"></a>
             </div>
-        </nav>
-        <nav id="sub-menu" class="navbar navbar-expand-sm p-0 pr-3 pr-sm-1 pr-lg-3">
-            <a class="navbar-brand h-100 px-3 py-2" href="#" style="background-color: rgb(13, 189, 196);">Administration</a>
+        </div>
+    </nav>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent2"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse py-2 py-sm-0" id="navbarSupportedContent2">
-                <a class="nav-item nav-link active mx-lg-3" href="#">Overview</a>
-                <a class="nav-item nav-link mx-lg-3" href="">Create</a>
-            </div>
-        </nav>
-    </div>
-        
-
-    <!-- <div id="create" class="container-fluid mt-5 mx-auto">
+   <div id="create" class="container-fluid mx-auto mt-4">
         <div class="row justify-content-center">
             <div class="col-sm- py-2 px-3">
                 <a href="./admin-create-team.html">
@@ -84,7 +68,23 @@
                 </a>
             </div>
         </div>
-    </div> -->
+    </div>
+
+    <div id="content" class="container">
+        <div class="row justify-content-center" id="search-bar">
+            <div id="search" class="col-12 col-sm-10 col-md-8 pt-4">
+                <div class="input-group ">
+                    <input type="text" class="form-control" placeholder="Teams..." aria-label="Teams..."
+                        aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" id="search-button">
+                            <a href="./search-users.html"> <i class="fa fa-search" aria-hidden="true"></i> Search</a>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
 
     <div id="search-content" class="container">
         <div class="row justify-content-center">
@@ -160,7 +160,7 @@
                             <a href="#">
                                 <p>Mathieu Patterson</p>
                             </a>
-                        </div>                        
+                        </div>
                         <a id="edit-button" href="#" class="btn mt-3" role="button">Edit</a>
                         <a id="edit-button" href="#" class="btn mt-3" role="button">Remove</a>
                     </div>
@@ -240,7 +240,7 @@
                                 <a href="#">
                                     <p>Mathieu Patterson</p>
                                 </a>
-                            </div>                        
+                            </div>
                             <a id="edit-button" href="#" class="btn mt-3" role="button">Edit</a>
                             <a id="edit-button" href="#" class="btn mt-3" role="button">Remove</a>
                         </div>
