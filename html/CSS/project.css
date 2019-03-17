@@ -68,14 +68,6 @@ div.main-tab {
     border: 2px solid var(--brand-color);
 }
 
-div.open {
-    background-color: #f1f2f3; 
-}
-
-.main-tab > div > h3 {
-    font-size: 1.5em;
-}
-
 .task-group {
     height: calc(100vh - 190px);
 }

@@ -93,6 +93,20 @@ footer {
     color: whitesmoke;
 }
 
+/* -------------------- MAIN-TABS --------------------- */
+.main-tab button {
+    border: none;
+    background-color: transparent;
+}
+
+.main-tab button:focus {
+    outline: none;
+}
+
+.main-tab div:first-child > h3 {
+    font-size: 1.5em;
+}
+
 /* ---------------------- OTHER ----------------------- */
 
 /* FONT */

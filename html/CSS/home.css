@@ -6,14 +6,6 @@ div.main-tab {
     border: 2px solid var(--brand-color);
 }
 
-div.open {
-    background-color: var(--bg-light-div); 
-}
-
-.main-tab > div > h3 {
-    font-size: 1.5em;
-}
-
 .collapse-element {
     width: 8em;
 }
