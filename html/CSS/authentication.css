@@ -1,14 +1,12 @@
-.navbar {
+body nav.navbar {
     height: 12%;
     font-size: 1.5em;
+    background-color: inherit;
+    color: var(--dark-grey-color);
 }
 
-a {
-    font-family: 'Comfortaa', sans-serif;
-    color:whitesmoke;
-}
-
-.navbar-brand {
+body nav a#nav-logo.navbar-brand {
+    color: inherit;
     margin-right: 2em;
     font-family: 'Roboto', sans-serif;
     font-size: 1.25em;
@@ -16,76 +14,50 @@ a {
     font-style: italic;
 }
 
-.navbar-brand:hover{
+body nav a#authentication {
+    font-size: 1.5em;  
+    color: var(--dark-grey-color);
+}
+
+body nav a#authentication:hover {
+    color: var(--brand-color);
+    text-decoration: none;
+    background-color: inherit;
+}
+
+a {
+    font-family: 'Comfortaa', sans-serif;
     color:whitesmoke;
 }
 
-.nav-item:hover {
-    color: var(--brand-color);
-    font-weight: bold;
+a:hover {
+    text-decoration: none;
+    color: inherit;
 }
 
-#authentication {
-    font-size: 1.5em;  
-}
-
-body {
-    background-image: url("../IMG/authentication-background.jpg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+body #home * {
+    font-family: 'Comfortaa', sans-serif;
 }
 
 #auth-zone , #auth-zone > .row {
     min-height: 84%;
 }
 
-#login-zone {    
-    background-color: rgba(173, 171, 171, 0.678);
-    border-radius: 1em;
+#auth-title {
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 2.2rem;
+}
+
+#auth-zone span {
+    color: var(--brand-color);
 }
 
 .sep-bar > div:first-child , .sep-bar > div:last-child {
     margin: 0.75em;
-    border-top: solid white 2px;
+    border-top: solid var(--light-grey-color) 2px;
 }
 
-p {
-    font-weight: bold;  
-    margin: 0em;
-    font-size: 1.5rem; 
-    color: black;
-}
- 
-.blue-text > p {
-    font-weight: bold;  
-    color: var(--brand-color);
-}
-
-p > span {
-    color: black;
-}
-
-.form-control {
-    font-family: 'Roboto', sans-serif;
-    text-align: center;
-    border: solid rgb(49, 49, 49) 2px;
-    background-color: rgba(216, 215, 215, 0.678);
-    
-}
-
-.form-control:focus {
-    border-color: rgb(49, 49, 49);
-    background-color: whitesmoke;
-}
-
-.btn {
-    font-family: 'Roboto', sans-serif;
-    border-radius: 0.5em;
-    border: solid rgb(49, 49, 49) 2px;
-    background-color: var(--bg-light);
-}
-
-.btn:hover {
-    background-color: var(--brand-color);
+#register p {
+    font-style: italic;
+    font-size: 0.9em;
 }
