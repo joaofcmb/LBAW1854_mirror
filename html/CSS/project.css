@@ -165,11 +165,6 @@ section.sticky {
     color: var(--dark-brand-color);
 }
 
-.border-hover:hover {
-    border-color: var(--dark-grey-color) !important;
-    opacity: .9;
-}
-
 i.hover-icon {
     display: none;
 }

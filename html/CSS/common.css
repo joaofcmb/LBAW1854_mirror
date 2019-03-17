@@ -109,6 +109,13 @@ footer {
 
 /* ---------------------- OTHER ----------------------- */
 
+/* BUTTON HOVER */
+
+.border-hover:hover {
+    border-color: var(--dark-grey-color) !important;
+    opacity: .9;
+}
+
 /* FONT */
 
 body * {
