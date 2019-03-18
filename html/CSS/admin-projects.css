@@ -38,7 +38,7 @@
 
 #action-button a {
     background-color: lightgray;
-    border: solid rgb(134, 134, 134) 2px;
+    border: solid rgb(134, 134, 134) 1px;
 }
 
 #search-content .card .card-body #action-button a {

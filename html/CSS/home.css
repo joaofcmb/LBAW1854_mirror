@@ -34,7 +34,7 @@ div.main-tab {
 }
 
 section.sticky {
-    background-color: var(--transp-brand-color);
+    background-color: var(--light-brand-color);
     border-color: var(--light-grey-color);
 }
 
