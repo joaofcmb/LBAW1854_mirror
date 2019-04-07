@@ -121,7 +121,7 @@ CREATE TABLE task (
     id SERIAL PRIMARY KEY,
     title TEXT NOT NULL,
     description TEXT NOT NULL,
-    progress INTEGER NOT NULL ,
+    progress INTEGER NOT NULL DEFAULT 0,
     creation_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
     last_edit_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
     id_project INTEGER NOT NULL REFERENCES project ON UPDATE CASCADE ON DELETE CASCADE,
