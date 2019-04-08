@@ -34,7 +34,7 @@ CREATE TABLE administrator (
 CREATE TABLE developer (
     id_user INTEGER PRIMARY KEY REFERENCES "user" ON UPDATE CASCADE ON DELETE CASCADE,
     id_team INTEGER,
-    active BOOLEAN NOT NULL
+    is_active BOOLEAN NOT NULL
 );
 
 -- R04
@@ -161,5 +161,175 @@ CREATE TABLE team_project (
     CONSTRAINT team_project_pk PRIMARY KEY (id_team, id_project)
 );
 
+ALTER TABLE developer ADD FOREIGN KEY (id_team) REFERENCES team ON UPDATE CASCADE ON DELETE SET NULL;
 
-ALTER TABLE developer ADD FOREIGN KEY (id_team) REFERENCES team ON UPDATE CASCADE ON DELETE SET NULL
+
+--------------------------------------------------------------------------------------------------------
+-----------------------                         A6                             -------------------------
+--------------------------------------------------------------------------------------------------------~
+
+DROP VIEW IF EXISTS comments_of_task, comments_of_thread CASCADE;
+
+DROP FUNCTION IF EXISTS admin_user() CASCADE;
+DROP FUNCTION IF EXISTS developer_user() CASCADE;
+DROP FUNCTION IF EXISTS company_forum() CASCADE;
+DROP FUNCTION IF EXISTS task_in_task_group() CASCADE;
+DROP FUNCTION IF EXISTS team_member() CASCADE;
+DROP FUNCTION IF EXISTS manage_task_comment() CASCADE;
+DROP FUNCTION IF EXISTS manage_thread_comment() CASCADE;
+
+DROP TRIGGER IF EXISTS admin_user ON administrator;
+DROP TRIGGER IF EXISTS developer_user ON developer;
+DROP TRIGGER IF EXISTS company_forum ON forum;
+DROP TRIGGER IF EXISTS task_in_task_group ON task;
+DROP TRIGGER IF EXISTS team_member ON developer;
+DROP TRIGGER IF EXISTS manage_view_task_comment ON comments_of_task;
+DROP TRIGGER IF EXISTS manage_view_thread_comment ON comments_of_thread;
+
+--- VIEWS
+CREATE VIEW comments_of_task AS
+    SELECT *
+    FROM task_comment LEFT JOIN comment 
+        ON task_comment.id_comment = comment.id;
+
+CREATE VIEW comments_of_thread AS
+   SELECT *
+   FROM thread_comment LEFT JOIN comment
+       ON thread_comment.id_comment = comment.id;
+
+--- TRIGGERS
+
+--- TRIGGER01
+CREATE FUNCTION admin_user() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+    IF EXISTS (SELECT * FROM developer WHERE developer.id_user = NEW.id_user) THEN
+        RAISE EXCEPTION 'An developer cannot be administrator.';
+    END IF;
+    RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER admin_user
+    BEFORE INSERT ON administrator
+    FOR EACH ROW
+    EXECUTE PROCEDURE admin_user();
+
+CREATE FUNCTION developer_user() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+    IF EXISTS (SELECT * FROM administrator WHERE administrator.id_user = NEW.id_user) THEN
+        RAISE EXCEPTION 'An administrator cannot be developer.';
+    END IF;
+    RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER developer_user
+    BEFORE INSERT ON developer
+    FOR EACH ROW
+    EXECUTE PROCEDURE developer_user();
+
+
+--- TRIGGER02
+CREATE FUNCTION company_forum() RETURNS TRIGGER AS
+$BODY$
+DECLARE
+    count int;
+BEGIN
+    SELECT count(*) into count FROM forum WHERE forum.id_project = NULL;
+    IF (count == 1 && NEW.id_project IS NULL) THEN
+        RAISE EXCEPTION 'A forum has to belong to a project.';
+    END IF;
+    RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER company_forum
+    BEFORE INSERT ON forum
+    FOR EACH ROW
+    EXECUTE PROCEDURE company_forum();
+
+--- TRIGGER03
+CREATE FUNCTION task_in_task_group() RETURNS TRIGGER AS
+$BODY$
+BEGIN    
+    IF (SELECT * FROM task_group WHERE task_group.id = NEW.id_group AND task_group.id_project = NEW.id_project) THEN
+        RAISE EXCEPTION 'A task must belong to a task group of the same project.';
+    END IF;
+    RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER task_in_task_group
+    BEFORE INSERT OR UPDATE OF id_group ON task
+    FOR EACH ROW
+    WHEN (NEW.id_group IS NOT NULL)
+    EXECUTE PROCEDURE task_in_task_group();
+
+--- TRIGGER04
+CREATE FUNCTION team_member() RETURNS TRIGGER AS
+$BODY$
+BEGIN    
+    IF EXISTS (SELECT * FROM developer WHERE id_user = NEW.id_user AND is_active = false) THEN
+        RAISE EXCEPTION 'A team member must be active.';
+    END IF;
+    RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER team_member
+    BEFORE INSERT OR UPDATE OF id_team ON developer
+    FOR EACH ROW
+    EXECUTE PROCEDURE team_member();
+
+--- TRIGGER05
+CREATE FUNCTION manage_task_comment() RETURNS TRIGGER AS
+$BODY$
+DECLARE
+    id_comm comment.id%type;
+BEGIN
+    IF TG_OP = 'INSERT' THEN
+        INSERT INTO comment("text", id_author) VALUES (NEW."text", NEW.id_author) RETURNING id INTO id_comm;
+        INSERT INTO task_comment (id_comment, id_task) VALUES (id_comm, NEW.id_task);
+        RETURN NEW;
+    ELSEIF TG_OP = 'DELETE' THEN
+        DELETE FROM comment WHERE id = OLD.id;
+        RETURN NULL;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER manage_view_task_comment
+   INSTEAD OF INSERT OR DELETE ON comments_of_task
+   FOR EACH ROW
+   EXECUTE PROCEDURE manage_task_comment();
+
+--- TRIGGER06
+CREATE FUNCTION manage_thread_comment() RETURNS TRIGGER AS
+$BODY$
+DECLARE
+    id_comm comment.id%type;
+BEGIN
+    IF TG_OP = 'INSERT' THEN
+        INSERT INTO comment("text", id_author) VALUES (NEW."text", NEW.id_author) RETURNING id INTO id_comm;
+        INSERT INTO thread_comment(id_comment, id_task) VALUES (id_comm, NEW.id_thread);
+        RETURN NEW;
+    ELSEIF TG_OP = 'DELETE' THEN
+        DELETE FROM comment WHERE id = OLD.id;
+        RETURN NULL;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER manage_view_thread_comment
+   INSTEAD OF INSERT OR DELETE ON comments_of_thread
+   FOR EACH ROW
+   EXECUTE PROCEDURE manage_thread_comment();
