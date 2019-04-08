@@ -88,6 +88,7 @@ CREATE TABLE thread (
 CREATE TABLE comment (
     id SERIAL PRIMARY KEY,
     "text" TEXT NOT NULL,
+    creation_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
     last_edit_date timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
     id_author INTEGER NOT NULL REFERENCES "user" ON UPDATE CASCADE ON DELETE RESTRICT
 );
