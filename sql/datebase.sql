@@ -197,6 +197,12 @@ CREATE VIEW comments_of_thread AS
    FROM thread_comment LEFT JOIN comment
        ON thread_comment.id_comment = comment.id;
 
+--- INDEXES
+
+--CREATE INDEX search_user_idx ON "user" USING GIN (to_tsvector(first_name || ' ' || last_name));
+--CREATE INDEX search_project_idx ON project USING GIN ();
+
+
 --- TRIGGERS
 
 --- TRIGGER01
