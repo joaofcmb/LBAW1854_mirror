@@ -1,4 +1,6 @@
--- DROPs
+-------------------------------
+-- DROPS
+-------------------------------
 
 DROP TABLE IF EXISTS "user", administrator, developer CASCADE;
 DROP TABLE IF EXISTS follow, project, favorite, forum, thread CASCADE;
@@ -8,11 +10,35 @@ DROP TABLE IF EXISTS task_group, milestone, team_leader CASCADE;
 
 DROP TYPE IF EXISTS ProjectStatus CASCADE;
 
--- Types
+DROP VIEW IF EXISTS comments_of_task, comments_of_thread CASCADE;
+
+DROP FUNCTION IF EXISTS admin_user() CASCADE;
+DROP FUNCTION IF EXISTS developer_user() CASCADE;
+DROP FUNCTION IF EXISTS company_forum() CASCADE;
+DROP FUNCTION IF EXISTS task_in_task_group() CASCADE;
+DROP FUNCTION IF EXISTS team_member() CASCADE;
+DROP FUNCTION IF EXISTS manage_task_comment() CASCADE;
+DROP FUNCTION IF EXISTS manage_thread_comment() CASCADE;
+DROP FUNCTION IF EXISTS remove_user() CASCADE;
+
+DROP TRIGGER IF EXISTS admin_user ON administrator;
+DROP TRIGGER IF EXISTS developer_user ON developer;
+DROP TRIGGER IF EXISTS company_forum ON forum;
+DROP TRIGGER IF EXISTS task_in_task_group ON task;
+DROP TRIGGER IF EXISTS team_member ON developer;
+DROP TRIGGER IF EXISTS manage_view_task_comment ON comments_of_task;
+DROP TRIGGER IF EXISTS manage_view_thread_comment ON comments_of_thread;
+DROP TRIGGER IF EXISTS remove_user ON developer;
+
+-------------------------------
+-- TYPES
+-------------------------------
 
 CREATE TYPE ProjectStatus AS ENUM ('active', 'canceled', 'closed');
 
+-------------------------------
 -- TABLES
+-------------------------------
 
 -- R01
 CREATE TABLE "user" (
@@ -38,11 +64,6 @@ CREATE TABLE developer (
 );
 
 -- R04
-CREATE TABLE team_leader (
-    id_developer INTEGER PRIMARY KEY REFERENCES developer ON UPDATE CASCADE ON DELETE CASCADE
-);
-
--- R05
 CREATE TABLE follow (
     id_follower INTEGER REFERENCES "user" ON UPDATE CASCADE ON DELETE CASCADE,
     id_followee INTEGER REFERENCES "user" ON UPDATE CASCADE ON DELETE CASCADE,
@@ -50,56 +71,59 @@ CREATE TABLE follow (
     CONSTRAINT follow_pk PRIMARY KEY (id_follower, id_followee)
 );
 
--- R06
+-- R05
 CREATE TABLE project (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL CONSTRAINT project_name_uk UNIQUE,
     color TEXT NOT NULL DEFAULT '0000ff',
     description TEXT NOT NULL, 
     status ProjectStatus NOT NULL DEFAULT 'active',
-    id_manager INTEGER NOT NULL REFERENCES developer ON UPDATE CASCADE ON DELETE RESTRICT
+    id_manager INTEGER NOT NULL REFERENCES developer ON UPDATE CASCADE ON DELETE RESTRICT,
+    CONSTRAINT project_manager_uk UNIQUE(id_manager)
 );
 
--- R07
+-- R06
 CREATE TABLE favorite (
     id_user INTEGER REFERENCES "user" ON UPDATE CASCADE ON DELETE CASCADE,
     id_project INTEGER REFERENCES project ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT favorite_pk PRIMARY KEY (id_user, id_project)
 );
 
--- R08
+-- R07
 CREATE TABLE forum (
     id SERIAL PRIMARY KEY,
     id_project INTEGER REFERENCES project ON UPDATE CASCADE ON DELETE CASCADE
 );
 
--- R09
+-- R08
 CREATE TABLE thread (
     id SERIAL PRIMARY KEY,
     title TEXT NOT NULL,
     description TEXT NOT NULL,
+    creation_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
     last_edit_date timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
     id_author INTEGER NOT NULL REFERENCES "user" ON UPDATE CASCADE ON DELETE RESTRICT,
     id_forum INTEGER NOT NULL REFERENCES forum ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT thread_uk UNIQUE(title, id_forum)
 );
 
--- R10
+-- R09
 CREATE TABLE comment (
     id SERIAL PRIMARY KEY,
     "text" TEXT NOT NULL,
+    creation_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
     last_edit_date timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
     id_author INTEGER NOT NULL REFERENCES "user" ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
--- R11
+-- R10
 CREATE TABLE thread_comment (
     id_comment INTEGER REFERENCES comment ON UPDATE CASCADE ON DELETE CASCADE,
     id_thread INTEGER REFERENCES thread ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT thread_comment_pk PRIMARY KEY (id_comment, id_thread)
 );
 
--- R14
+-- R13
 CREATE TABLE task_group (
     id SERIAL PRIMARY KEY,
     title TEXT NOT NULL,
@@ -107,7 +131,7 @@ CREATE TABLE task_group (
     CONSTRAINT task_group_uk UNIQUE(title, id_project)
 );
 
--- R15
+-- R14
 CREATE TABLE milestone (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
@@ -116,7 +140,7 @@ CREATE TABLE milestone (
     CONSTRAINT milestone_uk UNIQUE(name, id_project)
 );
 
--- R13
+-- R12
 CREATE TABLE task (
     id SERIAL PRIMARY KEY,
     title TEXT NOT NULL,
@@ -131,30 +155,30 @@ CREATE TABLE task (
     CONSTRAINT task_uk UNIQUE(title, id_project)
 );
 
--- R12
+-- R11
 CREATE TABLE task_comment (
     id_comment INTEGER REFERENCES comment ON UPDATE CASCADE ON DELETE CASCADE,
     id_task INTEGER REFERENCES task ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT task_comment_pk PRIMARY KEY (id_comment, id_task)
 );
 
--- R16
+-- R15
 CREATE TABLE team (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL CONSTRAINT team_name_uk UNIQUE,
     skill TEXT,
-    id_leader INTEGER NOT NULL REFERENCES team_leader ON UPDATE CASCADE ON DELETE RESTRICT,
+    id_leader INTEGER NOT NULL REFERENCES developer ON UPDATE CASCADE ON DELETE RESTRICT,
     CONSTRAINT leader_uk UNIQUE (id_leader)
 );
 
--- R17
+-- R16
 CREATE TABLE team_task (
     id_team INTEGER REFERENCES team ON UPDATE CASCADE ON DELETE CASCADE,
     id_task INTEGER REFERENCES task ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT team_task_pk PRIMARY KEY (id_team, id_task)
 );
 
--- R18
+-- R17
 CREATE TABLE team_project (
     id_team INTEGER REFERENCES team ON UPDATE CASCADE ON DELETE CASCADE,
     id_project INTEGER REFERENCES project ON UPDATE CASCADE ON DELETE CASCADE,
@@ -164,29 +188,10 @@ CREATE TABLE team_project (
 ALTER TABLE developer ADD FOREIGN KEY (id_team) REFERENCES team ON UPDATE CASCADE ON DELETE SET NULL;
 
 
---------------------------------------------------------------------------------------------------------
------------------------                         A6                             -------------------------
---------------------------------------------------------------------------------------------------------~
-
-DROP VIEW IF EXISTS comments_of_task, comments_of_thread CASCADE;
-
-DROP FUNCTION IF EXISTS admin_user() CASCADE;
-DROP FUNCTION IF EXISTS developer_user() CASCADE;
-DROP FUNCTION IF EXISTS company_forum() CASCADE;
-DROP FUNCTION IF EXISTS task_in_task_group() CASCADE;
-DROP FUNCTION IF EXISTS team_member() CASCADE;
-DROP FUNCTION IF EXISTS manage_task_comment() CASCADE;
-DROP FUNCTION IF EXISTS manage_thread_comment() CASCADE;
-
-DROP TRIGGER IF EXISTS admin_user ON administrator;
-DROP TRIGGER IF EXISTS developer_user ON developer;
-DROP TRIGGER IF EXISTS company_forum ON forum;
-DROP TRIGGER IF EXISTS task_in_task_group ON task;
-DROP TRIGGER IF EXISTS team_member ON developer;
-DROP TRIGGER IF EXISTS manage_view_task_comment ON comments_of_task;
-DROP TRIGGER IF EXISTS manage_view_thread_comment ON comments_of_thread;
-
+-------------------------------
 --- VIEWS
+-------------------------------
+
 CREATE VIEW comments_of_task AS
     SELECT *
     FROM task_comment LEFT JOIN comment 
@@ -197,20 +202,26 @@ CREATE VIEW comments_of_thread AS
    FROM thread_comment LEFT JOIN comment
        ON thread_comment.id_comment = comment.id;
 
+-------------------------------
 --- INDEXES
+-------------------------------
 
---CREATE INDEX search_user_idx ON "user" USING GIN (to_tsvector(first_name || ' ' || last_name));
---CREATE INDEX search_project_idx ON project USING GIN ();
+CREATE INDEX teamproject_projectid ON team_project USING hash (id_project);
+CREATE INDEX teamtask_teamid ON team_task USING hash (id_team);
+CREATE INDEX task_projectid ON task USING hash (id_project);
+CREATE INDEX comment_creationdate ON comment USING btree (creation_date);
+CREATE INDEX thread_creationdate ON thread USING btree (creation_date);
 
-
+-------------------------------
 --- TRIGGERS
+-------------------------------
 
 --- TRIGGER01
 CREATE FUNCTION admin_user() RETURNS TRIGGER AS
 $BODY$
 BEGIN
     IF EXISTS (SELECT * FROM developer WHERE developer.id_user = NEW.id_user) THEN
-        RAISE EXCEPTION 'An developer cannot be administrator.';
+        RAISE EXCEPTION 'A developer cannot be an administrator.';
     END IF;
     RETURN NEW;
 END
@@ -226,7 +237,7 @@ CREATE FUNCTION developer_user() RETURNS TRIGGER AS
 $BODY$
 BEGIN
     IF EXISTS (SELECT * FROM administrator WHERE administrator.id_user = NEW.id_user) THEN
-        RAISE EXCEPTION 'An administrator cannot be developer.';
+        RAISE EXCEPTION 'An administrator cannot be a developer.';
     END IF;
     RETURN NEW;
 END
@@ -247,7 +258,7 @@ DECLARE
 BEGIN
     SELECT count(*) into count FROM forum WHERE forum.id_project = NULL;
     IF (count == 1 && NEW.id_project IS NULL) THEN
-        RAISE EXCEPTION 'A forum has to belong to a project.';
+        RAISE EXCEPTION 'A forum must belong to a project.';
     END IF;
     RETURN NEW;
 END
@@ -264,7 +275,7 @@ CREATE FUNCTION task_in_task_group() RETURNS TRIGGER AS
 $BODY$
 BEGIN    
     IF (SELECT * FROM task_group WHERE task_group.id = NEW.id_group AND task_group.id_project = NEW.id_project) THEN
-        RAISE EXCEPTION 'A task must belong to a task group of the same project.';
+        RAISE EXCEPTION 'A task must belong to a task group inserted on the same project.';
     END IF;
     RETURN NEW;
 END
@@ -282,7 +293,7 @@ CREATE FUNCTION team_member() RETURNS TRIGGER AS
 $BODY$
 BEGIN    
     IF EXISTS (SELECT * FROM developer WHERE id_user = NEW.id_user AND is_active = false) THEN
-        RAISE EXCEPTION 'A team member must be active.';
+        RAISE EXCEPTION 'A team member must be active (not removed).';
     END IF;
     RETURN NEW;
 END
@@ -339,3 +350,65 @@ CREATE TRIGGER manage_view_thread_comment
    INSTEAD OF INSERT OR DELETE ON comments_of_thread
    FOR EACH ROW
    EXECUTE PROCEDURE manage_thread_comment();
+
+
+--- TRIGGER07
+CREATE FUNCTION team_project() RETURNS TRIGGER AS
+$BODY$
+DECLARE
+    id_project_task task.id_project%type;
+BEGIN
+    
+    IF TG_OP = 'INSERT' THEN
+        SELECT id_project INTO id_project_task FROM task WHERE id = NEW.id_task;
+        IF EXISTS (SELECT * FROM team_project WHERE id_team = NEW.id_team AND id_project = id_project_task) THEN
+            RETURN NEW;
+        ELSE
+            INSERT INTO team_project(id_team,id_project) VALUES (NEW.id_team, id_project_task);
+            RETURN NEW;
+        END IF;
+    ELSEIF TG_OP = 'DELETE' THEN
+        SELECT id_project INTO id_project_task FROM task WHERE id = OLD.id_task;
+        IF EXISTS (
+                SELECT * 
+                FROM team_task INNER JOIN task 
+                    ON team_task.id_task = task.id 
+                WHERE team_task.id_team = OLD.id_team AND task.id_project = id_project_task) THEN
+            RETURN NULL;
+        ELSE
+            DELETE FROM team_project WHERE id_team = OLD.id_team AND id_project = id_project_task;
+            RETURN NULL;
+        END IF;
+    END IF;
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER team_project
+   BEFORE INSERT OR DELETE ON team_task
+   FOR EACH ROW
+   EXECUTE PROCEDURE team_project();
+
+
+--- TRIGGER08
+CREATE FUNCTION remove_user() RETURNS TRIGGER AS
+$BODY$
+DECLARE
+BEGIN
+    IF EXISTS (SELECT * FROM team WHERE id_leader = NEW.id_user) THEN
+        RAISE EXCEPTION 'This user cannot be removed because he’s a Team Leader. You must first reassign his role in order to be able to remove him.';
+    END IF;
+
+    IF EXISTS (SELECT * FROM project WHERE id_manager = NEW.id_user) THEN
+        RAISE EXCEPTION 'This user cannot be removed because he’s a Project Manager. You must first reassign his role in order to be able to remove him';
+    END IF;
+
+    RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER remove_user
+   BEFORE UPDATE OF is_active ON developer
+   FOR EACH ROW
+   EXECUTE PROCEDURE remove_user();
