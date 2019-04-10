@@ -19,6 +19,7 @@ DROP FUNCTION IF EXISTS task_in_task_group() CASCADE;
 DROP FUNCTION IF EXISTS team_member() CASCADE;
 DROP FUNCTION IF EXISTS manage_task_comment() CASCADE;
 DROP FUNCTION IF EXISTS manage_thread_comment() CASCADE;
+DROP FUNCTION IF EXISTS team_project() CASCADE;
 DROP FUNCTION IF EXISTS remove_user() CASCADE;
 
 DROP TRIGGER IF EXISTS admin_user ON administrator;
@@ -28,6 +29,7 @@ DROP TRIGGER IF EXISTS task_in_task_group ON task;
 DROP TRIGGER IF EXISTS team_member ON developer;
 DROP TRIGGER IF EXISTS manage_view_task_comment ON comments_of_task;
 DROP TRIGGER IF EXISTS manage_view_thread_comment ON comments_of_thread;
+DROP TRIGGER IF EXISTS team_project ON team_task;
 DROP TRIGGER IF EXISTS remove_user ON developer;
 
 -------------------------------
@@ -257,7 +259,7 @@ DECLARE
     count int;
 BEGIN
     SELECT count(*) into count FROM forum WHERE forum.id_project = NULL;
-    IF (count == 1 && NEW.id_project IS NULL) THEN
+    IF ((count = 1) AND (NEW.id_project IS NULL)) THEN
         RAISE EXCEPTION 'A forum must belong to a project.';
     END IF;
     RETURN NEW;
@@ -274,7 +276,7 @@ CREATE TRIGGER company_forum
 CREATE FUNCTION task_in_task_group() RETURNS TRIGGER AS
 $BODY$
 BEGIN    
-    IF (SELECT * FROM task_group WHERE task_group.id = NEW.id_group AND task_group.id_project = NEW.id_project) THEN
+    IF EXISTS (SELECT * FROM task_group WHERE task_group.id = NEW.id_group AND task_group.id_project <> NEW.id_project) THEN
         RAISE EXCEPTION 'A task must belong to a task group inserted on the same project.';
     END IF;
     RETURN NEW;
@@ -358,7 +360,6 @@ $BODY$
 DECLARE
     id_project_task task.id_project%type;
 BEGIN
-    
     IF TG_OP = 'INSERT' THEN
         SELECT id_project INTO id_project_task FROM task WHERE id = NEW.id_task;
         IF EXISTS (SELECT * FROM team_project WHERE id_team = NEW.id_team AND id_project = id_project_task) THEN
