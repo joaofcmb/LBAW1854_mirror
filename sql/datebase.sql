@@ -137,7 +137,7 @@ CREATE TABLE task_group (
 CREATE TABLE milestone (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
-    deadline date NOT NULL,
+    deadline timestamp NOT NULL,
     id_project INTEGER NOT NULL REFERENCES project ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT milestone_uk UNIQUE(name, id_project)
 );
@@ -276,7 +276,7 @@ CREATE TRIGGER company_forum
 CREATE FUNCTION task_in_task_group() RETURNS TRIGGER AS
 $BODY$
 BEGIN    
-    IF EXISTS (SELECT * FROM task_group WHERE task_group.id = NEW.id_group AND task_group.id_project <> NEW.id_project) THEN
+    IF NOT EXISTS (SELECT * FROM task_group WHERE task_group.id = NEW.id_group AND task_group.id_project = NEW.id_project) THEN
         RAISE EXCEPTION 'A task must belong to a task group inserted on the same project.';
     END IF;
     RETURN NEW;
@@ -361,7 +361,7 @@ DECLARE
     id_project_task task.id_project%type;
 BEGIN
     IF TG_OP = 'INSERT' THEN
-        SELECT id_project INTO id_project_task FROM task WHERE id = NEW.id_task;
+        SELECT task.id_project INTO id_project_task FROM task WHERE task.id = NEW.id_task;
         IF EXISTS (SELECT * FROM team_project WHERE id_team = NEW.id_team AND id_project = id_project_task) THEN
             RETURN NEW;
         ELSE
