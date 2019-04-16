@@ -209,13 +209,13 @@ CREATE VIEW comments_of_thread AS
 -------------------------------
 
 CREATE INDEX teamproject_projectid ON team_project USING hash (id_project);
-ALTER TABLE team_project CLUSTER ON teamproject_projectid;
+CLUSTER team_project USING teamproject_projectid;
 
 CREATE INDEX teamtask_teamid ON team_task USING hash (id_team);
-ALTER TABLE team_task CLUSTER ON teamtask_teamid;
+CLUSTER team_task USING teamtask_teamid;
 
 CREATE INDEX task_projectid ON task USING hash (id_project);
-ALTER TABLE task CLUSTER ON task_projectid;
+CLUSTER task USING task_projectid;
 
 CREATE INDEX comment_creationdate ON comment USING btree (creation_date);
 
