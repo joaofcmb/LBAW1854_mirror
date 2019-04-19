@@ -1,0 +1,139 @@
+#main-content.row{
+    min-height: 78vh;
+}
+
+.profile-img-team {    
+    object-fit: cover;
+}
+
+#change-picture {    
+    position: absolute;
+    transform: translate(150%, -200%);    
+    opacity: 0;
+    transition: 1s;
+}
+
+#profile-picture:hover > img {
+    cursor: pointer;
+    opacity: 0.5;
+    background-color: var(--light-grey-color);
+}
+
+#profile-picture:hover #change-picture {
+    opacity: 1;
+    font-family: 'Roboto', sans-serif;
+}
+
+#change-picture > i {
+    font-size: 2em;
+}
+
+#change-picture > p {
+    font-size: 1.25em;
+}
+
+#change-picture:hover {
+    cursor: pointer;
+}
+
+#edit-biography {
+    color: var(--dark-grey-color);    
+}
+
+#edit-biography:hover {
+    color: black;
+    cursor: pointer;
+}
+
+#sub-menu a.navbar-brand {
+    background-color: var(--brand-color);
+    border: 1px solid var(--brand-color);
+    border-bottom-right-radius: 1em;
+}
+  
+#name-container h5, div.main-tab h5, div.main-tab h6  {
+    margin-top: .5rem;
+}
+
+div.main-tab h4 span {
+    text-decoration-line: underline;
+    color: var(--brand-color);
+}
+
+div.main-tab {
+    background-color: inherit;
+
+}
+
+#name-container, #biography {
+    background-color: white;
+    border: 1px solid var(--light-grey-color);
+    border-radius: 0.35em;
+}
+
+#title h5, #biography h5 {
+    font-weight: bold;
+}
+
+#action-button a {
+    background-color: lightgray;
+    border: solid rgb(134, 134, 134) 1px;
+    color: white;
+}
+
+#action-button a:hover {
+    background-color: var(--brand-color);
+    border-color: var(--brand-color);
+}
+
+#project {
+    color: black;
+    text-decoration: none;
+    transition: 1s;
+    background-color: rgb(233, 233, 233);
+}
+
+#project.card {
+    border: 2px solid darkgrey;
+    background-color: white;
+}
+
+#project.card a, .profile.card a, #name-container a {
+    text-decoration: none;
+    color: black;
+    font-size: 1.1em;
+}
+
+.card a.float-right i, .profile a.float-right i {
+    font-size: 1.3em;
+}
+
+div.main-tab {
+    border: 2px solid var(--brand-color);
+}
+
+@media (min-width: 1200px) {
+    #side-forum {
+        position: fixed;
+        right: 0em;
+        top: 20vh;
+        border-left: 1px solid var(--light-grey-color);
+    }
+}
+
+#background-button a {
+    font-size:1.8em;
+    color: black;  
+}
+
+#background-button a:hover, #project.card a:hover, .profile.card .card-body a:hover , #name-container a:hover {
+    color: var(--brand-color);  
+}
+
+@media (min-width: 768px) {
+    #background-button {
+        position: fixed;
+        bottom: 4%;
+        right: 1.5%;
+    }
+}

@@ -12,8 +12,13 @@
 */
 
 Route::get('/', function () {
-    return redirect('login');
+    return redirect('index');
 });
+
+// Index
+Route::get('index', function () {
+    return view('pages.index');
+})->name('index');
 
 // Cards
 Route::get('cards', 'CardController@list');
