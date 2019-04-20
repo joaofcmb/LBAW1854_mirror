@@ -4,12 +4,18 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
     use Notifiable;
 
-    // Don't add create and update timestamps in database.
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
     public $timestamps  = false;
 
     /**
@@ -31,12 +37,27 @@ class User extends Authenticatable
     ];
 
     /**
-     * Table to retrieve user information
+     * The table associated with the model.
      *
      * @var string
      */
     protected $table = 'user';
 
+    /**
+     * The projects this user manages
+     *
+     * @return mixed Projects managed by the current user
+     */
+    public function management() {
+        return App\Project::where('id_manager', Auth::user()->getAuthIdentifier());
+    }
+
+    /**
+     * The cards this user owns.
+     */
+    public function cards() {
+        return $this->hasMany('App\Card');
+    }
 
 
 }

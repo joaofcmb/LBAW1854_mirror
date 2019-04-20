@@ -18,9 +18,9 @@ Route::get('/', function () {
 // Authentication
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login-action');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register')->name('register-action');
-Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // Home, Search and Static pages
 Route::get('index', function () { return view('pages.index'); })->name('index');

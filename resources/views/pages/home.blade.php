@@ -56,39 +56,41 @@
                         </div>
                     </button>
                     <div class="collapse show mb-2" id="ProjectManagement">
-                        <div id="project" class="card py-2 px-3 mt-4 mx-3 mx-sm-5" style="border-top-width: 0.25em;
-                            border-top-color: cornflowerblue;">
-                            <div class="d-flex justify-content-between">
-                                <a href="./project.html">
-                                    <h5 class="card-title mb-3 ">Company Website</h5>
-                                </a>
-                                <h5>
-                                    <a href=""><i class="fas fa-star" aria-hidden="true"></i></a>
-                                    <a href=""><i class="fa fa-unlock" aria-hidden="true"></i></a>
-                                </h5>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-7">
-                                    Project Manager:
-                                    <a href="profile-visitor.html">
-                                        <h6 class="d-inline-block mb-3"> John Doe</h6>
+                        @foreach ($management as $project)
+                            <div id="project" class="card py-2 px-3 mt-4 mx-3 mx-sm-5" style="border-top-width: 0.25em;
+                            border-top-color: {{ $project->color }};">
+                                <div class="d-flex justify-content-between">
+                                    <a href="./project.html">
+                                        <h5 class="card-title mb-3 ">{{ $project->name }}</h5>
                                     </a>
-                                    <br>
-                                    Brief Description:
-                                    <h6 class="d-inline"> Company website for exposing our products.</h6>
+                                    <h5>
+                                        <a href=""><i class="fas fa-star" aria-hidden="true"></i></a>
+                                        <a href=""><i class="fa fa-unlock" aria-hidden="true"></i></a>
+                                    </h5>
                                 </div>
-                                <div class="col-sm-5 mt-3 mt-sm-0">
-                                    Statistics
-                                    <h6>
-                                        <p class="m-0"><i class="far fa-fw fa-user mr-1"></i>10 Teams involved</p>
-                                        <p class="m-0"><i class="fas fa-fw fa-check text-success mr-1"></i>124 Tasks
-                                            concluded</p>
-                                        <p class="m-0"><i class="fas fa-fw fa-times text-danger mr-1"></i>32 Tasks
-                                            remaining</p>
-                                    </h6>
+                                <div class="row">
+                                    <div class="col-sm-7">
+                                        Project Manager:
+                                        <a href="profile-visitor.html">
+                                            <h6 class="d-inline-block mb-3"> John Doe</h6>
+                                        </a>
+                                        <br>
+                                        Brief Description:
+                                        <h6 class="d-inline">{{ $project->description }}</h6>
+                                    </div>
+                                    <div class="col-sm-5 mt-3 mt-sm-0">
+                                        Statistics
+                                        <h6>
+                                            <p class="m-0"><i class="far fa-fw fa-user mr-1"></i>10 Teams involved</p>
+                                            <p class="m-0"><i class="fas fa-fw fa-check text-success mr-1"></i>124 Tasks
+                                                concluded</p>
+                                            <p class="m-0"><i class="fas fa-fw fa-times text-danger mr-1"></i>32 Tasks
+                                                remaining</p>
+                                        </h6>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
 
