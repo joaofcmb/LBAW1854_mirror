@@ -1,43 +1,5 @@
 @extends('layouts.app')
 
-@section('content')
-<form method="POST" action="{{ route('register') }}">
-    {{ csrf_field() }}
-
-    <label for="name">Name</label>
-    <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus>
-    @if ($errors->has('name'))
-      <span class="error">
-          {{ $errors->first('name') }}
-      </span>
-    @endif
-
-    <label for="email">E-Mail Address</label>
-    <input id="email" type="email" name="email" value="{{ old('email') }}" required>
-    @if ($errors->has('email'))
-      <span class="error">
-          {{ $errors->first('email') }}
-      </span>
-    @endif
-
-    <label for="password">Password</label>
-    <input id="password" type="password" name="password" required>
-    @if ($errors->has('password'))
-      <span class="error">
-          {{ $errors->first('password') }}
-      </span>
-    @endif
-
-    <label for="password-confirm">Confirm Password</label>
-    <input id="password-confirm" type="password" name="password_confirmation" required>
-
-    <button type="submit">
-      Register
-    </button>
-    <a class="button button-outline" href="{{ route('login') }}">Login</a>
-</form>
-@endsection
-
 @section('css')
     <link href="{{ asset('css/authentication.css') }}" rel="stylesheet">
 @endsection
@@ -69,32 +31,32 @@
                         {{ csrf_field() }}
                         <div class="form-group row justify-content-center">
                             <div class="col-sm-8 pt-3">
-                                <input name="username" type="text" class="form-control" placeholder="Username" value="John" required>
+                                <input name="username" type="text" class="form-control" placeholder="Username" required>
                             </div>
                         </div>
                         <div class="form-group row justify-content-center">
                             <div class="col-sm-8">
-                                <input name="first_name" type="text" class="form-control" placeholder="First Name" value="John" required>
+                                <input name="first_name" type="text" class="form-control" placeholder="First Name" required>
                             </div>
                         </div>
                         <div class="form-group row justify-content-center">
                             <div class="col-sm-8">
-                                <input name="last_name" type="text" class="form-control" placeholder="Last Name" value="Doe" required>
+                                <input name="last_name" type="text" class="form-control" placeholder="Last Name" required>
                             </div>
                         </div>
                         <div class="form-group row justify-content-center">
                             <div class="col-sm-8">
-                                <input name="email" type="email" class="form-control" placeholder="Email" value="johndoe@gmail.com"required>
+                                <input name="email" type="email" class="form-control" placeholder="Email" required>
                             </div>
                         </div>
                         <div class="form-group row justify-content-center">
                             <div class="col-sm-8">
-                                <input name="password" type="password" class="form-control" placeholder="Password" value="1234"required>
+                                <input name="password" type="password" class="form-control" placeholder="Password" required>
                             </div>
                         </div>
                         <div class="form-group row justify-content-center">
                             <div class="col-sm-8">
-                                <input name="password_confirmation" type="password" class="form-control" placeholder="Confirm Password" value="1234" required>
+                                <input name="password_confirmation" type="password" class="form-control" placeholder="Confirm Password" required>
                             </div>
                             @if ($errors->has('username'))
                                 <span class="error mt-3 mx-auto" style="color: red;">

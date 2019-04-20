@@ -36,5 +36,3 @@ Route::get('home', 'HomeController@show');
 //Route::put('api/cards/{card_id}/', 'ItemController@create');
 //Route::post('api/item/{id}', 'ItemController@update');
 //Route::delete('api/item/{id}', 'ItemController@delete');
-
-// Authentication
