@@ -42,7 +42,7 @@
 @section('body')
     <body>
     <nav class="navbar sticky-top navbar-expand-lg navbar-dark">
-        <a id="nav-logo" class="navbar-brand" href="#">
+        <a id="nav-logo" class="navbar-brand" href="{{ route('index') }}">
             <img src="{{ asset('img/logo.png') }}" width="40" height="80" class="d-inline-block align-self-center" alt="Website Logo">
             EPMA
         </a>
@@ -58,20 +58,21 @@
                     <div id="auth-title" class="row justify-content-center">
                         <p>Sign in & <span>Start Working</span></p>
                     </div>
-                    <form method="POST" action="{{ route('login') }}">
+                    <form id="login-form" method="post" action="{{ route('login-action') }}">
+                        {{ csrf_field() }}
                         <div class="form-group row justify-content-center">
                             <div class="col-sm-10 pt-3">
-                                <input type="text" class="form-control" placeholder="Username">
+                                <input name="username" type="text" class="form-control" placeholder="Username" required>
                             </div>
                         </div>
                         <div class="form-group row justify-content-center">
                             <div class="col-sm-10">
-                                <input type="password" class="form-control" placeholder="Password">
+                                <input name="password" type="password" class="form-control" placeholder="Password" required>
                             </div>
                         </div>
                         <div id="search" class="form-group row justify-content-center">
                             <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="submit" id="search-button">
+                                <button class="btn btn-outline-secondary" form="login-form" type="submit" id="search-button">
                                     <a> Login </a>
                                 </button>
                             </div>
@@ -87,7 +88,7 @@
                         </div>
                         <div id="search" class="form-group row justify-content-center">
                             <div class="col-10 col-md-9 mt-3 px-3 text-center">
-                                <button class="btn btn-outline-secondary mx-2" type="button" id="search-button">
+                                <button class="btn btn-outline-secondary mx-2" type="submit" id="search-button">
                                     <a href="#">
                                         <img src="{{ asset('img/github-logo.png') }}" width="25" height="25"
                                              class="d-inline-block align-self-center" alt="GitHub Logo">

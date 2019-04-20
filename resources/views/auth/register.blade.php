@@ -49,7 +49,7 @@
 @section('body')
     <body>
     <nav class="navbar sticky-top navbar-expand-lg navbar-dark">
-        <a id="nav-logo" class="navbar-brand" href="#">
+        <a id="nav-logo" class="navbar-brand" href="{{ route('index') }}">
             <img src="{{ asset('img/logo.png') }}" width="40" height="80" class="d-inline-block align-self-center" alt="Website Logo">
             EPMA
         </a>

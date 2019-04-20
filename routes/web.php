@@ -15,14 +15,16 @@ Route::get('/', function () {
     return redirect('index');
 });
 
-// Index
-Route::get('index', function () {
-    return view('pages.index');
-})->name('index');
+// Authentication, Home, Search and Static pages
+Route::get('index', function () { return view('pages.index'); })->name('index');
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login')->name('login-action');
+
+Route::get('home', 'Auth\LoginController@home');
 
 // Cards
-Route::get('cards', 'CardController@list');
-Route::get('cards/{id}', 'CardController@show');
+//Route::get('cards', 'CardController@list');
+//Route::get('cards/{id}', 'CardController@show');
 
 // API
 Route::put('api/cards', 'CardController@create');
@@ -33,8 +35,7 @@ Route::delete('api/item/{id}', 'ItemController@delete');
 
 // Authentication
 
-Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-Route::post('login', 'Auth\LoginController@login');
+
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register');

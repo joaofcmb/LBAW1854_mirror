@@ -31,9 +31,10 @@ class User extends Authenticatable
     ];
 
     /**
-     * The cards this user owns.
+     * Table to retrieve user information
+     *
+     * @var string
      */
-     public function cards() {
-      return $this->hasMany('App\Card');
-    }
+    protected $table = 'user';
+
 }
