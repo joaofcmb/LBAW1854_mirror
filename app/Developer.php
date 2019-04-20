@@ -18,12 +18,27 @@ class Developer extends User
      */
     protected $table = 'developer';
 
+    /**
+     * The table primary key
+     *
+     * @var string
+     */
     protected $primaryKey = 'id_user';
 
+    /**
+     * Retrieves user team
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function team() {
-        $this->hasOne('App\Team', 'id');
+        return $this->belongsTo('App\Team', 'id_team');
     }
 
+    /**
+     * Retrieves the projects where a user is the project manager
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function manager() {
         return $this->hasMany('App\Project', 'id_manager');
     }

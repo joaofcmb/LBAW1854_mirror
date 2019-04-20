@@ -21,7 +21,7 @@ class Project extends Model
     protected $table = 'project';
 
     /**
-     *
+     * Retrieves all teams involved in the project
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -29,6 +29,11 @@ class Project extends Model
         return $this->belongsToMany('App\Team', 'team_project', 'id_project', 'id_team');
     }
 
+    /**
+     * Retrieves the project manager
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function manager() {
         return $this->hasOne('App\Developer', 'id_user', 'id_manager');
     }

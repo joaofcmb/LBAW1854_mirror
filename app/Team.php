@@ -21,7 +21,7 @@ class Team extends Model
     protected $table = 'team';
 
     /**
-     *
+     * Retrieves all team members
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -29,12 +29,17 @@ class Team extends Model
         return $this->hasMany('App\Developer', 'id_team');
     }
 
+    /**
+     * Retrieves team leader
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function leader() {
         return $this->hasOne('App\Developer', 'id_user', 'id_leader');
     }
 
     /**
-     *
+     * Retrieves all projects in which the team is involved in
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */

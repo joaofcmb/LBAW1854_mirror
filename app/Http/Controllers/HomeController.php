@@ -14,14 +14,7 @@ class HomeController extends Controller
     public function show() {
         if (!Auth::check()) return redirect('/login');
 
-        $management = Developer::find()->manager;
-
-        foreach ($management as $var)
-        {
-            echo "--- " . $var . "<br>";
-        }
-
-        die();
+        $management = Developer::find(Auth::user()->getAuthIdentifier())->manager;
 
         return view('pages.home', ['management' => $management]);
     }
