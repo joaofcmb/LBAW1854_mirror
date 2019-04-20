@@ -43,7 +43,7 @@
 @endsection
 
 @section('title')
-    <title>EPMA - Login</title>
+    <title>EPMA - Register</title>
 @endsection
 
 @section('body')
@@ -65,40 +65,51 @@
                     <div id="auth-title" class="row justify-content-center text-center">
                         <p>Register & <span>Make Us Proud</span></p>
                     </div>
-                    <form method="POST" action="{{ route('register') }}">
+                    <form id="register-form" method="post" action="{{ route('register-action') }}">
+                        {{ csrf_field() }}
                         <div class="form-group row justify-content-center">
                             <div class="col-sm-8 pt-3">
-                                <input type="text" class="form-control" placeholder="Username">
+                                <input name="username" type="text" class="form-control" placeholder="Username" value="John" required>
                             </div>
                         </div>
                         <div class="form-group row justify-content-center">
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" placeholder="First Name">
+                                <input name="first_name" type="text" class="form-control" placeholder="First Name" value="John" required>
                             </div>
                         </div>
                         <div class="form-group row justify-content-center">
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" placeholder="Last Name">
+                                <input name="last_name" type="text" class="form-control" placeholder="Last Name" value="Doe" required>
                             </div>
                         </div>
                         <div class="form-group row justify-content-center">
                             <div class="col-sm-8">
-                                <input type="email" class="form-control" placeholder="Email">
+                                <input name="email" type="email" class="form-control" placeholder="Email" value="johndoe@gmail.com"required>
                             </div>
                         </div>
                         <div class="form-group row justify-content-center">
                             <div class="col-sm-8">
-                                <input type="password" class="form-control" placeholder="Password">
+                                <input name="password" type="password" class="form-control" placeholder="Password" value="1234"required>
                             </div>
                         </div>
                         <div class="form-group row justify-content-center">
                             <div class="col-sm-8">
-                                <input type="password" class="form-control" placeholder="Confirm Password">
+                                <input name="password_confirmation" type="password" class="form-control" placeholder="Confirm Password" value="1234" required>
                             </div>
+                            @if ($errors->has('username'))
+                                <span class="error mt-3 mx-auto" style="color: red;">
+                                {{ $errors->first('username') }}
+                            </span>
+                            @endif
+                            @if ($errors->has('password'))
+                                <span class="error mt-3 mx-auto" style="color: red;">
+                                {{ $errors->first('password') }}
+                            </span>
+                            @endif
                         </div>
                         <div id="search" class="form-group row justify-content-center">
                             <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="submit" id="search-button">
+                                <button class="btn btn-outline-secondary" form="register-form" type="submit" id="search-button">
                                     <a> Register </a>
                                 </button>
                             </div>

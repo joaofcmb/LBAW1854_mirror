@@ -1,36 +1,5 @@
 @extends('layouts.app')
 
-@section('content')
-<form method="POST" action="{{ route('login') }}">
-    {{ csrf_field() }}
-
-    <label for="email">E-mail</label>
-    <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus>
-    @if ($errors->has('email'))
-        <span class="error">
-          {{ $errors->first('email') }}
-        </span>
-    @endif
-
-    <label for="password" >Password</label>
-    <input id="password" type="password" name="password" required>
-    @if ($errors->has('password'))
-        <span class="error">
-            {{ $errors->first('password') }}
-        </span>
-    @endif
-
-    <label>
-        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-    </label>
-
-    <button type="submit">
-        Login
-    </button>
-    <a class="button button-outline" href="{{ route('register') }}">Register</a>
-</form>
-@endsection
-
 @section('css')
     <link href="{{ asset('css/authentication.css') }}" rel="stylesheet">
 @endsection
@@ -69,6 +38,11 @@
                             <div class="col-sm-10">
                                 <input name="password" type="password" class="form-control" placeholder="Password" required>
                             </div>
+                            @if ($errors->has('username'))
+                                <span class="error mt-4 mx-auto" style="color: red;">
+                                {{ $errors->first('username') }}
+                            </span>
+                            @endif
                         </div>
                         <div id="search" class="form-group row justify-content-center">
                             <div class="input-group-append">

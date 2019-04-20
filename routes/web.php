@@ -15,27 +15,26 @@ Route::get('/', function () {
     return redirect('index');
 });
 
-// Authentication, Home, Search and Static pages
-Route::get('index', function () { return view('pages.index'); })->name('index');
+// Authentication
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login-action');
+Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+Route::post('register', 'Auth\RegisterController@register')->name('register-action');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
-Route::get('home', 'Auth\LoginController@home');
+// Home, Search and Static pages
+Route::get('index', function () { return view('pages.index'); })->name('index');
+Route::get('home', 'HomeController@show');
 
 // Cards
 //Route::get('cards', 'CardController@list');
 //Route::get('cards/{id}', 'CardController@show');
 
 // API
-Route::put('api/cards', 'CardController@create');
-Route::delete('api/cards/{card_id}', 'CardController@delete');
-Route::put('api/cards/{card_id}/', 'ItemController@create');
-Route::post('api/item/{id}', 'ItemController@update');
-Route::delete('api/item/{id}', 'ItemController@delete');
+//Route::put('api/cards', 'CardController@create');
+//Route::delete('api/cards/{card_id}', 'CardController@delete');
+//Route::put('api/cards/{card_id}/', 'ItemController@create');
+//Route::post('api/item/{id}', 'ItemController@update');
+//Route::delete('api/item/{id}', 'ItemController@delete');
 
 // Authentication
-
-
-Route::get('logout', 'Auth\LoginController@logout')->name('logout');
-Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
-Route::post('register', 'Auth\RegisterController@register');

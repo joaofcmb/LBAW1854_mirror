@@ -44,13 +44,14 @@ CREATE TYPE ProjectStatus AS ENUM ('active', 'canceled', 'closed');
 
 -- R01
 CREATE TABLE "user" (
-    id SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY ,
     username TEXT NOT NULL CONSTRAINT username_uk UNIQUE,
     first_name TEXT NOT NULL,
     last_name TEXT NOT NULL,
     email TEXT NOT NULL,
     password TEXT NOT NULL,
-    biography TEXT
+    biography TEXT,
+    remember_token TEXT DEFAULT NULL
 );
 
 -- R02
