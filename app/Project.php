@@ -38,4 +38,13 @@ class Project extends Model
         return $this->hasOne('App\Developer', 'id_user', 'id_manager');
     }
 
+    /**
+     * Retrieves the tasks involved in this project
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tasks() {
+        return $this->hasMany('App\Task', 'id_project');
+    }
+
 }
