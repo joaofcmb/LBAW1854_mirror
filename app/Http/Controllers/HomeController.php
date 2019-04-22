@@ -21,15 +21,15 @@ class HomeController extends Controller
         //$management = Project::where('id_manager', Auth::user()->getAuthIdentifier())->get();
         //$management = Developer::projectManagement(Auth::user()->getAuthIdentifier());
 
-        //$management = $user->projectManagement($user->manager, $user->id_user);
-        $management = Project::find(5)->tasks;
+        $management = $user->projectManagement($user->manager, $user->id_user);
+
         //echo $management;
         //echo '----' . Auth::user()->getAuthIdentifier() . "<br>";
         foreach ($management as $project) {
             echo '----' . $project . "<br>";
         }
 
-        die();
+        //die();
 
         return view('pages.home', ['management' => $management]);
     }

@@ -51,6 +51,9 @@ class Developer extends User
         foreach ($projects as $project) {
             $project['manager'] = User::where('id', $id_user)->value('username');
             $project['teams'] = TeamProject::where('id_project', $project['id'])->count();
+            $project['tasks_done'] = Task::where([ ['id_project', $project['id']], ['progress', '=', 100]])->count();
+            $project['tasks_todo'] = Task::where([ ['id_project', $project['id']], ['progress', '<', 100]])->count();
+            $project['favorite'] = Favorite::where([ ['id_project', $project['id']], ['id_user', $id_user]])->exists();
         }
 
         return $projects;

@@ -64,7 +64,7 @@
                                         <h5 class="card-title mb-3 ">{{ $project->name }}</h5>
                                     </a>
                                     <h5>
-                                        <a href=""><i class="fas fa-star" aria-hidden="true"></i></a>
+                                        <a href=""><i class="{{ $project->favorite ? 'fas' : 'far' }} fa-star" aria-hidden="true"></i></a>
                                         <a href=""><i class="fa fa-unlock" aria-hidden="true"></i></a>
                                     </h5>
                                 </div>
@@ -82,9 +82,9 @@
                                         Statistics
                                         <h6>
                                             <p class="m-0"><i class="far fa-fw fa-user mr-1"></i>{{ $project->teams }} Teams involved</p>
-                                            <p class="m-0"><i class="fas fa-fw fa-check text-success mr-1"></i>124 Tasks
+                                            <p class="m-0"><i class="fas fa-fw fa-check text-success mr-1"></i>{{ $project->tasks_done }} Tasks
                                                 concluded</p>
-                                            <p class="m-0"><i class="fas fa-fw fa-times text-danger mr-1"></i>32 Tasks
+                                            <p class="m-0"><i class="fas fa-fw fa-times text-danger mr-1"></i>{{ $project->tasks_todo }} Tasks
                                                 remaining</p>
                                         </h6>
                                     </div>
