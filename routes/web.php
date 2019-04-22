@@ -24,7 +24,10 @@ Route::post('register', 'Auth\RegisterController@register')->name('register-acti
 
 // Home, Search and Static pages
 Route::get('index', function () { return view('pages.index'); })->name('index');
-Route::get('home', 'HomeController@show');
+Route::get('home', 'HomeController@show')->name('home');
+
+// Forums
+Route::get('companyforum', 'ForumController@showCompanyForum')->name('companyforum');
 
 // Cards
 //Route::get('cards', 'CardController@list');

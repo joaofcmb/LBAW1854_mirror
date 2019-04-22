@@ -39,7 +39,11 @@ class Task extends Model
         return $this->belongsToMany('App\Team', 'team_task', 'id_task', 'id_team');
     }
 
-    public static function cardInformation($tasks, $id_user) {
+    /**
+     * Retrieves tasks card information
+     *
+     */
+    public static function cardInformation($tasks) {
         foreach ($tasks as $task) {
             $project = Project::where('id', $task['id_project'])->get();
 

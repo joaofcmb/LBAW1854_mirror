@@ -22,9 +22,9 @@
         </button>
 
         <div class="collapse navbar-collapse py-2" id="navbarSupportedContent">
-            <a class="nav-item nav-link active mx-lg-3" href="home.html">HOME</a>
+            <a class="nav-item nav-link active mx-lg-3" href="{{ route('home') }}">HOME</a>
             <a class="nav-item nav-link mx-lg-3" href="search.html">SEARCH</a>
-            <a class="nav-item nav-link mx-lg-3" href="company-forum.html">FORUM</a>
+            <a class="nav-item nav-link mx-lg-3" href="{{ route('companyforum') }}">FORUM</a>
             <a class="nav-item nav-link mx-lg-3" href="profile.html">PROFILE</a>
 
 
@@ -185,7 +185,7 @@
                                         $time_left = $creationDate->diff($deadline)->format('%R%a');
                                         $percentage = $interval_2 == 0 ? 100 : $interval_1/$interval_2 * 100;
                                     @endphp
-                                    <h6 class="text-center mb-1"><i class="far fa-clock mr-1"></i>{{ $time_left }} days left</h6>
+                                    <h6 class="text-center mb-1"><i class="far fa-clock mr-1"></i>{{ (integer)$time_left }} days left</h6>
                                     <div class="progress">
                                         <div class="progress-bar progress-bar-striped bg-{{ $percentage == 100 ? 'danger' : 'warning'  }} progress-bar-animated"
                                              role="progressbar" style="width:{{ $percentage }}%" aria-valuenow="{{ $percentage }}" aria-valuemin="0"
@@ -206,35 +206,17 @@
                     </a>
                     <a href="create-thread.html"><i class="fas fa-plus-circle"></i></a>
                 </div>
-
-                <a href="thread.html">
-                    <section class="card sticky p-2 my-3">
-                        <div class="d-flex justify-content-between align-items-top">
-                            <h5>New Employee Guide</h5>
-                            <div class="notification"><i class="far fa-envelope mx-2"></i>2</div>
-                        </div>
-                        Chefao
-                    </section>
-                </a>
-
-                <a href="#">
-                    <section class="card sticky p-2 my-3">
-                        <div class="d-flex justify-content-between align-items-top">
-                            <h5>Code of Conduct</h5>
-                        </div>
-                        Chefao
-                    </section>
-                </a>
-
-                <a href="#">
-                    <section class="card p-2 my-3">
-                        <div class="d-flex justify-content-between align-items-top">
-                            <h5>New snack policy feedback</h5>
-                            <div class="notification"><i class="far fa-envelope mx-2"></i>5</div>
-                        </div>
-                        John Doe
-                    </section>
-                </a>
+                @foreach($threads as $thread)
+                    <a href="thread.html">
+                        <section class="card sticky p-2 my-3">
+                            <div class="d-flex justify-content-between align-items-top">
+                                <h5>{{ $thread->title }}</h5>
+                                <!-- <div class="notification"><i class="far fa-envelope mx-2"></i>2</div> -->
+                            </div>
+                            {{ $thread->author_name }}
+                        </section>
+                    </a>
+                @endforeach
             </div>
         </div>
     </div>
