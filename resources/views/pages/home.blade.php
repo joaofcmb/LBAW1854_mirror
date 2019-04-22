@@ -4,14 +4,12 @@
     <link href="{{ asset('css/home.css') }}" rel="stylesheet">
 @endsection
 
-@section('title')
-    <title>EPMA- Home</title>
-@endsection
+@section('title', Home)
 
 @section('body')
     <body class="bg-light">
 
-    @include('main-navbar',
+    @include('partials.main-navbar',
     ['items' =>
         [
             ['name' => 'HOME', 'route' => route('home'), 'active'],
@@ -24,28 +22,28 @@
     <div class="row w-100 mx-auto">
         <div class="col-lg-8 px-0">
             <div id="content" class="container py-3 mb-4">
-                @include('main-tablist',
+                @include('partials.tablist',
                 ['tabs' =>
                     [
                         [
                             'title' => 'Project Management',
                             'info' => count($managementProjects).' Projects',
                             'content' => $managementProjects,
-                            'content-type' => 'projects',
+                            'contentType' => 'project',
                             'collapse' => 'open'
                         ],
                         [
                             'title' => 'Team Projects',
                             'info' => count($teamProjects).' Projects',
                             'content' => $teamProjects,
-                            'content-type' => 'projects',
+                            'contentType' => 'project',
                             'collapse' => 'closed'
                         ],
                         [
                             'title' => 'Team Tasks',
                             'info' => count($teamTasks).' Tasks',
                             'content' => $teamTasks,
-                            'content-type' => 'tasks',
+                            'contentType' => 'task',
                             'collapse' => 'closed'
                         ]
                     ]

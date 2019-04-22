@@ -47,4 +47,13 @@ class Team extends Model
         return $this->belongsToMany('App\Project', 'team_project', 'id_team', 'id_project');
     }
 
+    /**
+     * Retrieves all tasks associated which the team is working on
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tasks() {
+        return $this->belongsToMany('App\Task', 'team_task', 'id_team', 'id_task');
+    }
+
 }

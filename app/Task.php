@@ -2,6 +2,7 @@
 
 namespace App;
 
+use DateTime;
 use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
@@ -27,5 +28,29 @@ class Task extends Model
      */
     public function project() {
         return $this->belongsTo('App\Project', 'id');
+    }
+
+    /**
+     * The teams this task belongs
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function teams(){
+        return $this->belongsToMany('App\Team', 'team_task', 'id_task', 'id_team');
+    }
+
+    public static function cardInformation($tasks, $id_user) {
+        foreach ($tasks as $task) {
+            $project = Project::where('id', $task['id_project'])->get();
+
+            $task['project_name'] = $project[0]->name;
+            $task['color'] = $project[0]->color;
+            $task['teams'] = TeamTask::select('id_team')->where('id_task', $task['id'])->count();
+            $task['developers'] = TeamTask::join('developer', 'developer.id_team', '=', 'team_task.id_team')->where('id_task', $task['id'])->count();
+            $task['deadline'] = Milestone::where('id', $task['id_milestone'])->value('deadline');
+
+        }
+
+        return $tasks;
     }
 }

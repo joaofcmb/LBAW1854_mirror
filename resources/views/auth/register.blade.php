@@ -4,9 +4,7 @@
     <link href="{{ asset('css/authentication.css') }}" rel="stylesheet">
 @endsection
 
-@section('title')
-    <title>EPMA - Register</title>
-@endsection
+@section('title', Register)
 
 @section('body')
     <body>

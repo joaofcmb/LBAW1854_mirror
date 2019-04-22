@@ -1,23 +1,20 @@
 @foreach($tabs as $tab)
     @if($loop -> first)
-        <div class="main-tab card {{$tab->collapse}} border-left-0 border-right-0 rounded-0 p-2">
+        <div class="main-tab card @yield('class') border-left-0 border-right-0 rounded-0 p-2">
+            @yield('tab')
+        </div>
     @else
-        <div class="main-tab card {{$tab->collapse}} border-left-0 border-right-0 border-top-0 rounded-0 p-2">
+        <div class="main-tab card @yield('class') border-left-0 border-right-0 border-top-0 rounded-0 p-2">
+            @yield('tab')
+        </div>
     @endif
-
-    @isset($tab->collapse)
-        <button class="p-0" data-toggle="collapse" data-target="#TeamTasks">
-            <div class="d-flex justify-content-between align-items-center">
-                <h3>Team Tasks</h3>
-                <div class="collapse-element d-flex justify-content-end align-items-center">
-                    <span class="font-weight-light mr-2">2 Tasks</span>
-                    <a data-toggle="collapse" href="#TeamTasks"><i class="fas fa-angle-down mt-1"></i></a>
-                    <a class="collapsed" data-toggle="collapse" href="#TeamTasks"><i class="fas fa-angle-up mt-1"></i></a>
-                </div>
-            </div>
-        </button>
-    @endisset
 @endforeach
+
+@section('classType', '')
+
+@section('tab')
+    @each('partials.'.$tab->contentType, $tab->content, $tab->contentType)
+@endsection
 
 <div class="main-tab card open border-left-0 border-right-0 border-bottom-0 rounded-0 p-2">
     <button class="p-0" data-toggle="collapse" data-target="#ProjectManagement">
