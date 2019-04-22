@@ -37,9 +37,22 @@ class Developer extends User
     /**
      * Retrieves the projects where a user is the project manager
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function manager() {
         return $this->hasMany('App\Project', 'id_manager');
+    }
+
+    /**
+     * Retrieves the projects where a user is the project manager
+     *
+     */
+    public static function projectManagement($projects, $id_user) {
+        foreach ($projects as $project) {
+            $project['manager'] = User::where('id', $id_user)->value('username');
+            $project['teams'] = TeamProject::where('id_project', $project['id'])->count();
+        }
+
+        return $projects;
     }
 }
