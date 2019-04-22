@@ -16,6 +16,9 @@ class HomeController extends Controller
         if (!Auth::check()) return redirect('/login');
 
 
+        if(Auth::user()->getAuthIdentifier() == 1 || Auth::user()->getAuthIdentifier() == 2)
+            return view('pages.home', ['managementProjects' => [], 'teamProjects' => [], 'teamTasks' => []]);
+
         $user = Developer::find(Auth::user()->getAuthIdentifier());
         $team = Team::find($user->id_team);
         //$management = Developer::find(Auth::user()->getAuthIdentifier())->manager;
