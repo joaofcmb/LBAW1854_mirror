@@ -282,6 +282,8 @@ CREATE TRIGGER company_forum
 --- TRIGGER03
 CREATE FUNCTION task_in_task_group_or_milestone() RETURNS TRIGGER AS
 $BODY$
+DECLARE
+    deadline_milestone milestone.deadline%type;
 BEGIN
     IF (NEW.id_group IS NOT NULL) THEN
         IF NOT EXISTS (SELECT * FROM task_group WHERE task_group.id = NEW.id_group AND task_group.id_project = NEW.id_project) THEN
@@ -291,6 +293,12 @@ BEGIN
     IF (NEW.id_milestone IS NOT NULL) THEN
         IF NOT EXISTS (SELECT * FROM milestone WHERE milestone.id = NEW.id_milestone AND milestone.id_project = NEW.id_project) THEN
             RAISE EXCEPTION 'A task must belong to a milestone inserted on the same project.';
+        END IF;
+        
+        SELECT deadline INTO deadline_milestone FROM milestone WHERE id = NEW.id_milestone;
+
+        IF (deadline_milestone <= (NEW.creation_date + '1 day'::interval)) THEN
+            RAISE EXCEPTION 'A task creation date and milestone deadline must be separated by at least 1 day.';
         END IF;
     END IF;
     RETURN NEW;
