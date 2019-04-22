@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS "user", administrator, developer CASCADE;
 DROP TABLE IF EXISTS follow, project, favorite, forum, thread CASCADE;
 DROP TABLE IF EXISTS comment, task_comment, thread_comment CASCADE;
 DROP TABLE IF EXISTS task, team, team_project, team_task CASCADE;
-DROP TABLE IF EXISTS task_group, milestone, team_leader CASCADE;
+DROP TABLE IF EXISTS task_group, milestone CASCADE;
 
 DROP TYPE IF EXISTS ProjectStatus CASCADE;
 
@@ -15,22 +15,24 @@ DROP VIEW IF EXISTS comments_of_task, comments_of_thread CASCADE;
 DROP FUNCTION IF EXISTS admin_user() CASCADE;
 DROP FUNCTION IF EXISTS developer_user() CASCADE;
 DROP FUNCTION IF EXISTS company_forum() CASCADE;
-DROP FUNCTION IF EXISTS task_in_task_group() CASCADE;
+DROP FUNCTION IF EXISTS task_in_task_group_or_milestone() CASCADE;
 DROP FUNCTION IF EXISTS team_member() CASCADE;
 DROP FUNCTION IF EXISTS manage_task_comment() CASCADE;
 DROP FUNCTION IF EXISTS manage_thread_comment() CASCADE;
 DROP FUNCTION IF EXISTS team_project() CASCADE;
 DROP FUNCTION IF EXISTS remove_user() CASCADE;
+DROP FUNCTION IF EXISTS add_developer() CASCADE;
 
 DROP TRIGGER IF EXISTS admin_user ON administrator;
 DROP TRIGGER IF EXISTS developer_user ON developer;
 DROP TRIGGER IF EXISTS company_forum ON forum;
-DROP TRIGGER IF EXISTS task_in_task_group ON task;
+DROP TRIGGER IF EXISTS task_in_task_group_or_milestone ON task;
 DROP TRIGGER IF EXISTS team_member ON developer;
 DROP TRIGGER IF EXISTS manage_view_task_comment ON comments_of_task;
 DROP TRIGGER IF EXISTS manage_view_thread_comment ON comments_of_thread;
 DROP TRIGGER IF EXISTS team_project ON team_task;
 DROP TRIGGER IF EXISTS remove_user ON developer;
+DROP TRIGGER IF EXISTS add_developer ON "user";
 
 -------------------------------
 -- TYPES
@@ -278,22 +280,29 @@ CREATE TRIGGER company_forum
     EXECUTE PROCEDURE company_forum();
 
 --- TRIGGER03
-CREATE FUNCTION task_in_task_group() RETURNS TRIGGER AS
+CREATE FUNCTION task_in_task_group_or_milestone() RETURNS TRIGGER AS
 $BODY$
-BEGIN    
-    IF NOT EXISTS (SELECT * FROM task_group WHERE task_group.id = NEW.id_group AND task_group.id_project = NEW.id_project) THEN
-        RAISE EXCEPTION 'A task must belong to a task group inserted on the same project.';
+BEGIN
+    IF (NEW.id_group IS NOT NULL) THEN
+        IF NOT EXISTS (SELECT * FROM task_group WHERE task_group.id = NEW.id_group AND task_group.id_project = NEW.id_project) THEN
+            RAISE EXCEPTION 'A task must belong to a task group inserted on the same project.';
+        END IF;
+    END IF;    
+    IF (NEW.id_milestone IS NOT NULL) THEN
+        IF NOT EXISTS (SELECT * FROM milestone WHERE milestone.id = NEW.id_milestone AND milestone.id_project = NEW.id_project) THEN
+            RAISE EXCEPTION 'A task must belong to a milestone inserted on the same project.';
+        END IF;
     END IF;
     RETURN NEW;
 END
 $BODY$
 LANGUAGE plpgsql;
 
-CREATE TRIGGER task_in_task_group
-    BEFORE INSERT OR UPDATE OF id_group ON task
+CREATE TRIGGER task_in_task_group_or_milestone
+    BEFORE INSERT OR UPDATE OF id_group, id_milestone ON task
     FOR EACH ROW
-    WHEN (NEW.id_group IS NOT NULL)
-    EXECUTE PROCEDURE task_in_task_group();
+    WHEN (NEW.id_group IS NOT NULL OR NEW.id_milestone IS NOT NULL)
+    EXECUTE PROCEDURE task_in_task_group_or_milestone();
 
 --- TRIGGER04
 CREATE FUNCTION team_member() RETURNS TRIGGER AS
@@ -418,3 +427,22 @@ CREATE TRIGGER remove_user
    BEFORE UPDATE OF is_active ON developer
    FOR EACH ROW
    EXECUTE PROCEDURE remove_user();
+
+
+--- TRIGGER09
+CREATE FUNCTION add_developer() RETURNS TRIGGER AS
+$BODY$
+DECLARE
+    id_new_user "user".id%type;
+BEGIN
+    SELECT id INTO id_new_user FROM "user" WHERE username = NEW.username;
+    INSERT INTO developer(id_user, is_active) VALUES (id_new_user, 'TRUE');
+    RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER add_developer
+   AFTER INSERT ON "user"
+   FOR EACH ROW
+   EXECUTE PROCEDURE add_developer();
