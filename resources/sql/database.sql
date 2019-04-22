@@ -22,6 +22,7 @@ DROP FUNCTION IF EXISTS manage_thread_comment() CASCADE;
 DROP FUNCTION IF EXISTS team_project() CASCADE;
 DROP FUNCTION IF EXISTS remove_user() CASCADE;
 DROP FUNCTION IF EXISTS add_developer() CASCADE;
+DROP FUNCTION IF EXISTS add_forum() CASCADE;
 
 DROP TRIGGER IF EXISTS admin_user ON administrator;
 DROP TRIGGER IF EXISTS developer_user ON developer;
@@ -33,6 +34,7 @@ DROP TRIGGER IF EXISTS manage_view_thread_comment ON comments_of_thread;
 DROP TRIGGER IF EXISTS team_project ON team_task;
 DROP TRIGGER IF EXISTS remove_user ON developer;
 DROP TRIGGER IF EXISTS add_developer ON "user";
+DROP TRIGGER IF EXISTS add_forum ON project;
 
 -------------------------------
 -- TYPES
@@ -454,3 +456,21 @@ CREATE TRIGGER add_developer
    AFTER INSERT ON "user"
    FOR EACH ROW
    EXECUTE PROCEDURE add_developer();
+
+--- TRIGGER10
+CREATE FUNCTION add_forum() RETURNS TRIGGER AS
+$BODY$
+DECLARE
+    id_new_project project.id%type;
+BEGIN
+    SELECT id INTO id_new_project FROM project WHERE name = NEW.name;
+    INSERT INTO forum(id_project) VALUES (id_new_project);
+    RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER add_forum
+   AFTER INSERT ON project
+   FOR EACH ROW
+   EXECUTE PROCEDURE add_forum();
