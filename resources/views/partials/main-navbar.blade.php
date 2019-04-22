@@ -11,10 +11,10 @@
 
     <div class="collapse navbar-collapse py-2" id="navbarSupportedContent">
         @foreach($items as $item)
-            @isset($item->active)
-                <a class="nav-item nav-link active mx-lg-3" href="home.html">HOME</a>
+            @isset($item['active'])
+                <a class="nav-item nav-link active mx-lg-3" href="{{$item['route']}}">{{$item['name']}}</a>
             @else
-                <a class="nav-item nav-link mx-lg-3" href="home.html">HOME</a>
+                <a class="nav-item nav-link mx-lg-3" href="{{$item['route']}}">{{$item['name']}}</a>
             @endisset
         @endforeach
 

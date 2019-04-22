@@ -4,7 +4,7 @@
     <link href="{{ asset('css/home.css') }}" rel="stylesheet">
 @endsection
 
-@section('title', Home)
+@section('title', 'Home')
 
 @section('body')
     <body class="bg-light">
@@ -12,17 +12,17 @@
     @include('partials.main-navbar',
     ['items' =>
         [
-            ['name' => 'HOME', 'route' => route('home'), 'active'],
-            ['name' => 'SEARCH', 'route' => route('home')],
-            ['name' => 'FORUM', 'route' => route('home')],
-            ['name' => 'PROFILE', 'route' => route('home')],
+            ['name' => 'HOME', 'route' => '', 'active'],
+            ['name' => 'SEARCH', 'route' => ''],
+            ['name' => 'FORUM', 'route' => ''],
+            ['name' => 'PROFILE', 'route' => ''],
         ]
      ])
 
     <div class="row w-100 mx-auto">
         <div class="col-lg-8 px-0">
             <div id="content" class="container py-3 mb-4">
-                @include('partials.tablist',
+                @include('partials.collapsable-tablist',
                 ['tabs' =>
                     [
                         [
@@ -30,21 +30,19 @@
                             'info' => count($managementProjects).' Projects',
                             'content' => $managementProjects,
                             'contentType' => 'project',
-                            'collapse' => 'open'
+                            'open' => true
                         ],
                         [
                             'title' => 'Team Projects',
                             'info' => count($teamProjects).' Projects',
                             'content' => $teamProjects,
                             'contentType' => 'project',
-                            'collapse' => 'closed'
                         ],
                         [
                             'title' => 'Team Tasks',
                             'info' => count($teamTasks).' Tasks',
                             'content' => $teamTasks,
                             'contentType' => 'task',
-                            'collapse' => 'closed'
                         ]
                     ]
                 ])

@@ -4,9 +4,7 @@
     <link href="{{ asset('css/index.css') }}" rel="stylesheet">
 @endsection
 
-@section('title')
-    <title>EPMA- Index</title>
-@endsection
+@section('title', 'Index')
 
 @section('body')
 <body>
