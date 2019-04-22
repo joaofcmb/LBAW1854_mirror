@@ -309,6 +309,8 @@ INSERT INTO follow VALUES (9,26);
 INSERT INTO follow VALUES (21,25);
 INSERT INTO follow VALUES (17,47);
 
+INSERT INTO forum(id_project) VALUES (null);
+
 INSERT INTO project(name,color,description,status,id_manager) VALUES ('Macro Web','02002f','in felis diam arcu congue conubia elit tristique','active',45);
 INSERT INTO project(name,color,description,status,id_manager) VALUES ('Shamrock Development','1300ff','sollicitudin et urna Cras torquent','canceled',26);
 INSERT INTO project(name,color,description,status,id_manager) VALUES ('Web Campus','0000ff','vehicula Phasellus et nibh id nibh facilisis nibh pretium porttitor sociis pretium mi Integer leo quis','closed',23);
@@ -420,18 +422,6 @@ INSERT INTO favorite VALUES (39,6);
 INSERT INTO favorite VALUES (30,9);
 INSERT INTO favorite VALUES (42,2);
 INSERT INTO favorite VALUES (7,2);
-
-INSERT INTO forum(id_project) VALUES (null);
-INSERT INTO forum(id_project) VALUES (2);
-INSERT INTO forum(id_project) VALUES (1);
-INSERT INTO forum(id_project) VALUES (3);
-INSERT INTO forum(id_project) VALUES (4);
-INSERT INTO forum(id_project) VALUES (7);
-INSERT INTO forum(id_project) VALUES (6);
-INSERT INTO forum(id_project) VALUES (5);
-INSERT INTO forum(id_project) VALUES (8);
-INSERT INTO forum(id_project) VALUES (9);
-INSERT INTO forum(id_project) VALUES (10);
 
 INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_forum) VALUES ('Cras ac Curabitur','nisi mus sodales Cras viverra aliquam mi mus cursus arcu','08/04/2019 00:19:20','05/04/2019 05:36:18',22,4);
 INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_forum) VALUES ('sociosqu varius Quisque','eros congue justo varius hendrerit tempus ligula suscipit','04/04/2019 11:01:33','06/04/2019 14:59:23',23,2);
