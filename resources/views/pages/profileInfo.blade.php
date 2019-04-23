@@ -59,8 +59,10 @@
                             </div>
                         </div>
                     </div>
-                    <div id="action-button" class="text-center">
-                        <a href="" class="btn my-2 px-4 py-1" role="button">Save</a>
+                    <div id="brand-btn" class="text-center">
+                        <button class="btn btn-outline-secondary mx-2" type="button">
+                            <a href="" class="px-2" role="button">Save</a>
+                        </button>
                     </div>
                 </div>
             </div>

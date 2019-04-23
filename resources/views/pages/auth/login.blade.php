@@ -38,7 +38,7 @@
                         </div>
                         <div id="brand-btn" class="form-group row justify-content-center">
                             <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" form="login-form" type="submit" id="search-button">
+                                <button class="btn btn-outline-secondary" form="login-form" type="submit">
                                     <a> Login </a>
                                 </button>
                             </div>
@@ -54,13 +54,13 @@
                         </div>
                         <div id="brand-btn" class="form-group row justify-content-center">
                             <div class="col-10 col-md-9 mt-3 px-3 text-center">
-                                <button class="btn btn-outline-secondary mx-2" type="submit" id="search-button">
+                                <button class="btn btn-outline-secondary mx-2" type="submit">
                                     <a href="#">
                                         <img src="{{ asset('img/github-logo.png') }}" width="25" height="25"
                                              class="d-inline-block align-self-center" alt="GitHub Logo">
                                         GitHub</a>
                                 </button>
-                                <button class="btn btn-outline-secondary mx-2" type="button" id="search-button">
+                                <button class="btn btn-outline-secondary mx-2" type="button">
                                     <a href="#">
                                         <img src="{{ asset('img/gitlab-logo.png') }}" width="25" height="25"
                                              class="d-inline-block align-self-center" alt="GitLab Logo">
