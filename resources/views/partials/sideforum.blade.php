@@ -8,7 +8,7 @@
         </div>
         @foreach($threads as $thread)
             <a href="{{ route('companyforum-thread', ['id_thread' => $thread->id]) }}">
-                <section class="card sticky p-2 my-3">
+                <section class="card sticky p-2 my-4">
                     <div class="d-flex justify-content-between align-items-top">
                         <h5>{{ $thread->title }}</h5>
                         <!-- <div class="notification"><i class="far fa-envelope mx-2"></i>2</div> -->

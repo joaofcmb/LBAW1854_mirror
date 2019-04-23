@@ -16,7 +16,7 @@ class HomeController extends Controller
     public function show() {
         if (!Auth::check()) return redirect('/login');
 
-        $threads = Thread::threadInformation(Forum::find(1)->threads);
+        $threads = Thread::threadInformation(Forum::find(1)->threads->take(7));
 
         if(Auth::user()->getAuthIdentifier() == 1 || Auth::user()->getAuthIdentifier() == 2)
             return view('pages.home', ['managementProjects' => [], 'teamProjects' => [], 'teamTasks' => [], 'threads' => $threads]);
