@@ -5,7 +5,7 @@
         </a>
         <h5>
             <a href=""><i class="{{ $project->favorite ? 'fas' : 'far' }} fa-star" aria-hidden="true"></i></a>
-            <a href=""><i class="fa fa-unlock" aria-hidden="true"></i></a>
+            <a href=""><i class="fa fa-{{ $project->lock ? 'unlock' : 'lock' }}" aria-hidden="true"></i></a>
         </h5>
     </div>
     <div class="row">

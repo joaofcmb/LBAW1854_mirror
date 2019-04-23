@@ -21,9 +21,9 @@
     @include('partials.sub-navbar', [
         'items' =>
             [
-                ['name' => 'Information', 'route' => route('profile', ['id' => $id]), 'active' => true],
+                ['name' => 'Information', 'route' => route('profile', ['id' => $id]), 'toPrint' => $ownUser],
                 ['name' => 'Team', 'route' => route('profile-team', ['id' => $id]), 'toPrint' => !\App\User::find($id)->isAdmin()],
-                ['name' => 'Favorite Projects', 'route' => route('profile-favorites', ['id' => $id])],
+                ['name' => 'Favorite Projects', 'route' => route('profile-favorites', ['id' => $id]), 'active' => true],
                 ['name' => 'Followers', 'route' => ''],
                 ['name' => 'Following', 'route' => '']
             ]
@@ -32,37 +32,42 @@
         <div class="col-lg-8 px-0 order-12 order-lg-1">
             <div id="content" class="container p-lg-5 align-self-center justify-content-center">
                 <div class="main-tab card border-left-0 border-right-0 rounded-0 p-2">
-                    <h4>Information</h4>
-                    <div id="edit-email" class="row justify-content-center text-center mt-2">
-                        <div class="col-12">
-                            <h6>Email</h6>
-                        </div>
-                        <div class="col-7">
-                            <div class="form-group">
-                                <input type="email" class="form-control text-center" name="email" id="email"
-                                       aria-describedby="emailHelpId" placeholder="{{ $user->email }}">
+                    <h4>Favorite Projects</h4>
+                    <div class="container">
+                        @foreach($favorites as $favorite)
+                            <div id="project" class="card py-2 px-3 mt-4 mx-3 mx-sm-5" style="border-top-width: 0.25em; border-top-color: {{ $favorite->color }};">
+                                <div class="d-flex justify-content-between">
+                                    <a href="">
+                                        <h5 class="card-title mb-3 ">{{ $favorite->name }}</h5>
+                                    </a>
+                                    <h5>
+                                        <a href=""><i class="{{ $favorite->favorite ? 'fas' : 'far' }} fa-star" aria-hidden="true"></i></a>
+                                        <a href=""><i class="fa fa-{{ $favorite->lock ? 'unlock' : 'lock' }}" aria-hidden="true"></i></a>
+                                    </h5>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-7">
+                                        Project Manager:
+                                        <a href="{{ route('profile', ['id' => $favorite->id_manager]) }}">
+                                            <h6 class="d-inline-block mb-3">{{ $favorite->manager }}</h6>
+                                        </a>
+                                        <br>
+                                        Brief Description:
+                                        <h6 class="d-inline">{{ $favorite->description }}</h6>
+                                    </div>
+                                    <div class="col-sm-5 mt-3 mt-sm-0">
+                                        Statistics
+                                        <h6>
+                                            <p class="m-0"><i class="far fa-fw fa-user mr-1"></i>{{ $favorite->teams }} Teams involved</p>
+                                            <p class="m-0"><i class="fas fa-fw fa-check text-success mr-1"></i>{{ $favorite->tasks_done }} Tasks
+                                                concluded</p>
+                                            <p class="m-0"><i class="fas fa-fw fa-times text-danger mr-1"></i>{{ $favorite->tasks_todo }} Tasks
+                                                remaining</p>
+                                        </h6>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div id="edit-password" class="row justify-content-center text-center mt-2">
-                        <div class="col-12">
-                            <h6>Password</h6>
-                        </div>
-                        <div class="col-7 pt-2">
-                            <div class="form-group">
-                                <input type="password" class="form-control text-center mb-2" name="old-password"
-                                       id="old-password" placeholder="Old Password">
-                                <input type="password" class="form-control text-center mb-2" name="new-password"
-                                       id="new-password" placeholder="New Password">
-                                <input type="password" class="form-control text-center" name="confirm-password"
-                                       id="confirm-password" placeholder="Confirm Password">
-                            </div>
-                        </div>
-                    </div>
-                    <div id="brand-btn" class="text-center">
-                        <button class="btn btn-outline-secondary mx-2" type="button">
-                            <a href="" class="px-2" role="button">Save</a>
-                        </button>
+                        @endforeach
                     </div>
                 </div>
             </div>

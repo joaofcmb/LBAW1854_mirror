@@ -48,8 +48,9 @@ class User extends Authenticatable
      *
      * @return mixed
      */
-    public static function isAdmin() {
-        return Administrator::where('id_user', Auth::user()->getAuthIdentifier())->exists();
+    public function isAdmin() {
+        return Administrator::where('id_user', $this->id)->exists();
     }
+
 
 }

@@ -24,7 +24,7 @@
         'items' =>
             [
                 ['name' => 'Information', 'route' => route('profile', ['id' => $id]), 'toPrint' => $ownUser],
-                ['name' => 'Team', 'route' => route('profile-team', ['id' => $id]), 'active' => true ],
+                ['name' => 'Team', 'route' => route('profile-team', ['id' => $id]), 'active' => true, 'toPrint' => !\App\User::find($id)->isAdmin()],
                 ['name' => 'Favorite Projects', 'route' => route('profile-favorites', ['id' => $id])],
                 ['name' => 'Followers', 'route' => ''],
                 ['name' => 'Following', 'route' => '']
@@ -66,10 +66,10 @@
                             <div class="col-12 col-lg-7">
                                 <h5 class="text-center">Members</h5>
                                 @foreach($members as $member)
-                                    @if($member->id != $id)
+                                    @if($member->id_user != $id)
                                         <div class="profile card my-3">
                                             <div class="card-body p-2">
-                                                <a href="{{ route('profile', ['id' => $member->id]) }}">
+                                                <a href="{{ route('profile', ['id' => $member->id_user]) }}">
                                                     <img src="{{ asset('img/profile.png') }}" width="50" height="50"
                                                          class="d-inline-block rounded-circle align-self-center my-auto"
                                                          alt="User photo">
@@ -109,7 +109,7 @@
                 <div class="row justify-content-center">
                     <div id="biography" class="col-10 col-md-8 pt-3">
                         <h5>Biography</h5>
-                        <p class="pt-2">My name is Doe, John Doe!</p>
+                        <p class="pt-2">{{ $user->biography }}</p>
                     </div>
                 </div>
             </div>

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Administrator;
+use App\Project;
 use App\Developer;
 use App\Follow;
 use App\Team;
@@ -52,10 +52,8 @@ class ProfileController extends Controller
     public function show($id)
     {
 
-        $isAdmin = Auth::user()->isAdmin();
-
-        if(Auth::user()->getAuthIdentifier() != $id || $isAdmin) {
-            if($isAdmin)
+        if(Auth::user()->getAuthIdentifier() != $id) {
+            if(User::find($id)->isAdmin)
                 return redirect()->route('profile-favorites', ['id' => $id]);
             else
                 return redirect()->route('profile-team', ['id' => $id]);
@@ -72,6 +70,7 @@ class ProfileController extends Controller
      */
     public function showTeam($id) {
 
+        $user = User::find($id);
         $ownUser = Auth::user()->getAuthIdentifier() != $id ? false : true;
 
         $team = Developer::find($id)->team;
@@ -80,11 +79,21 @@ class ProfileController extends Controller
         $leader = User::find($team->id_leader);
         $leader['follow'] = Follow::where([['id_follower', '=', $id], ['id_followee', '=', $leader->id]])->exists();
 
-        return View('pages.profile.profileTeam', ['id' => $id, 'user' => Auth::user(), 'ownUser'  => $ownUser, 'team' => $team, 'members' => $members, 'leader' => $leader]);
+        return View('pages.profile.profileTeam', ['id' => $id, 'user' => $user, 'ownUser'  => $ownUser, 'team' => $team, 'members' => $members, 'leader' => $leader]);
     }
 
     public function showFavorites($id) {
-        echo "FAVORITES";
+
+        $user = User::find($id);
+        $ownUser = Auth::user()->getAuthIdentifier() != $id ? false : true;
+
+        $favorites = Project::join('favorite', 'favorite.id_project', '=', 'project.id')
+                            ->where('favorite.id_user', $id)
+                            ->get();
+
+        $favorites = Project::cardInformation($favorites, $id);
+
+        return View('pages.profile.profileFavorites', ['id' => $id, 'user' => $user, 'ownUser'  => $ownUser, 'favorites' => $favorites]);
     }
 
     /**

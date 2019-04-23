@@ -20,10 +20,5 @@ class Favorite extends Model
      */
     protected $table = 'favorite';
 
-    /**
-     * The table primary key
-     *
-     * @var string
-     */
-    protected $primaryKey = ['id_user', 'id_project'];
+
 }
