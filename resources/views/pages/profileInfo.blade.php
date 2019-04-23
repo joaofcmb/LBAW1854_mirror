@@ -14,26 +14,20 @@
                 ['name' => 'HOME', 'route' => route('home'), 'active' => true],
                 ['name' => 'SEARCH', 'route' => route('search')],
                 ['name' => 'FORUM', 'route' => route('companyforum')],
-                ['name' => 'PROFILE', 'route' => route('profile', ['id' => Auth::user()->getAuthIdentifier()])],
+                ['name' => 'PROFILE', 'route' => route('profile', ['id' => Auth::user()->getAuthIdentifier()])]
             ],
         'auth' => 'session'
     ])
-    <nav id="sub-menu" class="navbar navbar-expand-sm p-0 pr-3 pr-sm-1 pr-lg-3">
-        <a class="navbar-brand px-3 py-2" href="">Profile</a>
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent2"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent2">
-            <a class="nav-item nav-link active mx-lg-3" href="./profile.html">Information</a>
-            <a class="nav-item nav-link mx-lg-3" href="./profile-team.html">Team</a>
-            <a class="nav-item nav-link mx-lg-3" href="./profile-favorites.html">Favorites</a>
-            <a class="nav-item nav-link mx-lg-3" href="./profile-followers.html">Followers</a>
-            <a class="nav-item nav-link mx-lg-3" href="./profile-following.html">Following</a>
-        </div>
-    </nav>
+    @include('partials.sub-navbar', [
+        'items' =>
+            [
+                ['name' => 'Information', 'route' => '', 'active' => true],
+                ['name' => 'Team', 'route' => ''],
+                ['name' => 'Favorite Projects', 'route' => ''],
+                ['name' => 'Followers', 'route' => ''],
+                ['name' => 'Following', 'route' => '']
+            ]
+    ])
     <div id="main-content" class="row mx-auto align-items-center">
         <div class="col-lg-8 px-0 order-12 order-lg-1">
             <div id="content" class="container p-lg-5 align-self-center justify-content-center">
