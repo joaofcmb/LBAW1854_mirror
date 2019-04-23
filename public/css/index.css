@@ -3,40 +3,6 @@ html {
     min-height: 100%;
 }
 
-#index-navbar.navbar {
-    background-color: var(--dark-grey-color);
-    opacity: 0.9;
-    font-size: 1.5em;
-}
-
-#index-navbar a {
-    font-family: 'Comfortaa', sans-serif;
-    color:whitesmoke;
-}
-
-#index-navbar .navbar-brand {
-    margin-right: 2em;
-    
-    font-family: 'Roboto', sans-serif;
-    font-size: 1.25em;
-    font-weight: bold;
-    font-style: italic;
-}
-
-#index-navbar .navbar-brand:hover{
-    color:whitesmoke;
-}
-
-#index-navbar .nav-item:hover {
-    color: var(--brand-color);
-    font-weight: bold;
-    background-color: unset;
-}
-
-#index-navbar #authentication {
-    font-size: 1.5em;  
-} 
-
 #home {
     background-image: url("../img/background.jpg");
     background-position: center;

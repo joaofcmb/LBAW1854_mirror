@@ -18,15 +18,26 @@
             @endisset
         @endforeach
 
-        <div id="authentication" class="ml-auto">
-            <a href="admin-users.html">
-                <img id="admin" class="profile-img d-inline-block rounded-circle my-auto" src="{{ asset('img/admin.png') }}"
-                     width="50" height="50" alt="Website Logo">
+        @if($auth == 'login')
+            <a id="login" class="ml-auto pl-3" href="{{ route('login') }}">
+                <span class="fas fa-chevron-circle-right"></span>
             </a>
-            <a href="{{ route('logout') }}">
-                <span class="font-weight-bold pl-3">Sign out</span>
+        @elseif($auth == 'index')
+            <a id="login" class="ml-auto pl-3" href="{{ route('index') }}">
+                <span class="fas fa-chevron-circle-left"></span>
             </a>
-            <a href="" class="pl-lg-3"><img class="profile-img d-none d-md-inline-block rounded-circle my-auto" src="{{ asset('img/avatar.png') }}" width="50" height="50" alt="Profile Image"></a>
-        </div>
+        @else
+            <div id="authentication" class="ml-auto">
+                <a href="admin-users.html">
+                    <img id="admin" class="profile-img d-inline-block rounded-circle my-auto" src="{{ asset('img/admin.png') }}" width="50" height="50" alt="Website Logo">
+                </a>
+                <a href="{{ route('logout') }}">
+                    <span class="font-weight-bold pl-3">Sign out</span>
+                </a>
+                <a href="" class="pl-lg-3">
+                    <img class="profile-img d-none d-md-inline-block rounded-circle my-auto" src="{{ asset('img/avatar.png') }}" width="50" height="50" alt="Profile Image">
+                </a>
+            </div>
+        @endif
     </div>
 </nav>

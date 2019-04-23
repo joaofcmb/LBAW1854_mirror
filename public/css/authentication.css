@@ -1,27 +1,3 @@
-body nav.navbar {
-    height: 12%;
-    font-size: 1.5em;
-}
-
-body nav a#nav-logo.navbar-brand {
-    color: inherit;
-    margin-right: 2em;
-    font-family: 'Roboto', sans-serif;
-    font-size: 1.25em;
-    font-weight: bold;
-    font-style: italic;
-}
-
-body nav a#authentication {
-    font-size: 1.5em;
-}
-
-body nav a#authentication:hover {
-    color: var(--brand-color);
-    text-decoration: none;
-    background-color: inherit;
-}
-
 a {
     font-family: 'Comfortaa', sans-serif;
     color:whitesmoke;

@@ -28,7 +28,7 @@ Route::get('home', 'HomeController@show')->name('home');
 
 // Forums
 Route::get('companyforum', 'ForumController@showCompanyForum')->name('companyforum');
-Route::get('companyforum/thread/{id_thread}', 'ThreadController@show')->name('companyforumthread');
+Route::get('companyforum/thread/{id_thread}', 'ThreadController@show')->name('companyforum-thread');
 
 // Cards
 //Route::get('cards', 'CardController@list');
