@@ -10,7 +10,7 @@
         @foreach($items as $item)
             @isset($item['active'])
                 <a class="nav-item nav-link active mx-lg-3" href="{{$item['route']}}">{{$item['name']}}</a>
-            @else
+            @elseif (!isset($item['toPrint']) || (isset($item['toPrint']) && $item['toPrint']))
                 <a class="nav-item nav-link mx-lg-3" href="{{$item['route']}}">{{$item['name']}}</a>
             @endisset
         @endforeach

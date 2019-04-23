@@ -26,7 +26,7 @@ class Team extends Model
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function members() {
-        return $this->hasMany('App\Developer', 'id_team');
+        return $this->hasMany('App\Developer', 'id_team')->where([['id_user', '!=', $this->id_leader]]);
     }
 
     /**
@@ -54,6 +54,14 @@ class Team extends Model
      */
     public function tasks() {
         return $this->belongsToMany('App\Task', 'team_task', 'id_team', 'id_task');
+    }
+
+    public static function teamInformation($members, $id) {
+        foreach ($members as $member) {
+            $member['username'] = User::where('id', $member->id_user)->value('username');
+            $member['follow'] = Follow::where([['id_follower', '=', $id], ['id_followee', '=', $member->id_user]])->exists();
+        }
+        return $members;
     }
 
 }

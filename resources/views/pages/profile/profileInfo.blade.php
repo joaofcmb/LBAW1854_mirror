@@ -21,9 +21,9 @@
     @include('partials.sub-navbar', [
         'items' =>
             [
-                ['name' => 'Information', 'route' => '', 'active' => true],
-                ['name' => 'Team', 'route' => ''],
-                ['name' => 'Favorite Projects', 'route' => ''],
+                ['name' => 'Information', 'route' => route('profile', ['id' => $id]), 'active' => true],
+                ['name' => 'Team', 'route' => route('profile-team', ['id' => $id])],
+                ['name' => 'Favorite Projects', 'route' => route('profile-favorites', ['id' => $id])],
                 ['name' => 'Followers', 'route' => ''],
                 ['name' => 'Following', 'route' => '']
             ]

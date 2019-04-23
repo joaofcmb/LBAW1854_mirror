@@ -34,6 +34,7 @@ Route::get('companyforum/thread/{id_thread}', 'ThreadController@show')->name('co
 // Profile
 Route::get('profile/{id}', 'ProfileController@show')->name('profile');
 Route::get('profile/{id}/team', 'ProfileController@showTeam')->name('profile-team');
+Route::get('profile/{id}/favorites', 'ProfileController@showFavorites')->name('profile-favorites');
 
 // Cards
 //Route::get('cards', 'CardController@list');
