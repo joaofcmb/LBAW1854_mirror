@@ -32,31 +32,15 @@
                     <div class="card border-hover sticky p-2 my-4">
                         <div class="d-flex justify-content-between align-items-top">
                             <h5>{{ $thread->title }}</h5>
-                            @php
-                                $user_id = Illuminate\Support\Facades\Auth::user()->getAuthIdentifier();
-
-        <div class="row my-5 mx-3 mx-md-5 px-md-5">
-            <div id="side-forum" class="col-12 p-5>">
-                @foreach($threads as $thread)
-                    <a href="{{ route('companyforum-thread', ['id_thread' => $thread->id]) }}">
-                        <div class="card border-hover sticky p-2 my-2">
-                            <div class="d-flex justify-content-between align-items-top">
-                                <h5>{{ $thread->title }}</h5>
                                 @if(Auth::user()->isAdmin() ||  Auth::user()->getAuthIdentifier() === $thread->id_author )
                                     <i class="fas fa-trash-alt mx-3"></i>
                                 @endif
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <i class="far fa-user mr-1"></i>
-                                    {{ $thread->author_name }} </div>
-                                <!-- <div class="notification mx-3"><i class="far fa-envelope mx-2"></i>2</div> -->
-                            </div>
                         </div>
                         <div class="row">
                             <div class="col">
                                 <i class="far fa-user mr-1"></i>
-                                {{ $thread->author_name }} </div>
+                                {{ $thread->author_name }}
+                            </div>
                             <!-- <div class="notification mx-3"><i class="far fa-envelope mx-2"></i>2</div> -->
                         </div>
                     </div>
@@ -64,7 +48,6 @@
             @endforeach
         </div>
     </div>
-
     <footer class="fixed-bottom p-1 pl-2">
         COPYRIGHT © EPMA 2019
     </footer>
