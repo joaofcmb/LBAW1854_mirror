@@ -1,36 +1,26 @@
-#search-content > .row > .col-lg-12 > div:first-child {
+#thread-content > div:first-child {
     background-color: var(--light-brand-color);
 }
 
-#search-content > .row > .col-lg-12 > div {
+#thread-content > div {
     border: solid var(--dark-grey-color) 1px;
 }
 
-#search-content > .row > .col-lg-12 > .card > .row > a {
+#thread-content > .card a {
     color: black;
     text-decoration: none;
 }
 
-#search-content > .row > .col-lg-12 > .card > .row > a:hover h6 {
+#thread-content > .card a:hover h6 {
     font-weight: bold;
     font-size: 1.05em;
 }
 
-#search-content > .row > .col-lg-12 > .card > .row > .col > .row > a {
-    color: black;
-    text-decoration: none;
-}
-
-#search-content > .row > .col-lg-12 > .card > .row > .col > .row > a:hover h6 {
-    font-weight: bold;
-    font-size: 1.05em;
-}
-
-#search-content > .row > .col-lg-12 > .card i {
+#thread-content > .card i {
     text-decoration: none;
     color: black;
 }
 
-#search-content > .row > .col-lg-12 > .card i:hover {
+#thread-content > .card i:hover {
     color: var(--brand-color);
 }

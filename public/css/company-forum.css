@@ -1,5 +1,5 @@
 #forum-header > div:first-child {
-    border-bottom: solid var(--brand-color) 4px;
+    border-bottom: solid var(--brand-color) 2px;
 }
 
 #forum a {
