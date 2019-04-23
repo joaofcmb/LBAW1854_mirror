@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Thread extends Model
 {
@@ -23,10 +25,19 @@ class Thread extends Model
     /**
      * The forum associated with the thread
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function forum() {
         return $this->belongsTo('App\Forum', 'id_forum');
+    }
+
+    /**
+     * The comments the thread has
+     *
+     * @return HasMany
+     */
+    public function comments() {
+        return $this->hasMany('App\ThreadComment', 'id_thread')->join('comment', 'id', '=', 'id_comment')->orderBy('creation_date', 'asc');
     }
 
     public static function threadInformation($threads) {

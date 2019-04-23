@@ -43,5 +43,13 @@ class User extends Authenticatable
      */
     protected $table = 'user';
 
+    /**
+     * Checks if user is an administrator
+     *
+     * @return mixed
+     */
+    public static function isAdmin() {
+        return Administrator::where('id_user', Auth::user()->getAuthIdentifier())->exists();
+    }
 
 }

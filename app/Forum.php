@@ -26,6 +26,6 @@ class Forum extends Model
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function threads() {
-        return $this->hasMany('App\Thread', 'id_forum');
+        return $this->hasMany('App\Thread', 'id_forum')->orderBy('last_edit_date', 'desc');
     }
 }

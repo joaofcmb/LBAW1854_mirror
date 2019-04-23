@@ -6,18 +6,29 @@
     <p class="ml-1 mb-2">{{$task-> developers}} Developers</p>
 
     <div class="work-progress mx-2 mb-1">
-        <h6 class="text-center mb-1"><i class="fas fa-chart-line mr-1"></i>66% done</h6>
+        <h6 class="text-center mb-1"><i class="fas fa-chart-line mr-1"></i>{{ $task->progress }}% done</h6>
         <div class="progress">
             <div class="progress-bar progress-bar-striped bg-success progress-bar-animated"
-                 role="progressbar" style="width:63%" aria-valuenow="63" aria-valuemin="0"
+                 role="progressbar" style="width:{{ $task->progress }}%" aria-valuenow="{{ $task->progress }}" aria-valuemin="0"
                  aria-valuemax="100"></div>
         </div>
     </div>
     <div class="time-progress mx-2 my-1">
-        <h6 class="text-center mb-1"><i class="far fa-clock mr-1"></i>2 days left</h6>
+        @php
+            $currentDate = new DateTime(date("Y/m/d"));
+            $creationDate = new DateTime($task['creation_date']);
+            $deadline = new DateTime($task['deadline']);
+
+            $interval_1 = $creationDate->diff($currentDate)->format('%R%a');
+            $interval_2 = $creationDate->diff($deadline)->format('%R%a');
+
+            $time_left = $creationDate->diff($deadline)->format('%R%a');
+            $percentage = $interval_2 == 0 ? 100 : $interval_1/$interval_2 * 100;
+        @endphp
+        <h6 class="text-center mb-1"><i class="far fa-clock mr-1"></i>{{ (integer)$time_left }} days left</h6>
         <div class="progress">
-            <div class="progress-bar progress-bar-striped bg-warning progress-bar-animated"
-                 role="progressbar" style="width:46%" aria-valuenow="46" aria-valuemin="0"
+            <div class="progress-bar progress-bar-striped bg-{{ $percentage == 100 ? 'danger' : 'warning'  }} progress-bar-animated"
+                 role="progressbar" style="width:{{ $percentage }}%" aria-valuenow="{{ $percentage }}" aria-valuemin="0"
                  aria-valuemax="100"></div>
         </div>
     </div>
