@@ -63,8 +63,16 @@ class Task extends Model
             $task['color'] = $project[0]->color;
             $task['teams'] = TeamTask::select('id_team')->where('id_task', $task['id'])->count();
             $task['developers'] = TeamTask::join('developer', 'developer.id_team', '=', 'team_task.id_team')->where('id_task', $task['id'])->count();
-            $task['deadline'] = Milestone::where('id', $task['id_milestone'])->value('deadline');
 
+            $currentDate = new DateTime(date("Y/m/d"));
+            $creationDate = new DateTime($task['creation_date']);
+            $deadline = new DateTime(Milestone::where('id', $task['id_milestone'])->value('deadline'));
+
+            $deltaTime = $creationDate->diff($currentDate)->format('%a');
+            $totalTime = $creationDate->diff($deadline)->format('%a');
+
+            $task['timeLeft'] = $currentDate->diff($deadline)->format('%a');
+            $task['timePercentage'] = $totalTime == 0 ? 100 : $deltaTime * 100 / $totalTime;
         }
 
         return $tasks;

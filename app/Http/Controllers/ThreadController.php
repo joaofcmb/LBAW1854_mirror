@@ -55,7 +55,7 @@ class ThreadController extends Controller
         $threadInformation = Thread::threadInformation($thread->get())[0];
         $threadComments = Comment::commentInformation(Thread::find(7)->comments);
         
-        return View('pages.thread', ['thread' => $threadInformation, 'comments' => $threadComments]);
+        return View('pages.forum.thread', ['thread' => $threadInformation, 'comments' => $threadComments]);
     }
 
     /**

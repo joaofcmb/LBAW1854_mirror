@@ -8,14 +8,15 @@
 
 @section('body')
     <body class="bg-light">
-    @include('partials.main-navbar',
-    ['items' =>
-        [
-            ['name' => 'HOME', 'route' => route('home')],
-            ['name' => 'SEARCH', 'route' => ''],
-            ['name' => 'FORUM', 'route' => route('companyforum'), 'active' => true],
-            ['name' => 'PROFILE', 'route' => ''],
-        ]
+    @include('partials.main-navbar', [
+        'items' =>
+            [
+                ['name' => 'HOME', 'route' => route('home')],
+                ['name' => 'SEARCH', 'route' => ''],
+                ['name' => 'FORUM', 'route' => route('companyforum'), 'active' => true],
+                ['name' => 'PROFILE', 'route' => ''],
+            ],
+        'auth' => 'session'
      ])
 
     <div id="menu-option" class="container-fluid mx-auto py-4">

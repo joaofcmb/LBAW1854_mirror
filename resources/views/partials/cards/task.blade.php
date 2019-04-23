@@ -14,22 +14,11 @@
         </div>
     </div>
     <div class="time-progress mx-2 my-1">
-        @php
-            $currentDate = new DateTime(date("Y/m/d"));
-            $creationDate = new DateTime($task['creation_date']);
-            $deadline = new DateTime($task['deadline']);
-
-            $interval_1 = $creationDate->diff($currentDate)->format('%R%a');
-            $interval_2 = $creationDate->diff($deadline)->format('%R%a');
-
-            $time_left = $creationDate->diff($deadline)->format('%R%a');
-            $percentage = $interval_2 == 0 ? 100 : $interval_1/$interval_2 * 100;
-        @endphp
-        <h6 class="text-center mb-1"><i class="far fa-clock mr-1"></i>{{ (integer)$time_left }} days left</h6>
+        <h6 class="text-center mb-1"><i class="far fa-clock mr-1"></i>{{$task->timeLeft }} days left</h6>
         <div class="progress">
-            <div class="progress-bar progress-bar-striped bg-{{ $percentage == 100 ? 'danger' : 'warning'  }} progress-bar-animated"
-                 role="progressbar" style="width:{{ $percentage }}%" aria-valuenow="{{ $percentage }}" aria-valuemin="0"
-                 aria-valuemax="100"></div>
+            <div class="progress-bar progress-bar-striped bg-{{$task->timePercentage == 100 ? 'danger' : 'warning'  }}progress-bar-animated"
+                 role="progressbar" style="width:{{ $task->timePercentage }}%" aria-valuenow="{{ $task->timePercentage }}" aria-valuemin="0" aria-valuemax="100">
+            </div>
         </div>
     </div>
 </section>

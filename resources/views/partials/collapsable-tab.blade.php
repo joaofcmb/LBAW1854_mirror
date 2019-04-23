@@ -8,6 +8,6 @@
         </div>
     </div>
 </button>
-<div class="collapse mx-auto" id="{{$index}}">
+<div class="collapse {{isset($tab['open']) ? 'show ' : ''}}mx-auto" id="{{$index}}">
     @each('partials.cards.'.$tab['contentType'], $tab['content'], $tab['contentType'])
 </div>

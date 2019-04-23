@@ -49,7 +49,7 @@ class ForumController extends Controller
     {
         $threads = Thread::threadInformation(Forum::find(1)->threads);
 
-        return View('pages.forum', ['threads' => $threads]);
+        return View('pages.forum.forum', ['threads' => $threads]);
     }
 
     /**

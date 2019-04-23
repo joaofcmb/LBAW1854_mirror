@@ -16,34 +16,34 @@
                     ['name' => 'FORUM', 'route' => route('companyforum')],
                     ['name' => 'PROFILE', 'route' => ''],
                 ],
-            'session' => true
+            'auth' => 'session'
         ])
         <div class="row w-100 mx-auto">
             <div class="col-lg-8 px-0">
                 <div id="content" class="container py-3 mb-4">
-                    @include('partials.collapsable-tablist',
-                    ['tabs' =>
-                        [
+                    @include('partials.collapsable-tablist', [
+                        'tabs' =>
                             [
-                                'title' => 'Project Management',
-                                'info' => count($managementProjects).' Projects',
-                                'content' => $managementProjects,
-                                'contentType' => 'project',
-                                'open' => true
+                                [
+                                    'title' => 'Project Management',
+                                    'info' => count($managementProjects).' Projects',
+                                    'content' => $managementProjects,
+                                    'contentType' => 'project',
+                                ],
+                                [
+                                    'title' => 'Team Projects',
+                                    'info' => count($teamProjects).' Projects',
+                                    'content' => $teamProjects,
+                                    'contentType' => 'project',
+                                ],
+                                [
+                                    'title' => 'Team Tasks',
+                                    'info' => count($teamTasks).' Tasks',
+                                    'content' => $teamTasks,
+                                    'contentType' => 'task',
+                                    'open' => true
+                                ]
                             ],
-                            [
-                                'title' => 'Team Projects',
-                                'info' => count($teamProjects).' Projects',
-                                'content' => $teamProjects,
-                                'contentType' => 'project',
-                            ],
-                            [
-                                'title' => 'Team Tasks',
-                                'info' => count($teamTasks).' Tasks',
-                                'content' => $teamTasks,
-                                'contentType' => 'task',
-                            ]
-                        ]
                     ])
                 </div>
             </div>

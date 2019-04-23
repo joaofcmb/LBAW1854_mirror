@@ -28,12 +28,13 @@ class LoginController extends Controller
     protected $redirectTo = 'home';
 
     /**
-     * Create a new controller instance.
+     * Show the application's login form.
      *
-     * @return void
+     * @return \Illuminate\Http\Response
      */
-    public function __construct() {
-        $this->middleware('guest')->except('logout');
+    public function showLoginForm()
+    {
+        return view('pages.auth.login');
     }
 
     /**
@@ -44,6 +45,15 @@ class LoginController extends Controller
     public function username()
     {
         return 'username';
+    }
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct() {
+        $this->middleware('guest')->except('logout');
     }
 
 }
