@@ -12,7 +12,7 @@
         'items' =>
             [
                 ['name' => 'HOME', 'route' => route('home')],
-                ['name' => 'SEARCH', 'route' => ''],
+                ['name' => 'SEARCH', 'route' => route('search')],
                 ['name' => 'FORUM', 'route' => route('companyforum'), 'active' => true],
                 ['name' => 'PROFILE', 'route' => ''],
             ],
