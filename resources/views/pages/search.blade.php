@@ -14,7 +14,7 @@
                 ['name' => 'HOME', 'route' => route('home')],
                 ['name' => 'SEARCH', 'route' => route('search'), 'active' => true],
                 ['name' => 'FORUM', 'route' => route('companyforum')],
-                ['name' => 'PROFILE', 'route' => ''],
+                ['name' => 'PROFILE', 'route' => route('profile', ['id' => Auth::user()->getAuthIdentifier()])],
             ],
         'auth' => 'session'
     ])

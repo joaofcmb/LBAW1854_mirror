@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
@@ -46,9 +47,18 @@ class ProfileController extends Controller
     public function show($id)
     {
 
+        if(Auth::user()->getAuthIdentifier() != $id) {
+            return redirect()->route('profile-team', ['id' => $id]);
+        }
+
+        echo Auth::user();
+
+        //return View('pages.profileInfo');
+    }
+
+    public function showTeam($id) {
 
 
-        return View('pages.profileInfo');
     }
 
     /**

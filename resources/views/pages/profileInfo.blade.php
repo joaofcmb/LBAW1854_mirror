@@ -11,10 +11,10 @@
     @include('partials.main-navbar', [
         'items' =>
             [
-                ['name' => 'HOME', 'route' => route('home'), 'active' => true],
+                ['name' => 'HOME', 'route' => route('home'), ],
                 ['name' => 'SEARCH', 'route' => route('search')],
                 ['name' => 'FORUM', 'route' => route('companyforum')],
-                ['name' => 'PROFILE', 'route' => route('profile', ['id' => Auth::user()->getAuthIdentifier()])],
+                ['name' => 'PROFILE', 'route' => route('profile', ['id' => Auth::user()->getAuthIdentifier()]), 'active' => true],
             ],
         'auth' => 'session'
     ])
