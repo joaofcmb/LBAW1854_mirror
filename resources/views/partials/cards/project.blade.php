@@ -11,7 +11,7 @@
     <div class="row">
         <div class="col-sm-7">
             Project Manager:
-            <a href="">
+            <a href="{{ route('profile', ['id' => $project->id_manager]) }}">
                 <h6 class="d-inline-block mb-3">{{ $project->manager }}</h6>
             </a>
             <br>

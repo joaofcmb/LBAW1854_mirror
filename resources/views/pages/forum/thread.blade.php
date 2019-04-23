@@ -14,7 +14,7 @@
                 ['name' => 'HOME', 'route' => route('home')],
                 ['name' => 'SEARCH', 'route' => ''],
                 ['name' => 'FORUM', 'route' => route('companyforum'), 'active' => true],
-                ['name' => 'PROFILE', 'route' => ''],
+                ['name' => 'PROFILE', 'route' => route('profile', ['id' => Auth::user()->getAuthIdentifier()])],
             ],
         'auth' => 'session'
      ])
@@ -25,7 +25,7 @@
     <div id="thread-content" class="container px-3 mb-5">
         <div class="card my-3 p-3">
             <h4>{{ $thread->title }}</h4>
-            <a class="d-flex flex-row pt-1"href="">
+            <a class="d-flex flex-row pt-1" href="{{ route('profile', ['id' => $thread->id_author]) }}">
                 <i class="fas fa-user mr-1"></i>
                 <h6>{{ $thread->author_name }}</h6>
             </a>
@@ -35,7 +35,7 @@
             <div class="card p-3 my-3">
                 <div class="row">
                     <div class="col">
-                        <a class="d-flex flex-row pt-1"href="">
+                        <a class="d-flex flex-row pt-1" href="{{ route('profile', ['id' => $comment->id_author]) }}">
                             <i class="fas fa-user mr-1"></i>
                             <h6>{{ $comment->author_name }}</h6>
                         </a>
