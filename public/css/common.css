@@ -80,13 +80,13 @@
 }
 
 
-#menu-option .col-sm-4 a {
+#menu-option a {
     color: var(--dark-grey-color);
     text-decoration: none;
     font-size: 1.35em;
 }
 
-#menu-option .col-sm-4 a:hover {
+#menu-option a:hover {
     color: var(--brand-color);
 }
 
