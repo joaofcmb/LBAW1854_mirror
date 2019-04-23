@@ -31,7 +31,8 @@ Route::get('search', 'SearchController@show')->name('search');
 Route::get('companyforum', 'ForumController@showCompanyForum')->name('companyforum');
 Route::get('companyforum/thread/{id_thread}', 'ThreadController@show')->name('companyforum-thread');
 
-
+// Profile
+Route::get('profile/{id}', 'ProfileController@show')->name('profile');
 
 // Cards
 //Route::get('cards', 'CardController@list');
