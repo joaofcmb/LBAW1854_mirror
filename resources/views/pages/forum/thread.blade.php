@@ -63,50 +63,6 @@
                         <p class="mt-2">{{ $comment->text }}<p>
                     </div>
                 @endforeach
-                <div class="card p-3 my-3">
-                    <div class="row">
-                        <div class="col">
-                            <div class="row">
-                                <i class="far fa-user mx-3"></i>
-                                <a href="">
-                                    <h6>Joseph Doe</h6>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col text-right">
-                            <a href=""><i class="fas fa-pen mx-3"></i></a>
-                            <a href=""><i class="fas fa-trash-alt mx-2"></i></a>
-                        </div>
-                    </div>
-                    <p class="mt-2">Nulla facilisi. Curabitur id consequat
-                        quam. Aliquam feugiat enim sit amet mattis luctus. Mauris semper id libero
-                        nec laoreet. Nulla nulla ligula, gravida quis est eget, ultricies fermentum
-                        lacus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
-                        eleifend lectus et risus finibus interdum. Morbi hendrerit ligula ac urna
-                        eleifend, ut laoreet ante iaculis.<p>
-                </div>
-                <div class="card p-3 my-3">
-                    <div class="row">
-                        <div class="col">
-                            <div class="row">
-                                <i class="far fa-user mx-3"></i>
-                                <a href="">
-                                    <h6>Lilly Smith</h6>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col text-right">
-                            <a href=""><i class="fas fa-pen mx-3"></i></a>
-                            <a href=""><i class="fas fa-trash-alt mx-2"></i></a>
-                        </div>
-                    </div>
-                    <p class="mt-2">Nulla facilisi. Curabitur id consequat
-                        quam. Aliquam feugiat enim sit amet mattis luctus. Mauris semper id libero
-                        nec laoreet. Nulla nulla ligula, gravida quis est eget, ultricies fermentum
-                        lacus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
-                        eleifend lectus et risus finibus interdum. Morbi hendrerit ligula ac urna
-                        eleifend, ut laoreet ante iaculis.<p>
-                </div>
                 <form>
                     <div class="form-row">
                         <div class="form-group col-md-12 my-3">

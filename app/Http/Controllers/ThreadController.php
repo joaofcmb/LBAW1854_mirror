@@ -52,9 +52,9 @@ class ThreadController extends Controller
     {
 
         $thread = Thread::find($id);
-        $threadInformation = Thread::threadInformation($thread->get())[0];
-        $threadComments = Comment::commentInformation(Thread::find(7)->comments);
-        
+        $threadInformation = Thread::threadInformation([$thread])[0];
+        $threadComments = Comment::commentInformation(Thread::find($id)->comments);
+
         return View('pages.forum.thread', ['thread' => $threadInformation, 'comments' => $threadComments]);
     }
 

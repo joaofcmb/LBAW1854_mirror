@@ -32,16 +32,13 @@
         <div class="row my-5 mx-3 mx-md-5 px-md-5">
             <div id="side-forum" class="col-12 p-5>">
                 @foreach($threads as $thread)
-                    <a href="thread.html">
+                    <a href="{{ route('companyforum-thread', ['id_thread' => $thread->id]) }}">
                         <div class="card border-hover sticky p-2 my-2">
                             <div class="d-flex justify-content-between align-items-top">
                                 <h5>{{ $thread->title }}</h5>
-                                @php
-                                    $user_id = Illuminate\Support\Facades\Auth::user()->getAuthIdentifier();
-
-                                    if($user_id === 1 || $user_id === 2 || $user_id === $thread->id_author)
-                                        echo '<i class="fas fa-trash-alt mx-3"></i>'
-                                @endphp
+                                @if(Auth::user()->isAdmin() ||  Auth::user()->getAuthIdentifier() === $thread->id_author )
+                                    <i class="fas fa-trash-alt mx-3"></i>
+                                @endif
                             </div>
                             <div class="row">
                                 <div class="col">
