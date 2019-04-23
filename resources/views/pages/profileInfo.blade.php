@@ -40,7 +40,7 @@
                         <div class="col-7">
                             <div class="form-group">
                                 <input type="email" class="form-control text-center" name="email" id="email"
-                                       aria-describedby="emailHelpId" placeholder="john_doe45@fe.up.pt">
+                                       aria-describedby="emailHelpId" placeholder="{{ $user->email }}">
                             </div>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
             <div class="container pb-4">
                 <div class="row justify-content-center">
                     <div id="profile-picture" class="col-  mx-auto">
-                        <img class="profile-img rounded-circle" src="./IMG/avatar.png" width="250" height="250"
+                        <img class="profile-img rounded-circle" src="{{ asset('img/avatar.png') }}" width="250" height="250"
                              alt="User Photo">
                         <div id="change-picture" class="text-center">
                             <i class="fas fa-camera"></i>
@@ -80,13 +80,13 @@
                 </div>
                 <div class="row justify-content-center pt-4 pb-3">
                     <div id="name-container" class=" col-8 col-md-5 align-self-center text-center">
-                        <h5>John Doe</h5>
+                        <h5>{{ $user->username }}</h5>
                     </div>
                 </div>
                 <div class="row justify-content-center">
                     <div id="biography" class="col-10 col-md-8 pt-3">
                         <h5>Biography<i id="edit-biography" class="fas fa-edit ml-2 float-right"></i></h5>
-                        <p class="pt-2">My name is Doe, John Doe!</p>
+                        <p class="pt-2">{{ $user->biography }}</p>
                     </div>
                 </div>
             </div>

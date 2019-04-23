@@ -51,9 +51,7 @@ class ProfileController extends Controller
             return redirect()->route('profile-team', ['id' => $id]);
         }
 
-        echo Auth::user();
-
-        //return View('pages.profileInfo');
+        return View('pages.profileInfo', ['user' => Auth::user()]);
     }
 
     public function showTeam($id) {
