@@ -53,7 +53,7 @@ class ProfileController extends Controller
     {
 
         if(Auth::user()->getAuthIdentifier() != $id) {
-            if(User::find($id)->isAdmin)
+            if(User::find($id)->isAdmin())
                 return redirect()->route('profile-favorites', ['id' => $id]);
             else
                 return redirect()->route('profile-team', ['id' => $id]);
