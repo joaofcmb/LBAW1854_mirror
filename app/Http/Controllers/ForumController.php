@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Forum;
+use App\Project;
 use App\Thread;
 use Illuminate\Http\Request;
 
@@ -49,7 +50,7 @@ class ForumController extends Controller
     {
         $threads = Thread::threadInformation(Forum::find(1)->threads);
 
-        return View('pages.forum.forum', ['threads' => $threads]);
+        return View('pages.forum.forum', ['threads' => $threads, 'isProjectForum' => false]);
     }
 
     /**
@@ -60,7 +61,10 @@ class ForumController extends Controller
      */
     public function show($id)
     {
-        return View('pages.forum');
+        $project = Project::find($id);
+        $threads = Thread::threadInformation(Forum::find($id)->threads);
+
+        return View('pages.forum.forum', ['project' => $project, 'threads' => $threads, 'isProjectForum' => true]);
     }
 
     /**

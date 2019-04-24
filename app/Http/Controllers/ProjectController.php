@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Forum;
+use App\Project;
+use App\Thread;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
@@ -45,7 +49,13 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        //
+
+        $project = Project::find($id);
+        $projectInformation = Project::projectInformation($project);
+        $forum = $project->forum;
+        $threads = Thread::threadInformation($forum->threads->take(7));
+
+        return View('pages.project.projectOverview', ['project' => $projectInformation, 'forum' => $forum, 'threads' => $threads]);
     }
 
     /**

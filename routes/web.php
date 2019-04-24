@@ -31,6 +31,9 @@ Route::get('search', 'SearchController@show')->name('search');
 Route::get('companyforum', 'ForumController@showCompanyForum')->name('companyforum');
 Route::get('companyforum/thread/{id_thread}', 'ThreadController@show')->name('companyforum-thread');
 
+Route::get('/project/{id}/forum', 'ForumController@show')->name('project-forum');
+Route::get('/project/{id_project}/forum/thread/{id_thread}', 'ThreadController@show')->name('forum-thread');
+
 // Profile
 Route::get('profile/{id}', 'ProfileController@show')->name('profile');
 Route::get('profile/{id}/team', 'ProfileController@showTeam')->name('profile-team');
@@ -38,6 +41,9 @@ Route::get('profile/{id}/favorites', 'ProfileController@showFavorites')->name('p
 Route::get('profile/{id}/followers', 'ProfileController@showFollowers')->name('profile-followers');
 Route::get('profile/{id}/following', 'ProfileController@showFollowing')->name('profile-following');
 
+
+// Project
+Route::get('/project/{id_project}', 'ProjectController@show')->name('project-overview');
 
 // Cards
 //Route::get('cards', 'CardController@list');

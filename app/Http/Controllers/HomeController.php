@@ -13,6 +13,11 @@ use App\Forum;
 
 class HomeController extends Controller
 {
+    /**
+     * Display the specified resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function show() {
         if (!Auth::check()) return redirect('/login');
 

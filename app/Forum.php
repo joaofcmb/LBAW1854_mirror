@@ -28,4 +28,8 @@ class Forum extends Model
     public function threads() {
         return $this->hasMany('App\Thread', 'id_forum')->orderBy('last_edit_date', 'desc');
     }
+
+    public function project() {
+        return $this->belongsTo('App\Project', 'id_project');
+    }
 }
