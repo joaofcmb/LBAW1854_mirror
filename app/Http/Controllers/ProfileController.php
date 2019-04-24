@@ -82,18 +82,49 @@ class ProfileController extends Controller
         return View('pages.profile.profileTeam', ['id' => $id, 'user' => $user, 'ownUser'  => $ownUser, 'team' => $team, 'members' => $members, 'leader' => $leader]);
     }
 
+    /**
+     * Displays user profile followers section
+     *
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showFavorites($id) {
 
         $user = User::find($id);
         $ownUser = Auth::user()->getAuthIdentifier() != $id ? false : true;
 
-        $favorites = Project::join('favorite', 'favorite.id_project', '=', 'project.id')
-                            ->where('favorite.id_user', $id)
-                            ->get();
+        $favorites = Project::join('favorite', 'favorite.id_project', '=', 'project.id')->where('favorite.id_user', $id)->get();
 
         $favorites = Project::cardInformation($favorites, $id);
 
         return View('pages.profile.profileFavorites', ['id' => $id, 'user' => $user, 'ownUser'  => $ownUser, 'favorites' => $favorites]);
+    }
+
+    public function showFollowers($id) {
+
+        $user = User::find($id);
+        $ownUser = Auth::user()->getAuthIdentifier() != $id ? false : true;
+
+        $followers = User::join('follow', 'follow.id_follower', '=', 'user.id')->where('follow.id_followee', $id)->get();
+        $followers = Follow::followInformation($followers);
+
+        return View('pages.profile.profileFollowers', ['id' => $id, 'user' => $user, 'ownUser'  => $ownUser, 'followers' => $followers]);
+    }
+
+    /**
+     * Displays user profile following section
+     *
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showFollowing($id) {
+
+        $user = User::find($id);
+        $ownUser = Auth::user()->getAuthIdentifier() != $id ? false : true;
+
+        $following = User::join('follow', 'follow.id_followee', '=', 'user.id')->where('follow.id_follower', $id)->get();
+
+        return View('pages.profile.profileFollowing', ['id' => $id, 'user' => $user, 'ownUser'  => $ownUser, 'following' => $following]);
     }
 
     /**

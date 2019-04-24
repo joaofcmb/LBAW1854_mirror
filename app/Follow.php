@@ -20,10 +20,11 @@ class Follow extends Model
      */
     protected $table = 'follow';
 
-    /**
-     * The table primary key
-     *
-     * @var string
-     */
-    protected $primaryKey = ['id_follower', 'id_followee'];
+    public static function followInformation($follows) {
+        foreach ($follows as $follow) {
+            $follow['followBack'] = Follow::where([['id_follower', '=', $follow['id_followee']], ['id_followee', '=', $follow['id_follower']]])->exists();
+        }
+
+        return $follows;
+    }
 }

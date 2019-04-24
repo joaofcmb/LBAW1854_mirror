@@ -26,8 +26,8 @@
                 ['name' => 'Information', 'route' => route('profile', ['id' => $id]), 'toPrint' => $ownUser],
                 ['name' => 'Team', 'route' => route('profile-team', ['id' => $id]), 'active' => true, 'toPrint' => !\App\User::find($id)->isAdmin()],
                 ['name' => 'Favorite Projects', 'route' => route('profile-favorites', ['id' => $id])],
-                ['name' => 'Followers', 'route' => ''],
-                ['name' => 'Following', 'route' => '']
+                ['name' => 'Followers', 'route' => route('profile-followers', ['id' => $id])],
+                ['name' => 'Following', 'route' => route('profile-following', ['id' => $id])]
             ]
     ])
     <div id="main-content" class="row mx-auto align-items-center">
@@ -113,13 +113,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div id="background-button" class="row col-12 mt-2 mb-4 my-md-0 p-0">
-        <div class="col-12 text-right p-0">
-            <a href="" class="btn px-2 py-1" role="button">
-                <i class="fa fa-camera" aria-hidden="true"></i>
-            </a>
         </div>
     </div>
     <footer class="fixed-bottom p-1 pl-2">

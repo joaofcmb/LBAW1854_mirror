@@ -24,8 +24,8 @@
                 ['name' => 'Information', 'route' => route('profile', ['id' => $id]), 'active' => true],
                 ['name' => 'Team', 'route' => route('profile-team', ['id' => $id]), 'toPrint' => !\App\User::find($id)->isAdmin()],
                 ['name' => 'Favorite Projects', 'route' => route('profile-favorites', ['id' => $id])],
-                ['name' => 'Followers', 'route' => ''],
-                ['name' => 'Following', 'route' => '']
+                ['name' => 'Followers', 'route' => route('profile-followers', ['id' => $id])],
+                ['name' => 'Following', 'route' => route('profile-following', ['id' => $id])]
             ]
     ])
     <div id="main-content" class="row mx-auto align-items-center">
@@ -40,7 +40,7 @@
                         <div class="col-7">
                             <div class="form-group">
                                 <input type="email" class="form-control text-center" name="email" id="email"
-                                       aria-describedby="emailHelpId" placeholder="{{ $user->email }}">
+                                       aria-describedby="emailHelpId" value="{{ $user->email }}">
                             </div>
                         </div>
                     </div>
