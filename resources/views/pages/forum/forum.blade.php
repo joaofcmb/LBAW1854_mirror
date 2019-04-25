@@ -17,6 +17,7 @@
         @include('partials.sub-navbar', [
             'active' => 'forum',
             'project' => $project,
+            'isProjectManager' => $isProjectManager
         ])
     @endif
 

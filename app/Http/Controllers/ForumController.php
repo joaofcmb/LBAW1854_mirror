@@ -6,6 +6,7 @@ use App\Forum;
 use App\Project;
 use App\Thread;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ForumController extends Controller
 {
@@ -64,7 +65,9 @@ class ForumController extends Controller
         $project = Project::find($id);
         $threads = Thread::threadInformation(Forum::find($id)->threads);
 
-        return View('pages.forum.forum', ['project' => $project, 'threads' => $threads, 'isProjectForum' => true]);
+        $isProjectManager = $project->id_manager == Auth::user()->getAuthIdentifier();
+
+        return View('pages.forum.forum', ['project' => $project, 'threads' => $threads, 'isProjectManager' => $isProjectManager, 'isProjectForum' => true]);
     }
 
     /**

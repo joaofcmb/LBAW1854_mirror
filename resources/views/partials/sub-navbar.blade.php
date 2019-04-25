@@ -18,8 +18,10 @@
             <a class="nav-item nav-link {{($active == 'tasks')? 'active' : ''}} mx-lg-3" href="{{route('project-tasks', ['id' => $project->id])}}">Tasks</a>
             <a class="nav-item nav-link {{($active == 'forum')? 'active' : ''}} mx-lg-3" href="{{route('project-forum', ['id' => $project->id])}}">Forum</a>
             
-            <a class="text-danger font-weight-bolder ml-3 ml-sm-auto" href="" style="text-decoration: none;"><i
-                class="fas fa-times"></i><span class="d-sm-none d-md-inline"> Close Project</span></a>
+            @if($isProjectManager)
+                <a class="text-danger font-weight-bolder ml-3 ml-sm-auto" href="" style="text-decoration: none;"><i
+                    class="fas fa-times"></i><span class="d-sm-none d-md-inline"> Close Project</span></a>
+            @endif
         @else
             @if($owner)
                 <a class="nav-item nav-link {{($active == 'information')? 'active' : ''}} mx-lg-3" href="{{route('profile', ['id' => $id])}}">Information</a>

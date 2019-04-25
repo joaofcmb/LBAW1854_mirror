@@ -9,5 +9,22 @@
     </div>
 </button>
 <div class="collapse {{isset($tab['open']) ? 'show ' : ''}}mx-auto" id="{{$index}}">
-    @each('partials.cards.'.$tab['contentType'], $tab['content'], $tab['contentType'])
+    @if($onProject)
+        @foreach( $tab['content'] as $task)
+            @include('partials.cards.task', [
+                'task' => $task,
+                'isProjectManager' => $tab['isProjectManager']
+            ])
+        @endforeach
+    @else
+        @foreach( $tab['content'] as $task)
+            @if ($tab['contentType'] == 'task')
+                @include('partials.cards.task', [ 'task' => $task ])
+            @else
+                @include('partials.cards.project', [ 'project' => $task ])
+            @endif             
+        @endforeach
+
+        <!-- @each('partials.cards.'.$tab['contentType'], $tab['content'], $tab['contentType']) -->
+    @endif
 </div>

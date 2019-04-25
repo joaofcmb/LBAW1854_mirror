@@ -15,7 +15,8 @@
         <div class="row w-100 mx-auto">
             <div class="col-lg-8 px-0">
                 <div id="content" class="container py-3 mb-4">
-                    @include('partials.collapsable-tablist', [
+                    @include('partials.collapsableTablist', [
+                        'onProject' => false,
                         'tabs' =>
                             [
                                 [
@@ -35,9 +36,10 @@
                                     'info' => count($teamTasks).' Tasks',
                                     'content' => $teamTasks,
                                     'contentType' => 'task',
+                                    'isProjectManager' => false,
                                     'open' => true
                                 ]
-                            ],
+                            ]
                     ])
                 </div>
             </div>

@@ -66,13 +66,15 @@ class ProjectController extends Controller
         $currentMilestone = Milestone::where([['id_project', $project->id], ['deadline', '>=', $date]])->orderBy('deadline', 'asc')->first();
         $currentMilestone['timeLeft'] = $currentDate->diff(new DateTime($currentMilestone->deadline))->format('%a');
 
+        $isProjectManager = $project->id_manager == Auth::user()->getAuthIdentifier();
 
         return View('pages.project.projectOverview', ['project' => $projectInformation,
-                                                            'milestones' => $milestones,
-                                                            'currentMilestone' => $currentMilestone,
-                                                            'forum' => $forum,
-                                                            'threads' => $threads,
-                                                            'date' => $date
+                                                        'isProjectManager' => $isProjectManager,
+                                                        'milestones' => $milestones,
+                                                        'currentMilestone' => $currentMilestone,
+                                                        'forum' => $forum,
+                                                        'threads' => $threads,
+                                                        'date' => $date
         ]);
     }
 
@@ -95,11 +97,14 @@ class ProjectController extends Controller
 
         $currentMilestoneTasks = Task::cardInformation(Task::where([['id_milestone', $currentMilestone->id], ['progress', '<', 100]])->get());
 
+        $isProjectManager = $project->id_manager == Auth::user()->getAuthIdentifier();
+
         return View('pages.project.projectRoadmap', ['project' => $projectInformation,
-                                                           'milestones' => $milestones,
-                                                           'currentMilestone' => $currentMilestone,
-                                                           'currentMilestoneTasks' => $currentMilestoneTasks,
-                                                           'date' => $date
+                                                        'isProjectManager' => $isProjectManager,
+                                                        'milestones' => $milestones,
+                                                        'currentMilestone' => $currentMilestone,
+                                                        'currentMilestoneTasks' => $currentMilestoneTasks,
+                                                        'date' => $date
         ]);
 
     }
