@@ -25,23 +25,22 @@
         <div class="col-lg-8 px-0">
             <div id="content" class="container py-3 mb-4">
                 <div class="roadmap m-sm-5 my-4">
-                    <!--Max 6 milestones-->
                     <div class="roadmap-left"></div>
-                    <div
-                            class="roadmap-diagram border-top-0 border-bottom-0 d-flex justify-content-between align-items-center">
+                    <div class="roadmap-diagram border-top-0 border-bottom-0 d-flex justify-content-between align-items-center">
                         <div class="p-1"></div>
-                        <div class="milestone py-2"><i class="far fa-dot-circle align-middle"></i></div>
-                        <div class="milestone py-2"><i class="far fa-dot-circle align-middle"></i></div>
-                        <div class="milestone py-2"><i class="far fa-dot-circle align-middle"></i></div>
-                        <div class="milestone py-2"><i class="far fa-circle align-middle"></i></div>
-                        <div class="milestone py-2"><i class="far fa-circle align-middle"></i></div>
-                        <div class="milestone py-2"><i class="far fa-circle align-middle"></i></div>
+                            @foreach($milestones as $milestone)
+                                @if($milestone->deadline < $date)
+                                    <div class="milestone py-2"><i class="far fa-dot-circle align-middle"></i></div>
+                                @else
+                                    <div class="milestone py-2"><i class="far fa-circle align-middle"></i></div>
+                                @endif
+                            @endforeach
                         <div class="p-1"></div>
                     </div>
                     <div class="roadmap-right"></div>
                     <div class="milestone-description mx-auto text-center">
-                        14 days left
-                        <h6>Frontend Polish</h6>
+                        {{ $currentMilestone->timeLeft }} days left
+                        <h6>{{ $currentMilestone->name }}</h6>
                     </div>
                 </div>
 

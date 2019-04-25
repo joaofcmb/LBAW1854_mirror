@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Forum;
+use App\Milestone;
 use App\Project;
 use App\Thread;
 use DateTime;
@@ -52,20 +53,26 @@ class ProjectController extends Controller
     {
 
         $project = Project::find($id);
-        $projectInformation = Project::projectInformation($project);
+        $projectInformation = Project::projectInformation(Project::find($id));
+
         $forum = $project->forum;
         $threads = Thread::threadInformation($forum->threads->take(7));
 
         $currentDate = new DateTime();
         $date = $currentDate->format('Y-m-d');
-        $milestones = $project->milestones->where('deadline', '>', $date)->first();
 
-      // echo $milestones;
-        //echo $project->milestones . '<br>' . $currentDate . '<br>' . $project->milestones->where('deadline', '<', $currentDate);
+        $milestones = Milestone::where('id_project', $project->id)->orderBy('deadline', 'asc')->limit(6)->get();
+        $currentMilestone = Milestone::where([['id_project', $project->id], ['deadline', '>=', $date]])->orderBy('deadline', 'asc')->first();
+        $currentMilestone['timeLeft'] = $currentDate->diff(new DateTime($currentMilestone->deadline))->format('%a');
 
-        //die();
 
-        return View('pages.project.projectOverview', ['project' => $projectInformation, 'forum' => $forum, 'threads' => $threads]);
+        return View('pages.project.projectOverview', ['project' => $projectInformation,
+                                                            'milestones' => $milestones,
+                                                            'currentMilestone' => $currentMilestone,
+                                                            'forum' => $forum,
+                                                            'threads' => $threads,
+                                                            'date' => $date
+        ]);
     }
 
     /**
