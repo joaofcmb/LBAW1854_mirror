@@ -14,7 +14,7 @@
             'auth' => 'session'
         ])
         @include('partials.sub-navbar', [
-            'active' => 'followers',
+            'active' => $type,
             'owner' => $ownUser,
         ])
     </div>
@@ -22,14 +22,26 @@
         <div class="col-lg-8 px-0 order-12 order-lg-1">
             <div id="content" class="container pb-3 p-lg-5 mb-5 mb-lg-4 align-self-center justify-content-center">
                 <div class="main-tab card border-left-0 border-right-0 rounded-0 p-2">
-                    <h4>Followers</h4>
+                    @if ($type == 'followers')
+                        <h4>Followers</h4>
+                    @elseif ($type == 'following')
+                        <h4>Following</h4>
+                    @endif
                     <div class="container px-5">
-                        @foreach($followers as $follow)
-                            @include('partials.cards.profile', [
-                                'isLeader' => false,
-                                'user' => $follow,
-                                'follow' => $follow->followBack
-                            ])
+                        @foreach($follow as $f)
+                            @if ($type == 'followers')
+                                @include('partials.cards.profile', [
+                                    'isLeader' => false,
+                                    'user' => $f,
+                                    'follow' => $f->followBack
+                                ])
+                            @elseif ($type == 'following')
+                                @include('partials.cards.profile', [
+                                    'isLeader' => false,
+                                    'user' => $f,
+                                    'follow' => true
+                                ])                                
+                            @endif                            
                         @endforeach
                     </div>
                 </div>

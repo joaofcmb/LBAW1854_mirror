@@ -108,7 +108,7 @@ class ProfileController extends Controller
         $followers = User::join('follow', 'follow.id_follower', '=', 'user.id')->where('follow.id_followee', $id)->get();
         $followers = Follow::followInformation($followers);
 
-        return View('pages.profile.profileFollowers', ['id' => $id, 'user' => $user, 'ownUser'  => $ownUser, 'followers' => $followers]);
+        return View('pages.profile.profileFollow', ['id' => $id, 'user' => $user, 'ownUser'  => $ownUser, 'follow' => $followers, 'type' => 'followers']);
     }
 
     /**
@@ -124,7 +124,7 @@ class ProfileController extends Controller
 
         $following = User::join('follow', 'follow.id_followee', '=', 'user.id')->where('follow.id_follower', $id)->get();
 
-        return View('pages.profile.profileFollowing', ['id' => $id, 'user' => $user, 'ownUser'  => $ownUser, 'following' => $following]);
+        return View('pages.profile.profileFollow', ['id' => $id, 'user' => $user, 'ownUser'  => $ownUser, 'follow' => $following, 'type' => 'following']);
     }
 
     /**
