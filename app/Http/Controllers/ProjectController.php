@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Forum;
 use App\Project;
 use App\Thread;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -54,6 +55,15 @@ class ProjectController extends Controller
         $projectInformation = Project::projectInformation($project);
         $forum = $project->forum;
         $threads = Thread::threadInformation($forum->threads->take(7));
+
+        $currentDate = new DateTime();
+        $date = $currentDate->format('Y-m-d');
+        $milestones = $project->milestones->where('deadline', '>', $date)->first();
+
+       echo $milestones;
+        //echo $project->milestones . '<br>' . $currentDate . '<br>' . $project->milestones->where('deadline', '<', $currentDate);
+
+        die();
 
         return View('pages.project.projectOverview', ['project' => $projectInformation, 'forum' => $forum, 'threads' => $threads]);
     }

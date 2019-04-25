@@ -19,8 +19,7 @@
         'auth' => 'session'
     ])
     <nav id="sub-menu" class="navbar navbar-expand-sm p-0 pr-3 pr-sm-1 pr-lg-3">
-        <a class="navbar-brand h-5 px-3 py-2" style="color: white; background-color: rgb(12, 116, 214);">Company
-            Website</a>
+        <a class="navbar-brand h-5 px-3 py-2" style="color: white; background-color: {{  $project->color }};">{{  $project->name }}</a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent2"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,6 +46,9 @@
                             class="roadmap-diagram border-top-0 border-bottom-0 d-flex justify-content-between align-items-center">
                         <div class="p-1"></div>
                         <div class="milestone py-2"><i class="far fa-dot-circle align-middle"></i></div>
+                        <div class="milestone py-2"><i class="far fa-dot-circle align-middle"></i></div>
+                        <div class="milestone py-2"><i class="far fa-dot-circle align-middle"></i></div>
+                        <div class="milestone py-2"><i class="far fa-circle align-middle"></i></div>
                         <div class="milestone py-2"><i class="far fa-circle align-middle"></i></div>
                         <div class="milestone py-2"><i class="far fa-circle align-middle"></i></div>
                         <div class="p-1"></div>

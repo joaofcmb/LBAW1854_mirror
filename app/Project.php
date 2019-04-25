@@ -51,6 +51,10 @@ class Project extends Model
         return $this->hasOne('App\Forum', 'id_project');
     }
 
+    public function milestones() {
+        return $this->hasMany('App\Milestone', 'id_project');
+    }
+
     /**
      * Retrieves projects card information
      *

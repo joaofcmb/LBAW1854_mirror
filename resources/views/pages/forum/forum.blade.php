@@ -49,7 +49,7 @@
         </div>
         <div id="forum" class="px-3 mb-5">
             @foreach($threads as $thread)
-                <a href="{{ route('companyforum-thread', ['id_thread' => $thread->id]) }}">
+                <a href="{{ $isProjectForum ? route('forum-thread',['id_project' => $project->id, 'id_thread' => $thread->id]) : route('companyforum-thread', ['id_thread' => $thread->id]) }}">
                     <div class="card border-hover sticky p-2 my-4">
                         <div class="d-flex justify-content-between align-items-top">
                             <h5>{{ $thread->title }}</h5>

@@ -872,6 +872,7 @@ INSERT INTO milestone(name,deadline,id_project) VALUES ('Aliquam','2019/05/05',4
 INSERT INTO milestone(name,deadline,id_project) VALUES ('Integer','2019/05/05',9);
 INSERT INTO milestone(name,deadline,id_project) VALUES ('nec velit','2019/05/08',7);
 INSERT INTO milestone(name,deadline,id_project) VALUES ('pharetra','2019/05/08',10);
+INSERT INTO milestone(name,deadline,id_project) VALUES ('nescion milestone','2019/03/07',3);
 
 INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('vulputate','dignissim aliquam accumsan montes tempor semper ultricies Cum venenatis Aenean',6,'2019/04/08','2019/04/06',7,3,24);
 INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('elit tempor','nulla iaculis neque rutrum litora senectus cubilia Nulla rutrum',18,'2019/04/06','2019/04/08',1,18,2);

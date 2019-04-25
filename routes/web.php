@@ -32,7 +32,7 @@ Route::get('companyforum', 'ForumController@showCompanyForum')->name('companyfor
 Route::get('companyforum/thread/{id_thread}', 'ThreadController@show')->name('companyforum-thread');
 
 Route::get('/project/{id}/forum', 'ForumController@show')->name('project-forum');
-Route::get('/project/{id_project}/forum/thread/{id_thread}', 'ThreadController@show')->name('forum-thread');
+Route::get('/project/{id_project}/forum/thread/{id_thread}', 'ThreadController@showForumThread')->name('forum-thread');
 
 // Profile
 Route::get('profile/{id}', 'ProfileController@show')->name('profile');
