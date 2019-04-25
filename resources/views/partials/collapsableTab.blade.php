@@ -24,7 +24,5 @@
                 @include('partials.cards.project', [ 'project' => $task ])
             @endif             
         @endforeach
-
-        <!-- @each('partials.cards.'.$tab['contentType'], $tab['content'], $tab['contentType']) -->
     @endif
 </div>
