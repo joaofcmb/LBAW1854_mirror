@@ -15,8 +15,7 @@
         ])
         @include('partials.sub-navbar', [
             'active' => 'team',
-            'owner' => $ownUser,
-            'notAdmin' => !\App\User::find($id)->isAdmin()
+            'owner' => $ownUser
         ])
     </div>
     <div id="main-content" class="row mx-auto align-items-center">

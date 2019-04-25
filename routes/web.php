@@ -44,6 +44,8 @@ Route::get('profile/{id}/following', 'ProfileController@showFollowing')->name('p
 
 // Project
 Route::get('/project/{id_project}', 'ProjectController@show')->name('project-overview');
+Route::get('/project/{id_project}/roadmap', 'ProjectController@showRoadmap')->name('project-roadmap');
+Route::get('/project/{id}/tasks', 'ProjectController@showTasks')->name('project-tasks');
 
 // Cards
 //Route::get('cards', 'CardController@list');

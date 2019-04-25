@@ -58,9 +58,13 @@
                     </button>
                     <div class="collapse mx-auto" id="TodoTasks">
                         @foreach($project->tasks_todo as $task)
-                            <section class="task card float-sm-left p-2 m-2 mt-3">
-                                <h5 class="card-title text-center pb-2 mb-2">{{$task->project_name}}</h5>
-                                <h6 class="text-center mb-auto"><a href="">{{$task->title}}</a></h6>
+                            <section class="task card border-hover float-sm-left p-2 m-2 mt-3">
+                                <div class="mx-auto mb-1">
+                                    <i class="far fa-edit hover-icon mr-2"></i>
+                                    <i class="fas fa-link fa-fw hover-icon mx-2"></i>
+                                    <i class="far fa-trash-alt fa-fw hover-icon ml-2"></i>
+                                </div>
+                                <h6 class="text-center mb-auto">{{$task->title}}</h6>
 
                                 <p class="ml-1 m-0">{{$task->teams}} Teams</p>
                                 <p class="ml-1 mb-2">{{$task-> developers}} Developers</p>
@@ -99,9 +103,13 @@
                     </button>
                     <div class="collapse show mx-auto" id="OngoingTasks">
                         @foreach($project->tasks_ongoing as $task)
-                            <section class="task card float-sm-left p-2 m-2 mt-3">
-                                <h5 class="card-title text-center pb-2 mb-2">{{$task->project_name}}</h5>
-                                <h6 class="text-center mb-auto"><a href="">{{$task->title}}</a></h6>
+                            <section class="task card border-hover float-sm-left p-2 m-2 mt-3">
+                                <div class="mx-auto mb-1">
+                                    <i class="far fa-edit hover-icon mr-2"></i>
+                                    <i class="fas fa-link fa-fw hover-icon mx-2"></i>
+                                    <i class="far fa-trash-alt fa-fw hover-icon ml-2"></i>
+                                </div>
+                                <h6 class="text-center mb-auto">{{$task->title}}</h6>
 
                                 <p class="ml-1 m-0">{{$task->teams}} Teams</p>
                                 <p class="ml-1 mb-2">{{$task-> developers}} Developers</p>
@@ -140,9 +148,13 @@
                     </button>
                     <div class="collapse mx-auto" id="DoneTasks">
                         @foreach($project->tasks_done as $task)
-                            <section class="task card float-sm-left p-2 m-2 mt-3">
-                                <h5 class="card-title text-center pb-2 mb-2">{{$task->project_name}}</h5>
-                                <h6 class="text-center mb-auto"><a href="">{{$task->title}}</a></h6>
+                            <section class="task card border-hover float-sm-left p-2 m-2 mt-3">
+                                <div class="mx-auto mb-1">
+                                    <i class="far fa-edit hover-icon mr-2"></i>
+                                    <i class="fas fa-link fa-fw hover-icon mx-2"></i>
+                                    <i class="far fa-trash-alt fa-fw hover-icon ml-2"></i>
+                                </div>
+                                <h6 class="text-center mb-auto">{{$task->title}}</h6>
 
                                 <p class="ml-1 m-0">{{$task->teams}} Teams</p>
                                 <p class="ml-1 mb-2">{{$task-> developers}} Developers</p>
