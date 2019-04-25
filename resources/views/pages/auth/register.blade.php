@@ -9,8 +9,7 @@
 @section('body')
     <body>
     @include('partials.main-navbar', [
-        'items' => [],
-        'auth' => 'index'
+        'auth' => 'authentication'
     ])
     <div id="home" class="container">
         <div id="auth-zone" class="container">
