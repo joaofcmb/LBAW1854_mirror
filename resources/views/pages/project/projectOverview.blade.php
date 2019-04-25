@@ -8,29 +8,19 @@
 
 @section('body')
     <body class="bg-light">
-    @include('partials.main-navbar', [
-            'active' => '',
-            'owner' => true,
-            'auth' => 'session'
-    ])
-    <nav id="sub-menu" class="navbar navbar-expand-sm p-0 pr-3 pr-sm-1 pr-lg-3">
-        <a class="navbar-brand h-5 px-3 py-2" style="color: white; background-color: {{  $project->color }};">{{  $project->name }}</a>
+    <div class="navbar-dark sticky-top">
+        @include('partials.main-navbar', [
+                'active' => '',
+                'owner' => true,
+                'auth' => 'session'
+        ])
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent2"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        @include('partials.sub-navbar', [
+            'active' => 'overview',
+            'project' => $project,
+        ])
+    </div>
 
-        <div class="collapse navbar-collapse py-2 py-sm-0" id="navbarSupportedContent2">
-            <a class="nav-item nav-link active mx-lg-3" href="{{ route('project-overview', ['id_project' => $project->id]) }}">Overview</a>
-            <a class="nav-item nav-link mx-lg-3" href="project-roadmap.html">Roadmap</a>
-            <a class="nav-item nav-link mx-lg-3" href="project-tasks.html">Tasks</a>
-            <a class="nav-item nav-link mx-lg-3" href="{{ route('project-forum', ['id_project' => $project->id]) }}">Forum</a>
-
-            <a class="text-danger font-weight-bolder ml-3 ml-sm-auto" href="" style="text-decoration: none;"><i
-                        class="fas fa-times"></i><span class="d-sm-none d-md-inline"> Close Project</span></a>
-        </div>
-    </nav>
     <div class="row w-100 mx-auto">
         <div class="col-lg-8 px-0">
             <div id="content" class="container py-3 mb-4">

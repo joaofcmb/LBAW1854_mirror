@@ -15,14 +15,9 @@
             'auth' => 'session'
         ])
         @include('partials.sub-navbar', [
-            'items' =>
-                [
-                    ['name' => 'Information', 'route' => route('profile', ['id' => $id]), 'toPrint' => $ownUser],
-                    ['name' => 'Team', 'route' => route('profile-team', ['id' => $id]), 'toPrint' => !\App\User::find($id)->isAdmin()],
-                    ['name' => 'Favorite Projects', 'route' => route('profile-favorites', ['id' => $id])],
-                    ['name' => 'Followers', 'route' => route('profile-followers', ['id' => $id]), 'active' => true],
-                    ['name' => 'Following', 'route' => route('profile-following', ['id' => $id])]
-                ]
+            'active' => 'followers',
+            'owner' => $ownUser,
+            'notAdmin' => !\App\User::find($id)->isAdmin()
         ])
     </div>
     <div id="main-content" class="row mx-auto align-items-center">

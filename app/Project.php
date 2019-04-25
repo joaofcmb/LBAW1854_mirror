@@ -77,7 +77,7 @@ class Project extends Model
         $project['tasks_todo'] = Task::cardInformation(Task::where([['id_project', $project['id']], ['progress', '=', 0]])->get());
         $project['tasks_ongoing'] = Task::cardInformation(Task::where([['id_project', $project['id']], ['progress', '!=', 100], ['progress', '!=', 0]])->get());
         $project['tasks_done'] = Task::cardInformation(Task::where([['id_project', $project['id']], ['progress', '=', 100]])->get());
-
+ 
         return $project;
     }
 
