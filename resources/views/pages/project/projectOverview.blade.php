@@ -9,14 +9,9 @@
 @section('body')
     <body class="bg-light">
     @include('partials.main-navbar', [
-        'items' =>
-            [
-                ['name' => 'HOME', 'route' => route('home'), ],
-                ['name' => 'SEARCH', 'route' => route('search')],
-                ['name' => 'FORUM', 'route' => route('companyforum')],
-                ['name' => 'PROFILE', 'route' => route('profile', ['id' => Auth::user()->getAuthIdentifier()])]
-            ],
-        'auth' => 'session'
+            'active' => '',
+            'owner' => true,
+            'auth' => 'session'
     ])
     <nav id="sub-menu" class="navbar navbar-expand-sm p-0 pr-3 pr-sm-1 pr-lg-3">
         <a class="navbar-brand h-5 px-3 py-2" style="color: white; background-color: {{  $project->color }};">{{  $project->name }}</a>

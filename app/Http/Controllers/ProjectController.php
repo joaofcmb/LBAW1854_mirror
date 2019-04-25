@@ -60,10 +60,10 @@ class ProjectController extends Controller
         $date = $currentDate->format('Y-m-d');
         $milestones = $project->milestones->where('deadline', '>', $date)->first();
 
-       echo $milestones;
+      // echo $milestones;
         //echo $project->milestones . '<br>' . $currentDate . '<br>' . $project->milestones->where('deadline', '<', $currentDate);
 
-        die();
+        //die();
 
         return View('pages.project.projectOverview', ['project' => $projectInformation, 'forum' => $forum, 'threads' => $threads]);
     }
