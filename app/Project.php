@@ -39,7 +39,7 @@ class Project extends Model
     }
 
     /**
-     * Retrieves the tasks involved in this project
+     * Returns the project associated forum
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -47,12 +47,31 @@ class Project extends Model
         return $this->hasMany('App\Task', 'id_project');
     }
 
+    /**
+     * Retrieves the forum associated with the project
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function forum() {
         return $this->hasOne('App\Forum', 'id_project');
     }
 
+    /**
+     * Returns the project associated milestones
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function milestones() {
         return $this->hasMany('App\Milestone', 'id_project');
+    }
+
+    /**
+     * Returns the project associated task groups
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function taskGroups() {
+        return $this->hasMany('App\TaskGroup', 'id_project');
     }
 
     /**

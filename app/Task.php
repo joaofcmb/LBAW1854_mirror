@@ -25,12 +25,21 @@ class Task extends Model
     protected $table = 'task';
 
     /**
-     * The project this each task belongs
+     * The project this task belongs
      *
      * @return BelongsTo
      */
     public function project() {
         return $this->belongsTo('App\Project', 'id');
+    }
+
+    /**
+     * The task group this task belongs
+     *
+     * @return BelongsTo
+     */
+    public function taskGroup() {
+        return $this->belongsTo('App\TaskGroup', 'id_group');
     }
 
     /**

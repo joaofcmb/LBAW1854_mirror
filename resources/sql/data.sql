@@ -887,7 +887,7 @@ INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_proj
 INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('at facilisis','Proin pretium accumsan molestie sollicitudin',53,'2019/04/07','2019/04/07',3,15,11);
 INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('lacinia Fusce a','id Cras Pellentesque lacinia ipsum per arcu morbi torquent',89,'2019/04/04','2019/04/08',9,13,12);
 INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('taciti','eu gravida Morbi faucibus placerat',87,'2019/04/05','2019/04/05',8,4,13);
-INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('Curabitur','conubia feugiat convallis',15,'2019/04/07','2019/04/09',7,3,14);
+INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('Curabitur','conubia feugiat convallis',15,'2019/04/07','2019/04/09',7,null,14);
 INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('eget varius','fringilla elit magnis a vehicula habitant eu',90,'2019/04/08','2019/04/04',9,13,15);
 INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('sociis condimentum','magna',70,'2019/04/05','2019/04/08',2,17,16);
 INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('torquent','litora dolor mattis litora Duis pellentesque feugiat ante rhoncus',31,'2019/04/07','2019/04/04',10,12,17);

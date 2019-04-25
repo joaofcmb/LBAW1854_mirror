@@ -45,10 +45,11 @@ class ProjectController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified resource for project overview
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function show($id)
     {
@@ -78,6 +79,13 @@ class ProjectController extends Controller
         ]);
     }
 
+    /**
+     * Display the specified resource for project roadmap
+     *
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Exception
+     */
     public function showRoadmap($id) {
 
         $project = Project::find($id);
@@ -106,11 +114,33 @@ class ProjectController extends Controller
                                                         'currentMilestoneTasks' => $currentMilestoneTasks,
                                                         'date' => $date
         ]);
-
     }
 
+    /**
+     * Display the specified resource for project roadmap
+     *
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showTasks($id) {
-        echo "222";
+
+        $project = Project::find($id);
+        $projectInformation = Project::projectInformation($project);
+
+        $projectUngroupedTasks = Task::cardInformation(Task::where('id_group', null)->get());
+
+        $projectTaskGroups = $project->taskGroups;
+        foreach($projectTaskGroups as $taskGroup) {
+            $taskGroup['tasks'] = Task::cardInformation($taskGroup->tasks);
+        }
+
+        $isProjectManager = $project->id_manager == Auth::user()->getAuthIdentifier();
+
+        return View('pages.project.projectTasks', ['project' => $projectInformation,
+                                                         'projectUngroupedTasks' => $projectUngroupedTasks,
+                                                         'projectTaskGroups' => $projectTaskGroups,
+                                                         'isProjectManager' => $isProjectManager
+        ]);
     }
 
     /**

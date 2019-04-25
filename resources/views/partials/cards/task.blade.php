@@ -8,7 +8,7 @@
     </div>
     @endif
 @else
-<section class="task card  float-sm-left p-2 m-2 mt-3">
+<section class="task card float-sm-left p-2 m-2 mt-3">
     <h5 class="card-title text-center pb-2 mb-2" style="border-color: {{$task->color}}">{{$task->project_name}}</h5>
 @endisset  
     <h6 class="text-center mb-auto"><a href="">{{$task->title}}</a></h6>
