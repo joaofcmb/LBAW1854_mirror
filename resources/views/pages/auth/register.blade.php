@@ -7,7 +7,6 @@
 @section('title', 'Register')
 
 @section('body')
-    <body>
     @include('partials.main-navbar', [
         'auth' => 'authentication'
     ])
@@ -75,9 +74,4 @@
             </div>
         </div>
     </div>
-
-    <footer class="fixed-bottom pt-1 pl-2">
-        <span id="copyright">COPYRIGHT © EPMA 2019</span>
-    </footer>
-    </body>
 @endsection

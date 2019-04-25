@@ -8,6 +8,7 @@ use App\Project;
 use App\Thread;
 use App\ThreadComment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use PhpParser\Node\Expr\Cast\Object_;
 
@@ -72,7 +73,10 @@ class ThreadController extends Controller
         $threadInformation = Thread::threadInformation([$thread])[0];
         $threadComments = Comment::commentInformation(Thread::find($id_thread)->comments);
 
-        return View('pages.forum.thread', ['project' => $project, 'thread' => $threadInformation, 'comments' => $threadComments, 'isProjectForum' => true]);
+        $isProjectManager = $project->id_manager == Auth::user()->getAuthIdentifier();
+
+        return View('pages.forum.thread', ['project' => $project, 'thread' => $threadInformation, 
+                                            'comments' => $threadComments, 'isProjectManager' => $isProjectManager, 'isProjectForum' => true]);
     }
 
 
