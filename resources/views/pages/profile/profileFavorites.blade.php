@@ -7,27 +7,24 @@
 @section('title', 'Profile')
 
 @section('body')
-    <body class="bg-light">
-    @include('partials.main-navbar', [
-        'items' =>
-            [
-                ['name' => 'HOME', 'route' => route('home'), ],
-                ['name' => 'SEARCH', 'route' => route('search')],
-                ['name' => 'FORUM', 'route' => route('companyforum')],
-                ['name' => 'PROFILE', 'route' => route('profile', ['id' => Auth::user()->getAuthIdentifier()]), 'active' => true]
-            ],
-        'auth' => 'session'
-    ])
-    @include('partials.sub-navbar', [
-        'items' =>
-            [
-                ['name' => 'Information', 'route' => route('profile', ['id' => $id]), 'toPrint' => $ownUser],
-                ['name' => 'Team', 'route' => route('profile-team', ['id' => $id]), 'toPrint' => !\App\User::find($id)->isAdmin()],
-                ['name' => 'Favorite Projects', 'route' => route('profile-favorites', ['id' => $id]), 'active' => true],
-                ['name' => 'Followers', 'route' => route('profile-followers', ['id' => $id])],
-                ['name' => 'Following', 'route' => route('profile-following', ['id' => $id])]
-            ]
-    ])
+<body class="bg-light">
+    <div class="navbar-dark sticky-top">
+        @include('partials.main-navbar', [
+            'active' => 'my profile',
+            'owner' => $ownUser,
+            'auth' => 'session'
+        ])
+        @include('partials.sub-navbar', [
+            'items' =>
+                [
+                    ['name' => 'Information', 'route' => route('profile', ['id' => $id]), 'toPrint' => $ownUser],
+                    ['name' => 'Team', 'route' => route('profile-team', ['id' => $id]), 'toPrint' => !\App\User::find($id)->isAdmin()],
+                    ['name' => 'Favorite Projects', 'route' => route('profile-favorites', ['id' => $id]), 'active' => true],
+                    ['name' => 'Followers', 'route' => route('profile-followers', ['id' => $id])],
+                    ['name' => 'Following', 'route' => route('profile-following', ['id' => $id])]
+                ]
+        ])
+    </div>
     <div id="main-content" class="row mx-auto align-items-center">
         <div class="col-lg-8 px-0 order-12 order-lg-1">
             <div id="content" class="container p-lg-5 align-self-center justify-content-center">
@@ -102,5 +99,5 @@
     <footer class="fixed-bottom p-1 pl-2">
         COPYRIGHT © EPMA 2019
     </footer>
-    </body>
+</body>
 @endsection

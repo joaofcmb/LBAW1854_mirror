@@ -9,14 +9,7 @@
 @section('body')
 <body>
     @include('partials.main-navbar', [
-        'items' =>
-            [
-                ['name' => 'HOME', 'route' => '#home'],
-                ['name' => 'ABOUT', 'route' => '#about'],
-                ['name' => 'BENEFITS', 'route' => '#benefits'],
-                ['name' => 'FOUNDERS', 'route' => '#founders'],
-            ],
-        'auth' => 'login'
+        'auth' => 'index'
     ])
 
     <div id="home" class="container-fluid"></div>

@@ -9,13 +9,7 @@
 @section('body')
     <body class="bg-light">
     @include('partials.main-navbar', [
-        'items' =>
-            [
-                ['name' => 'HOME', 'route' => route('home')],
-                ['name' => 'SEARCH', 'route' => route('search'), 'active' => true],
-                ['name' => 'FORUM', 'route' => route('companyforum')],
-                ['name' => 'PROFILE', 'route' => route('profile', ['id' => Auth::user()->getAuthIdentifier()])],
-            ],
+        'active' => 'search',
         'auth' => 'session'
     ])
     <div id="content" class="container">
