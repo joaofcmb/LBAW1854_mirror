@@ -1,6 +1,6 @@
 <div id="project" class="card py-2 px-3 mt-4 mx-3 mx-sm-5" style="border-top-width: 0.25em; border-top-color: {{ $project->color }};">
     <div class="d-flex justify-content-between">
-        <a href="{{ route('project-overview', ['id_project' => $project->id]) }}">
+        <a href="{{ $project->lock ? route('project-overview', ['id_project' => $project->id]) : '' }}">
             <h5 class="card-title mb-3 ">{{ $project->name }}</h5>
         </a>
         <h5>
