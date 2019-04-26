@@ -1,5 +1,10 @@
 @isset($isProjectManager)
-<section class="task card border-hover float-sm-left p-2 m-2 mt-3">
+    @isset($isTasksPage)
+        <section class="task card border-hover p-2 m-2 mt-3">
+    @else
+        <section class="task card border-hover float-sm-left p-2 m-2 mt-3">
+    @endisset
+    
     @if($isProjectManager)
     <div class="mx-auto mb-1">
         <a href=""><i class="far fa-edit hover-icon mr-2"></i></a>
