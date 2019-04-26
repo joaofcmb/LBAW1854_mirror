@@ -22,16 +22,18 @@
 
     <div class="row w-100 mx-auto">
         <div id="content" class="container py-3 mb-4">
-            <div id="create" class="container-fluid mx-auto">
-                <div class="row mt-4 justify-content-center">
-                    <a href="">
-                        <div class="col-sm- py-2 px-3">
-                            <span>Create Milestone</span>
-                            <i class="fas fa-plus-circle ml-2" style="border: none;"></i>
-                        </div>
-                    </a>
+            @if($isProjectManager)
+                <div id="create" class="container-fluid mx-auto">
+                    <div class="row mt-4 justify-content-center">
+                        <a href="">
+                            <div class="col-sm- py-2 px-3">
+                                <span>Create Milestone</span>
+                                <i class="fas fa-plus-circle ml-2" style="border: none;"></i>
+                            </div>
+                        </a>
+                    </div>
                 </div>
-            </div>
+            @endif
 
             @include('partials.roadmap', [
                 'page' => 'roadmap',
@@ -42,7 +44,11 @@
 
             <div id="{{ $currentMilestone->name }}" data-parent="#content" class="collapse show main-tab card border-left-0 border-right-0 rounded-0 p-2">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h3>{{ $currentMilestone->name }}<i class="far fa-edit ml-2"></i></h3>
+                    <h3>{{ $currentMilestone->name }}
+                        @if($isProjectManager)
+                            <i class="far fa-edit ml-2"></i>
+                        @endif
+                    </h3>
                     <span class="font-weight-light mr-2 flex-shrink-0">{{ sizeof($currentMilestoneTasks) }} remaining</span>
                 </div>
                 <div class="mx-auto">

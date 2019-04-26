@@ -57,7 +57,7 @@ class ProjectController extends Controller
     {
         $project = Project::find($id);
 
-        if(!$this->validateAccess($project))
+        if(!$this->validateAccess($project, 'view'))
             return redirect()->route('404');
 
         $projectInformation = Project::projectInformation($project);
@@ -73,9 +73,11 @@ class ProjectController extends Controller
         $currentMilestone['timeLeft'] = $currentDate->diff(new DateTime($currentMilestone->deadline))->format('%a');
 
         $isProjectManager = $project->id_manager == Auth::user()->getAuthIdentifier();
+        $canCreateThread = $this->validateAccess($project, 'createThread');
 
         return View('pages.project.projectOverview', ['project' => $projectInformation,
                                                         'isProjectManager' => $isProjectManager,
+                                                        'canCreateThread' => $canCreateThread,
                                                         'milestones' => $milestones,
                                                         'currentMilestone' => $currentMilestone,
                                                         'forum' => $forum,
@@ -95,7 +97,7 @@ class ProjectController extends Controller
 
         $project = Project::find($id);
 
-        if(!$this->validateAccess($project))
+        if(!$this->validateAccess($project, 'view'))
             return redirect()->route('404');
 
         $projectInformation = Project::projectInformation($project);
@@ -135,7 +137,7 @@ class ProjectController extends Controller
 
         $project = Project::find($id);
 
-        if(!$this->validateAccess($project))
+        if(!$this->validateAccess($project, 'view'))
             return redirect()->route('404');
 
         $projectInformation = Project::projectInformation($project);
@@ -166,13 +168,14 @@ class ProjectController extends Controller
     {
         $project = Project::find($id);
 
-        if(!$this->validateAccess($project))
+        if(!$this->validateAccess($project, 'view'))
             return redirect()->route('404');
 
         $threads = Thread::threadInformation(Forum::find($project->forum->id)->threads);
         $isProjectManager = $project->id_manager == Auth::user()->getAuthIdentifier();
+        $canCreateThread = $this->validateAccess($project, 'createThread');
 
-        return View('pages.forum.forum', ['project' => $project, 'threads' => $threads, 'isProjectManager' => $isProjectManager, 'isProjectForum' => true]);
+        return View('pages.forum.forum', ['project' => $project, 'threads' => $threads, 'isProjectManager' => $isProjectManager, 'canCreateThread' => $canCreateThread, 'isProjectForum' => true]);
     }
 
     /**
@@ -185,7 +188,7 @@ class ProjectController extends Controller
     {
         $project = Project::find($id_project);
 
-        if(!$this->validateAccess($project))
+        if(!$this->validateAccess($project, 'view'))
             return redirect()->route('404');
 
         $thread = Thread::find($id_thread);
@@ -200,6 +203,19 @@ class ProjectController extends Controller
 
         return View('pages.forum.thread', ['project' => $project, 'thread' => $threadInformation,
             'comments' => $threadComments, 'isProjectManager' => $isProjectManager, 'isProjectForum' => true]);
+    }
+
+    public function createForumThread($id) {
+
+        $project = Project::find($id);
+
+        if(!$this->validateAccess($project, 'createThread'))
+            return redirect()->route('404');
+
+        $isProjectManager = $project->id_manager == Auth::user()->getAuthIdentifier();
+
+        return View('pages.forum.createThread', ['project' => $project, 'isProjectManager' => $isProjectManager, 'isProjectForum' => true]);
+
     }
 
     /**
@@ -236,13 +252,13 @@ class ProjectController extends Controller
         //
     }
 
-    public function validateAccess($project)
+    public function validateAccess($project, $action)
     {
         try {
             if(empty($project))
                 throw new AuthorizationException();
 
-            $this->authorize('view', $project);
+            $this->authorize($action, $project);
         }
         catch (AuthorizationException $e) {
             return false;

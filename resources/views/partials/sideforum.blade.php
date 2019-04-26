@@ -5,7 +5,11 @@
                 <a href="{{ route('project-forum', ['id' => $id_project]) }}" style="text-decoration: none; color: black;">
                     <h3 class="m-0">PROJECT FORUM</h3>
                 </a>
-                <a href="create-thread-project.html"><i class="fas fa-plus-circle"></i></a>
+                <a href="{{ route('forum-create-thread', ['id' => $id_project]) }}">
+                    @if($canCreateThread)
+                        <i class="fas fa-plus-circle"></i>
+                    @endif
+                </a>
             </div>
             @foreach($threads as $thread)
                 <a href="{{ route('forum-thread', ['id_project' => $id_project, 'id_thread' => $thread->id]) }}" style="color: black; text-decoration: none;">
@@ -26,7 +30,7 @@
                 <a href="{{ route('companyforum') }}" id="companyForum">
                     <h3 class="m-0">COMPANY FORUM</h3>
                 </a>
-                <a href="create-thread.html"><i class="fas fa-plus-circle"></i></a>
+                <a href="{{ route('company-forum-create-thread') }}"><i class="fas fa-plus-circle"></i></a>
             </div>
             @foreach($threads as $thread)
                 <a href="{{ route('companyforum-thread', ['id_thread' => $thread->id]) }}">

@@ -64,7 +64,6 @@ class ThreadController extends Controller
         return View('pages.forum.thread', ['thread' => $threadInformation, 'comments' => $threadComments, 'isProjectForum' => false]);
     }
 
-
     /**
      * Show the form for editing the specified resource.
      *

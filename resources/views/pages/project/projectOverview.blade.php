@@ -62,7 +62,8 @@
 
         @include('partials.sideforum', [
             'threads' => $threads,
-            'id_project' => $project->id
+            'id_project' => $project->id,
+            'canCreateThread' => $canCreateThread
         ])
     </div>
 @endsection

@@ -33,9 +33,11 @@ Route::get('/404', function () {
 // Forums
 Route::get('companyforum', 'ForumController@showCompanyForum')->name('companyforum');
 Route::get('companyforum/thread/{id_thread}', 'ThreadController@show')->name('companyforum-thread');
+Route::view('/companyforum/createthread', 'pages.forum.createThread', ['isProjectForum' => false])->name('company-forum-create-thread');
 
 Route::get('/project/{id}/forum', 'ProjectController@showForum')->name('project-forum');
 Route::get('/project/{id_project}/forum/thread/{id_thread}', 'ProjectController@showForumThread')->name('forum-thread');
+Route::get('/project/{id}/forum/createthread', 'ProjectController@createForumThread')->name('forum-create-thread');
 
 // Profile
 Route::get('profile/{id}', 'ProfileController@show')->name('profile');
