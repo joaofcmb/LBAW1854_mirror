@@ -54,29 +54,14 @@ class ThreadController extends Controller
     public function show($id)
     {
         $thread = Thread::find($id);
+
+        if(!Thread::where([['id_forum', 1], ['id', $id]])->exists())
+            return redirect()->route('404');
+
         $threadInformation = Thread::threadInformation([$thread])[0];
         $threadComments = Comment::commentInformation(Thread::find($id)->comments);
 
         return View('pages.forum.thread', ['thread' => $threadInformation, 'comments' => $threadComments, 'isProjectForum' => false]);
-    }
-
-    /**
-     * Display the specified resource for project forum thread
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function showForumThread($id_project, $id_thread)
-    {
-        $project = Project::find($id_project);
-        $thread = Thread::find($id_thread);
-        $threadInformation = Thread::threadInformation([$thread])[0];
-        $threadComments = Comment::commentInformation(Thread::find($id_thread)->comments);
-
-        $isProjectManager = $project->id_manager == Auth::user()->getAuthIdentifier();
-
-        return View('pages.forum.thread', ['project' => $project, 'thread' => $threadInformation, 
-                                            'comments' => $threadComments, 'isProjectManager' => $isProjectManager, 'isProjectForum' => true]);
     }
 
 

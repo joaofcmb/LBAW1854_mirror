@@ -51,9 +51,13 @@ class ProfileController extends Controller
      */
     public function show($id)
     {
+        $user = User::find($id);
+
+        if(empty($user))
+            return redirect()->route('404');
 
         if(Auth::user()->getAuthIdentifier() != $id) {
-            if(User::find($id)->isAdmin())
+            if($user->isAdmin())
                 return redirect()->route('profile-favorites', ['id' => $id]);
             else
                 return redirect()->route('profile-team', ['id' => $id]);
@@ -71,6 +75,10 @@ class ProfileController extends Controller
     public function showTeam($id) {
 
         $user = User::find($id);
+
+        if(empty($user) || $user->isAdmin())
+            return redirect()->route('404');
+
         $ownUser = Auth::user()->getAuthIdentifier() != $id ? false : true;
 
         $team = Developer::find($id)->team;
@@ -91,6 +99,10 @@ class ProfileController extends Controller
     public function showFavorites($id) {
 
         $user = User::find($id);
+
+        if(empty($user))
+            return redirect()->route('404');
+
         $ownUser = Auth::user()->getAuthIdentifier() != $id ? false : true;
 
         $favorites = Project::join('favorite', 'favorite.id_project', '=', 'project.id')->where('favorite.id_user', $id)->get();
@@ -103,6 +115,10 @@ class ProfileController extends Controller
     public function showFollowers($id) {
 
         $user = User::find($id);
+
+        if(empty($user))
+            return redirect()->route('404');
+
         $ownUser = Auth::user()->getAuthIdentifier() != $id ? false : true;
 
         $followers = User::join('follow', 'follow.id_follower', '=', 'user.id')->where('follow.id_followee', $id)->get();
@@ -120,6 +136,10 @@ class ProfileController extends Controller
     public function showFollowing($id) {
 
         $user = User::find($id);
+
+        if(empty($user))
+            return redirect()->route('404');
+
         $ownUser = Auth::user()->getAuthIdentifier() != $id ? false : true;
 
         $following = User::join('follow', 'follow.id_followee', '=', 'user.id')->where('follow.id_follower', $id)->get();

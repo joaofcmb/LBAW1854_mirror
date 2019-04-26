@@ -55,22 +55,6 @@ class ForumController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $project = Project::find($id);
-        $threads = Thread::threadInformation(Forum::find($id)->threads);
-
-        $isProjectManager = $project->id_manager == Auth::user()->getAuthIdentifier();
-
-        return View('pages.forum.forum', ['project' => $project, 'threads' => $threads, 'isProjectManager' => $isProjectManager, 'isProjectForum' => true]);
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
