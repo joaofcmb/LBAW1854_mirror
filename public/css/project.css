@@ -69,7 +69,8 @@ div.main-tab {
 }
 
 .task-group {
-    height: calc(100vh - 190px);
+    height: calc(100vh - 210px);
+    width: 17em
 }
 
 .tab-content {
