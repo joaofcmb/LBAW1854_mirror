@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use App\Forum;
 use App\Milestone;
 use App\Project;
 use App\Task;
 use App\Thread;
 use DateTime;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -53,8 +55,11 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-
         $project = Project::find($id);
+
+        if(!$this->validateAccess($project))
+            return redirect()->route('404');
+
         $projectInformation = Project::projectInformation($project);
 
         $forum = $project->forum;
@@ -89,6 +94,10 @@ class ProjectController extends Controller
     public function showRoadmap($id) {
 
         $project = Project::find($id);
+
+        if(!$this->validateAccess($project))
+            return redirect()->route('404');
+
         $projectInformation = Project::projectInformation($project);
 
         $currentDate = new DateTime();
@@ -125,6 +134,10 @@ class ProjectController extends Controller
     public function showTasks($id) {
 
         $project = Project::find($id);
+
+        if(!$this->validateAccess($project))
+            return redirect()->route('404');
+
         $projectInformation = Project::projectInformation($project);
 
         $projectUngroupedTasks = Task::cardInformation(Task::where('id_group', null)->get());
@@ -141,6 +154,52 @@ class ProjectController extends Controller
                                                          'projectTaskGroups' => $projectTaskGroups,
                                                          'isProjectManager' => $isProjectManager
         ]);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showForum($id)
+    {
+        $project = Project::find($id);
+
+        if(!$this->validateAccess($project))
+            return redirect()->route('404');
+
+        $threads = Thread::threadInformation(Forum::find($project->forum->id)->threads);
+        $isProjectManager = $project->id_manager == Auth::user()->getAuthIdentifier();
+
+        return View('pages.forum.forum', ['project' => $project, 'threads' => $threads, 'isProjectManager' => $isProjectManager, 'isProjectForum' => true]);
+    }
+
+    /**
+     * Display the specified resource for project forum thread
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showForumThread($id_project, $id_thread)
+    {
+        $project = Project::find($id_project);
+
+        if(!$this->validateAccess($project))
+            return redirect()->route('404');
+
+        $thread = Thread::find($id_thread);
+
+        if(!Thread::where([['id_forum', $project->forum->id], ['id', $id_thread]])->exists())
+            return redirect()->route('404');
+
+        $threadInformation = Thread::threadInformation([$thread])[0];
+        $threadComments = Comment::commentInformation(Thread::find($id_thread)->comments);
+
+        $isProjectManager = $project->id_manager == Auth::user()->getAuthIdentifier();
+
+        return View('pages.forum.thread', ['project' => $project, 'thread' => $threadInformation,
+            'comments' => $threadComments, 'isProjectManager' => $isProjectManager, 'isProjectForum' => true]);
     }
 
     /**
@@ -175,5 +234,20 @@ class ProjectController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function validateAccess($project)
+    {
+        try {
+            if(empty($project))
+                throw new AuthorizationException();
+
+            $this->authorize('view', $project);
+        }
+        catch (AuthorizationException $e) {
+            return false;
+        }
+
+        return true;
     }
 }

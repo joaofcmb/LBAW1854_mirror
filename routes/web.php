@@ -26,13 +26,16 @@ Route::post('register', 'Auth\RegisterController@register')->name('register-acti
 Route::get('index', function () { return view('pages.index'); })->name('index');
 Route::get('home', 'HomeController@show')->name('home');
 Route::get('search', 'SearchController@show')->name('search');
+Route::get('/404', function () {
+    return View('pages.404');
+})->name('404');
 
 // Forums
 Route::get('companyforum', 'ForumController@showCompanyForum')->name('companyforum');
 Route::get('companyforum/thread/{id_thread}', 'ThreadController@show')->name('companyforum-thread');
 
-Route::get('/project/{id}/forum', 'ForumController@show')->name('project-forum');
-Route::get('/project/{id_project}/forum/thread/{id_thread}', 'ThreadController@showForumThread')->name('forum-thread');
+Route::get('/project/{id}/forum', 'ProjectController@showForum')->name('project-forum');
+Route::get('/project/{id_project}/forum/thread/{id_thread}', 'ProjectController@showForumThread')->name('forum-thread');
 
 // Profile
 Route::get('profile/{id}', 'ProfileController@show')->name('profile');

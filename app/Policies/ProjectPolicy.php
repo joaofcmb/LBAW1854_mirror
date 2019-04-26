@@ -2,6 +2,8 @@
 
 namespace App\Policies;
 
+use App\Developer;
+use App\TeamProject;
 use App\User;
 use App\Project;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -9,6 +11,15 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 class ProjectPolicy
 {
     use HandlesAuthorization;
+
+    /**
+     * The policy mappings for the application.
+     *
+     * @var array
+     */
+    protected $policies = [
+        Project::class => ProjectPolicy::class,
+    ];
 
     /**
      * Determine whether the user can view the project.
@@ -19,7 +30,7 @@ class ProjectPolicy
      */
     public function view(User $user, Project $project)
     {
-        //
+        return $user->isAdmin() || TeamProject::where([ ['id_team', Developer::find($user->id)->team->id], ['id_project', $project->id]])->exists();
     }
 
     /**
@@ -55,5 +66,15 @@ class ProjectPolicy
     public function delete(User $user, Project $project)
     {
         //
+    }
+
+    /**
+     * Register any application authentication / authorization services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->registerPolicies();
     }
 }
