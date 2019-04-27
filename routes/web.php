@@ -39,6 +39,13 @@ Route::get('/project/{id}/forum', 'ProjectController@showForum')->name('project-
 Route::get('/project/{id_project}/forum/thread/{id_thread}', 'ProjectController@showForumThread')->name('forum-thread');
 Route::get('/project/{id}/forum/createthread', 'ProjectController@createForumThread')->name('forum-create-thread');
 
+// Project
+Route::get('/project/{id_project}', 'ProjectController@show')->name('project-overview');
+Route::get('/project/{id_project}/roadmap', 'ProjectController@showRoadmap')->name('project-roadmap');
+Route::get('/project/{id}/tasks', 'ProjectController@showTasks')->name('project-tasks');
+
+// Tasks
+
 // Profile
 Route::get('profile/{id}', 'ProfileController@show')->name('profile');
 Route::get('profile/{id}/team', 'ProfileController@showTeam')->name('profile-team');
@@ -46,11 +53,11 @@ Route::get('profile/{id}/favorites', 'ProfileController@showFavorites')->name('p
 Route::get('profile/{id}/followers', 'ProfileController@showFollowers')->name('profile-followers');
 Route::get('profile/{id}/following', 'ProfileController@showFollowing')->name('profile-following');
 
+// Administrator
+Route::get('/admin/users', 'AdministratorController@showUsers')->name('admin-users');
+Route::get('/admin/teams', 'AdministratorController@showTeams')->name('admin-teams');
+Route::get('/admin/projects', 'AdministratorController@showProjects')->name('admin-projects');
 
-// Project
-Route::get('/project/{id_project}', 'ProjectController@show')->name('project-overview');
-Route::get('/project/{id_project}/roadmap', 'ProjectController@showRoadmap')->name('project-roadmap');
-Route::get('/project/{id}/tasks', 'ProjectController@showTasks')->name('project-tasks');
 
 // Cards
 //Route::get('cards', 'CardController@list');

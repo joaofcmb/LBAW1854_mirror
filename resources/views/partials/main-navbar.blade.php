@@ -24,6 +24,22 @@
             <a id="login" class="ml-auto pl-3" href="{{ route('login') }}">
                 <span class="fas fa-chevron-circle-left"></span>
             </a>
+        @elseif($auth == 'admin')
+            <a class="nav-item nav-link {{($active == 'users')? 'active' : ''}} mx-lg-3" href="{{ route('admin-users') }}">USERS</a>
+            <a class="nav-item nav-link {{($active == 'teams')? 'active' : ''}} mx-lg-3" href="{{ route('admin-teams') }}">TEAMS</a>
+            <a class="nav-item nav-link {{($active == 'projects')? 'active' : ''}} mx-lg-3" href="{{ route('admin-projects') }}">PROJECTS</a>
+
+            <div id="authentication" class="my-1 ml-auto">
+                <a href="{{ route('home') }}" class="pr-2">
+                    <img id="admin" class="profile-img d-inline-block rounded-circle my-auto" src="{{ asset('img/admin.png') }}"
+                         width="50" height="50" alt="Website Logo">
+                </a>
+                <a href="{{ route('logout') }}" class="pr-2">
+                    <span class="font-weight-bold px-2">Sign out</span>
+                </a>
+                <a href="{{ route('profile', ['id' => Auth::user()->getAuthIdentifier()]) }}"><img class="profile-img d-inline-block rounded-circle my-auto" src="{{ asset('img/avatar.png') }}"
+                                width="50" height="50" alt="Website Logo"></a>
+            </div>
         @else
             <a class="nav-item nav-link {{($active == 'home')? 'active' : ''}} mx-lg-3" href="{{ route('home') }}">HOME</a>
             <a class="nav-item nav-link {{($active == 'search')? 'active' : ''}} mx-lg-3" href="{{ route('search') }}">SEARCH</a>
@@ -32,14 +48,14 @@
 
             <div id="authentication" class="ml-auto">
                 @if(\Illuminate\Support\Facades\Auth::user()->isAdmin())
-                    <a href="admin-users.html">
+                    <a href="{{ route('admin-users') }}">
                         <img id="admin" class="profile-img d-inline-block rounded-circle my-auto" src="{{ asset('img/admin.png') }}" width="50" height="50" alt="Website Logo">
                     </a>
                 @endif
                 <a href="{{ route('logout') }}">
                     <span class="font-weight-bold pl-3">Sign out</span>
                 </a>
-                <a href="" class="pl-lg-3">
+                <a href="{{ route('profile', ['id' => Auth::user()->getAuthIdentifier()]) }}" class="pl-lg-3">
                     <img class="profile-img d-none d-md-inline-block rounded-circle my-auto" src="{{ asset('img/avatar.png') }}" width="50" height="50" alt="Profile Image">
                 </a>
             </div>
