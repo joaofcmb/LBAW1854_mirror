@@ -56,10 +56,12 @@ class Team extends Model
         return $this->belongsToMany('App\Task', 'team_task', 'id_team', 'id_task');
     }
 
-    public static function teamInformation($members, $id) {
+    public static function teamInformation($members, $id = 0) {
         foreach ($members as $member) {
             $member['username'] = User::where('id', $member->id_user)->value('username');
-            $member['follow'] = Follow::where([['id_follower', '=', $id], ['id_followee', '=', $member->id_user]])->exists();
+
+            if($id != 0)
+                $member['follow'] = Follow::where([['id_follower', '=', $id], ['id_followee', '=', $member->id_user]])->exists();
         }
         return $members;
     }

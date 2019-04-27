@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Developer;
+use App\Follow;
+use App\Team;
+use App\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,9 +27,17 @@ class AdministratorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function createTeam()
     {
-        //
+        if(!Auth::user()->isAdmin())
+            return redirect()->route('404');
+
+        $users = Developer::select('user.id', 'user.username')
+                            ->join('user', 'user.id', '=', 'developer.id_user')
+                            ->where([['developer.is_active', 'true'],['developer.id_team', null]])
+                            ->get();
+
+        return View('pages.admin.adminCreateTeam', ['users' => $users]);
     }
 
     /**
@@ -51,7 +62,7 @@ class AdministratorController extends Controller
         if(!Auth::user()->isAdmin())
             return redirect()->route('404');
 
-        $users = Developer::join('user', 'user.id', '=', 'developer.id_user')->get();
+        $users = Developer::select('user.id', 'user.username', 'developer.is_active')->join('user', 'user.id', '=', 'developer.id_user')->get();
 
         return View('pages.admin.adminUsers', ['users' => $users]);
 
@@ -67,6 +78,16 @@ class AdministratorController extends Controller
     {
         if(!Auth::user()->isAdmin())
             return redirect()->route('404');
+
+
+        $teams = Team::all();
+
+        foreach ($teams as $team) {
+            $team['leader'] = User::select('user.id', 'user.username')->where('id', $team->id_leader)->first();
+            $team['members'] = Developer::select('user.id', 'user.username')->join('user', 'user.id', '=', 'developer.id_user')->where('developer.id_team', $team->id)->get();
+        }
+
+        return View('pages.admin.adminTeams', ['teams' => $teams]);
     }
 
     /**
@@ -87,9 +108,29 @@ class AdministratorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function editTeam($id)
     {
-        //
+
+        $team = Team::find($id);
+
+        if(!Auth::user()->isAdmin() || empty($team))
+            return redirect()->route('404');
+
+        $team['leader'] = User::select('user.id', 'user.username')->where('id', $team->id_leader)->first();
+        $team['members'] = Team::teamInformation($team->members);
+
+        $members = [];
+        foreach ($team['members'] as $member) {
+            array_push($members, $member->id_user);
+        }
+
+        $users = Developer::select('user.id', 'user.username', 'developer.is_active')
+                            ->join('user', 'user.id', '=', 'developer.id_user')
+                            ->where('developer.is_active', 'true')
+                            ->whereNotIn('user.id', $members)
+                            ->get();
+
+        return View('pages.admin.adminEditTeam', ['users' => $users, 'team' => $team]);
     }
 
     /**
@@ -114,4 +155,5 @@ class AdministratorController extends Controller
     {
         //
     }
+
 }

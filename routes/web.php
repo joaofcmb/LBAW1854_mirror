@@ -56,6 +56,8 @@ Route::get('profile/{id}/following', 'ProfileController@showFollowing')->name('p
 // Administrator
 Route::get('/admin/users', 'AdministratorController@showUsers')->name('admin-users');
 Route::get('/admin/teams', 'AdministratorController@showTeams')->name('admin-teams');
+Route::get('/admin/teams/create', 'AdministratorController@createTeam')->name('admin-create-team');
+Route::get('/admin/teams/{id}/edit', 'AdministratorController@editTeam')->name('admin-edit-team');
 Route::get('/admin/projects', 'AdministratorController@showProjects')->name('admin-projects');
 
 
