@@ -4,8 +4,13 @@
             <h5 class="card-title mb-3 ">{{ $project->name }}</h5>
         </a>
         <h5>
-            <a href=""><i class="{{ $project->favorite ? 'fas' : 'far' }} fa-star" aria-hidden="true"></i></a>
-            <a href=""><i class="fa fa-{{ $project->lock ? 'unlock' : 'lock' }}" aria-hidden="true"></i></a>
+            @isset($admin)
+                <a href="{{ route('admin-edit-project', ['id' => $project->id]) }}"><i class="far fa-edit"></i></a>
+                <a href=""><i class="far fa-trash-alt"></i></a>
+            @else
+                <a href=""><i class="{{ $project->favorite ? 'fas' : 'far' }} fa-star" aria-hidden="true"></i></a>
+                <a href=""><i class="fa fa-{{ $project->lock ? 'unlock' : 'lock' }}" aria-hidden="true"></i></a>
+            @endisset
         </h5>
     </div>
     <div class="row">

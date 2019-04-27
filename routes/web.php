@@ -59,6 +59,8 @@ Route::get('/admin/teams', 'AdministratorController@showTeams')->name('admin-tea
 Route::get('/admin/teams/create', 'AdministratorController@createTeam')->name('admin-create-team');
 Route::get('/admin/teams/{id}/edit', 'AdministratorController@editTeam')->name('admin-edit-team');
 Route::get('/admin/projects', 'AdministratorController@showProjects')->name('admin-projects');
+Route::get('/admin/projects/create', 'AdministratorController@createProject')->name('admin-create-project');
+Route::get('/admin/projects/{id}/edit', 'AdministratorController@editProject')->name('admin-edit-project');
 
 
 // Cards

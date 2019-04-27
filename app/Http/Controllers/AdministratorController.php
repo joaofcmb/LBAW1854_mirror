@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Developer;
 use App\Follow;
+use App\Project;
 use App\Team;
 use App\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\Translation\Dumper\PoFileDumper;
 
 class AdministratorController extends Controller
 {
@@ -23,7 +25,7 @@ class AdministratorController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new resource: team
      *
      * @return \Illuminate\Http\Response
      */
@@ -38,6 +40,19 @@ class AdministratorController extends Controller
                             ->get();
 
         return View('pages.admin.adminCreateTeam', ['users' => $users]);
+    }
+
+    /**
+     * Show the form for creating a new resource: project
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function createProject()
+    {
+        if(!Auth::user()->isAdmin())
+            return redirect()->route('404');
+
+        return View('pages.admin.adminManageProject');
     }
 
     /**
@@ -100,17 +115,20 @@ class AdministratorController extends Controller
     {
         if(!Auth::user()->isAdmin())
             return redirect()->route('404');
+
+        $projects = Project::cardInformation(Project::all(), Auth::user()->getAuthIdentifier());
+
+        return View('pages.admin.adminProjects', ['projects' => $projects]);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified resource: team
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function editTeam($id)
     {
-
         $team = Team::find($id);
 
         if(!Auth::user()->isAdmin() || empty($team))
@@ -131,6 +149,24 @@ class AdministratorController extends Controller
                             ->get();
 
         return View('pages.admin.adminEditTeam', ['users' => $users, 'team' => $team]);
+    }
+
+    /**
+     * Show the form for editing the specified resource: project
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function editProject($id)
+    {
+        $project = Project::find($id);
+
+        if(!Auth::user()->isAdmin() || empty($project))
+            return redirect()->route('404');
+
+        $project['manager'] = User::where('id', $project->id_manager)->value('username');
+
+        return View('pages.admin.adminManageProject', ['project' => $project]);
     }
 
     /**
