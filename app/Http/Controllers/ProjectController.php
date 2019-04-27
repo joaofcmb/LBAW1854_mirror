@@ -200,9 +200,10 @@ class ProjectController extends Controller
         $threadComments = Comment::commentInformation(Thread::find($id_thread)->comments);
 
         $isProjectManager = $project->id_manager == Auth::user()->getAuthIdentifier();
+        $canAddComment = $this->validateAccess($project, 'createThread');
 
         return View('pages.forum.thread', ['project' => $project, 'thread' => $threadInformation,
-            'comments' => $threadComments, 'isProjectManager' => $isProjectManager, 'isProjectForum' => true]);
+            'comments' => $threadComments, 'isProjectManager' => $isProjectManager, 'canAddComment' => $canAddComment, 'isProjectForum' => true]);
     }
 
     public function createForumThread($id) {

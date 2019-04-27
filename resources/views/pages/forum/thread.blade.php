@@ -37,10 +37,12 @@
             @include('partials.cards.comment', ['comment => $comment'])
         @endforeach
         <form>
-            <div class="form-row">
-                <div class="form-group col-md-12 my-3">
-                    <input type="text" class="form-control" id="threadName" placeholder="Add your comment ...">
+            @if(!$isProjectForum  || $canAddComment)
+                <div class="form-row">
+                    <div class="form-group col-md-12 my-3">
+                        <input type="text" class="form-control" id="threadName" placeholder="Add your comment ...">
+                    </div>
                 </div>
-            </div>
+            @endif
         </form>
 @endsection
