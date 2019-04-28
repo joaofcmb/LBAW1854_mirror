@@ -45,6 +45,11 @@ Route::get('/project/{id_project}/roadmap', 'ProjectController@showRoadmap')->na
 Route::get('/project/{id}/tasks', 'ProjectController@showTasks')->name('project-tasks');
 
 // Tasks
+Route::get('/project/{id_project}/tasks/{id_task}', 'TaskController@show')->name('task');
+Route::get('/project/{id_project}/tasks/createtask', 'TaskController@create')->name('task-create');
+Route::get('/project/{id_project}/tasks/{id_task}/edit', 'TaskController@edit')->name('task-edit');
+Route::get('/project/{id_project}/tasks/{id_task}/assign', 'TaskController@assign')->name('task-assign');
+
 
 // Profile
 Route::get('profile/{id}', 'ProfileController@show')->name('profile');

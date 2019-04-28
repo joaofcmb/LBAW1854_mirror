@@ -13,15 +13,6 @@ class ProjectPolicy
     use HandlesAuthorization;
 
     /**
-     * The policy mappings for the application.
-     *
-     * @var array
-     */
-    protected $policies = [
-        Project::class => ProjectPolicy::class,
-    ];
-
-    /**
      * Determine whether the user can view the project.
      *
      * @param  \App\User  $user
@@ -77,15 +68,5 @@ class ProjectPolicy
     public function delete(User $user, Project $project)
     {
         //
-    }
-
-    /**
-     * Register any application authentication / authorization services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        $this->registerPolicies();
     }
 }

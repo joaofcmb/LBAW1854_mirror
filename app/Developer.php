@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Illuminate\Support\Facades\Auth;
+
 class Developer extends User
 {
     /**
@@ -41,5 +43,11 @@ class Developer extends User
      */
     public function manager() {
         return $this->hasMany('App\Project', 'id_manager');
+    }
+
+    public static function canAddTaskComment($task) {
+        return Developer::join('team_task', 'team_task.id_team', '=', 'developer.id_team')
+            ->where([['team_task.id_task', $task->id], ['developer.id_user', Auth::user()->getAuthIdentifier()]])
+            ->exists();
     }
 }

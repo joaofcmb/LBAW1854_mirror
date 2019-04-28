@@ -98,8 +98,9 @@ class AdministratorController extends Controller
         $teams = Team::all();
 
         foreach ($teams as $team) {
-            $team['leader'] = User::select('user.id', 'user.username')->where('id', $team->id_leader)->first();
-            $team['members'] = Developer::select('user.id', 'user.username')->join('user', 'user.id', '=', 'developer.id_user')->where('developer.id_team', $team->id)->get();
+            $teamObject = Team::find($team->id);
+            $team['leader'] = $teamObject->leader;
+            $team['members'] = $teamObject->members;
         }
 
         return View('pages.admin.adminTeams', ['teams' => $teams]);

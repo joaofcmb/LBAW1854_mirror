@@ -26,7 +26,7 @@ class Team extends Model
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function members() {
-        return $this->hasMany('App\Developer', 'id_team')->where([['id_user', '!=', $this->id_leader]]);
+        return $this->hasMany('App\Developer', 'id_team')->select('user.id', 'user.username')->join('user', 'user.id', '=', 'developer.id_user')->where([['id_user', '!=', $this->id_leader]]);
     }
 
     /**
@@ -35,7 +35,7 @@ class Team extends Model
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function leader() {
-        return $this->hasOne('App\Developer', 'id_user', 'id_leader');
+        return $this->hasOne('App\Developer', 'id_user', 'id_leader')->select('user.id', 'user.username')->join('user', 'user.id', '=', 'developer.id_user');
     }
 
     /**

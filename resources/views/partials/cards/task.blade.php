@@ -7,8 +7,8 @@
     
     @if($isProjectManager)
     <div class="mx-auto mb-1">
-        <a href=""><i class="far fa-edit hover-icon mr-2"></i></a>
-        <a href=""><i class="fas fa-link fa-fw hover-icon mx-2"></i></a>
+        <a href="{{ route('task-edit', ['id_project' => $project->id, 'id_task' => $task->id]) }}"><i class="far fa-edit hover-icon mr-2"></i></a>
+        <a href="{{ route('task-assign', ['id_project' => $project->id, 'id_task' => $task->id]) }}"><i class="fas fa-link fa-fw hover-icon mx-2"></i></a>
         <a href=""><i class="far fa-trash-alt fa-fw hover-icon ml-2"></i></a>
     </div>
     @endif
@@ -16,7 +16,7 @@
 <section class="task card float-sm-left p-2 m-2 mt-3">
     <h5 class="card-title text-center pb-2 mb-2" style="border-color: {{$task->color}}">{{$task->project_name}}</h5>
 @endisset  
-    <h6 class="text-center mb-auto"><a href="">{{$task->title}}</a></h6>
+    <h6 class="text-center mb-auto"><a href="{{ route('task', ['id_project' => $task->id_project, 'id_task' => $task->id]) }}">{{$task->title}}</a></h6>
 
     <p class="ml-1 m-0">{{$task->teams}} Teams</p>
     <p class="ml-1 mb-2">{{$task-> developers}} Developers</p>

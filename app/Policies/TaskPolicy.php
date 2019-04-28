@@ -2,6 +2,9 @@
 
 namespace App\Policies;
 
+use App\Developer;
+use App\Project;
+use App\TeamProject;
 use App\User;
 use App\Task;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -13,13 +16,14 @@ class TaskPolicy
     /**
      * Determine whether the user can view the task.
      *
-     * @param  \App\User  $user
-     * @param  \App\Task  $task
+     * @param \App\User $user
+     * @param \App\Task $task
+     * @param Project $project
      * @return mixed
      */
-    public function view(User $user, Task $task)
+    public function view(User $user, Task $task, Project $project)
     {
-        //
+        return TeamProject::where([ ['id_team', Developer::find($user->id)->team->id], ['id_project', $project->id]])->exists() && $task->id_project == $project->id;
     }
 
     /**

@@ -2,7 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Developer;
+use App\Project;
+use App\Task;
+use App\Team;
+use App\TeamTask;
+use App\User;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -43,9 +51,30 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id_project, $id_task)
     {
-        //
+        $project = Project::find($id_project);
+        $task = Task::find($id_task);
+
+        if(!$this->validateAccess('view', $project, $task))
+            return redirect()->route('404');
+
+        $teams = $task->teams;
+
+        foreach ($teams as $team) {
+            $teamObject = Team::find($team->id);
+            $team['leader'] = $teamObject->leader;
+            $team['members'] = $teamObject->members;
+            $team['isTeamLeader'] = $team->leader->id == Auth::user()->getAuthIdentifier();
+        }
+
+        $comments = $task->comments;
+        $canAddComment = Developer::canAddTaskComment($task);
+
+        $task = Task::cardInformation([$task])[0];
+        $isProjectManager = $project->id_manager == Auth::user()->getAuthIdentifier();
+
+        return View('pages.task.task', ['project' => $project, 'isProjectManager' => $isProjectManager, 'task' => $task, 'teams' => $teams, 'comments' => $comments, 'canAddComment' => $canAddComment]);
     }
 
     /**
@@ -80,5 +109,20 @@ class TaskController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function validateAccess($action, $project, $task)
+    {
+        try {
+            if(empty($project) || empty($task))
+                throw new AuthorizationException();
+
+            $this->authorize($action, [$task , $project]);
+        }
+        catch (AuthorizationException $e) {
+            return false;
+        }
+
+        return true;
     }
 }
