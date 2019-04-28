@@ -31,6 +31,27 @@ body * {
 }
 
 #create .col-sm- {
+    border-radius: 0.35em; 
+    background-color: var(--brand-color);
+    border: 1px solid var(--brand-color);
+}
+
+#create .col-sm-:hover {
+    cursor: pointer;
+    background-color: transparent;
+}
+
+#create .col-sm-:hover a {
+    color: var(--brand-color);
+}
+
+#create .col-sm- a {
+    font-size: 1.3em;    
+    color: white;
+    text-decoration: none;
+}
+
+/* #create .col-sm- {
     border-radius: 0.3em; 
     background-color: var(--brand-color);
 }
@@ -49,7 +70,7 @@ body * {
     color: var(--brand-color);
     border-radius: 0.3em;
     border: 1px solid var(--brand-color);
-}
+} */
 
 #add-group:hover {
     color: var(--brand-color);
@@ -69,7 +90,7 @@ div.main-tab {
 }
 
 .task-group {
-    height: calc(100vh - 210px);
+    height: calc(100vh - 204px);
     width: 17em
 }
 

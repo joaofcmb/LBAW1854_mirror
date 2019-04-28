@@ -21,19 +21,14 @@
     </div>
 
     <div class="row w-100 mx-auto">
-        <div id="content" class="container py-3 mb-4">
-            @if($isProjectManager)
-                <div id="create" class="container-fluid mx-auto">
-                    <div class="row mt-4 justify-content-center">
-                        <a href="">
-                            <div class="col-sm- py-2 px-3">
-                                <span>Create Milestone</span>
-                                <i class="fas fa-plus-circle ml-2" style="border: none;"></i>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+         @if($isProjectManager)
+                @include('partials.mainButton', [
+                    'text' => 'Create Milestone',
+                    'icon' => 'fas fa-plus-circle'
+                ])
             @endif
+        <div id="content" class="container py-3 mb-4">
+           
 
             @include('partials.roadmap', [
                 'page' => 'roadmap',

@@ -7,26 +7,35 @@
 @section('title', $isProjectForum ? 'Project - Forum' : 'Company Forum')
 
 @section('body')
+    @if($isProjectForum)
+        <div class="navbar-dark sticky-top">
+    @endif
+
     @include('partials.main-navbar', [
         'active' => 'forum',
         'isProjectForum' => $isProjectForum,
         'auth' => 'session'
      ])
+
     @if($isProjectForum)
-        @include('partials.sub-navbar', [
-            'active' => 'forum',
-            'project' => $project,
-            'isProjectManager' => $isProjectManager
-        ])
+            @include('partials.sub-navbar', [
+                'active' => 'forum',
+                'project' => $project,
+                'isProjectManager' => $isProjectManager
+            ])
+        </div>
     @endif
 
-    <div id="menu-option" class="container-fluid mx-auto py-4">
-        <div class="row justify-content-start">
-            <div class="col-sm-4 ml-2">
-                <a href="{{ $isProjectForum ? route('project-forum', ['id' => $project->id]) : route('companyforum') }}"><i class="fas fa-chevron-circle-left mx-2"></i>Back</a>
-            </div>
-        </div>
-    </div>
+    @if($isProjectForum)
+        @include('partials.backButton', [
+            'isProjectForum' => $isProjectForum,
+            'id_project' => $project->id
+        ])
+    @else
+        @include('partials.backButton', [
+            'isProjectForum' => $isProjectForum
+        ])  
+    @endif
 
     <div id="search-content" class="container px-3">
         <div class="row">
@@ -54,8 +63,5 @@
                 </div>
             </div>
         </div>
-
-        <footer class="fixed-bottom p-1 pl-2">
-            COPYRIGHT © EPMA 2019
-        </footer>
+    </div>
 @endsection

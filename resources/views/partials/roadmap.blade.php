@@ -38,7 +38,7 @@
                     class=" {{ $milestone->id == $currentMilestone->id ? 'milestone-info active' : 'collapsed milestone-info'}} text-center pb-3"
                     style="border-color: rgb(12, 116, 214);">
                     <h6 class="mb-1">{{ date_format(date_create($milestone->deadline), 'Y-m-d') }}</h6>
-                    {{ $milestone->deadline < $date ? 'Elapsed' : $milestone->timeLeft . 'days left' }}
+                    {{ $milestone->deadline < $date ? 'Elapsed' : $milestone->timeLeft . ' days left' }}
                 </a>
             @endforeach
             <div class="p-4"></div>

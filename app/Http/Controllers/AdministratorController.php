@@ -39,7 +39,7 @@ class AdministratorController extends Controller
                             ->where([['developer.is_active', 'true'],['developer.id_team', null]])
                             ->get();
 
-        return View('pages.admin.adminCreateTeam', ['users' => $users]);
+        return View('pages.admin.adminManageTeam', ['users' => $users]);
     }
 
     /**
@@ -148,7 +148,7 @@ class AdministratorController extends Controller
                             ->whereNotIn('user.id', $members)
                             ->get();
 
-        return View('pages.admin.adminEditTeam', ['users' => $users, 'team' => $team]);
+        return View('pages.admin.adminManageTeam', ['users' => $users, 'team' => $team]);
     }
 
     /**

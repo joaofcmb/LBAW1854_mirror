@@ -7,17 +7,23 @@
 @section('title', $isProjectForum ? 'Project - Forum' : 'Company Forum')
 
 @section('body')
+    @if($isProjectForum)
+        <div class="navbar-dark sticky-top">
+    @endif
+
     @include('partials.main-navbar', [
         'active' => 'forum',
         'isProjectForum' => $isProjectForum,
         'auth' => 'session'
      ])
+     
     @if($isProjectForum)
-        @include('partials.sub-navbar', [
-            'active' => 'forum',
-            'project' => $project,
-            'isProjectManager' => $isProjectManager
-        ])
+            @include('partials.sub-navbar', [
+                'active' => 'forum',
+                'project' => $project,
+                'isProjectManager' => $isProjectManager
+            ])
+        </div>
     @endif
 
     <div class="container">
