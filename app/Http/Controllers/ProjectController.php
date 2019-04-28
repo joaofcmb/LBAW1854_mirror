@@ -11,7 +11,6 @@ use App\Thread;
 use DateTime;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
@@ -60,29 +59,14 @@ class ProjectController extends Controller
         if(!$this->validateAccess($project, 'view'))
             return redirect()->route('404');
 
-        $projectInformation = Project::projectInformation($project);
-
-        $forum = $project->forum;
-        $threads = Thread::threadInformation($forum->threads->take(7));
-
-        $currentDate = new DateTime();
-        $date = $currentDate->format('Y-m-d');
-
-        $milestones = Milestone::where('id_project', $project->id)->orderBy('deadline', 'asc')->limit(6)->get();
-        $currentMilestone = Milestone::where([['id_project', $project->id], ['deadline', '>=', $date]])->orderBy('deadline', 'asc')->first();
-        $currentMilestone['timeLeft'] = $currentDate->diff(new DateTime($currentMilestone->deadline))->format('%a');
-
-        $isProjectManager = $project->id_manager == Auth::user()->getAuthIdentifier();
-        $canCreateThread = $this->validateAccess($project, 'createThread');
-
-        return View('pages.project.projectOverview', ['project' => $projectInformation,
-                                                        'isProjectManager' => $isProjectManager,
-                                                        'canCreateThread' => $canCreateThread,
-                                                        'milestones' => $milestones,
-                                                        'currentMilestone' => $currentMilestone,
-                                                        'forum' => $forum,
-                                                        'threads' => $threads,
-                                                        'date' => $date
+        return View('pages.project.projectOverview', ['isProjectManager' => Project::isProjectManager($project),
+                                                            'canCreateThread' => $this->validateAccess($project, 'createThread'),
+                                                            'milestones' => $project->milestones,
+                                                            'currentMilestone' => Project::getCurrentMilestone($project),
+                                                            'forum' => $project->forum,
+                                                            'threads' => $project->forum->threads->take(7),
+                                                            'date' => (new DateTime())->format('Y-m-d'),
+                                                            'project' => Project::information([$project])[0]
         ]);
     }
 
@@ -100,30 +84,11 @@ class ProjectController extends Controller
         if(!$this->validateAccess($project, 'view'))
             return redirect()->route('404');
 
-        $projectInformation = Project::projectInformation($project);
-
-        $currentDate = new DateTime();
-        $date = $currentDate->format('Y-m-d');
-
-        $milestones = Milestone::where('id_project', $project->id)->orderBy('deadline', 'asc')->limit(6)->get();
-
-        foreach ($milestones as $milestone) {
-            $milestone['timeLeft'] = $currentDate->diff(new DateTime($milestone->deadline))->format('%a');
-        }
-
-        $currentMilestone = Milestone::where([['id_project', $project->id], ['deadline', '>=', $date]])->orderBy('deadline', 'asc')->first();
-        $currentMilestone['timeLeft'] = $currentDate->diff(new DateTime($currentMilestone->deadline))->format('%a');
-
-        $currentMilestoneTasks = Task::cardInformation(Task::where([['id_milestone', $currentMilestone->id], ['progress', '<', 100]])->get());
-
-        $isProjectManager = $project->id_manager == Auth::user()->getAuthIdentifier();
-
-        return View('pages.project.projectRoadmap', ['project' => $projectInformation,
-                                                        'isProjectManager' => $isProjectManager,
-                                                        'milestones' => $milestones,
-                                                        'currentMilestone' => $currentMilestone,
-                                                        'currentMilestoneTasks' => $currentMilestoneTasks,
-                                                        'date' => $date
+        return View('pages.project.projectRoadmap', ['isProjectManager' => Project::isProjectManager($project),
+                                                           'milestones' => Milestone::information($project->milestones),
+                                                           'currentMilestone' => Project::getCurrentMilestone($project),
+                                                           'date' => (new DateTime())->format('Y-m-d'),
+                                                           'project' => Project::information([$project])[0]
         ]);
     }
 
@@ -140,21 +105,16 @@ class ProjectController extends Controller
         if(!$this->validateAccess($project, 'view'))
             return redirect()->route('404');
 
-        $projectInformation = Project::projectInformation($project);
-
-        $projectUngroupedTasks = Task::cardInformation(Task::where('id_group', null)->get());
-
         $projectTaskGroups = $project->taskGroups;
+
         foreach($projectTaskGroups as $taskGroup) {
-            $taskGroup['tasks'] = Task::cardInformation($taskGroup->tasks);
+            $taskGroup['tasks'] = Task::information($taskGroup->tasks);
         }
 
-        $isProjectManager = $project->id_manager == Auth::user()->getAuthIdentifier();
-
-        return View('pages.project.projectTasks', ['project' => $projectInformation,
-                                                         'projectUngroupedTasks' => $projectUngroupedTasks,
+        return View('pages.project.projectTasks', ['project' => Project::information([$project])[0],
+                                                         'projectUngroupedTasks' => Task::information(Task::where('id_group', null)->get()),
                                                          'projectTaskGroups' => $projectTaskGroups,
-                                                         'isProjectManager' => $isProjectManager
+                                                         'isProjectManager' => Project::isProjectManager($project)
         ]);
     }
 
@@ -171,11 +131,11 @@ class ProjectController extends Controller
         if(!$this->validateAccess($project, 'view'))
             return redirect()->route('404');
 
-        $threads = Thread::threadInformation(Forum::find($project->forum->id)->threads);
-        $isProjectManager = $project->id_manager == Auth::user()->getAuthIdentifier();
-        $canCreateThread = $this->validateAccess($project, 'createThread');
-
-        return View('pages.forum.forum', ['project' => $project, 'threads' => $threads, 'isProjectManager' => $isProjectManager, 'canCreateThread' => $canCreateThread, 'isProjectForum' => true]);
+        return View('pages.forum.forum', ['project' => $project,
+                          'threads' => Forum::find($project->forum->id)->threads,
+                          'isProjectManager' => Project::isProjectManager($project),
+                          'canCreateThread' => $this->validateAccess($project, 'createThread'),
+                          'isProjectForum' => true]);
     }
 
     /**
@@ -188,24 +148,27 @@ class ProjectController extends Controller
     {
         $project = Project::find($id_project);
 
-        if(!$this->validateAccess($project, 'view'))
+        if(!$this->validateAccess($project, 'view') || !Thread::where([['id_forum', $project->forum->id], ['id', $id_thread]])->exists())
             return redirect()->route('404');
 
-        $thread = Thread::find($id_thread);
+        $thread = Thread::select('thread.id', 'title', 'description', 'id_author', 'id_forum', 'username as author_name')
+            ->join('user', 'user.id', '=', 'thread.id_author')
+            ->where('thread.id', $id_thread)
+            ->first();
 
-        if(!Thread::where([['id_forum', $project->forum->id], ['id', $id_thread]])->exists())
-            return redirect()->route('404');
-
-        $threadInformation = Thread::threadInformation([$thread])[0];
-        $threadComments = Comment::commentInformation(Thread::find($id_thread)->comments);
-
-        $isProjectManager = $project->id_manager == Auth::user()->getAuthIdentifier();
-        $canAddComment = $this->validateAccess($project, 'createThread');
-
-        return View('pages.forum.thread', ['project' => $project, 'thread' => $threadInformation,
-            'comments' => $threadComments, 'isProjectManager' => $isProjectManager, 'canAddComment' => $canAddComment, 'isProjectForum' => true]);
+        return View('pages.forum.thread', ['project' => $project,
+                                                 'thread' => $thread,
+                                                 'comments' => Comment::information(Thread::find($id_thread)->comments),
+                                                 'isProjectManager' => Project::isProjectManager($project),
+                                                 'canAddComment' => $this->validateAccess($project, 'createThread'),
+                                                 'isProjectForum' => true]);
     }
 
+    /**
+     *
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
     public function createForumThread($id) {
 
         $project = Project::find($id);
@@ -213,9 +176,9 @@ class ProjectController extends Controller
         if(!$this->validateAccess($project, 'createThread'))
             return redirect()->route('404');
 
-        $isProjectManager = $project->id_manager == Auth::user()->getAuthIdentifier();
-
-        return View('pages.forum.createThread', ['project' => $project, 'isProjectManager' => $isProjectManager, 'isProjectForum' => true]);
+        return View('pages.forum.createThread', ['project' => $project,
+                                                       'isProjectManager' => Project::isProjectManager($project),
+                                                       'isProjectForum' => true]);
 
     }
 

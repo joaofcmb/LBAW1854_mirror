@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Team extends Model
 {
@@ -26,7 +27,10 @@ class Team extends Model
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function members() {
-        return $this->hasMany('App\Developer', 'id_team')->select('user.id', 'user.username')->join('user', 'user.id', '=', 'developer.id_user')->where([['id_user', '!=', $this->id_leader]]);
+        return $this->hasMany('App\Developer', 'id_team')
+            ->select('user.id', 'user.username')
+            ->join('user', 'user.id', '=', 'developer.id_user')
+            ->where([['id_user', '!=', $this->id_leader]]);
     }
 
     /**
@@ -35,7 +39,9 @@ class Team extends Model
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function leader() {
-        return $this->hasOne('App\Developer', 'id_user', 'id_leader')->select('user.id', 'user.username')->join('user', 'user.id', '=', 'developer.id_user');
+        return $this->hasOne('App\Developer', 'id_user', 'id_leader')
+            ->select('user.id', 'user.username')
+            ->join('user', 'user.id', '=', 'developer.id_user');
     }
 
     /**
@@ -56,14 +62,15 @@ class Team extends Model
         return $this->belongsToMany('App\Task', 'team_task', 'id_team', 'id_task');
     }
 
-    public static function teamInformation($members, $id = 0) {
-        foreach ($members as $member) {
-            $member['username'] = User::where('id', $member->id_user)->value('username');
+    public static function information($team) {
 
-            if($id != 0)
-                $member['follow'] = Follow::where([['id_follower', '=', $id], ['id_followee', '=', $member->id_user]])->exists();
+        foreach ($team->members as $member) {
+            $member['follow'] = Follow::where([['id_follower', '=', Auth::user()->getAuthIdentifier()], ['id_followee', '=', $member->id_user]])->exists();
         }
-        return $members;
+
+        $team->leader['follow'] = Follow::where([['id_follower', '=', Auth::user()->getAuthIdentifier()], ['id_followee', '=', $team->leader->id]])->exists();
+
+        return $team;
     }
 
 }

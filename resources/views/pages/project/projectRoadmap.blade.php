@@ -44,10 +44,10 @@
                             <i class="far fa-edit ml-2"></i>
                         @endif
                     </h3>
-                    <span class="font-weight-light mr-2 flex-shrink-0">{{ sizeof($currentMilestoneTasks) }} remaining</span>
+                    <span class="font-weight-light mr-2 flex-shrink-0">{{ sizeof($currentMilestone->tasks) }} remaining</span>
                 </div>
                 <div class="mx-auto">
-                    @foreach($currentMilestoneTasks as $task)
+                    @foreach($currentMilestone->tasks as $task)
                         @include('partials.cards.task', [
                             'task' => $task,
                             'isProjectManager' => $isProjectManager

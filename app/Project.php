@@ -2,7 +2,9 @@
 
 namespace App;
 
+use DateTime;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Project extends Model
 {
@@ -62,7 +64,9 @@ class Project extends Model
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function milestones() {
-        return $this->hasMany('App\Milestone', 'id_project');
+        return $this->hasMany('App\Milestone', 'id_project')
+            ->orderBy('deadline', 'asc')
+            ->limit(6);;
     }
 
     /**
@@ -75,29 +79,64 @@ class Project extends Model
     }
 
     /**
-     * Retrieves projects card information
+     * Retrieves projects information
      *
+     * @param $projects
+     * @return
      */
-    public static function cardInformation($projects, $id_user) {
+    public static function information($projects) {
         foreach ($projects as $project) {
             $project['manager'] = Project::join('user', 'user.id', '=', 'project.id_manager')->where('project.id', $project['id'])->value('username');
-            $project['teams'] = TeamProject::where('id_project', $project['id'])->count();
-            $project['num_tasks_done'] = Task::where([['id_project', $project['id']], ['progress', '=', 100]])->count();
-            $project['num_tasks_todo'] = Task::where([['id_project', $project['id']], ['progress', '<', 100]])->count();
-            $project['favorite'] = Favorite::where([['id_project', $project['id']], ['id_user', $id_user]])->exists();
-            $project['lock'] = Project::where([['id_manager', $id_user], ['id', $project['id']]])->exists() || TeamProject::join('developer', 'developer.id_team', '=', 'team_project.id_team')->where([['developer.id_user', $id_user], ['id_project', $project['id']]])->exists();
+            $project['teams'] = TeamProject::where('id_project', $project->id)->count();
+            $project['tasks_todo'] = Task::information(Task::where([['id_project', $project['id']], ['progress', '=', 0]])->get());
+            $project['tasks_ongoing'] = Task::information(Task::where([['id_project', $project['id']], ['progress', '!=', 100], ['progress', '!=', 0]])->get());
+            $project['tasks_done'] = Task::information(Task::where([['id_project', $project['id']], ['progress', '=', 100]])->get());
+            $project['favorite'] = Favorite::where([['id_project', $project['id']], ['id_user', Auth::user()->getAuthIdentifier()]])->exists();
+            $project['isLocked'] = Project::isLocked($project);
         }
 
         return $projects;
     }
 
-    public static function projectInformation($project) {
+    /**
+     * Checks if current authenticated user is the manager of a certain project
+     *
+     * @param $project
+     * @return bool
+     */
+    public static function isProjectManager($project) {
+        return $project->id_manager == Auth::user()->getAuthIdentifier();
+    }
 
-        $project['tasks_todo'] = Task::cardInformation(Task::where([['id_project', $project['id']], ['progress', '=', 0]])->get());
-        $project['tasks_ongoing'] = Task::cardInformation(Task::where([['id_project', $project['id']], ['progress', '!=', 100], ['progress', '!=', 0]])->get());
-        $project['tasks_done'] = Task::cardInformation(Task::where([['id_project', $project['id']], ['progress', '=', 100]])->get());
- 
-        return $project;
+    /**
+     * Checks if a project is locked for the current authenticated user
+     *
+     * @param $project
+     * @return bool
+     */
+    public static function isLocked($project) {
+        return !(Project::where([['id_manager', Auth::user()->getAuthIdentifier()], ['id', $project['id']]])->exists() ||
+                 TeamProject::join('developer', 'developer.id_team', '=', 'team_project.id_team')
+                     ->where([['developer.id_user', Auth::user()->getAuthIdentifier()], ['id_project', $project['id']]])
+                     ->exists());
+    }
+
+    /**
+     * Retrieves project current milestone
+     *
+     * @param $project
+     * @return mixed
+     * @throws \Exception
+     */
+    public static function getCurrentMilestone($project) {
+        $currentDate = new DateTime();
+        $date = $currentDate->format('Y-m-d');
+
+        $currentMilestone = Milestone::where([['id_project', $project->id], ['deadline', '>=', $date]])->orderBy('deadline', 'asc')->first();
+        $currentMilestone['timeLeft'] = $currentDate->diff(new DateTime($currentMilestone->deadline))->format('%a');
+        $currentMilestone['tasks'] = Task::information(Task::where([['id_milestone', $currentMilestone->id], ['progress', '<', 100]])->get());
+
+        return $currentMilestone;
     }
 
 

@@ -21,7 +21,7 @@ class HomeController extends Controller
     public function show() {
         if (!Auth::check()) return redirect('/login');
 
-        $threads = Thread::threadInformation(Forum::find(1)->threads->take(7));
+        $threads = Forum::find(1)->threads->take(7);
 
         if(Auth::user()->getAuthIdentifier() == 1 || Auth::user()->getAuthIdentifier() == 2)
             return view('pages.home', ['managementProjects' => [], 'teamProjects' => [], 'teamTasks' => [], 'threads' => $threads]);
@@ -29,11 +29,10 @@ class HomeController extends Controller
         $user = Developer::find(Auth::user()->getAuthIdentifier());
         $team = Team::find($user->id_team);
 
-        $managementProjects = Project::cardInformation($user->manager, $user->id_user);
-        $teamProjects = Project::cardInformation($team->projects, $user->id_user);
-        $teamTasks = Task::cardInformation($team->tasks);
-
-        return view('pages.home', ['managementProjects' => $managementProjects, 'teamProjects' => $teamProjects, 'teamTasks' => $teamTasks, 'threads' => $threads]);
+        return view('pages.home', ['managementProjects' => Project::information($user->manager),
+                                         'teamProjects' => Project::information($team->projects),
+                                         'teamTasks' => Task::information($team->tasks),
+                                         'threads' => $threads]);
     }
 
 }

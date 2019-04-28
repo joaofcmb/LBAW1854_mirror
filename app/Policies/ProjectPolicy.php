@@ -21,7 +21,7 @@ class ProjectPolicy
      */
     public function view(User $user, Project $project)
     {
-        return $user->isAdmin() || TeamProject::where([ ['id_team', Developer::find($user->id)->team->id], ['id_project', $project->id]])->exists();
+        return $user->isAdmin() || !Project::isLocked($project);
     }
 
     /**

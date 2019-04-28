@@ -42,7 +42,8 @@ class Developer extends User
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function manager() {
-        return $this->hasMany('App\Project', 'id_manager');
+        return $this->hasMany('App\Project', 'id_manager')
+            ->where('status', '=', 'active');
     }
 
     public static function canAddTaskComment($task) {

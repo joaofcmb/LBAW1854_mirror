@@ -29,19 +29,11 @@
                     @endif
                     <div class="container px-5">
                         @foreach($follow as $f)
-                            @if ($type == 'followers')
-                                @include('partials.cards.profile', [
-                                    'isLeader' => false,
-                                    'user' => $f,
-                                    'follow' => $f->followBack
-                                ])
-                            @elseif ($type == 'following')
-                                @include('partials.cards.profile', [
-                                    'isLeader' => false,
-                                    'user' => $f,
-                                    'follow' => true
-                                ])                                
-                            @endif                            
+                            @include('partials.cards.profile', [
+                                   'isLeader' => false,
+                                   'user' => $f,
+                                   'follow' => $f->followBack
+                               ])
                         @endforeach
                     </div>
                 </div>

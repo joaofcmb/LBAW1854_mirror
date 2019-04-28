@@ -42,19 +42,6 @@ class ForumController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function showCompanyForum()
-    {
-        $threads = Thread::threadInformation(Forum::find(1)->threads);
-
-        return View('pages.forum.forum', ['threads' => $threads, 'isProjectForum' => false]);
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id

@@ -53,15 +53,15 @@ class ThreadController extends Controller
      */
     public function show($id)
     {
-        $thread = Thread::find($id);
-
         if(!Thread::where([['id_forum', 1], ['id', $id]])->exists())
             return redirect()->route('404');
 
-        $threadInformation = Thread::threadInformation([$thread])[0];
-        $threadComments = Comment::commentInformation(Thread::find($id)->comments);
+        $thread = Thread::select('thread.id', 'title', 'description', 'id_author', 'id_forum', 'username as author_name')
+            ->join('user', 'user.id', '=', 'thread.id_author')
+            ->where('thread.id', $id)
+            ->first();
 
-        return View('pages.forum.thread', ['thread' => $threadInformation, 'comments' => $threadComments, 'isProjectForum' => false]);
+        return View('pages.forum.thread', ['thread' => $thread, 'comments' => Comment::information(Thread::find($id)->comments), 'isProjectForum' => false]);
     }
 
     /**

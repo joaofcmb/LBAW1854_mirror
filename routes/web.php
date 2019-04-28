@@ -11,6 +11,8 @@
 |
 */
 
+use App\Forum;
+
 Route::get('/', function () {
     return redirect('index');
 });
@@ -23,15 +25,13 @@ Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('re
 Route::post('register', 'Auth\RegisterController@register')->name('register-action');
 
 // Home, Search and Static pages
-Route::get('index', function () { return view('pages.index'); })->name('index');
+Route::View('index', 'pages.index')->name('index');
 Route::get('home', 'HomeController@show')->name('home');
-Route::get('search', 'SearchController@show')->name('search');
-Route::get('/404', function () {
-    return View('pages.404');
-})->name('404');
+Route::View('search', 'pages.search')->name('search');
+Route::View('/404', 'pages.404')->name('404');
 
 // Forums
-Route::get('companyforum', 'ForumController@showCompanyForum')->name('companyforum');
+Route::view('companyforum', 'pages.forum.forum', ['threads' => Forum::find(1)->threads, 'isProjectForum' => false])->name('companyforum');
 Route::get('companyforum/thread/{id_thread}', 'ThreadController@show')->name('companyforum-thread');
 Route::view('/companyforum/createthread', 'pages.forum.createThread', ['isProjectForum' => false])->name('company-forum-create-thread');
 

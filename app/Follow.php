@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Follow extends Model
 {
@@ -20,9 +21,16 @@ class Follow extends Model
      */
     protected $table = 'follow';
 
-    public static function followInformation($follows) {
+    /**
+     * Retrieves information about follow
+     *
+     * @param $follows
+     * @param $type
+     * @return mixed
+     */
+    public static function information($follows, $type) {
         foreach ($follows as $follow) {
-            $follow['followBack'] = Follow::where([['id_follower', '=', $follow['id_followee']], ['id_followee', '=', $follow['id_follower']]])->exists();
+            $follow['followBack'] = Follow::where([['id_follower', '=', Auth::user()->getAuthIdentifier()], ['id_followee', '=', $follow[$type]]])->exists();
         }
 
         return $follows;

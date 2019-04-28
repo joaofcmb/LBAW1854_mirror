@@ -68,7 +68,7 @@ class Task extends Model
      * Retrieves tasks card information
      *
      */
-    public static function cardInformation($tasks) {
+    public static function information($tasks) {
         foreach ($tasks as $task) {
             $project = Project::where('id', $task['id_project'])->get();
 

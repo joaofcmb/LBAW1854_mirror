@@ -71,7 +71,7 @@ class TaskController extends Controller
         $comments = $task->comments;
         $canAddComment = Developer::canAddTaskComment($task);
 
-        $task = Task::cardInformation([$task])[0];
+        $task = Task::information([$task])[0];
         $isProjectManager = $project->id_manager == Auth::user()->getAuthIdentifier();
 
         return View('pages.task.task', ['project' => $project, 'isProjectManager' => $isProjectManager, 'task' => $task, 'teams' => $teams, 'comments' => $comments, 'canAddComment' => $canAddComment]);

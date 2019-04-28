@@ -117,7 +117,7 @@ class AdministratorController extends Controller
         if(!Auth::user()->isAdmin())
             return redirect()->route('404');
 
-        $projects = Project::cardInformation(Project::all(), Auth::user()->getAuthIdentifier());
+        $projects = Project::information(Project::all(), Auth::user()->getAuthIdentifier());
 
         return View('pages.admin.adminProjects', ['projects' => $projects]);
     }
@@ -136,7 +136,7 @@ class AdministratorController extends Controller
             return redirect()->route('404');
 
         $team['leader'] = User::select('user.id', 'user.username')->where('id', $team->id_leader)->first();
-        $team['members'] = Team::teamInformation($team->members);
+        $team['members'] = Team::information($team->members);
 
         $members = [];
         foreach ($team['members'] as $member) {

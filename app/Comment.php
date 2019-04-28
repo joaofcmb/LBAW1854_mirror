@@ -38,7 +38,7 @@ class Comment extends Model
         return $this->hasOneThrough('App\Thread', 'App\TaskComment', 'id_comment', 'id', 'id', 'id_task');
     }
 
-    public static function commentInformation($comments) {
+    public static function information($comments) {
         foreach ($comments as $comment) {
             $comment['author_name'] = User::where('id', $comment['id_author'])->value('username');
         }

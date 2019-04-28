@@ -1,6 +1,6 @@
 <div id="project" class="card py-2 px-3 mt-4 mx-3 mx-sm-5 mb-2" style="border-top-width: 0.25em; border-top-color: {{ $project->color }};">
     <div class="d-flex justify-content-between">
-        <a href="{{ $project->lock ? route('project-overview', ['id_project' => $project->id]) : '' }}">
+        <a href="{{ $project->isLocked ? '' : route('project-overview', ['id_project' => $project->id]) }}">
             <h5 class="card-title mb-3 ">{{ $project->name }}</h5>
         </a>
         <h5>
@@ -9,7 +9,7 @@
                 <a href=""><i class="far fa-trash-alt"></i></a>
             @else
                 <a href=""><i class="{{ $project->favorite ? 'fas' : 'far' }} fa-star" aria-hidden="true"></i></a>
-                <a href=""><i class="fa fa-{{ $project->lock ? 'unlock' : 'lock' }}" aria-hidden="true"></i></a>
+                <a href=""><i class="fa fa-{{ $project->isLocked ? 'lock' : 'unlock' }}" aria-hidden="true"></i></a>
             @endisset
         </h5>
     </div>
@@ -27,9 +27,9 @@
             Statistics
             <h6>
                 <p class="m-0"><i class="far fa-fw fa-user mr-1"></i>{{ $project->teams }} Teams involved</p>
-                <p class="m-0"><i class="fas fa-fw fa-check text-success mr-1"></i>{{ $project->num_tasks_done }} Tasks
+                <p class="m-0"><i class="fas fa-fw fa-check text-success mr-1"></i>{{ sizeof($project->tasks_done) }} Tasks
                     concluded</p>
-                <p class="m-0"><i class="fas fa-fw fa-times text-danger mr-1"></i>{{ $project->num_tasks_todo }} Tasks
+                <p class="m-0"><i class="fas fa-fw fa-times text-danger mr-1"></i>{{ sizeof($project->tasks_ongoing) + sizeof($project->tasks_todo) }} Tasks
                     remaining</p>
             </h6>
         </div>

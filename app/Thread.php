@@ -37,14 +37,7 @@ class Thread extends Model
      * @return HasMany
      */
     public function comments() {
-        return $this->hasMany('App\ThreadComment', 'id_thread')->join('comment', 'id', '=', 'id_comment')->orderBy('creation_date', 'asc');
-    }
-
-    public static function threadInformation($threads) {
-        foreach ($threads as $thread) {
-            $thread['author_name'] = User::where('id', $thread['id_author'])->value('username');
-        }
-
-        return $threads;
+        return $this->hasMany('App\ThreadComment', 'id_thread')->join('comment', 'id', '=', 'id_comment')
+            ->orderBy('creation_date', 'asc');
     }
 }

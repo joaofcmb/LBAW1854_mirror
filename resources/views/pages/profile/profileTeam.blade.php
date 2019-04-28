@@ -37,13 +37,13 @@
                             <div class="col-12 col-sm-8 col-lg-5">
                                 <h5 class="text-center">Leader</h5>
                                     @include('partials.cards.profile', [
-                                        'leader' => $leader,
+                                        'leader' => $team->leader,
                                         'isLeader' => true
                                     ])
                             </div>
                             <div class="col-12 col-lg-7">
                                 <h5 class="text-center">Members</h5>
-                                @foreach($members as $member)
+                                @foreach($team->members as $member)
                                     @if($member->id_user != $id)
                                         @include('partials.cards.profile', [
                                             'isLeader' => false,

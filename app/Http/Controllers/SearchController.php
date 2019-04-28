@@ -46,7 +46,7 @@ class SearchController extends Controller
      */
     public function show()
     {
-        return View('pages.search');
+        //
     }
 
     /**
