@@ -36,7 +36,7 @@ class AdministratorController extends Controller
 
         $users = Developer::select('user.id', 'user.username')
                             ->join('user', 'user.id', '=', 'developer.id_user')
-                            ->where([['developer.is_active', 'true'],['developer.id_team', null]])
+                            ->where([['developer.is_active', 'true'], ['developer.id_team', null]])
                             ->get();
 
         return View('pages.admin.adminManageTeam', ['users' => $users]);
@@ -130,7 +130,7 @@ class AdministratorController extends Controller
 
         $membersIds = [];
         foreach ($team['members'] as $member) {
-            array_push($membersIds, $member->id_user);
+            array_push($membersIds, $member->id);
         }
 
         $users = Developer::select('user.id', 'user.username', 'developer.is_active')
