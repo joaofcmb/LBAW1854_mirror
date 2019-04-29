@@ -24,6 +24,9 @@
                 <div class="main-tab card border-left-0 border-right-0 rounded-0 p-2 pb-4">
                     <h4>Favorite Projects</h4>
                     <div class="container">
+                        @if(count($favorites) == 0)
+                            <span>No exists Favorite Projects added!</span>                       
+                        @endif
                         @foreach($favorites as $favorite)
                             @include('partials.cards.project', [
                                 'project' => $favorite

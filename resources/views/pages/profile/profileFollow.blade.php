@@ -30,10 +30,10 @@
                     <div class="container px-5">
                         @foreach($follow as $f)
                             @include('partials.cards.profile', [
-                                   'isLeader' => false,
-                                   'user' => $f,
-                                   'follow' => $f->followBack
-                               ])
+                                'isLeader' => false,
+                                'user' => $f,
+                                'follow' => $f->followBack
+                            ])
                         @endforeach
                     </div>
                 </div>
