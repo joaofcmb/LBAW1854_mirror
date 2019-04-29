@@ -73,7 +73,7 @@
                         @endisset
                         <i class="fas fa-fw fa-times text-danger"></i>
                     @else
-                        @isset($team)
+                        @isset($manageTeam)
                             <i class="fas fa-plus"></i>
                         @else
                             <i class="{{ $follow ? 'fas' : 'far' }} fa-star"></i>

@@ -44,14 +44,13 @@
                         @foreach($users as $user)
                             @include('partials.cards.profile', [
                                 'isLeader' => false,
-                                'user' => $user,
-                                'team' => true    
+                                'user' => $user,  
                             ])
                         @endforeach
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 px-sm-3 px-lg-5">
+            <div class="col-lg-6 px-sm-3 px-lg-5 pb-5">
                 <div class="card my-2">
                     <div class="card-header">
                         <h4>Team</h4>
