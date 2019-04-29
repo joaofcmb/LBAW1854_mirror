@@ -105,6 +105,7 @@ class ProjectController extends Controller
         if(!$this->validateAccess($project, 'view'))
             return redirect()->route('404');
 
+        $unGroupedTasks = Task::information(Task::where([['id_group', null],['id_project', $project->id]])->get());
         $projectTaskGroups = $project->taskGroups;
 
         foreach($projectTaskGroups as $taskGroup) {
@@ -112,7 +113,7 @@ class ProjectController extends Controller
         }
 
         return View('pages.project.projectTasks', ['project' => Project::information([$project])[0],
-                                                         'projectUngroupedTasks' => Task::information(Task::where('id_group', null)->get()),
+                                                         'projectUngroupedTasks' => $unGroupedTasks,
                                                          'projectTaskGroups' => $projectTaskGroups,
                                                          'isProjectManager' => Project::isProjectManager($project)
         ]);

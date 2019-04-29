@@ -111,7 +111,7 @@
                                     @if(Auth::user()->getAuthIdentifier() == $comment->id_author)
                                         <a href=""><i class="far fa-edit"></i></a>
                                     @endif
-                                    @if($comment->isTeamLeader)
+                                    @if($comment->isTeamLeader || Auth::user()->getAuthIdentifier() == $comment->id_author)
                                         <a href=""><i class="far fa-trash-alt"></i></a>
                                     @endif
                                 </h6>

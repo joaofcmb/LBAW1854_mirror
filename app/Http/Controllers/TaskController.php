@@ -8,6 +8,7 @@ use App\Task;
 use App\Team;
 use App\TeamTask;
 use App\User;
+use DateTime;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -62,30 +63,65 @@ class TaskController extends Controller
         $teams = $task->teams;
 
         foreach ($teams as $team) {
-            $teamObject = Team::find($team->id);
-            $team['leader'] = $teamObject->leader;
-            $team['members'] = $teamObject->members;
             $team['isTeamLeader'] = $team->leader->id == Auth::user()->getAuthIdentifier();
         }
 
-        $comments = $task->comments;
-        $canAddComment = Developer::canAddTaskComment($task);
 
-        $task = Task::information([$task])[0];
-        $isProjectManager = $project->id_manager == Auth::user()->getAuthIdentifier();
-
-        return View('pages.task.task', ['project' => $project, 'isProjectManager' => $isProjectManager, 'task' => $task, 'teams' => $teams, 'comments' => $comments, 'canAddComment' => $canAddComment]);
+        return View('pages.task.task', ['project' => $project,
+                                              'isProjectManager' => Project::isProjectManager($project),
+                                              'teams' => $teams,
+                                              'comments' => $task->comments,
+                                              'canAddComment' => Developer::canAddTaskComment($task),
+                                              'task' => Task::information([$task])[0]
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param $id_project
+     * @param $id_task
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
-    public function edit($id)
+    public function edit($id_project, $id_task)
     {
-        //
+        $project = Project::find($id_project);
+        $task = Task::find($id_task);
+
+        if(!$this->validateAccess('edit', $project, $task))
+            return redirect()->route('404');
+
+        $milestones = [];
+        $currentMilestone = Project::getCurrentMilestone($project);
+
+        foreach ($project->milestones as $milestone) {
+            if($currentMilestone->id != $milestone->id && $milestone->deadline >= (new DateTime())->format('Y-m-d'))
+                array_push($milestones, $milestone);
+        }
+
+        return View('pages.task.taskEdit', ['project' => $project,
+                                                  'isProjectManager' => Project::isProjectManager($project),
+                                                  'teams' => $task->teams,
+                                                  'milestones' => $milestones,
+                                                  'currentMilestone' => $currentMilestone,
+                                                  'task' => Task::information([$task])[0]
+        ]);
+    }
+
+    public function assign($id_project, $id_task) {
+
+        $project = Project::find($id_project);
+        $task = Task::find($id_task);
+
+        if(!$this->validateAccess('assign', $project, $task))
+            return redirect()->route('404');
+
+
+        return View('pages.task.taskAssign', ['project' => $project,
+                                                    'isProjectManager' => Project::isProjectManager($project)
+
+        ]);
     }
 
     /**

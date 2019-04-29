@@ -77,7 +77,9 @@ class AdministratorController extends Controller
         if(!Auth::user()->isAdmin())
             return redirect()->route('404');
 
-        $users = Developer::select('user.id', 'user.username', 'developer.is_active')->join('user', 'user.id', '=', 'developer.id_user')->get();
+        $users = Developer::select('user.id', 'user.username', 'developer.is_active')
+            ->join('user', 'user.id', '=', 'developer.id_user')
+            ->get();
 
         return View('pages.admin.adminUsers', ['users' => $users]);
 
@@ -94,16 +96,7 @@ class AdministratorController extends Controller
         if(!Auth::user()->isAdmin())
             return redirect()->route('404');
 
-
-        $teams = Team::all();
-
-        foreach ($teams as $team) {
-            $teamObject = Team::find($team->id);
-            $team['leader'] = $teamObject->leader;
-            $team['members'] = $teamObject->members;
-        }
-
-        return View('pages.admin.adminTeams', ['teams' => $teams]);
+        return View('pages.admin.adminTeams', ['teams' => Team::all()]);
     }
 
     /**
@@ -117,9 +110,7 @@ class AdministratorController extends Controller
         if(!Auth::user()->isAdmin())
             return redirect()->route('404');
 
-        $projects = Project::information(Project::all(), Auth::user()->getAuthIdentifier());
-
-        return View('pages.admin.adminProjects', ['projects' => $projects]);
+        return View('pages.admin.adminProjects', ['projects' =>  Project::information(Project::all())]);
     }
 
     /**
@@ -135,18 +126,17 @@ class AdministratorController extends Controller
         if(!Auth::user()->isAdmin() || empty($team))
             return redirect()->route('404');
 
-        $team['leader'] = User::select('user.id', 'user.username')->where('id', $team->id_leader)->first();
-        $team['members'] = Team::information($team->members);
+        $team = Team::information($team);
 
-        $members = [];
+        $membersIds = [];
         foreach ($team['members'] as $member) {
-            array_push($members, $member->id_user);
+            array_push($membersIds, $member->id_user);
         }
 
         $users = Developer::select('user.id', 'user.username', 'developer.is_active')
                             ->join('user', 'user.id', '=', 'developer.id_user')
                             ->where('developer.is_active', 'true')
-                            ->whereNotIn('user.id', $members)
+                            ->whereNotIn('user.id', $membersIds)
                             ->get();
 
         return View('pages.admin.adminManageTeam', ['users' => $users, 'team' => $team]);

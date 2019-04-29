@@ -27,6 +27,32 @@ class TaskPolicy
     }
 
     /**
+     * Determine whether the user can view the task.
+     *
+     * @param \App\User $user
+     * @param \App\Task $task
+     * @param Project $project
+     * @return mixed
+     */
+    public function edit(User $user, Task $task, Project $project)
+    {
+        return $project->id_manager == $user->id && $task->id_project == $project->id;
+    }
+
+    /**
+     * Determine whether the user can view the task.
+     *
+     * @param \App\User $user
+     * @param \App\Task $task
+     * @param Project $project
+     * @return mixed
+     */
+    public function assign(User $user, Task $task, Project $project)
+    {
+        return $project->id_manager == $user->id && $task->id_project == $project->id;
+    }
+
+    /**
      * Determine whether the user can create tasks.
      *
      * @param  \App\User  $user

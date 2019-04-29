@@ -50,7 +50,6 @@ Route::get('/project/{id_project}/tasks/createtask', 'TaskController@create')->n
 Route::get('/project/{id_project}/tasks/{id_task}/edit', 'TaskController@edit')->name('task-edit');
 Route::get('/project/{id_project}/tasks/{id_task}/assign', 'TaskController@assign')->name('task-assign');
 
-
 // Profile
 Route::get('profile/{id}', 'ProfileController@show')->name('profile');
 Route::get('profile/{id}/team', 'ProfileController@showTeam')->name('profile-team');

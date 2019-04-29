@@ -46,6 +46,12 @@ class Developer extends User
             ->where('status', '=', 'active');
     }
 
+    /**
+     * Checks if current authenticated user can comment on a task or not
+     *
+     * @param $task
+     * @return mixed
+     */
     public static function canAddTaskComment($task) {
         return Developer::join('team_task', 'team_task.id_team', '=', 'developer.id_team')
             ->where([['team_task.id_task', $task->id], ['developer.id_user', Auth::user()->getAuthIdentifier()]])

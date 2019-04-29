@@ -62,6 +62,12 @@ class Team extends Model
         return $this->belongsToMany('App\Task', 'team_task', 'id_team', 'id_task');
     }
 
+    /**
+     * Checks following status of team members and team leader
+     *
+     * @param $team
+     * @return mixed
+     */
     public static function information($team) {
 
         foreach ($team->members as $member) {
