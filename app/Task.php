@@ -51,6 +51,10 @@ class Task extends Model
         return $this->belongsToMany('App\Team', 'team_task', 'id_task', 'id_team');
     }
 
+    public function milestone() {
+        return $this->belongsTo('App\Milestone', 'id_milestone');
+    }
+
     /**
      * The comments the thread has
      *
@@ -74,7 +78,7 @@ class Task extends Model
 
             $task['project_name'] = $project[0]->name;
             $task['color'] = $project[0]->color;
-            $task['teams'] = TeamTask::select('id_team')->where('id_task', $task['id'])->count();
+            $task['teams'] = $task->teams;
             $task['developers'] = TeamTask::join('developer', 'developer.id_team', '=', 'team_task.id_team')->where('id_task', $task['id'])->count();
 
             $currentDate = new DateTime(date("Y/m/d"));

@@ -119,6 +119,7 @@
                             </div>
                         @endforeach
                     </div>
+
                     <div class="tab-pane fade" id="milestone" role="tabpanel">
                         <div id="search" class="p-3">
                             <div class="input-group">
@@ -135,7 +136,7 @@
                         <div class="card open flex-row justify-content-between p-2 mx-3 my-2">
                             <div class="custom-control custom-radio">
                                 <input checked type="radio" class="custom-control-input" id="{{ $currentMilestone->id }}">
-                                <label class="custom-control-label team-name" for="team2">{{ $currentMilestone->name }}</label>
+                                <label class="custom-control-label team-name" for="{{ $currentMilestone->id }}">{{ $currentMilestone->name }}</label>
                             </div>
                         </div>
 

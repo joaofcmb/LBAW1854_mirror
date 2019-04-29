@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Developer;
+use App\Milestone;
 use App\Project;
 use App\Task;
 use App\Team;
@@ -117,10 +118,20 @@ class TaskController extends Controller
         if(!$this->validateAccess('assign', $project, $task))
             return redirect()->route('404');
 
+        $milestones = [];
+        $currentMilestone = $task->milestone;
+
+        foreach ($project->milestones as $milestone) {
+            if(($currentMilestone->id == null || $currentMilestone->id != $milestone->id) && $milestone->deadline >= (new DateTime())->format('Y-m-d'))
+                array_push($milestones, $milestone);
+        }
 
         return View('pages.task.taskAssign', ['project' => $project,
-                                                    'isProjectManager' => Project::isProjectManager($project)
-
+                                                    'isProjectManager' => Project::isProjectManager($project),
+                                                    'tasks' => Task::information($project->tasks),
+                                                    'selectedTask' => Task::information([$task])[0],
+                                                    'milestones' => $milestones,
+                                                    'currentMilestone' => $currentMilestone
         ]);
     }
 

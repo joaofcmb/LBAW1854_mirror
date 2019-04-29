@@ -4,7 +4,7 @@
     <link href="{{ asset('css/project.css') }}" rel="stylesheet">
 @endsection
 
-@section('title', 'Task - View')
+@section('title', 'Task - Assign')
 
 @section('body')
     <div class="navbar-dark sticky-top">
@@ -27,150 +27,22 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <h3>Task List</h3>
                         <div class="d-flex justify-content-end align-items-center">
-                            <span class="font-weight-light mr-2">6 Tasks</span>
+                            <span class="font-weight-light mr-2">{{ sizeof($tasks) + 1 }} Tasks</span>
                         </div>
                     </div>
                     <div class="mx-auto">
-                        <section class="task card border-hover sticky float-sm-left p-2 m-2 mt-3">
-                            <div class="mx-auto mb-1">
-                                <i class="far fa-edit hover-icon mr-2"></i>
-                                <i class="fas fa-link fa-fw hover-icon mx-2"></i>
-                                <i class="far fa-trash-alt fa-fw hover-icon ml-2"></i>
-                            </div>
-                            <h6 class="text-center mb-auto">Add Responsive Design</h6>
-
-                            <p class="ml-1 m-0">1 Teams</p>
-                            <p class="ml-1 mb-2">9 Developers</p>
-
-                            <div class="work-progress mx-2 mb-1">
-                                <h6 class="text-center mb-1"><i class="fas fa-chart-line mr-1"></i>66% done</h6>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" style="width:63%" aria-valuenow="63" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div class="time-progress mx-2 my-1">
-                                <h6 class="text-center mb-1"><i class="far fa-clock mr-1"></i>2 days left</h6>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-striped bg-warning progress-bar-animated" role="progressbar" style="width:46%" aria-valuenow="46" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </section>
-                        <section class="task card border-hover float-sm-left p-2 m-2 mt-3">
-                            <div class="mx-auto mb-1">
-                                <i class="far fa-edit hover-icon mr-2"></i>
-                                <i class="fas fa-link fa-fw hover-icon mx-2"></i>
-                                <i class="far fa-trash-alt fa-fw hover-icon ml-2"></i>
-                            </div>
-                            <h6 class="text-center mb-auto">Setup deployment hardware</h6>
-
-                            <p class="ml-1 m-0">2 Teams</p>
-                            <p class="ml-1 mb-2">19 Developers</p>
-
-                            <div class="work-progress mx-2 mb-1">
-                                <h6 class="text-center mb-1"><i class="fas fa-chart-line mr-1"></i>No Progress</h6>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" style="width:0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div class="time-progress mx-2 my-1">
-                                <h6 class="text-center mb-1"><i class="far fa-clock mr-1"></i>13 days left</h6>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-striped bg-warning progress-bar-animated" role="progressbar" style="width:9%" aria-valuenow="46" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </section>
-                        <section class="task card border-hover float-sm-left p-2 m-2 mt-3">
-                            <div class="mx-auto mb-1">
-                                <i class="far fa-edit hover-icon mr-2"></i>
-                                <i class="fas fa-link fa-fw hover-icon mx-2"></i>
-                                <i class="far fa-trash-alt fa-fw hover-icon ml-2"></i>
-                            </div>
-                            <h6 class="text-center mb-auto">Improve Interactivity with navbars</h6>
-
-                            <p class="ml-1 m-0">1 Team</p>
-                            <p class="ml-1 mb-2">4 Developers</p>
-
-                            <div class="work-progress mx-2 mb-1">
-                                <h6 class="text-center mb-1"><i class="fas fa-chart-line mr-1"></i>47% done</h6>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" style="width:47%" aria-valuenow="47" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div class="time-progress mx-2 my-1">
-                                <h6 class="text-center mb-1"><i class="far fa-clock mr-1"></i>2 days left</h6>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-striped bg-warning progress-bar-animated" role="progressbar" style="width:56%" aria-valuenow="56" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </section>
-                        <section class="task card border-hover float-sm-left p-2 m-2 mt-3">
-                            <div class="mx-auto mb-1">
-                                <i class="far fa-edit hover-icon mr-2"></i>
-                                <i class="fas fa-link fa-fw hover-icon mx-2"></i>
-                                <i class="far fa-trash-alt fa-fw hover-icon ml-2"></i>
-                            </div>
-                            <h6 class="text-center mb-auto">Test database performance</h6>
-
-                            <p class="ml-1 m-0">1 Team</p>
-                            <p class="ml-1 mb-2">6 Developers</p>
-
-                            <div class="work-progress mx-2 mb-1">
-                                <h6 class="text-center mb-1"><i class="fas fa-chart-line mr-1"></i>18% done</h6>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" style="width:18%" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div class="time-progress mx-2 my-1">
-                                <h6 class="text-center mb-1"><i class="far fa-clock mr-1"></i>13 days left</h6>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-striped bg-warning progress-bar-animated" role="progressbar" style="width:15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </section>
-                        <section class="task card border-hover float-sm-left p-2 m-2 mt-3">
-                            <div class="mx-auto mb-1">
-                                <i class="far fa-edit hover-icon mr-2"></i>
-                                <i class="fas fa-link fa-fw hover-icon mx-2"></i>
-                                <i class="far fa-trash-alt fa-fw hover-icon ml-2"></i>
-                            </div>
-                            <h6 class="text-center mb-auto">Import project tasks to EPMA</h6>
-
-                            <p class="ml-1 m-0">1 Team</p>
-                            <p class="ml-1 mb-2">2 Developers</p>
-
-                            <div class="work-progress mx-2 mb-1">
-                                <h6 class="text-center mb-1"><i class="fas fa-chart-line mr-1"></i>Done</h6>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" style="width:100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div class="time-progress mx-2 my-1">
-                                <h6 class="text-center mb-1"><i class="far fa-clock mr-1"></i>Deadline Elapsed</h6>
-                                <div class="progress"></div>
-                            </div>
-                        </section>
-                        <section class="task card border-hover float-sm-left p-2 m-2 mt-3">
-                            <div class="mx-auto mb-1">
-                                <i class="far fa-edit hover-icon mr-2"></i>
-                                <i class="fas fa-link fa-fw hover-icon mx-2"></i>
-                                <i class="far fa-trash-alt fa-fw hover-icon ml-2"></i>
-                            </div>
-                            <h6 class="text-center mb-auto">Integration of components</h6>
-
-                            <p class="ml-1 m-0">3 Teams</p>
-                            <p class="ml-1 mb-2">25 Developers</p>
-
-                            <div class="work-progress mx-2 mb-1">
-                                <h6 class="text-center mb-1"><i class="fas fa-chart-line mr-1"></i>Done</h6>
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-striped bg-success progress-bar-animated" role="progressbar" style="width:100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div class="time-progress mx-2 my-1">
-                                <h6 class="text-center mb-1"><i class="far fa-clock mr-1"></i>Deadline Elapsed</h6>
-                                <div class="progress"></div>
-                            </div>
-                        </section>
+                        @include('partials.cards.task', [
+                                'task' => $selectedTask,
+                                'isProjectManager' => $isProjectManager
+                            ])
+                        @foreach($tasks as $task)
+                            @if($task->id != $selectedTask->id)
+                                @include('partials.cards.task', [
+                                    'task' => $task,
+                                    'isProjectManager' => $isProjectManager
+                                ])
+                            @endif
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -196,34 +68,15 @@
                             </div>
                         </div>
 
-                        <div class="card open flex-row justify-content-between p-2 mx-3 my-2">
-                            <div class="custom-control custom-checkbox">
-                                <input checked type="checkbox" class="custom-control-input" id="team1">
-                                <label class="custom-control-label team-name" for="team1">Alpha</label>
+                        @foreach($selectedTask->teams as $team)
+                            <div class="card open flex-row justify-content-between p-2 mx-3 my-2">
+                                <div class="custom-control custom-checkbox">
+                                    <input checked type="checkbox" class="custom-control-input" id="team1">
+                                    <label class="custom-control-label team-name" for="team1">{{ $team->name }}</label>
+                                </div>
+                                {{ $team->skill == null ? '' : $team->skill }}
                             </div>
-                            Design
-                        </div>
-                        <div class="card open flex-row justify-content-between p-2 mx-3 my-2">
-                            <div class="custom-control custom-checkbox">
-                                <input checked type="checkbox" class="custom-control-input" id="team2">
-                                <label class="custom-control-label team-name" for="team2">Beta</label>
-                            </div>
-                            Responsive
-                        </div>
-                        <div class="card flex-row justify-content-between p-2 mx-3 my-2">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="team3">
-                                <label class="custom-control-label team-name" for="team3">Charlie</label>
-                            </div>
-                            Quality Assurance
-                        </div>
-                        <div class="card flex-row justify-content-between p-2 mx-3 my-2">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="team4">
-                                <label class="custom-control-label team-name" for="team4">Delta</label>
-                            </div>
-                            Backend
-                        </div>
+                        @endforeach
                     </div>
                     <div class="tab-pane fade" id="milestone" role="tabpanel">
                         <div id="search" class="p-3">
@@ -237,24 +90,25 @@
                             </div>
                         </div>
 
-                        <div class="card flex-row justify-content-between p-2 mx-3 my-2">
-                            <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="team1">
-                                <label class="custom-control-label team-name" for="team1">Delivery Preperation</label>
+                        @if($currentMilestone->id != null)
+                            <div class="card flex-row justify-content-between p-2 mx-3 my-2">
+                                <div class="custom-control custom-radio">
+                                    <input checked type="radio" class="custom-control-input" id="{{ $currentMilestone->id }}">
+                                    <label class="custom-control-label team-name" for="{{ $currentMilestone->id }}">{{ $currentMilestone->name }}</label>
+                                </div>
                             </div>
-                        </div>
-                        <div class="card open flex-row justify-content-between p-2 mx-3 my-2">
-                            <div class="custom-control custom-radio">
-                                <input checked type="radio" class="custom-control-input" id="team2">
-                                <label class="custom-control-label team-name" for="team2">Frontend Polish</label>
-                            </div>
-                        </div>
-                        <div class="card flex-row justify-content-between p-2 mx-3 my-2">
-                            <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="team3">
-                                <label class="custom-control-label team-name" for="team3">Project Setup</label>
-                            </div>
-                        </div>
+                        @endif
+
+                        @foreach($milestones as $milestone)
+                            @if($milestone->id != $currentMilestone->id)
+                                <div class="card flex-row justify-content-between p-2 mx-3 my-2">
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" class="custom-control-input" id="{{ $milestone->id }}">
+                                        <label class="custom-control-label team-name" for="{{ $milestone->id }}">{{ $milestone->name }}</label>
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
                     </div>
                 </div>
                 <div class="text-center">
@@ -265,7 +119,7 @@
                             </a>
                         </div>
                     </div>
-                    <h6 class="py-1">Add Responsive Design</h6>
+                    <h6 class="py-1">{{ $selectedTask->title }}</h6>
                 </div>
             </div>
         </div>
