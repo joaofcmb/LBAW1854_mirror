@@ -7,6 +7,7 @@ use App\Forum;
 use App\Milestone;
 use App\Project;
 use App\Task;
+use App\TaskGroup;
 use App\Thread;
 use DateTime;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -25,13 +26,22 @@ class ProjectController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new resource: task.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function createTask($id_project, $id_taskgroup = 0)
     {
-        //
+        $project = Project::find($id_project);
+        $taskGroup = $id_taskgroup != 0 ? TaskGroup::find($id_taskgroup) : null;
+
+        if(!$this->validateAccess($project, 'createTask') || ($taskGroup != null && (empty($taskGroup) || $taskGroup->id_project != $project->id)))
+            return redirect()->route('404');
+
+        return View('pages.task.taskCreate', ['project' => $project,
+                                                    'isProjectManager' => Project::isProjectManager($project),
+                                                    'id_taskgroup' => $id_taskgroup
+        ]);
     }
 
     /**

@@ -43,10 +43,10 @@ Route::get('/project/{id}/forum/createthread', 'ProjectController@createForumThr
 Route::get('/project/{id_project}', 'ProjectController@show')->name('project-overview');
 Route::get('/project/{id_project}/roadmap', 'ProjectController@showRoadmap')->name('project-roadmap');
 Route::get('/project/{id}/tasks', 'ProjectController@showTasks')->name('project-tasks');
+Route::get('/project/{id_project}/tasks/createtask/{id_taskgroup?}', 'ProjectController@createTask')->name('task-create');
 
 // Tasks
 Route::get('/project/{id_project}/tasks/{id_task}', 'TaskController@show')->name('task');
-Route::get('/project/{id_project}/tasks/createtask', 'TaskController@create')->name('task-create');
 Route::get('/project/{id_project}/tasks/{id_task}/edit', 'TaskController@edit')->name('task-edit');
 Route::get('/project/{id_project}/tasks/{id_task}/assign', 'TaskController@assign')->name('task-assign');
 

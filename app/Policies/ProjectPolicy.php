@@ -30,9 +30,9 @@ class ProjectPolicy
      * @param  \App\User  $user
      * @return mixed
      */
-    public function create(User $user)
+    public function createTask(User $user, Project $project)
     {
-        //
+        return $project->id_manager == $user->id;
     }
 
     /**

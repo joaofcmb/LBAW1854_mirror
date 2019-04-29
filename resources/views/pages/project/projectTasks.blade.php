@@ -25,6 +25,7 @@
             'isProjectManager' => $isProjectManager,
             'title' => 'Ungrouped Tasks',
             'tasks' => $projectUngroupedTasks,
+            'project' => $project,
             'ungrouped' => true
         ])
 
@@ -33,7 +34,9 @@
                 'isProjectManager' => $isProjectManager,
                 'title' => $taskGroup->title,
                 'tasks' => $taskGroup->tasks,
-                'ungrouped' => false
+                'project' => $project,
+                'ungrouped' => false,
+                'taskGroup' => $taskGroup
             ])
         @endforeach
 
