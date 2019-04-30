@@ -19,8 +19,7 @@
     ])
 
     @include('partials.backButton', [
-        'admin' => true,
-        'project' => true
+        'route' => 'admin-projects'
     ])
 
     <div id="search-content" class="container-fluid px-3">
@@ -62,7 +61,8 @@
                                           rows="7">{{ isset($project) ? $project->description : '' }}</textarea>
                             </div>
                         </form>
-                        @include('partials.adminSearchBar', ['manageProject' => true])
+                        @include('partials.searchBar', ['page' => 'manageProject', 'content' => 'Project Manager'])
+                        
                         @isset($project)
                             @include('partials.cards.profile', [
                                 'isLeader' => false,

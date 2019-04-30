@@ -14,17 +14,7 @@
     ])
     <div id="content" class="container">
         <div class="row" id="search-bar">
-            <div id="search" class=" col-12 col-md-8 col-lg-9 pt-3 pb-2 py-md-4">
-                <div class="input-group ">
-                    <input type="text" class="form-control" placeholder="Users ..." aria-label="Users ..."
-                           aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button" id="search-button">
-                            <a href=""> <i class="fa fa-search" aria-hidden="true"></i> Search</a>
-                        </button>
-                    </div>
-                </div>
-            </div>
+            @include('partials.searchBar', ['page' => 'search', 'content' => 'Users...'])
             <div id="filter" class="col-12 col-md-4 col-lg-3 text-center pt-2 pb-3 py-md-4">
                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
                     <label class="btn active">

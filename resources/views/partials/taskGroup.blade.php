@@ -1,6 +1,6 @@
 <div class="main-tab task-group border-hover flex-shrink-0 card open border-left-0 border-right-0 rounded-0 py-2 mr-5">
     @if($isProjectManager)
-        <div class="mx-auto mb-1">
+        <div id="task-group-hover" class="mx-auto mb-1">
             @if(!$ungrouped)
                 <a href="{{ route('task-create', ['id_project' => $project->id, 'id_taskgroup' => $taskGroup->id]) }}"><i class="fas fa-plus fa-fw hover-icon mr-2"></i></a>
                 <a href=""><i class="far fa-edit fa-fw hover-icon mx-2"></i></a>

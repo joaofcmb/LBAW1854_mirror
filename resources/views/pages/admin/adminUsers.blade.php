@@ -11,8 +11,12 @@
         'active' => 'users',
         'auth' => 'admin'
     ])
-
-    @include('partials.adminSearchBar', ['content' => 'Users...'])
+    
+    <div id="content" class="container">
+        <div class="row justify-content-center" id="search-bar">
+            @include('partials.searchBar', ['page' => 'admin', 'content' => 'Users...'])
+        </div>
+    </div>
 
     <div id="search-content" class="container mt-3 mb-4">
         @foreach($users as $user)

@@ -19,14 +19,11 @@
             'isProjectManager' => $isProjectManager
         ])
     </div>
-
-    <div id="menu-option" class="container-fluid mx-auto py-4">
-        <div class="row justify-content-start">
-            <div class="col-sm-4 ml-2">
-                <a href="{{ route('project-tasks', ['id_project' => $project->id]) }}"><i class="fas fa-chevron-circle-left mx-2"></i>Back</a>
-            </div>
-        </div>
-    </div>
+    
+    @include('partials.backButton', [
+        'route' => 'tasks',
+        'id_project' => $project->id
+    ])
 
     <div id="search-content" class="container px-3">
         <div class="row">
@@ -55,9 +52,5 @@
                 </div>
             </div>
         </div>
-
-    <footer class="fixed-bottom p-1 pl-2">
-        COPYRIGHT © EPMA 2019
-    </footer>
-
+    </div>
 @endsection

@@ -17,7 +17,11 @@
         'icon' => 'fas fa-plus-circle'
     ])
 
-    @include('partials.adminSearchBar', ['content' => 'Teams...'])
+    <div id="content" class="container">
+        <div class="row justify-content-center" id="search-bar">
+            @include('partials.searchBar', ['page' => 'admin', 'content' => 'Teams...'])
+        </div>
+    </div>
 
     <div id="search-content" class="container pt-3 pb-5">
         <div class="row justify-content-center">

@@ -17,7 +17,11 @@
         'icon' => 'fas fa-plus-circle'
     ])
 
-    @include('partials.adminSearchBar', ['content' => 'Projects...'])
+    <div id="content" class="container">
+        <div class="row justify-content-center" id="search-bar">
+            @include('partials.searchBar', ['page' => 'admin', 'content' => 'Projects...'])
+        </div>
+    </div>
 
     <div id="search-content" class="container py-3 mb-4">
         @foreach($projects as $project)

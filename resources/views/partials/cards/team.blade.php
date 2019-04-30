@@ -1,5 +1,10 @@
-<div class="col-sm-4 my-3">
-    <div class="card text-center">
+
+@isset($projectTask)
+    <div class="team card float-sm-left text-center m-2 mt-3">
+@else
+    <div class="col-sm-4 my-3">
+        <div class="card text-center">
+@endisset        
         <div class="card-header" style="clear: both;">
             <p id="team-name" class="m-0" style="float: left;">{{ $team->name }}</p>
             <p class="m-0" style="float: right;">{{ $team->skill == null ? '' : $team->skill }}</p>
@@ -15,8 +20,11 @@
                 </a>
             @endforeach
             </div>
-            <a id="edit-button" href="{{ route('admin-edit-team', ['id' => $team->id]) }}" class="btn mt-3" role="button">Edit</a>
-            <a id="edit-button" href="" class="btn mt-3" role="button">Remove</a>
-        </div>
+        @isset($projectTask)
+        @else
+                <a id="edit-button" href="{{ route('admin-edit-team', ['id' => $team->id]) }}" class="btn mt-3" role="button">Edit</a>
+                <a id="edit-button" href="" class="btn mt-3" role="button">Remove</a>
+            </div>
+        @endisset
     </div>
 </div>

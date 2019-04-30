@@ -24,7 +24,8 @@
         <div class="roadmap-diagram border-top-0 border-bottom-0 d-flex justify-content-between align-items-center">
             <div class="p-1"></div>
             @foreach($milestones as $milestone)
-                <a data-toggle="collapse" href="#{{ $milestone->name }}" class="milestone py-2"><i class="far fa-{{ $milestone->deadline < $date ? 'dot-' : '' }}circle align-middle"></i></a>
+                <a data-toggle="collapse" href="#milestone{{ $milestone->id }}" class="milestone py-2"><i 
+                    class="far fa-{{ $milestone->deadline < $date ? 'dot-' : '' }}circle align-middle"></i></a>
             @endforeach
             <div class="p-1"></div>
         </div>
@@ -33,7 +34,7 @@
             <div class="p-4"></div>
             @foreach($milestones as $milestone)
                 <a data-toggle="collapse"
-                    href="#{{ $milestone->name }}"
+                    href="#milestone{{ $milestone->id }}"
                     {{ $milestone->id == $currentMilestone->id ? 'aria-expanded=true' : '' }}
                     class=" {{ $milestone->id == $currentMilestone->id ? 'milestone-info active' : 'collapsed milestone-info'}} text-center pb-3"
                     style="border-color: rgb(12, 116, 214);">

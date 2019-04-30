@@ -28,12 +28,12 @@
 
     @if($isProjectForum)
         @include('partials.backButton', [
-            'isProjectForum' => $isProjectForum,
+            'route' => 'project-forum',
             'id_project' => $project->id
         ])
     @else
         @include('partials.backButton', [
-            'isProjectForum' => $isProjectForum
+            'route' => 'company-forum'
         ])  
     @endif
 

@@ -181,3 +181,15 @@ html, body {
 #project.card a.float-right i {
     font-size: 1.3em;
 }
+
+/* Error Page */
+
+#error-text {
+    font-family: 'Comfortaa', sans-serif;
+    color: var(--dark-grey-color);
+    font-size: 3rem;
+}
+
+#error-text span {
+    color: var(--brand-color);
+}

@@ -19,7 +19,7 @@
     ])
     
     @include('partials.backButton', [
-        'admin' => true
+        'route' => 'admin-teams'
     ])
 
     <div id="search-content" class="container-fluid px-3">
@@ -30,17 +30,8 @@
                         <h4>Users</h4>
                     </div>
                     <div class="card-body">
-                        <div id="search" class="">
-                            <div class="input-group">
-                                <input type="text" class="form-control p-2" placeholder="Users ..."
-                                       aria-label="Users..." aria-describedby="basic-addon2">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary py-0" type="button" id="search-button">
-                                        <a href=""> <i class="fa fa-search mr-1" aria-hidden="true"></i>Search</a>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                        @include('partials.searchBar', ['page' => 'manageTeam', 'content' => 'Users...'])
+                        
                         @foreach($users as $user)
                             @include('partials.cards.profile', [
                                 'isLeader' => false,

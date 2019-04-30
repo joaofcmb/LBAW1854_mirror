@@ -19,13 +19,11 @@
             'isProjectManager' => $isProjectManager
         ])
     </div>
-    <div id="menu-option" class="container-fluid mx-auto py-4">
-        <div class="row justify-content-between">
-            <div class="col-sm-4 ml-2">
-                <a href="{{ route('project-overview', ['id' => $project->id]) }}"><i class="fas fa-chevron-circle-left mx-2"></i>Back</a>
-            </div>
-        </div>
-    </div>
+
+    @include('partials.backButton', [
+        'route' => 'overview',
+        'id_project' => $project->id
+    ])
 
     <div class="row w-100 mx-auto">
         <div class="col-lg-8 px-0">
@@ -75,24 +73,7 @@
                     <h3>Teams</h3>
                     <div class="mx-auto">
                         @foreach($teams as $team)
-                            <div class="team card float-sm-left text-center m-2 mt-3">
-                                <div class="card-header" style="clear: both;">
-                                    <p id="team-name" class="m-0" style="float: left;">{{ $team->name }}</p>
-                                    <p class="m-0" style="float: right;">{{ $team->skill == null ? '' : $team->skill }}</p>
-                                </div>
-                                <div class="card-body">
-                                    <a href="#">
-                                        <p class="font-weight-bold">{{ $team->leader->username }}</p>
-                                    </a>
-                                    <div class="mt-3">
-                                        @foreach($team->members as $member)
-                                            <a href="{{ route('profile', ['id' => $member->id]) }}">
-                                                <p>{{ $member->username }}</p>
-                                            </a>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            </div>
+                            @include('partials.cards.team', ['team' => $team, 'projectTask' => ''])                           
                         @endforeach
                     </div>
                 </div>
@@ -103,21 +84,7 @@
                 <div class="main-tab card open border-left-0 border-right-0 border-bottom-1 rounded-0 p-2">
                     <h3>Discussion</h3>
                     @foreach($comments as $comment)
-                        <section class="card float-sm-left p-2 m-2 mt-3">
-                            <div class="d-flex justify-content-between" id="comment-header">
-                                <h6 class="mb-2"><a href="{{ route('profile', ['id' => $comment->id_author]) }}"><i class="fa fa-user" aria-hidden="true"></i> {{ $comment->username }}</a></h6>
-
-                                <h6 id="discussion-icons">
-                                    @if(Auth::user()->getAuthIdentifier() == $comment->id_author)
-                                        <a href=""><i class="far fa-edit"></i></a>
-                                    @endif
-                                    @if($comment->isTeamLeader || Auth::user()->getAuthIdentifier() == $comment->id_author)
-                                        <a href=""><i class="far fa-trash-alt"></i></a>
-                                    @endif
-                                </h6>
-                            </div>
-                            <p class="mb-1">{{ $comment->text }}</p>
-                        </section>
+                        @include('partials.cards.comment', ['comment => $comment', 'taskComment' => true])
                     @endforeach
                     <form>
                         @if($canAddComment)
@@ -130,8 +97,4 @@
             </div>
         </div>
     </div>
-
-    <footer class="fixed-bottom p-1">
-        COPYRIGHT © EPMA 2019
-    </footer>
 @endsection

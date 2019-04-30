@@ -1,16 +1,11 @@
 @extends('layouts.app')
 
-@section('css')
-    <link href="{{ asset('css/error-page.css') }}" rel="stylesheet">
-@endsection
-
 @section('title', '404')
 
 @section('body')
-    <body>
     <div class="navbar-dark sticky-top">
         <nav class="navbar navbar-expand-sm py-0 px-3 px-sm-1 px-lg-3">
-            <a class="navbar-brand" href="">
+            <a class="navbar-brand" href="{{ route('index') }}">
                 <img src="{{ asset('img/logo.png') }}" width="35" class="d-inline-block" alt="Website Logo">
                 <span class="font-weight-bold font-italic">EPMA</span>
             </a>
@@ -25,9 +20,4 @@
             <img src="{{ asset('img/error-robot.png') }}" width="65%">
         </div>
     </div>
-
-    <footer class="fixed-bottom p-1 pl-2">
-        COPYRIGHT © EPMA 2019
-    </footer>
-    </body>
 @endsection

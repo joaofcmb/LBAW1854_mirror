@@ -27,8 +27,7 @@
                     'icon' => 'fas fa-plus-circle'
                 ])
             @endif
-        <div id="content" class="container py-3 mb-4">
-           
+        <div id="content" class="container py-3 mb-4">     
 
             @include('partials.roadmap', [
                 'page' => 'roadmap',
@@ -36,8 +35,8 @@
                 'date' => $date,
                 'currentMilestone' => $currentMilestone
             ])
-
-            <div id="{{ $currentMilestone->name }}" data-parent="#content" class="collapse show main-tab card border-left-0 border-right-0 rounded-0 p-2">
+            
+            <div id="milestone{{ $currentMilestone->id }}" data-parent="#content" class="collapse show main-tab card border-left-0 border-right-0 rounded-0 p-2">
                 <div class="d-flex justify-content-between align-items-center">
                     <h3>{{ $currentMilestone->name }}
                         @if($isProjectManager)
