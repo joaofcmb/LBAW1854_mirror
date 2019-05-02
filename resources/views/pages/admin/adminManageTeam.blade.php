@@ -18,9 +18,7 @@
         'auth' => 'admin'
     ])
     
-    @include('partials.backButton', [
-        'route' => 'admin-teams'
-    ])
+    @include('partials.backButton')
 
     <div id="search-content" class="container-fluid px-3">
         <div class="row">
@@ -35,7 +33,8 @@
                         @foreach($users as $user)
                             @include('partials.cards.profile', [
                                 'isLeader' => false,
-                                'user' => $user,  
+                                'user' => $user, 
+                                'manageTeam' => true
                             ])
                         @endforeach
                     </div>
@@ -62,8 +61,7 @@
                                         value="{{ $team->skill }}"
                                     @else
                                         placeholder="Skill"
-                                    @endif
-                                >
+                                    @endif >
                             </div>
                         </form>
                         <div>

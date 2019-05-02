@@ -26,16 +26,7 @@
         </div>
     @endif
 
-    @if($isProjectForum)
-        @include('partials.backButton', [
-            'route' => 'project-forum',
-            'id_project' => $project->id
-        ])
-    @else
-        @include('partials.backButton', [
-            'route' => 'company-forum'
-        ])  
-    @endif
+    @include('partials.backButton')
 
     <div id="search-content" class="container px-3">
         <div class="row">

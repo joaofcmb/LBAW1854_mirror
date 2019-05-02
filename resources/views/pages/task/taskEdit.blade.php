@@ -22,10 +22,8 @@
 
     <div class="row w-100 mx-auto">
         <div class="col-lg-8 px-0">
-            @include('partials.backButton', [
-                'route' => 'overview',
-                'id_project' => $project->id
-            ])
+            @include('partials.backButton')
+            
             <div id="content" class="container py-3 mb-4" style="background-color: var(--bg-light);">
                 <div class="main-tab card open border-left-0 border-right-0 border-bottom-0 rounded-0 p-2 mb-2">
 

@@ -22,10 +22,8 @@
 
     <div class="row w-100 mx-auto">
         <div class="col-lg-8 px-0">
-            @include('partials.backButton', [
-                'route' => 'overview',
-                'id_project' => $project->id
-            ])
+            @include('partials.backButton')
+            
             <div id="content" class="container py-3 mb-4">
                 <div class="main-tab card open border-left-0 border-right-0 rounded-0 p-2">
                     <div class="d-flex justify-content-between align-items-center">
