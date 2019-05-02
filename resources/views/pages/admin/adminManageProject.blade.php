@@ -18,9 +18,7 @@
         'auth' => 'admin'
     ])
 
-    @include('partials.backButton', [
-        'route' => 'admin-projects'
-    ])
+    @include('partials.backButton')
 
     <div id="search-content" class="container-fluid px-3">
         <div class="row">

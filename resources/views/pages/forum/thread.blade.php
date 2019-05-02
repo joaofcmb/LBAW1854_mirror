@@ -32,16 +32,7 @@
         </div>
     @endif
 
-    @if($isProjectForum)
-        @include('partials.backButton', [
-            'route' => 'project-forum',
-            'id_project' => $project->id
-        ])
-    @else
-        @include('partials.backButton', [
-            'route' => 'company-forum',
-        ])  
-    @endif
+    @include('partials.backButton')
     
     <div id="thread-content" class="container px-sm-3 mb-5">
         <div class="card my-3 px-3 pt-3">

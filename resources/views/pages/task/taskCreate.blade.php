@@ -20,10 +20,7 @@
         ])
     </div>
     
-    @include('partials.backButton', [
-        'route' => 'tasks',
-        'id_project' => $project->id
-    ])
+    @include('partials.backButton')
 
     <div id="search-content" class="container px-3">
         <div class="row">
