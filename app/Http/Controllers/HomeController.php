@@ -29,10 +29,18 @@ class HomeController extends Controller
         $user = Developer::find(Auth::user()->getAuthIdentifier());
         $team = Team::find($user->id_team);
 
-        return view('pages.home', ['managementProjects' => Project::information($user->manager),
-                                         'teamProjects' => Project::information($team->projects),
-                                         'teamTasks' => Task::information($team->tasks),
-                                         'threads' => $threads]);
+        if (isset($team)) {
+            return view('pages.home', ['managementProjects' => Project::information($user->manager),
+                'teamProjects' => Project::information($team->projects),
+                'teamTasks' => Task::information($team->tasks),
+                'threads' => $threads]);
+        }
+        else {
+            return view('pages.home', ['managementProjects' => Project::information($user->manager),
+                'teamProjects' => [],
+                'teamTasks' => [],
+                'threads' => $threads]);
+        }
     }
 
 }

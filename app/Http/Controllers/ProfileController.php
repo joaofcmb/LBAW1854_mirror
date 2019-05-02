@@ -79,14 +79,23 @@ class ProfileController extends Controller
             return redirect()->route('404');
 
         $team = Developer::find($id)->team;
-        $team['members'] = $team->members;
-        $team['leader'] = $team->leader;
 
-        return View('pages.profile.profileTeam', ['id' => $id,
-                                                        'user' => $user,
-                                                        'ownUser'  => Auth::user()->getAuthIdentifier() == $id,
-                                                        'team' => $team
-        ]);
+        if (isset($team)) {
+            $team['members'] = $team->members;
+            $team['leader'] = $team->leader;
+
+            return View('pages.profile.profileTeam', ['id' => $id,
+                'user' => $user,
+                'ownUser'  => Auth::user()->getAuthIdentifier() == $id,
+                'team' => $team
+            ]);
+        }
+        else {
+            return View('pages.profile.profileTeam', ['id' => $id,
+                'user' => $user,
+                'ownUser'  => Auth::user()->getAuthIdentifier() == $id
+            ]);
+        }
     }
 
     /**

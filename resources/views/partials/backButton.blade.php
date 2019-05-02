@@ -1,5 +1,5 @@
 <div id="menu-option" class="container-fluid justify-content-start mx-auto py-4">
-    <a href="    
+    <a href="
     @switch($route)
         @case('admin-projects')
             {{ route('admin-projects') }}
