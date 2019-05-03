@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Illuminate\Support\Facades\Auth;
+
 class Developer extends User
 {
     /**
@@ -37,9 +39,22 @@ class Developer extends User
     /**
      * Retrieves the projects where a user is the project manager
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function manager() {
-        return $this->hasMany('App\Project', 'id_manager');
+        return $this->hasMany('App\Project', 'id_manager')
+            ->where('status', '=', 'active');
+    }
+
+    /**
+     * Checks if current authenticated user can comment on a task or not
+     *
+     * @param $task
+     * @return mixed
+     */
+    public static function canAddTaskComment($task) {
+        return Developer::join('team_task', 'team_task.id_team', '=', 'developer.id_team')
+            ->where([['team_task.id_task', $task->id], ['developer.id_user', Auth::user()->getAuthIdentifier()]])
+            ->exists();
     }
 }

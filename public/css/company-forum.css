@@ -1,27 +1,10 @@
-#side-forum a {
+#forum-header > div:first-child {
+    border-bottom: solid var(--brand-color) 2px;
+}
+
+#forum a {
     text-decoration: none;
     color: black;
-}
-
-#forum-header > div:first-child {
-    border-bottom: solid var(--brand-color) 4px;
-}
-
-.collapse-element {
-    width: 8em;
-}
-
-.collapse-element > a.collapsed > .fa-angle-up {
-    display: none;
-}
-
-.collapse-element > a[aria-expanded=true] > .fa-angle-down {
-    display: none;
-}
-
-.task {
-    width: 14em;
-    height: 17em;
 }
 
 div.sticky {
@@ -47,16 +30,6 @@ div.sticky {
     color: var(--brand-color);
      -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
-}
-
-@media (min-width: 992px) {
-    #side-forum {
-        height: calc(100vh - 145px);
-    }
-
-    #side-forum h3 {
-         color: var(--dark-grey-color);
-    }
 }
 
 i:hover {

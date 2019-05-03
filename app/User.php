@@ -44,19 +44,12 @@ class User extends Authenticatable
     protected $table = 'user';
 
     /**
-     * The projects this user manages
+     * Checks if user is an administrator
      *
-     * @return mixed Projects managed by the current user
+     * @return mixed
      */
-    public function management() {
-        return App\Project::where('id_manager', Auth::user()->getAuthIdentifier());
-    }
-
-    /**
-     * The cards this user owns.
-     */
-    public function cards() {
-        return $this->hasMany('App\Card');
+    public function isAdmin() {
+        return Administrator::where('id_user', $this->id)->exists();
     }
 
 

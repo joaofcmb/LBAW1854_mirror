@@ -30,13 +30,13 @@ class RegisterController extends Controller
     protected $redirectTo = 'home';
 
     /**
-     * Create a new controller instance.
+     * Show the application registration form.
      *
-     * @return void
+     * @return \Illuminate\Http\Response
      */
-    public function __construct()
+    public function showRegistrationForm()
     {
-        $this->middleware('guest');
+        return view('pages.auth.register');
     }
 
     /**
@@ -71,5 +71,15 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('guest');
     }
 }

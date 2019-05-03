@@ -8,11 +8,13 @@
 }
 
 #filter label {
+    cursor: pointer;
     color: black;
     background-color:lightgrey;
 }
 
 #filter label.active {
+    cursor: default;
     color: white;
     background-color: var(--brand-color);
 }

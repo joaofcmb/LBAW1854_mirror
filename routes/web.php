@@ -11,6 +11,8 @@
 |
 */
 
+use App\Forum;
+
 Route::get('/', function () {
     return redirect('index');
 });
@@ -23,8 +25,47 @@ Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('re
 Route::post('register', 'Auth\RegisterController@register')->name('register-action');
 
 // Home, Search and Static pages
-Route::get('index', function () { return view('pages.index'); })->name('index');
-Route::get('home', 'HomeController@show');
+Route::View('index', 'pages.index')->name('index');
+Route::get('home', 'HomeController@show')->name('home');
+Route::View('search', 'pages.search')->name('search');
+Route::View('/404', 'pages.404')->name('404');
+
+// Forums
+Route::view('companyforum', 'pages.forum.forum', ['threads' => Forum::find(1)->threads, 'isProjectForum' => false])->name('companyforum');
+Route::get('companyforum/thread/{id_thread}', 'ThreadController@show')->name('companyforum-thread');
+Route::view('/companyforum/createthread', 'pages.forum.createThread', ['isProjectForum' => false])->name('company-forum-create-thread');
+
+Route::get('/project/{id}/forum', 'ProjectController@showForum')->name('project-forum');
+Route::get('/project/{id_project}/forum/thread/{id_thread}', 'ProjectController@showForumThread')->name('forum-thread');
+Route::get('/project/{id}/forum/createthread', 'ProjectController@createForumThread')->name('forum-create-thread');
+
+// Project
+Route::get('/project/{id_project}', 'ProjectController@show')->name('project-overview');
+Route::get('/project/{id_project}/roadmap', 'ProjectController@showRoadmap')->name('project-roadmap');
+Route::get('/project/{id}/tasks', 'ProjectController@showTasks')->name('project-tasks');
+Route::get('/project/{id_project}/tasks/createtask/{id_taskgroup?}', 'ProjectController@createTask')->name('task-create');
+
+// Tasks
+Route::get('/project/{id_project}/tasks/{id_task}', 'TaskController@show')->name('task');
+Route::get('/project/{id_project}/tasks/{id_task}/edit', 'TaskController@edit')->name('task-edit');
+Route::get('/project/{id_project}/tasks/{id_task}/assign', 'TaskController@assign')->name('task-assign');
+
+// Profile
+Route::get('profile/{id}', 'ProfileController@show')->name('profile');
+Route::get('profile/{id}/team', 'ProfileController@showTeam')->name('profile-team');
+Route::get('profile/{id}/favorites', 'ProfileController@showFavorites')->name('profile-favorites');
+Route::get('profile/{id}/followers', 'ProfileController@showFollowers')->name('profile-followers');
+Route::get('profile/{id}/following', 'ProfileController@showFollowing')->name('profile-following');
+
+// Administrator
+Route::get('/admin/users', 'AdministratorController@showUsers')->name('admin-users');
+Route::get('/admin/teams', 'AdministratorController@showTeams')->name('admin-teams');
+Route::get('/admin/teams/create', 'AdministratorController@createTeam')->name('admin-create-team');
+Route::get('/admin/teams/{id}/edit', 'AdministratorController@editTeam')->name('admin-edit-team');
+Route::get('/admin/projects', 'AdministratorController@showProjects')->name('admin-projects');
+Route::get('/admin/projects/create', 'AdministratorController@createProject')->name('admin-create-project');
+Route::get('/admin/projects/{id}/edit', 'AdministratorController@editProject')->name('admin-edit-project');
+
 
 // Cards
 //Route::get('cards', 'CardController@list');

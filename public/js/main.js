@@ -15,6 +15,15 @@ $('.border-hover').hover(
     function() {$(this).find('>:first-child .hover-icon').css('display', 'none')}
 )
 
+$('#side-forum .sticky').on('resize', function() {
+    if ($(this).prop('scrollHeight') > $(this).outerHeight) {
+        $(this).css('display', 'none')
+        console.log('yay')
+    }
+})
+
+
+
 let milestoneCount = $('.milestone').length
 let milestoneDoneCount = $('.milestone > .fa-dot-circle').length
 
