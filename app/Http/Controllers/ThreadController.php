@@ -31,7 +31,22 @@ class ThreadController extends Controller
      */
     public function create()
     {
-        //
+        $title = isset($_POST['title']) ? htmlentities($_POST['title']) : '';
+        $description = isset($_POST['description']) ? htmlentities($_POST['description']) : '';
+
+        if($title === '' || $description === '')
+            return redirect()->route('company-forum-create-thread-action');
+
+        $thread = new Thread();
+
+        $thread->title = $title;
+        $thread->description = $description;
+        $thread->id_author = Auth::user()->getAuthIdentifier();
+        $thread->id_forum = 1;
+
+        $thread->save();
+        
+        return redirect()->route('companyforum-thread', ['id_thread' => $thread->id]);
     }
 
     /**
