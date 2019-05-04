@@ -3,17 +3,22 @@
     : route('companyforum-thread', ['id_thread' => $thread->id]) }}">
     <div class="card border-hover sticky p-2 my-4">
         <div class="d-flex justify-content-between align-items-top">
-            <h5>{{ $thread->title }}</h5>
-                @if($isProjectForum && ($project->id_manager == Auth::user()->getAuthIdentifier() || Auth::user()->getAuthIdentifier() === $thread->id_author ))
-                    <i id="thread-{{ $thread->id }}" class="thread-delete fas fa-trash-alt mx-3"></i>
-                @elseif(Auth::user()->isAdmin() ||  Auth::user()->getAuthIdentifier() === $thread->id_author)
-                    <i id="thread-{{ $thread->id }}" class="thread-delete fas fa-trash-alt mx-3"></i>
-                @endif
+            <h5>{{ $thread->title }}</h5>            
+            @if($isProjectForum && ($project->id_manager == Auth::user()->getAuthIdentifier() || Auth::user()->getAuthIdentifier() === $thread->id_author ))
+                <form id="thread-button" action="" method="get">
+                    <button type="submit"><i id="thread-{{ $thread->id }}" class="thread-delete fas fa-trash-alt mx-3"></i></button>
+                </form>
+            @elseif(Auth::user()->isAdmin() ||  Auth::user()->getAuthIdentifier() === $thread->id_author)
+                <form id="thread-button" action="" method="get">
+                    <button type="submit"><i id="thread-{{ $thread->id }}" class="thread-delete fas fa-trash-alt mx-3"></i></button>
+                </form>
+            @endif                
         </div>
         <div class="row">
             <div class="col">
-                <i class="far fa-user mr-1"></i>
-                {{ $thread->author_name }}
+                <form id="thread-button" action="{{ route('profile', ['id' => $thread->id_author]) }}" method="get">
+                    <button type="submit"><i class='far fa-user mr-1'></i> {{ $thread->author_name }}</button>
+                </form>
             </div>
         </div>
     </div>

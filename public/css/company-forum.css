@@ -19,6 +19,7 @@ div.sticky {
 .border-hover:hover {
     border-color: var(--dark-grey-color);
     opacity: .9;
+    background-color: var(--bg-light);
 }
 
 .fa-angle-down, .fa-angle-up, .fa-plus-circle {
@@ -32,7 +33,14 @@ div.sticky {
     transition-duration: 0.4s;
 }
 
-i:hover {
+#thread-button, #thread-button>* {
+    border: none;
+    background: none;
+    margin-bottom: 0;
+    outline: none;
+}
+
+i:hover, #thread-button button:hover {
     cursor: pointer;
-    font-weight: bold;
+    color: var(--brand-color);
 }
