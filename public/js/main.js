@@ -59,6 +59,16 @@ for(let i = 0; i < favorite.length; i++) {
     })
 }
 
+let deleteThread = document.getElementsByClassName('thread-delete')
+
+for(let i = 0; i < deleteThread.length; i++) {
+    deleteThread[i].addEventListener('click', function () {
+        let id_thread = deleteThread[i].getAttribute('id').split('-')[1];
+        console.log(id_thread)
+        //sendAjaxRequest.call(this, 'get', '/favorites/' + id_project, null, favoriteHandler);
+    })
+}
+
 //////////////
 // HANDLERS //
 //////////////

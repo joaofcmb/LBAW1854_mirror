@@ -4,8 +4,10 @@
     <div class="card border-hover sticky p-2 my-4">
         <div class="d-flex justify-content-between align-items-top">
             <h5>{{ $thread->title }}</h5>
-                @if(Auth::user()->isAdmin() ||  Auth::user()->getAuthIdentifier() === $thread->id_author )
-                    <i class="fas fa-trash-alt mx-3"></i>
+                @if($isProjectForum && ($project->id_manager == Auth::user()->getAuthIdentifier() || Auth::user()->getAuthIdentifier() === $thread->id_author ))
+                    <i id="thread-{{ $thread->id }}" class="thread-delete fas fa-trash-alt mx-3"></i>
+                @elseif(Auth::user()->isAdmin() ||  Auth::user()->getAuthIdentifier() === $thread->id_author)
+                    <i id="thread-{{ $thread->id }}" class="thread-delete fas fa-trash-alt mx-3"></i>
                 @endif
         </div>
         <div class="row">

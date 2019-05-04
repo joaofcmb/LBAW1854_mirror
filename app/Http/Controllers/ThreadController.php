@@ -25,7 +25,7 @@ class ThreadController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Create a new resource for this page
      *
      * @return \Illuminate\Http\Response
      */
@@ -45,7 +45,7 @@ class ThreadController extends Controller
         $thread->id_forum = 1;
 
         $thread->save();
-        
+
         return redirect()->route('companyforum-thread', ['id_thread' => $thread->id]);
     }
 
