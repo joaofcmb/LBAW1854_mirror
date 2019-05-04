@@ -36,7 +36,7 @@
                         <h5>Create Thread</h5>
                     </div>
                     <div class="card-body">
-                        <form id="create-thread-form" method="post" action="{{ $isProjectForum ? route('forum-create-thread-action', ['id_project' => $project->id]) : route('company-forum-create-thread-action') }}">
+                        <form id="create-thread-form" method="post" action="{{ $isProjectForum ? route('company-forum-create-thread-action') : route('company-forum-create-thread-action') }}">
                             {{ csrf_field() }}
                             <div class="form-row">
                                 <div class="form-group col-md-12">
@@ -49,8 +49,8 @@
                             </div>
                         </form>
                         <div id="action-button" class="text-center mb-2">
-                            <button form="create-thread-form" type="submit">
-                                <a class="btn mt-3">Create</a>
+                            <button class="mt-3 px-0" form="create-thread-form" type="submit">
+                                <a class="btn">Create</a>
                             </button>
                         </div>
                     </div>

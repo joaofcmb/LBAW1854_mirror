@@ -49,3 +49,9 @@
     color: var(--brand-color);
     background-color: transparent;
 }
+
+#action-button button {
+    background: none;
+    border: none;
+    color: inherit;
+}
