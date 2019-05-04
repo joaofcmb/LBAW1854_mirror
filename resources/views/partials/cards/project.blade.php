@@ -8,8 +8,8 @@
                 <a href="{{ route('admin-edit-project', ['id' => $project->id]) }}"><i class="far fa-edit"></i></a>
                 <a href=""><i class="far fa-trash-alt"></i></a>
             @else
-                <a href=""><i class="{{ $project->favorite ? 'fas' : 'far' }} fa-star" aria-hidden="true"></i></a>
-                <a href=""><i class="fa fa-{{ $project->isLocked ? 'lock' : 'unlock' }}" aria-hidden="true"></i></a>
+                <a><i id="project-{{ $project->id }}" class="favorite {{ $project->favorite ? 'fas' : 'far' }} fa-star" style="cursor: pointer;" aria-hidden="true"></i></a>
+                <a><i class="fa fa-{{ $project->isLocked ? 'lock' : 'unlock' }}" aria-hidden="true"></i></a>
             @endisset
         </h5>
     </div>

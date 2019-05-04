@@ -21,8 +21,18 @@ class Follow extends Model
      */
     protected $table = 'follow';
 
+    /**
+     * Table primary key
+     *
+     * @var array
+     */
     protected $primaryKey = ['id_follower', 'id_followee'];
 
+    /**
+     * Auto-incrementing status
+     *
+     * @var bool
+     */
     public $incrementing = false;
 
     /**

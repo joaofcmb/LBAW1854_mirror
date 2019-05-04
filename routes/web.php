@@ -68,15 +68,6 @@ Route::get('/admin/projects/{id}/edit', 'AdministratorController@editProject')->
 
 
 // API - Home, Search and Static pages
-Route::post('/follow/{id_user}', 'ProfileController@follow');
+Route::get('/follow/{id_user}', 'ProfileController@follow');
+Route::get('/favorites/{id_project}', 'ProfileController@favorite');
 
-// Cards
-//Route::get('cards', 'CardController@list');
-//Route::get('cards/{id}', 'CardController@show');
-
-// API
-//Route::put('api/cards', 'CardController@create');
-//Route::delete('api/cards/{card_id}', 'CardController@delete');
-//Route::put('api/cards/{card_id}/', 'ItemController@create');
-//Route::post('api/item/{id}', 'ItemController@update');
-//Route::delete('api/item/{id}', 'ItemController@delete');

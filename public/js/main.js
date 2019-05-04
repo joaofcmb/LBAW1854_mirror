@@ -33,23 +33,53 @@ if (milestoneCount > 0) {
     $('.milestone-description').css('left', (milestoneDoneCount + 1) * 100 / (milestoneCount + 1) - 50 + "%")
 }
 
+/////////////////////
+// EVENT LISTENERS //
+/////////////////////
+
 let follow = document.getElementsByClassName('follow')
 
 for(let i = 0; i < follow.length; i++) {
     follow[i].addEventListener('click', function () {
-        let id_user = follow[i].getAttribute('id').split('-')[1];
-        sendAjaxRequest('post', '/follow/' + id_user, null, followHandler);
+        let id_user = follow[i].getAttribute('id').split('-')[1]
+        sendAjaxRequest('get', '/follow/' + id_user, null, followHandler)
     })
 }
 
-function followHandler() {
-    let item = JSON.parse(this.responseText)
-    let follow_class = document.getElementById('user-' + item).getAttribute('class')
+let favorite = document.getElementsByClassName('favorite')
 
-    document.getElementById('user-' + item).setAttribute('class', (follow_class === 'follow far fa-star') ? 'follow fas fa-star' : 'follow far fa-star')
+for(let i = 0; i < favorite.length; i++) {
+    favorite[i].addEventListener('click', function () {
+        let id_project = favorite[i].getAttribute('id').split('-')[1]
+        sendAjaxRequest('get', '/favorites/' + id_project, null, favoriteHandler)
+    })
 }
 
+//////////////
+// HANDLERS //
+//////////////
 
+function followHandler() {
+    let item = JSON.parse(this.responseText)
+
+    if(item !== 0) {
+        let follow_class = document.getElementById('user-' + item).getAttribute('class')
+        document.getElementById('user-' + item).setAttribute('class', (follow_class === 'follow far fa-star') ? 'follow fas fa-star' : 'follow far fa-star')
+    }
+}
+
+function favoriteHandler() {
+    let item = JSON.parse(this.responseText)
+
+    if(item !== 0) {
+        let favorite_class = document.getElementById('project-' + item).getAttribute('class')
+        document.getElementById('project-' + item).setAttribute('class', (favorite_class === 'favorite far fa-star') ? 'favorite fas fa-star' : 'favorite far fa-star')
+    }
+}
+
+//////////
+// AJAX //
+//////////
 
 function sendAjaxRequest(method, url, data, handler) {
     let request = new XMLHttpRequest();

@@ -50,7 +50,8 @@ class Team extends Model
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function projects() {
-        return $this->belongsToMany('App\Project', 'team_project', 'id_team', 'id_project');
+        return $this->belongsToMany('App\Project', 'team_project', 'id_team', 'id_project')
+            ->where('project.id_manager', '!=', Auth::user()->getAuthIdentifier());
     }
 
     /**
