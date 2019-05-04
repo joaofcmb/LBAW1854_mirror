@@ -71,4 +71,7 @@ Route::get('/admin/projects/create', 'AdministratorController@createProject')->n
 Route::get('/admin/projects/{id}/edit', 'AdministratorController@editProject')->name('admin-edit-project');
 
 
+// API - Project
+Route::post('/api/project/{id_project}/roadmap/changeview', 'ProjectController@changeMilestoneView');
+
 

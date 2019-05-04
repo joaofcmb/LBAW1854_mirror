@@ -69,6 +69,19 @@ for(let i = 0; i < deleteThread.length; i++) {
     })
 }
 
+let milestones = document.getElementsByClassName('milestone-switch')
+
+for(let i = 0; i < milestones.length; i++) {
+    milestones[i].addEventListener('click', function () {
+        let milestone = milestones[i].getAttribute('id').split('-');
+        let id_project = milestone[0];
+        let id_milestone = milestone[2];
+
+        //sendAjaxRequest.call(this, 'post', '/api/project/' + id_project + '/roadmap/changeview', {milestone: id_milestone}, changeMilestoneHandler);
+    })
+}
+
+
 //////////////
 // HANDLERS //
 //////////////
@@ -89,7 +102,37 @@ function favoriteHandler() {
     let favorite_class = document.getElementById('project-' + item_id).getAttribute('class');
 
     document.getElementById('project-' + item_id).setAttribute('class', (favorite_class === 'favorite far fa-star') ? 'favorite fas fa-star' : 'favorite far fa-star');
+}
 
+function changeMilestoneHandler() {
+    let item = JSON.parse(this.responseText);
+    let currentMilestone = item[0];
+
+    changeRoadmapInfo(document.getElementById(this.prototype.getAttribute('id')).parentElement.children, currentMilestone);
+}
+
+////////////
+// OTHERS //
+////////////
+
+function changeRoadmapInfo(milestones, currentMilestone) {
+
+    let old_milestone_id;
+
+    for(let i = 1; i < milestones.length - 1; i++) {
+        if(milestones[i].hasAttribute('aria-expanded')) {
+            milestones[i].removeAttribute('aria-expanded');
+            milestones[i].setAttribute('class', 'milestone-switch collapsed milestone-info text-center pb-3');
+
+            old_milestone_id = milestones[i].getAttribute('id').split('-')[2];
+        }
+        else if(milestones[i].getAttribute('id').includes('milestone-' + currentMilestone['id'])) {
+            milestones[i].setAttribute('aria-expanded', 'true');
+            milestones[i].setAttribute('class', 'milestone-info active text-center pb-3');
+        }
+    }
+
+    return old_milestone_id;
 }
 
 //////////

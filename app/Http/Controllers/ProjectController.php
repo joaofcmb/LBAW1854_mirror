@@ -226,6 +226,19 @@ class ProjectController extends Controller
         return redirect()->route('forum-thread', ['id_project' => $id, 'id_thread' => $thread->id]);
     }
 
+    public function changeMilestoneView(Request $request, $id_project)
+    {
+        $project = Project::find($id_project);
+
+        if(!$this->validateAccess($project, 'view'))
+            return response("", 403, []);
+
+        $response = [];
+        $response[0] = Project::getMilestone($request->input('milestone'));
+
+        return json_encode($response);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

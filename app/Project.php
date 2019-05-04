@@ -139,5 +139,22 @@ class Project extends Model
         return $currentMilestone;
     }
 
+    /**
+     * Retrieves project milestone
+     *
+     * @param $milestone_id
+     * @return mixed
+     * @throws \Exception
+     */
+    public static function getMilestone($milestone_id) {
+        $currentDate = new DateTime();
+
+        $currentMilestone = Milestone::where('id', $milestone_id)->orderBy('deadline', 'asc')->first();
+        $currentMilestone['timeLeft'] = $currentDate->diff(new DateTime($currentMilestone->deadline))->format('%a');
+        $currentMilestone['tasks'] = Task::information(Task::where([['id_milestone', $currentMilestone->id], ['progress', '<', 100]])->get());
+
+        return $currentMilestone;
+    }
+
 
 }

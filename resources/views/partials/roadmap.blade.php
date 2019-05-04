@@ -24,7 +24,7 @@
         <div class="roadmap-diagram border-top-0 border-bottom-0 d-flex justify-content-between align-items-center">
             <div class="p-1"></div>
             @foreach($milestones as $milestone)
-                <a data-toggle="collapse" href="#milestone{{ $milestone->id }}" class="milestone py-2"><i 
+                <a data-toggle="collapse" href="#milestone{{ $milestone->id }}" class="milestone py-2"><i
                     class="far fa-{{ $milestone->deadline < $date ? 'dot-' : '' }}circle align-middle"></i></a>
             @endforeach
             <div class="p-1"></div>
@@ -33,10 +33,10 @@
         <div class="d-none d-lg-flex justify-content-between align-items-center">
             <div class="p-4"></div>
             @foreach($milestones as $milestone)
-                <a data-toggle="collapse"
+                <a id="{{ $milestone->id_project }}-milestone-{{ $milestone->id }}" data-toggle="collapse"
                     href="#milestone{{ $milestone->id }}"
                     {{ $milestone->id == $currentMilestone->id ? 'aria-expanded=true' : '' }}
-                    class=" {{ $milestone->id == $currentMilestone->id ? 'milestone-info active' : 'collapsed milestone-info'}} text-center pb-3"
+                    class="{{ $milestone->id == $currentMilestone->id ? '' : 'milestone-switch'}} {{ $milestone->id == $currentMilestone->id ? 'milestone-info active' : 'collapsed milestone-info'}} text-center pb-3"
                     style="border-color: rgb(12, 116, 214);">
                     <h6 class="mb-1">{{ date_format(date_create($milestone->deadline), 'Y-m-d') }}</h6>
                     {{ $milestone->deadline < $date ? 'Elapsed' : $milestone->timeLeft . ' days left' }}
