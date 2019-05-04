@@ -166,6 +166,12 @@ class ProfileController extends Controller
             ]);
     }
 
+    public function follow(Request $request, $id_own, $id_user) {
+
+        return true;
+    }
+
+
     /**
      * Show the form for editing the specified resource.
      *

@@ -22,8 +22,6 @@ $('#side-forum .sticky').on('resize', function() {
     }
 })
 
-
-
 let milestoneCount = $('.milestone').length
 let milestoneDoneCount = $('.milestone > .fa-dot-circle').length
 
@@ -33,4 +31,39 @@ if (milestoneCount > 0) {
     $('.roadmap-left').css('width', leftWidth + "%")
     $('.roadmap-right').css({"left": leftWidth + "%", "width": 100 - leftWidth + "%"})
     $('.milestone-description').css('left', (milestoneDoneCount + 1) * 100 / (milestoneCount + 1) - 50 + "%")
+}
+
+let follow = document.getElementsByClassName('follow')
+
+for(let i = 0; i < follow.length; i++) {
+    follow[i].addEventListener('click', function () {
+        let info = follow[i].getAttribute('id').split('-');
+        let id_own = info[0];
+        let id_user = info[2];
+
+        sendAjaxRequest('post', '/users/' + id_own + '/follow/' + id_user, null, itemUpdatedHandler);
+    })
+}
+
+function itemUpdatedHandler() {
+
+}
+
+
+
+function sendAjaxRequest(method, url, data, handler) {
+    let request = new XMLHttpRequest();
+
+    request.open(method, url, true);
+    request.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').content);
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    request.addEventListener('load', handler);
+    request.send(encodeForAjax(data));
+}
+
+function encodeForAjax(data) {
+    if (data == null) return null;
+    return Object.keys(data).map(function(k){
+        return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
+    }).join('&');
 }
