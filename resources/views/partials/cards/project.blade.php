@@ -9,7 +9,7 @@
                 <a href=""><i class="far fa-trash-alt"></i></a>
             @else
                 <a><i id="project-{{ $project->id }}" class="favorite {{ $project->favorite ? 'fas' : 'far' }} fa-star" style="cursor: pointer;" aria-hidden="true"></i></a>
-                <a><i class="fa fa-{{ $project->isLocked ? 'lock' : 'unlock' }}" aria-hidden="true"></i></a>
+                <i class="fa fa-{{ $project->isLocked ? 'lock' : 'unlock' }}" aria-hidden="true"></i>
             @endisset
         </h5>
     </div>
