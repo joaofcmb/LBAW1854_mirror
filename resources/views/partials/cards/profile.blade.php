@@ -39,7 +39,9 @@
                     <p class="m-0 pt-2">{{ $leader->username }}</p>
                 </a>
                 <a class="float-right" style="cursor: pointer;">
-                    <i id="{{ Auth::user()->getAuthIdentifier() }}-user-{{ $leader->id }}"class="follow {{ $leader->follow ? 'fas' : 'far' }} fa-star"></i>
+                    @if($leader->id != Auth::user()->getAuthIdentifier())
+                        <i id="user-{{ $leader->id }}" class="follow {{ $leader->follow ? 'fas' : 'far' }} fa-star"></i>
+                    @endif
                 </a>
             </div>
         </div>
@@ -76,7 +78,9 @@
                         @isset($manageTeam)
                             <i class="fas fa-plus"></i>
                         @else
-                            <i id="{{ Auth::user()->getAuthIdentifier() }}-user-{{ $user->id }}" class="follow {{ $follow ? 'fas' : 'far' }} fa-star" style="cursor: pointer;"></i>
+                            @if($user->id != Auth::user()->getAuthIdentifier())
+                                <i id="user-{{ $user->id }}" class="follow {{ $follow ? 'fas' : 'far' }} fa-star" style="cursor: pointer;"></i>
+                            @endif
                         @endisset
                     @endisset
                 </a>

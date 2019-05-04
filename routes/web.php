@@ -13,8 +13,6 @@
 
 use App\Forum;
 
-Route::post('/users/{id_own}/follow/{id_user}', 'ProfileController@follow');
-
 Route::get('/', function () {
     return redirect('index');
 });
@@ -70,7 +68,7 @@ Route::get('/admin/projects/{id}/edit', 'AdministratorController@editProject')->
 
 
 // API - Home, Search and Static pages
-
+Route::post('/follow/{id_user}', 'ProfileController@follow');
 
 // Cards
 //Route::get('cards', 'CardController@list');

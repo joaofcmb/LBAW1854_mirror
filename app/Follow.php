@@ -21,6 +21,10 @@ class Follow extends Model
      */
     protected $table = 'follow';
 
+    protected $primaryKey = ['id_follower', 'id_followee'];
+
+    public $incrementing = false;
+
     /**
      * Retrieves information about follow
      *

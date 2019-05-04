@@ -37,16 +37,16 @@ let follow = document.getElementsByClassName('follow')
 
 for(let i = 0; i < follow.length; i++) {
     follow[i].addEventListener('click', function () {
-        let info = follow[i].getAttribute('id').split('-');
-        let id_own = info[0];
-        let id_user = info[2];
-
-        sendAjaxRequest('post', '/users/' + id_own + '/follow/' + id_user, null, itemUpdatedHandler);
+        let id_user = follow[i].getAttribute('id').split('-')[1];
+        sendAjaxRequest('post', '/follow/' + id_user, null, followHandler);
     })
 }
 
-function itemUpdatedHandler() {
+function followHandler() {
+    let item = JSON.parse(this.responseText)
+    let follow_class = document.getElementById('user-' + item).getAttribute('class')
 
+    document.getElementById('user-' + item).setAttribute('class', (follow_class === 'follow far fa-star') ? 'follow fas fa-star' : 'follow far fa-star')
 }
 
 

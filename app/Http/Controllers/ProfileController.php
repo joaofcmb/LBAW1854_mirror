@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Project;
 use App\Developer;
 use App\Follow;
+use App\Team;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -87,7 +88,7 @@ class ProfileController extends Controller
             return View('pages.profile.profileTeam', ['id' => $id,
                 'user' => $user,
                 'ownUser'  => Auth::user()->getAuthIdentifier() == $id,
-                'team' => $team
+                'team' => Team::information($team)
             ]);
         }
         else {
@@ -99,13 +100,13 @@ class ProfileController extends Controller
     }
 
     /**
-     * Displays user profile followers section
+     * Displays user profile favorites section
      *
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function showFavorites($id) {
-
+    public function showFavorites($id)
+    {
         $user = User::find($id);
 
         if(empty($user))
@@ -122,8 +123,14 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function showFollowers($id) {
-
+    /**
+     * Displays user profile followers section
+     *
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function showFollowers($id)
+    {
         $user = User::find($id);
 
         if(empty($user))
@@ -147,8 +154,8 @@ class ProfileController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function showFollowing($id) {
-
+    public function showFollowing($id)
+    {
         $user = User::find($id);
 
         if(empty($user))
@@ -166,9 +173,22 @@ class ProfileController extends Controller
             ]);
     }
 
-    public function follow(Request $request, $id_own, $id_user) {
 
-        return true;
+    public function follow(Request $request, $id_user)
+    {
+        if(Follow::where([['id_follower', Auth::user()->getAuthIdentifier()],['id_followee', $id_user]])->exists()) {
+            Follow::where([['id_follower', Auth::user()->getAuthIdentifier()],['id_followee', $id_user]])->delete();
+        }
+        else{
+            $follow = new Follow();
+
+            $follow->id_follower = Auth::user()->getAuthIdentifier();
+            $follow->id_followee = (integer)$id_user;
+
+            $follow->save();
+        }
+
+        return json_encode($id_user);
     }
 
 

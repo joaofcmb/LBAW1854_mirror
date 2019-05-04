@@ -45,7 +45,7 @@
                                 <div class="col-12 col-lg-7">
                                     <h5 class="text-center">Members</h5>
                                     @foreach($team->members as $member)
-                                        @if($member->id_user != $id)
+                                        @if($member->id != $id && $member->id != Auth::user()->getAuthIdentifier())
                                             @include('partials.cards.profile', [
                                                 'isLeader' => false,
                                                 'user' => $member,
