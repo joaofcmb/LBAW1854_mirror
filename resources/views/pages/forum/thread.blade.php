@@ -30,6 +30,13 @@
                 'isProjectManager' => $isProjectManager
             ])
         </div>
+        <div id="menu-option" class="container-fluid justify-content-start mx-auto py-4">
+            <a href="{{ route('project-forum', ['id' => $id_project]) }}"><i class="fas fa-chevron-circle-left mx-2"></i>Back</a>
+        </div>
+    @else
+        <div id="menu-option" class="container-fluid justify-content-start mx-auto py-4">
+            <a href="{{ route('companyforum') }}"><i class="fas fa-chevron-circle-left mx-2"></i>Back</a>
+        </div>
     @endif
 
     <div id="menu-option" class="container-fluid justify-content-start mx-auto py-4">

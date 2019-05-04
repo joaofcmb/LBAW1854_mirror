@@ -20,7 +20,9 @@
         ])
     </div>
 
-    @include('partials.backButton')
+    <div id="menu-option" class="container-fluid justify-content-start mx-auto py-4">
+        <a href="{{ route('project-overview', ['id' => $id_project]) }}"><i class="fas fa-chevron-circle-left mx-2"></i>Back</a>
+    </div>    
 
     <div class="row w-100 mx-auto">
         <div class="col-lg-8 px-0">

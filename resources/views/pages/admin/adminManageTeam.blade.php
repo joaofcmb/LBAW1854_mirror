@@ -18,7 +18,9 @@
         'auth' => 'admin'
     ])
     
-    @include('partials.backButton')
+    <div id="menu-option" class="container-fluid justify-content-start mx-auto py-4">
+        <a href="{{ route('admin-teams') }}"><i class="fas fa-chevron-circle-left mx-2"></i>Back</a>
+    </div>
 
     <div id="search-content" class="container-fluid px-3">
         <div class="row">
