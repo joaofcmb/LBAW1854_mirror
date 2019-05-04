@@ -12,6 +12,7 @@ use App\Thread;
 use DateTime;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
@@ -176,12 +177,13 @@ class ProjectController extends Controller
     }
 
     /**
+     * Create forum thread page
      *
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
-    public function createForumThread($id) {
-
+    public function createForumThread($id)
+    {
         $project = Project::find($id);
 
         if(!$this->validateAccess($project, 'createThread'))
@@ -191,6 +193,37 @@ class ProjectController extends Controller
                                                        'isProjectManager' => Project::isProjectManager($project),
                                                        'isProjectForum' => true]);
 
+    }
+
+    /**
+     * Creates a new forum thread for this resource
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function createForumThreadAction($id)
+    {
+        $project = Project::find($id);
+
+        if(!$this->validateAccess($project, 'createThread'))
+            return redirect()->route('404');
+
+        $title = isset($_POST['title']) ? htmlentities($_POST['title']) : '';
+        $description = isset($_POST['description']) ? htmlentities($_POST['description']) : '';
+
+        if($title === '' || $description === '')
+            return redirect()->route('forum-create-thread', ['id' => $project->id]);
+
+        $thread = new Thread();
+
+        $thread->title = $title;
+        $thread->description = $description;
+        $thread->id_author = Auth::user()->getAuthIdentifier();
+        $thread->id_forum = $project->forum->id;
+
+        $thread->save();
+
+        return redirect()->route('forum-thread', ['id_project' => $id, 'id_thread' => $thread->id]);
     }
 
     /**

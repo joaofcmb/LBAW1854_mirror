@@ -50,7 +50,8 @@ class Team extends Model
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function projects() {
-        return $this->belongsToMany('App\Project', 'team_project', 'id_team', 'id_project');
+        return $this->belongsToMany('App\Project', 'team_project', 'id_team', 'id_project')
+            ->where('project.id_manager', '!=', Auth::user()->getAuthIdentifier());
     }
 
     /**
@@ -71,10 +72,10 @@ class Team extends Model
     public static function information($team) {
 
         foreach ($team->members as $member) {
-            $member['follow'] = Follow::where([['id_follower', '=', Auth::user()->getAuthIdentifier()], ['id_followee', '=', $member->id_user]])->exists();
+            $member['follow'] = Follow::where([['id_follower', Auth::user()->getAuthIdentifier()], ['id_followee',  $member->id]])->exists();
         }
 
-        $team->leader['follow'] = Follow::where([['id_follower', '=', Auth::user()->getAuthIdentifier()], ['id_followee', '=', $team->leader->id]])->exists();
+        $team->leader['follow'] = Follow::where([['id_follower', Auth::user()->getAuthIdentifier()], ['id_followee', $team->leader->id]])->exists();
 
         return $team;
     }

@@ -36,19 +36,22 @@
                         <h5>Create Thread</h5>
                     </div>
                     <div class="card-body">
-                        <form>
+                        <form id="create-thread-form" method="post" action="{{ $isProjectForum ? route('forum-create-thread-action', ['id_project' => $project->id]) : route('company-forum-create-thread-action') }}">
+                            {{ csrf_field() }}
                             <div class="form-row">
                                 <div class="form-group col-md-12">
-                                    <input type="text" class="form-control" id="projectName" placeholder="Title">
+                                    <input type="text" class="form-control" id="projectName" name="title" placeholder="Title" required>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <textarea class="form-control" id="projectDescription" placeholder="Description"
-                                          rows="7"></textarea>
+                                <textarea class="form-control" id="projectDescription" name="description" placeholder="Description"
+                                          rows="7" required></textarea>
                             </div>
                         </form>
                         <div id="action-button" class="text-center mb-2">
-                            <a href="" class="btn mt-3" role="button">Create</a>
+                            <button form="create-thread-form" type="submit">
+                                <a class="btn mt-3">Create</a>
+                            </button>
                         </div>
                     </div>
                 </div>

@@ -20,5 +20,18 @@ class Favorite extends Model
      */
     protected $table = 'favorite';
 
+    /**
+     * Table primary key
+     *
+     * @var array
+     */
+    protected $primaryKey = ['id_user', 'id_project'];
+
+    /**
+     * Auto-incrementing status
+     *
+     * @var bool
+     */
+    public $incrementing = false;
 
 }

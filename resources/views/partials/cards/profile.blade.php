@@ -38,8 +38,10 @@
                             alt="User photo">
                     <p class="m-0 pt-2">{{ $leader->username }}</p>
                 </a>
-                <a href="" class="float-right">
-                    <i class="{{ $leader->follow ? 'fas' : 'far' }} fa-star"></i>
+                <a class="float-right" style="cursor: pointer;">
+                    @if($leader->id != Auth::user()->getAuthIdentifier())
+                        <i id="user-{{ $leader->id }}" class="follow {{ $leader->follow ? 'fas' : 'far' }} fa-star"></i>
+                    @endif
                 </a>
             </div>
         </div>
@@ -64,7 +66,7 @@
                             alt="User photo">
                     <span class="pl-4">{{ $user->username }}</span>
                 </a>
-                <a href="" class="float-right pt-2 pr-2">
+                <a class="float-right pt-2 pr-2">
                     @isset($manager)
                         @isset($teamMember)
                             @if($teamMember)
@@ -76,7 +78,9 @@
                         @isset($manageTeam)
                             <i class="fas fa-plus"></i>
                         @else
-                            <i class="{{ $follow ? 'fas' : 'far' }} fa-star"></i>
+                            @if($user->id != Auth::user()->getAuthIdentifier())
+                                <i id="user-{{ $user->id }}" class="follow {{ $follow ? 'fas' : 'far' }} fa-star" style="cursor: pointer;"></i>
+                            @endif
                         @endisset
                     @endisset
                 </a>

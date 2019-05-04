@@ -20,8 +20,8 @@
     </div>
     <div id="main-content" class="row mx-auto align-items-center">
         <div class="col-lg-8 px-0 order-12 order-lg-1">
-            <div id="content" class="container pb-3 p-lg-5 mb-5 mb-lg-4 align-self-center justify-content-center">7
-                @if (isset($team)) {
+            <div id="content" class="container pb-3 p-lg-5 mb-5 mb-lg-4 align-self-center justify-content-center">
+                @isset($team)
                     <div class="main-tab card border-left-0 border-right-0 rounded-0 p-2">
                         <div class="row">
                             <div class="col-6">
@@ -45,7 +45,7 @@
                                 <div class="col-12 col-lg-7">
                                     <h5 class="text-center">Members</h5>
                                     @foreach($team->members as $member)
-                                        @if($member->id_user != $id)
+                                        @if($member->id != $id && $member->id != Auth::user()->getAuthIdentifier())
                                             @include('partials.cards.profile', [
                                                 'isLeader' => false,
                                                 'user' => $member,
@@ -61,7 +61,7 @@
                     <div id="error-text" class="text-center">
                         <p>No <span>content</span> available!</p>
                     </div>
-                @endif
+                @endisset
             </div>
         </div>
 

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Favorite;
 use App\Project;
 use App\Developer;
 use App\Follow;
+use App\Team;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -87,7 +89,7 @@ class ProfileController extends Controller
             return View('pages.profile.profileTeam', ['id' => $id,
                 'user' => $user,
                 'ownUser'  => Auth::user()->getAuthIdentifier() == $id,
-                'team' => $team
+                'team' => Team::information($team)
             ]);
         }
         else {
@@ -99,13 +101,13 @@ class ProfileController extends Controller
     }
 
     /**
-     * Displays user profile followers section
+     * Displays user profile favorites section
      *
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function showFavorites($id) {
-
+    public function showFavorites($id)
+    {
         $user = User::find($id);
 
         if(empty($user))
@@ -122,8 +124,14 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function showFollowers($id) {
-
+    /**
+     * Displays user profile followers section
+     *
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function showFollowers($id)
+    {
         $user = User::find($id);
 
         if(empty($user))
@@ -147,8 +155,8 @@ class ProfileController extends Controller
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function showFollowing($id) {
-
+    public function showFollowing($id)
+    {
         $user = User::find($id);
 
         if(empty($user))
@@ -164,6 +172,50 @@ class ProfileController extends Controller
                                                           'follow' =>  Follow::information($following, 'id_followee'),
                                                           'type' => 'following'
             ]);
+    }
+
+    /**
+     * Follows/Unfollows a user
+     *
+     * @param Request $request
+     * @param $id_user
+     * @return false|string
+     */
+    public function follow($id_user)
+    {
+        if(empty(User::find($id_user)))
+            return response("", 403, []);
+
+        if(Follow::where([['id_follower', Auth::user()->getAuthIdentifier()],['id_followee', $id_user]])->exists()) {
+            Follow::where([['id_follower', Auth::user()->getAuthIdentifier()],['id_followee', $id_user]])->delete();
+        }
+        else{
+            $follow = new Follow();
+
+            $follow->id_follower = Auth::user()->getAuthIdentifier();
+            $follow->id_followee = (integer)$id_user;
+
+            $follow->save();
+        }
+
+    }
+
+    public function favorite(Request $request, $id_project)
+    {
+        if(empty(Project::find($id_project)))
+            return response("", 403, []);
+
+        if (Favorite::where([['id_user', Auth::user()->getAuthIdentifier()], ['id_project', $id_project]])->exists()) {
+            Favorite::where([['id_user', Auth::user()->getAuthIdentifier()], ['id_project', $id_project]])->delete();
+        } else {
+            $favorite = new Favorite();
+
+            $favorite->id_user = Auth::user()->getAuthIdentifier();
+            $favorite->id_project = $id_project;
+
+            $favorite->save();
+        }
+
     }
 
     /**

@@ -24,12 +24,14 @@
                                     'info' => count($managementProjects).' Projects',
                                     'content' => $managementProjects,
                                     'contentType' => 'project',
+                                    'open' => true
                                 ],
                                 [
                                     'title' => 'Team Projects',
                                     'info' => count($teamProjects).' Projects',
                                     'content' => $teamProjects,
                                     'contentType' => 'project',
+                                    'open' => true
                                 ],
                                 [
                                     'title' => 'Team Tasks',
