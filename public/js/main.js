@@ -1,3 +1,7 @@
+///////////////
+// BOOTSTRAP //
+///////////////
+
 // $('.main-tab > .collapse').on('show.bs.collapse', function() {
 //     $(this).parent().css('background-color', '#f1f2f3')
 // })
@@ -37,21 +41,21 @@ if (milestoneCount > 0) {
 // EVENT LISTENERS //
 /////////////////////
 
-let follow = document.getElementsByClassName('follow')
+let follow = document.getElementsByClassName('follow');
 
 for(let i = 0; i < follow.length; i++) {
     follow[i].addEventListener('click', function () {
-        let id_user = follow[i].getAttribute('id').split('-')[1]
-        sendAjaxRequest('get', '/follow/' + id_user, null, followHandler)
+        let id_user = follow[i].getAttribute('id').split('-')[1];
+        sendAjaxRequest.call(this, 'get', '/follow/' + id_user, null, followHandler);
     })
 }
 
-let favorite = document.getElementsByClassName('favorite')
+let favorite = document.getElementsByClassName('favorite');
 
 for(let i = 0; i < favorite.length; i++) {
     favorite[i].addEventListener('click', function () {
-        let id_project = favorite[i].getAttribute('id').split('-')[1]
-        sendAjaxRequest('get', '/favorites/' + id_project, null, favoriteHandler)
+        let id_project = favorite[i].getAttribute('id').split('-')[1];
+        sendAjaxRequest.call(this, 'get', '/favorites/' + id_project, null, favoriteHandler);
     })
 }
 
@@ -60,21 +64,22 @@ for(let i = 0; i < favorite.length; i++) {
 //////////////
 
 function followHandler() {
-    let item = JSON.parse(this.responseText)
+    if (this.status !== 200) return;
 
-    if(item !== 0) {
-        let follow_class = document.getElementById('user-' + item).getAttribute('class')
-        document.getElementById('user-' + item).setAttribute('class', (follow_class === 'follow far fa-star') ? 'follow fas fa-star' : 'follow far fa-star')
-    }
+    let item_id = this.prototype.getAttribute('id').split('-')[1];
+    let follow_class = document.getElementById('user-' + item_id).getAttribute('class');
+
+    document.getElementById('user-' + item_id).setAttribute('class', (follow_class === 'follow far fa-star') ? 'follow fas fa-star' : 'follow far fa-star');
 }
 
 function favoriteHandler() {
-    let item = JSON.parse(this.responseText)
+    if (this.status !== 200) return;
 
-    if(item !== 0) {
-        let favorite_class = document.getElementById('project-' + item).getAttribute('class')
-        document.getElementById('project-' + item).setAttribute('class', (favorite_class === 'favorite far fa-star') ? 'favorite fas fa-star' : 'favorite far fa-star')
-    }
+    let item_id = this.prototype.getAttribute('id').split('-')[1];
+    let favorite_class = document.getElementById('project-' + item_id).getAttribute('class');
+
+    document.getElementById('project-' + item_id).setAttribute('class', (favorite_class === 'favorite far fa-star') ? 'favorite fas fa-star' : 'favorite far fa-star');
+
 }
 
 //////////
@@ -84,6 +89,7 @@ function favoriteHandler() {
 function sendAjaxRequest(method, url, data, handler) {
     let request = new XMLHttpRequest();
 
+    request.prototype = this;
     request.open(method, url, true);
     request.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').content);
     request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
