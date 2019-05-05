@@ -12,7 +12,7 @@
                     @endif
                         <img src="{{ asset('img/profile.png') }}" width="50" height="50"
                                 class="d-inline-block rounded-circle align-self-center my-auto" alt="User photo">
-                        <span class="pl-4">{{ $user->username }}</span>
+                        <span class="pl-2 pl-sm-4">{{ $user->username }}</span>
                     @if($user->is_active)
                         </a>
                     @endif
@@ -64,7 +64,7 @@
                     <img src="{{ asset('img/profile.png') }}" width="50" height="50"
                             class="d-inline-block rounded-circle align-self-center my-auto"
                             alt="User photo">
-                    <span class="pl-4">{{ $user->username }}</span>
+                    <span class="pl-2 pl-sm-4">{{ $user->username }}</span>
                 </a>
                 <a class="float-right pt-2 pr-2">
                     @isset($manager)

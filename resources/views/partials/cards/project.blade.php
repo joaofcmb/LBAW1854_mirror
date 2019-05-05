@@ -1,15 +1,15 @@
 <div id="project" class="card py-2 px-3 mt-4 mx-3 mx-sm-5 mb-2" style="border-top-width: 0.25em; border-top-color: {{ $project->color }};">
     <div class="d-flex justify-content-between">
         <a href="{{ $project->isLocked ? '' : route('project-overview', ['id_project' => $project->id]) }}">
-            <h5 class="card-title mb-3 ">{{ $project->name }}</h5>
+            <h5 class="card-title my-1">{{ $project->name }}</h5>
         </a>
-        <h5>
+        <h5 class="flex-grow-1 d-flex justify-content-end align-items-center">
             @isset($admin)
                 <a href="{{ route('admin-edit-project', ['id' => $project->id]) }}"><i class="far fa-edit"></i></a>
                 <a href=""><i class="far fa-trash-alt"></i></a>
             @else
                 <a><i id="project-{{ $project->id }}" class="favorite {{ $project->favorite ? 'fas' : 'far' }} fa-star" style="cursor: pointer;" aria-hidden="true"></i></a>
-                <i class="fa fa-{{ $project->isLocked ? 'lock' : 'unlock' }}" aria-hidden="true"></i>
+                <i class="pl-1 fa fa-{{ $project->isLocked ? 'lock' : 'unlock' }}" aria-hidden="true"></i>
             @endisset
         </h5>
     </div>

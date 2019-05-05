@@ -15,14 +15,14 @@
                 <h5>{{ $user->username }}</h5>
             </div>
         </div>
-        <div class="row justify-content-center">
-            <div id="biography" class="col-10 col-md-8 pt-3">
+        <div class="row justify-content-center mx-3 pt-3">
+            <div id="biography" class="p-3">
                 <h5>Biography 
                     @isset($isInfo)
                         <i id="edit-biography" class="fas fa-edit ml-2 float-right"></i>
                     @endisset 
                 </h5>
-                <p class="pt-2">{{ $user->biography }}</p>
+                <p class="pt-2 mb-0">{{ $user->biography }}</p>
             </div>
         </div>
     </div>
@@ -30,7 +30,7 @@
 
 @isset ($isInfo)
 </div>
-<div id="background-button" class="row col-12 mt-2 mb-5 mb-lg-4 my-md-0 p-0">
+<div id="background-button" class="row col-12 p-0">
     <div class="col-12 text-right p-0">
         <a href="" class="btn px-2 py-1" role="button">
             <i class="fa fa-camera" aria-hidden="true"></i>

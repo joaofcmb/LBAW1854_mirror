@@ -20,7 +20,7 @@
     </div>
     <div id="main-content" class="row mx-auto align-items-center">
         <div class="col-lg-8 px-0 order-12 order-lg-1">
-            <div id="content" class="container pb-3 p-lg-5 mb-5 mb-lg-4 align-self-center justify-content-center">
+            <div id="content" class="container py-5 align-self-center justify-content-center">
                 @if(count($favorites) == 0)
                     <div id="error-text" class="text-center">
                         <p>No <span>content</span> available!</p>
