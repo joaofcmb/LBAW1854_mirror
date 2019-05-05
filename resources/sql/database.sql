@@ -362,7 +362,7 @@ DECLARE
 BEGIN
     IF TG_OP = 'INSERT' THEN
         INSERT INTO comment("text", id_author) VALUES (NEW."text", NEW.id_author) RETURNING id INTO id_comm;
-        INSERT INTO thread_comment(id_comment, id_task) VALUES (id_comm, NEW.id_thread);
+        INSERT INTO thread_comment(id_comment, id_thread) VALUES (id_comm, NEW.id_thread);
         RETURN NEW;
     ELSEIF TG_OP = 'DELETE' THEN
         DELETE FROM comment WHERE id = OLD.id;
