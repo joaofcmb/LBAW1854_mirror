@@ -1,5 +1,5 @@
 #main-content.row{
-    min-height: 78vh;
+    height: calc(100vh - 160px);
 }
 
 .profile-img-team {    
@@ -112,11 +112,12 @@ div.main-tab {
     border: 2px solid var(--brand-color);
 }
 
-@media (min-width: 1200px) {
-    #side-forum {
+@media (min-width: 992px) {
+    #side-profile {
         position: fixed;
         right: 0em;
-        top: 20vh;
+        top: 123px;
+        height: calc(100vh - 200px);
         border-left: 1px solid var(--light-grey-color);
     }
 }
