@@ -22,6 +22,7 @@ DROP FUNCTION IF EXISTS manage_thread_comment() CASCADE;
 DROP FUNCTION IF EXISTS team_project() CASCADE;
 DROP FUNCTION IF EXISTS remove_user() CASCADE;
 DROP FUNCTION IF EXISTS add_developer() CASCADE;
+DROP FUNCTION IF EXISTS add_forum() CASCADE;
 
 DROP TRIGGER IF EXISTS admin_user ON administrator;
 DROP TRIGGER IF EXISTS developer_user ON developer;
@@ -33,6 +34,7 @@ DROP TRIGGER IF EXISTS manage_view_thread_comment ON comments_of_thread;
 DROP TRIGGER IF EXISTS team_project ON team_task;
 DROP TRIGGER IF EXISTS remove_user ON developer;
 DROP TRIGGER IF EXISTS add_developer ON "user";
+DROP TRIGGER IF EXISTS add_forum ON project;
 
 -------------------------------
 -- TYPES
@@ -282,6 +284,8 @@ CREATE TRIGGER company_forum
 --- TRIGGER03
 CREATE FUNCTION task_in_task_group_or_milestone() RETURNS TRIGGER AS
 $BODY$
+DECLARE
+    deadline_milestone milestone.deadline%type;
 BEGIN
     IF (NEW.id_group IS NOT NULL) THEN
         IF NOT EXISTS (SELECT * FROM task_group WHERE task_group.id = NEW.id_group AND task_group.id_project = NEW.id_project) THEN
@@ -291,6 +295,12 @@ BEGIN
     IF (NEW.id_milestone IS NOT NULL) THEN
         IF NOT EXISTS (SELECT * FROM milestone WHERE milestone.id = NEW.id_milestone AND milestone.id_project = NEW.id_project) THEN
             RAISE EXCEPTION 'A task must belong to a milestone inserted on the same project.';
+        END IF;
+        
+        SELECT deadline INTO deadline_milestone FROM milestone WHERE id = NEW.id_milestone;
+
+        IF (deadline_milestone <= (NEW.creation_date + '1 day'::interval)) THEN
+            RAISE EXCEPTION 'A task creation date and milestone deadline must be separated by at least 1 day.';
         END IF;
     END IF;
     RETURN NEW;
@@ -446,3 +456,21 @@ CREATE TRIGGER add_developer
    AFTER INSERT ON "user"
    FOR EACH ROW
    EXECUTE PROCEDURE add_developer();
+
+--- TRIGGER10
+CREATE FUNCTION add_forum() RETURNS TRIGGER AS
+$BODY$
+DECLARE
+    id_new_project project.id%type;
+BEGIN
+    SELECT id INTO id_new_project FROM project WHERE name = NEW.name;
+    INSERT INTO forum(id_project) VALUES (id_new_project);
+    RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER add_forum
+   AFTER INSERT ON project
+   FOR EACH ROW
+   EXECUTE PROCEDURE add_forum();

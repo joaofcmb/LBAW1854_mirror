@@ -1,4 +1,4 @@
-INSERT INTO "user"(username, first_name, last_name, email, password, biography) VALUES ('Sopoline Petty','Stuart','Bradley','Lani@est.org','$2y$12$hRlWtHdPJiyCwWzKBuqlyuvUAuIjz0F2/Csll8YUxT.JVt2WcHaEa','tellus adipiscing pede magna lectus volutpat pede montes Donec placerat sociis fringilla dapibus ornare at mauris libero Phasellus ultrices elit'); --somebodyoncetoldme
+INSERT INTO "user"(username, first_name, last_name, email, password, biography) VALUES ('Sopoline Petty','Stuart','Bradley','Lani@est.org','$2y$12$hRlWtHdPJiyCwWzKBuqlyuvUAuIjz0F2/Csll8YUxT.JVt2WcHaEa','A strong believer in the power of positive thinking in the workplace, I regularly develop internal wellness campaigns to assist employees with effective mental health techniques. I enjoy a good Netflix binge but can also be found on long bike rides on hilly country roads.'); --somebodyoncetoldme
 INSERT INTO "user"(username, first_name, last_name, email, password, biography) VALUES ('Griffith Horton','Gannon','Hart','Signe@bibendum.com','$2y$12$LVZSzEUllvCloO1oBDZcpu8HeFhj.Fln2AC3GFmTDnKHNZftzgPgy','amet lacus suscipit montes commodo fermentum Praesent Vivamus varius Maecenas hymenaeos pulvinar pulvinar'); -- theworldwasgonnarollme
 INSERT INTO "user"(username, first_name, last_name, email, password, biography) VALUES ('Nerea Lara','Ignatius','Prince','Myra@sodales.com','$2y$12$hzQbTT2saYg7hIeDBp73HONSkcrGvuibZ820uJqBX8wusczg7hKTC','mauris nisi tempor amet sagittis'); --iaintthesharpesttoolintheshed
 INSERT INTO "user"(username, first_name, last_name, email, password, biography) VALUES ('Rowan Alexander','Cecilia','Bryan','Denise@ligula.gov','$2y$12$BwQ0GBcYuSBuLuGkwQ9JT.Pujg6Kp2csQNKPfLrefIW8qM46WEHGW','metus Cras Integer In'); --Shewaslookingkindofdumb
@@ -30,7 +30,7 @@ INSERT INTO "user"(username, first_name, last_name, email, password, biography) 
 INSERT INTO "user"(username, first_name, last_name, email, password, biography) VALUES ('Haley Beard','Maisie','Yang','Desirae@pulvinar.com','$2y$12$HpckhdZ18h3vweSb4qDb2OiX2Bv6fFlWsBKv2Os3M.AgBxsaYMBkK','et facilisis augue purus sagittis sodales vestibulum nascetur massa nostra Quisque scelerisque inceptos netus aptent Aenean'); --Judgingbytheholeinthesatellitepicture
 INSERT INTO "user"(username, first_name, last_name, email, password, biography) VALUES ('Julian Durham','Howard','Reilly','Stuart@eget.us','$2y$12$uEx3jO1qxIBCPwEdfULMGuV8zJSFf7fhp5eaxS6R/aFY/pN7bd02e','purus nisl lectus'); --Theiceweskateisgettingprettythin
 INSERT INTO "user"(username, first_name, last_name, email, password, biography) VALUES ('Lysandra French','Jameson','Hanson','Lucian@metus.com','$2y$12$IKzbWPddGCerLl6XOMzFWO/Ec4nttLo.JHScNwxhh91Xmm/fhljdu','urna est Pellentesque Pellentesque ullamcorper eros Ut penatibus Curae felis blandit nec sociosqu'); --Thewatersgettingwarm
-INSERT INTO "user"(username, first_name, last_name, email, password, biography) VALUES ('Alisa Keith','Armando','Martinez','Jarrod@nascetur.gov','$2y$12$.4DzTOUwxzJ4fa54hhfm2uLFK71nbXqpHe/pKqCGOQeP.1FPQL6F6','vitae imperdiet porta non Sed vel congue arcu Vestibulum Class placerat tellus at tincidunt metus pellentesque'); --Myworldsonfire
+INSERT INTO "user"(username, first_name, last_name, email, password, biography) VALUES ('Alisa Keith','Armando','Martinez','Jarrod@nascetur.gov','$2y$12$.4DzTOUwxzJ4fa54hhfm2uLFK71nbXqpHe/pKqCGOQeP.1FPQL6F6','Alisa Keith is the CEO of Big Co. During her 10-year tenure, Keith oversaw operations and strategic planning that resulted in net profit increases in more than 20 percent. Before this role, Keith was executive director of Small Co., where she directed the activity of three regional branches. Alisa holds a masters degree in Computer Science from MIT. In her spare time she enjoys fly fishing and gourmet cooking with her husband, John.'); --Myworldsonfire
 INSERT INTO "user"(username, first_name, last_name, email, password, biography) VALUES ('Melinda Haney','Lane','Rollins','Ira@ut.com','$2y$12$44tVpnnyyEB.GAZbcoDab.swZNKL6H2i9iZgaz1sefPjAVgmJDvJa','sed magna'); --howaboutyours?
 INSERT INTO "user"(username, first_name, last_name, email, password, biography) VALUES ('Victoria Goff','Alea','Crawford','Leila@Proin.org','$2y$12$1fTAfxSq4u5zgSrZTqLa9ugNEfay1Sb.ZajioG.3zBqnDpH9ZoYFO','tortor'); --ThatsthewayIlikeit 
 INSERT INTO "user"(username, first_name, last_name, email, password, biography) VALUES ('Evan Hamilton','Jasper','Nguyen','Eve@aliquam.us','$2y$12$ndpWokd9U5W7i9Ests/oZuVoBJOsEeBGv8p5TBDK.WgKlqjhhkpaa','fringilla fringilla Nunc In pellentesque porttitor montes'); --andInevergetbored
@@ -53,11 +53,11 @@ DELETE FROM developer WHERE id_user = 1 OR id_user = 2;
 INSERT INTO administrator VALUES (1);
 INSERT INTO administrator VALUES (2);
 
-INSERT INTO team(name,skill,id_leader) VALUES ('Tech Troopers','pretium interdum risus pretium blandit',13);
-INSERT INTO team(name,skill,id_leader) VALUES ('Comic Fanatics','vulputate felis Integer at mollis',20);
-INSERT INTO team(name,skill,id_leader) VALUES ('HBICs','purus quis libero id lacus habitant netus urna sociosqu',3);
-INSERT INTO team(name,skill,id_leader) VALUES ('Fast and Furious','nonummy nibh libero fermentum elit primis viverra lectus litora augue',7);
-INSERT INTO team(name,skill,id_leader) VALUES ('Impact Players','quam metus urna tellus torquent aliquam',6);
+INSERT INTO team(name,skill,id_leader) VALUES ('Tech Troopers','Web Design',13); 
+INSERT INTO team(name,skill,id_leader) VALUES ('Comic Fanatics','Artificial Intelligence',20); 
+INSERT INTO team(name,skill,id_leader) VALUES ('HBICs','Cryptography',3); 
+INSERT INTO team(name,skill,id_leader) VALUES ('Fast and Furious','Data Mining',7); 
+INSERT INTO team(name,skill,id_leader) VALUES ('Impact Players','Game Development',6); 
 
 UPDATE developer SET id_team = 3 WHERE id_user = 3;
 UPDATE developer SET id_team = 2 WHERE id_user = 4;
@@ -311,16 +311,16 @@ INSERT INTO follow VALUES (17,47);
 
 INSERT INTO forum(id_project) VALUES (null);
 
-INSERT INTO project(name,color,description,status,id_manager) VALUES ('Macro Web','02002f','in felis diam arcu congue conubia elit tristique','active',45);
-INSERT INTO project(name,color,description,status,id_manager) VALUES ('Shamrock Development','1300ff','sollicitudin et urna Cras torquent','canceled',26);
-INSERT INTO project(name,color,description,status,id_manager) VALUES ('Web Campus','0000ff','vehicula Phasellus et nibh id nibh facilisis nibh pretium porttitor sociis pretium mi Integer leo quis','closed',23);
-INSERT INTO project(name,color,description,status,id_manager) VALUES ('Optimal Development','0a0e0f','nulla Nullam placerat urna dapibus arcu odio','closed',18);
-INSERT INTO project(name,color,description,status,id_manager) VALUES ('Enterprise Hut','f0000f','vulputate vitae nostra varius dui iaculis nec pulvinar sed interdum luctus Vestibulum taciti vestibulum Curabitur','canceled',12);
-INSERT INTO project(name,color,description,status,id_manager) VALUES ('Sonata Project','4200ff','mi Class nisi leo pellentesque ultrices nisi In Sed eu risus Maecenas Quisque habitant sed vitae Suspendisse non Pellentesque ac sollicitudin in sed porttitor conubia','closed',41);
-INSERT INTO project(name,color,description,status,id_manager) VALUES ('Eagle Web','0020f00','Morbi ipsum nascetur vehicula dapibus turpis morbi sociosqu enim','closed',20);
-INSERT INTO project(name,color,description,status,id_manager) VALUES ('Solo Development','000023','volutpat magna at sapien molestie non Duis semper Mauris Etiam suscipit vitae imperdiet et Sed tellus placerat netus','active',33);
-INSERT INTO project(name,color,description,status,id_manager) VALUES ('Project Sys','0ff000','suscipit amet lacus nibh amet adipiscing euismod sollicitudin lorem placerat Nam ac lorem vulputate lorem lacinia suscipit viverra Cras fames at','canceled',40);
-INSERT INTO project(name,color,description,status,id_manager) VALUES ('Presence Business','00ed00','ridiculus porta Ut morbi condimentum placerat condimentum parturient rutrum Cras orci turpis ultrices metus arcu Ut','canceled',24);
+INSERT INTO project(name,color,description,status,id_manager) VALUES ('Macro Web','82b9b8','Development of a website focused on your carbon footprint','active',45); 
+INSERT INTO project(name,color,description,status,id_manager) VALUES ('Shamrock Development','00ac70','Website for stock overview','canceled',26); 
+INSERT INTO project(name,color,description,status,id_manager) VALUES ('Web Campus','57da3a','Development of a website for the whole Campus','closed',23); 
+INSERT INTO project(name,color,description,status,id_manager) VALUES ('Optimal Development','a773af','Study on the Optimization of a cars control response time','closed',18); 
+INSERT INTO project(name,color,description,status,id_manager) VALUES ('Enterprise Hut','4e6de0','Restaurant Enterprise Hut Construction Planning','canceled',12); 
+INSERT INTO project(name,color,description,status,id_manager) VALUES ('Sonata Project','460099','Sonata Music Festival Planning','closed',41); 
+INSERT INTO project(name,color,description,status,id_manager) VALUES ('Eagle Web','f79a43','Wildlife Rescue Center Construction and Planning','closed',20); 
+INSERT INTO project(name,color,description,status,id_manager) VALUES ('Solo Development','6197b6','Spaceship Solo X Planning and Development','active',33); 
+INSERT INTO project(name,color,description,status,id_manager) VALUES ('Project Sys','e85077','Science Investigation focused on stem cells','canceled',40); 
+INSERT INTO project(name,color,description,status,id_manager) VALUES ('Presence Business','52082f','Social Study on Group Choices and Consequences','canceled',24);
 
 INSERT INTO favorite VALUES (4,7);
 INSERT INTO favorite VALUES (31,8);
@@ -448,7 +448,7 @@ INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_f
 INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_forum) VALUES ('congue convallis vehicula','porta gravida','06/04/2019 12:46:07','06/04/2019 04:06:04',22,6);
 INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_forum) VALUES ('adipiscing lacinia elementum','ut facilisis Donec Vestibulum Cum luctus pulvinar est ut facilisis neque Vestibulum Donec','08/04/2019 01:26:19','05/04/2019 05:58:21',15,11);
 INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_forum) VALUES ('rutrum Integer iaculis','leo ac fringilla fermentum posuere','06/04/2019 20:29:46','09/04/2019 23:02:04',50,9);
-INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_forum) VALUES ('sociis ante magna','vulputate','07/04/2019 04:18:21','07/04/2019 07:38:07',24,7);
+INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_forum) VALUES ('No raises','Stop asking for a raise, we are not doing well financially','09/04/2019 20:21:06','04/04/2019 18:30:38',38,1); 
 INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_forum) VALUES ('Praesent magna sit','nibh faucibus per penatibus ad Proin varius velit','09/04/2019 22:12:45','05/04/2019 08:17:55',15,9);
 INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_forum) VALUES ('Pellentesque auctor amet','hendrerit velit vulputate','04/04/2019 15:23:24','03/04/2019 11:36:00',23,4);
 INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_forum) VALUES ('eleifend Integer natoque','euismod quis euismod est nostra mauris ante cubilia','03/04/2019 19:56:42','06/04/2019 14:12:47',36,6);
@@ -468,8 +468,8 @@ INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_f
 INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_forum) VALUES ('et odio volutpat','sollicitudin egestas purus accumsan dictum cursus bibendum at purus nec Class senectus imperdiet sollicitudin','09/04/2019 21:00:32','05/04/2019 08:56:04',20,10);
 INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_forum) VALUES ('pede bibendum a','rhoncus Nulla congue netus pellentesque tempus nibh nostra Duis hymenaeos Integer ullamcorper neque dis cursus','06/04/2019 02:56:22','09/04/2019 05:20:06',49,11);
 INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_forum) VALUES ('pellentesque Curae magna','vehicula at in laoreet nunc','07/04/2019 03:11:23','05/04/2019 02:59:50',3,2);
-INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_forum) VALUES ('conubia torquent nisl','consectetuer aliquam','08/04/2019 20:36:12','06/04/2019 03:33:15',31,1);
-INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_forum) VALUES ('euismod hendrerit convallis','sodales nunc','07/04/2019 18:16:16','09/04/2019 10:36:38',3,1);
+INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_forum) VALUES ('Lost watch','Whoever lost a leather watch yesterday - go to lost and found.','08/04/2019 20:36:12','06/04/2019 03:33:15',31,1); 
+INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_forum) VALUES ('New Company Rules','Please check the company rules page to see what has been changed','07/04/2019 18:16:16','09/04/2019 10:36:38',3,1); 
 INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_forum) VALUES ('enim blandit eget','fringilla Suspendisse Integer habitant lorem volutpat dignissim Vestibulum nonummy','03/04/2019 22:16:04','09/04/2019 03:46:56',13,10);
 INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_forum) VALUES ('convallis placerat lacinia','rutrum massa magna dictum viverra','04/04/2019 03:49:45','07/04/2019 11:40:31',30,11);
 INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_forum) VALUES ('mollis venenatis mauris','Vestibulum primis hymenaeos Aenean vehicula molestie','07/04/2019 08:49:11','03/04/2019 19:40:22',30,2);
@@ -510,8 +510,8 @@ INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_f
 INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_forum) VALUES ('Phasellus Proin molestie','sem','09/04/2019 01:43:35','06/04/2019 08:02:06',3,2);
 INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_forum) VALUES ('dis porttitor hendrerit','inceptos Sed laoreet elementum Integer Pellentesque Sed placerat scelerisque tempor','04/04/2019 01:00:54','07/04/2019 20:59:47',12,4);
 INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_forum) VALUES ('massa nostra blandit','libero volutpat','07/04/2019 09:43:47','08/04/2019 16:51:12',35,9);
-INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_forum) VALUES ('Donec nibh ad','sollicitudin litora Donec eros','07/04/2019 12:59:10','04/04/2019 03:58:28',26,1);
-INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_forum) VALUES ('gravida egestas netus','mollis lacus posuere fermentum leo','07/04/2019 05:52:05','04/04/2019 12:05:24',5,1);
+INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_forum) VALUES ('Meetup Details','Dont forget the date guys','07/04/2019 12:59:10','04/04/2019 03:58:28',26,1); 
+INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_forum) VALUES ('New Schedules','Everyones schedule has been changed','07/04/2019 05:52:05','04/04/2019 12:05:24',5,1); 
 INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_forum) VALUES ('nascetur sociis lobortis','venenatis','05/04/2019 16:28:21','07/04/2019 21:36:31',22,6);
 INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_forum) VALUES ('Nam lacus ultrices','risus tempus sagittis placerat nec facilisis penatibus dignissim pulvinar','07/04/2019 11:49:05','05/04/2019 19:06:16',29,5);
 INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_forum) VALUES ('velit dictum consequat','dis posuere taciti nascetur Fusce tortor rhoncus lobortis mus leo tempus Cras quam ac eget','06/04/2019 04:52:47','03/04/2019 18:44:50',10,1);
@@ -522,7 +522,7 @@ INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_f
 INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_forum) VALUES ('pede aliquet vel','magna congue sagittis porttitor per Mauris Etiam vestibulum','07/04/2019 02:55:36','05/04/2019 17:19:14',15,2);
 INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_forum) VALUES ('volutpat Class Cum','in Curae quam Quisque blandit hymenaeos habitant gravida laoreet ut felis Aenean sapien et Class','09/04/2019 14:35:42','09/04/2019 23:56:33',12,9);
 INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_forum) VALUES ('semper blandit hymenaeos','per Nullam eu velit Suspendisse Nunc lacus ultricies dapibus Curae velit penatibus parturient natoque elementum','06/04/2019 06:28:48','07/04/2019 03:46:55',47,1);
-INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_forum) VALUES ('sed justo habitant','ad torquent nonummy nulla porttitor nonummy','08/04/2019 05:21:12','06/04/2019 22:21:57',6,8);
+INSERT INTO thread(title,description,creation_date,last_edit_date,id_author,id_forum) VALUES ('Who left the lights on?','Someone forgot to turn off all the lights that were on.','06/04/2019 06:28:48','07/04/2019 03:46:55',47,1); 
 
 INSERT INTO comment("text",creation_date,last_edit_date,id_author) VALUES ('Morbi consequat nonummy mollis mattis malesuada ipsum aptent Nullam tincidunt luctus habitant','08/04/2019 11:15:56','07/04/2019 09:29:06',3);
 INSERT INTO comment("text",creation_date,last_edit_date,id_author) VALUES ('urna nisi','07/04/2019 01:26:42','04/04/2019 22:24:08',18);
