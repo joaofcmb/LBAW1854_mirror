@@ -59,14 +59,47 @@ for(let i = 0; i < favorite.length; i++) {
     })
 }
 
-let deleteThread = document.getElementsByClassName('thread-delete')
+deleteThreadListener();
 
-for(let i = 0; i < deleteThread.length; i++) {
-    deleteThread[i].addEventListener('click', function () {
-        let id_thread = deleteThread[i].getAttribute('id').split('-')[1];
-        console.log(id_thread)
-        //sendAjaxRequest.call(this, 'get', '/favorites/' + id_project, null, favoriteHandler);
-    })
+function deleteThreadListener() {
+
+    let deleteThread = document.getElementsByClassName('thread-delete')
+
+    for(let i = 0; i < deleteThread.length; i++) {
+
+        deleteThread[i].addEventListener('click', function (event) {
+            event.preventDefault();
+
+            let thread_id_info = deleteThread[i].getAttribute('id').split('-');
+            let id_thread = thread_id_info[1];
+            let id_project = thread_id_info[2];
+
+            if(deleteThread[i].hasAttribute('belongsToProject'))
+                sendAjaxRequest.call(this, 'post', '/project/' + id_project + '/forum/thread/' + id_thread + '/delete', null, deleteThreadHandler);
+            else
+                sendAjaxRequest.call(this, 'post', '/companyforum/thread/' + id_thread + '/delete', null, deleteThreadHandler);
+        })
+    }
+}
+
+function resetDeleteThread() {
+    let sss = document.getElementsByClassName('thread-delete')
+
+    for(let i = 0; i < sss.length; i++) {
+        sss[i].addEventListener('click', function (event) {
+            event.preventDefault();
+
+            let thread_id_info = sss[i].getAttribute('id').split('-');
+            let id_thread = thread_id_info[1];
+            let id_project = thread_id_info[2];
+
+            if(sss[i].hasAttribute('belongsToProject'))
+                sendAjaxRequest.call(this, 'post', '/project/' + id_project + '/forum/thread/' + id_thread + '/delete', null, deleteThreadHandler);
+            else
+                sendAjaxRequest.call(this, 'post', '/companyforum/thread/' + id_thread + '/delete', null, deleteThreadHandler);
+        })
+    }
+
 }
 
 let milestones = document.getElementsByClassName('milestone-switch')
@@ -102,6 +135,13 @@ function favoriteHandler() {
     let favorite_class = document.getElementById('project-' + item_id).getAttribute('class');
 
     document.getElementById('project-' + item_id).setAttribute('class', (favorite_class === 'favorite far fa-star') ? 'favorite fas fa-star' : 'favorite far fa-star');
+}
+
+function deleteThreadHandler() {
+    if (this.status !== 200) return;
+
+    //console.log(document.getElementById('thread-' + this.prototype.getAttribute('id').split('-')[1]));
+    document.getElementById('thread-' + this.prototype.getAttribute('id').split('-')[1]).remove();
 }
 
 function changeMilestoneHandler() {

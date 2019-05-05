@@ -268,10 +268,12 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function deleteForumThread($id_project, $id_thread)
     {
-        //
+
     }
+
+
 
     public function validateAccess($project, $action)
     {
