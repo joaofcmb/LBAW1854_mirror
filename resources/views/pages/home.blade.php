@@ -47,8 +47,5 @@
             </div>
             @include('partials.sideforum', ['threads' => $threads])
         </div>
-        <footer class="fixed-bottom p-1 pl-2">
-            COPYRIGHT © EPMA 2019
-        </footer>
     </body>
 @endsection

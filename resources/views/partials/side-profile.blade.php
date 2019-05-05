@@ -1,5 +1,5 @@
-<div id="side-forum" class="col-lg-4 px-0 my-5 order-1 order-lg-12">
-    <div class="container pb-4">
+<div id="side-profile" class="col-lg-4 px-0 mt-4 mb-4 order-1 order-lg-12 d-flex align-items-center">
+    <div class="container pb-4 my-auto">
         <div class="row justify-content-center">
             <div id="profile-picture" class="col-  mx-auto">
                 <img class="profile-img rounded-circle" src="{{ asset('img/avatar.png') }}" width="250" height="250"
