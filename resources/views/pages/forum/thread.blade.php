@@ -39,10 +39,6 @@
         </div>
     @endif
 
-    <div id="menu-option" class="container-fluid justify-content-start mx-auto py-4">
-        <a href="{{ $isProjectForum ? route('project-forum', ['id' => $project->id]) : route('companyforum') }}"><i class="fas fa-chevron-circle-left mx-2"></i>Back</a>
-    </div>
-    
     <div id="thread-content" class="container px-sm-3 mb-5">
         <div class="card my-3 px-3 pt-3">
             <h4>{{ $thread->title }}</h4>
