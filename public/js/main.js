@@ -61,20 +61,22 @@ for(let i = 0; i < favorite.length; i++) {
 
 let deleteThread = document.getElementsByClassName('thread-delete')
 
+let deleteThreadListener = function (event) {
+    event.preventDefault();
+
+    let thread_id_info = this.getAttribute('id').split('-');
+    let id_thread = thread_id_info[1];
+    let id_project = thread_id_info[2];
+
+    if(this.hasAttribute('belongsToProject'))
+        sendAjaxRequest.call(this, 'post', '/project/' + id_project + '/forum/thread/' + id_thread + '/delete', null, deleteThreadHandler);
+    else
+        sendAjaxRequest.call(this, 'post', '/companyforum/thread/' + id_thread + '/delete', null, deleteThreadHandler);
+};
+
 for(let i = 0; i < deleteThread.length; i++) {
-
-    deleteThread[i].addEventListener('click', function (event) {
-        event.preventDefault();
-
-        let thread_id_info = deleteThread[i].getAttribute('id').split('-');
-        let id_thread = thread_id_info[1];
-        let id_project = thread_id_info[2];
-
-        if(deleteThread[i].hasAttribute('belongsToProject'))
-            sendAjaxRequest.call(this, 'post', '/project/' + id_project + '/forum/thread/' + id_thread + '/delete', null, deleteThreadHandler);
-        else
-            sendAjaxRequest.call(this, 'post', '/companyforum/thread/' + id_thread + '/delete', null, deleteThreadHandler);
-    })
+    deleteThreadListener.bind(deleteThread[i])
+    deleteThread[i].addEventListener('click', deleteThreadListener)
 }
 
 let milestones = document.getElementsByClassName('milestone-switch')
