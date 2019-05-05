@@ -26,7 +26,7 @@
             </div>
             <div class="col text-right">
                 @if($comment->id_author === Auth::user()->getAuthIdentifier())
-                    <a href=""><i class="fas fa-pen mx-3"></i></a>
+                    <a style="cursor: pointer;"><i class="fas fa-pen mx-3"></i></a>
                 @endif
                 @if($comment->id_author === Auth::user()->getAuthIdentifier() || Auth::user()->isAdmin())
                     <a style="cursor: pointer;"><i id="comment-{{ $comment->id }}-{{ $thread->id }}-{{ $isProjectForum ? $project->id : 0 }}" {{ $isProjectForum ? "belongsToProject=\"true\"" : '' }} class="comment-delete fas fa-trash-alt mx-2"></i></a>

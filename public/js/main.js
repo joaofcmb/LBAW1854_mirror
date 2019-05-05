@@ -115,7 +115,7 @@ let deleteThreadCommentListener = function () {
 };
 
 for(let i = 0; i < deleteThreadComment.length; i++) {
-    deleteThreadListener.bind(deleteThreadComment[i])
+    deleteThreadCommentListener.bind(deleteThreadComment[i])
     deleteThreadComment[i].addEventListener('click', deleteThreadCommentListener)
 }
 
@@ -165,7 +165,28 @@ function addThreadCommentHandler() {
     if (this.status !== 200) return;
 
     let item = JSON.parse(this.responseText);
+    
+    let thread = document.querySelector('#thread-content');
+    let add_comment = document.querySelector('form.add-comment');
 
+    let new_comment = document.createElement('div');
+
+    let profile_route = "{{ route('profile', ['id' => " + item.id_author + " ]) }}"
+
+    let delete_button = '<i id="comment-' + item.id + '-' + item.id_thread + '-0"  class="comment-delete fas fa-trash-alt mx-2"></i>';
+
+    new_comment.className = "card pb-0 px-3 pt-3 my-3";
+    new_comment.innerHTML = '<div class="row"><div class="col"><a class="d-flex flex-row pt-1" href="'+
+        profile_route + '"><i class="fas fa-user mr-1"></i><h6>' +
+        item.author_name + '</h6></a></div><div class="col text-right"><a style="cursor: pointer;">' +
+        '<a style="cursor: pointer;"><i class="fas fa-pen mx-3"></i></a>' +
+        delete_button + '</a></div></div><p class="mt-2">' + item.text + '</p>';
+
+    let deletecomment = new_comment.querySelector('i.comment-delete');
+    deleteThreadCommentListener.bind(deletecomment);
+    deletecomment.addEventListener('click', deleteThreadCommentListener);
+    
+    thread.insertBefore(new_comment, add_comment);
 }
 
 function deleteThreadCommentHandler() {

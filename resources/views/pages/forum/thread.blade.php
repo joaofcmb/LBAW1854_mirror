@@ -52,7 +52,7 @@
             @include('partials.cards.comment', ['comment' => $comment, 'thread' => $thread, 'project' => $isProjectForum ? $project : null, 'isProjectForum' => $isProjectForum])
         @endforeach
         <form id="add-comment-{{ $thread->id }}-{{ $isProjectForum ? $project->id : 0 }}" {{ $isProjectForum ? "belongsToProject=\"true\"" : '' }} class="add-comment">
-            @if(!$isProjectForum  || $canAddComment)
+            @if(!$isProjectForum || $canAddComment)
                 <div class="form-row">
                     <div class="form-group col-md-12 my-3">
                         <input type="text" class="form-control" id="commentContent" placeholder="Add your comment ..." required>
@@ -60,4 +60,5 @@
                 </div>
             @endif
         </form>
+    </div>
 @endsection
