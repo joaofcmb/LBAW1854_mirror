@@ -21,10 +21,17 @@ class ThreadComment extends Pivot
     protected $table = 'thread_comment';
 
     /**
-     * Indicates if the IDs are auto-incrementing.
+     * Table primary key
+     *
+     * @var array
+     */
+    protected $primaryKey = ['id_comment', 'id_thread'];
+
+    /**
+     * Auto-incrementing status
      *
      * @var bool
      */
-    public $incrementing = true;
+    public $incrementing = false;
 
 }
