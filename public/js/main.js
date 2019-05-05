@@ -176,7 +176,7 @@ function addThreadCommentHandler() {
 
     let profile_route = "{{ route('profile', ['id' => " + item.id_author + " ]) }}"
 
-    let delete_button = '<i id="comment-' + item.id + '-' + item.id_thread + '-0"  class="comment-delete fas fa-trash-alt mx-2"></i>';
+    let delete_button = '<i id="comment-' + item.id + '-' + item.id_thread + '-0"  class="comment-delete fas fa-trash-alt mx-2" style="cursor: pointer;"></i>';
 
     new_comment.id = 'comment-' + item.id;
     new_comment.className = "card pb-0 px-3 pt-3 my-3";
