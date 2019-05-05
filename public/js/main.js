@@ -90,7 +90,10 @@ if(addThreadComment != null) {
         let id_thread = thread_id_info[2];
         let id_project = thread_id_info[3];
 
-        let comment_content = document.getElementById('commentContent').value;
+        let commentContent = document.getElementById('commentContent')
+
+        let comment_content = commentContent.value;
+        commentContent.value = "";
 
         if(addThreadComment.hasAttribute('belongstoproject'))
             sendAjaxRequest.call(this, 'post', '/project/' + id_project + '/forum/thread/' + id_thread +'/addcomment', {text: comment_content}, addThreadCommentHandler);
@@ -175,6 +178,7 @@ function addThreadCommentHandler() {
 
     let delete_button = '<i id="comment-' + item.id + '-' + item.id_thread + '-0"  class="comment-delete fas fa-trash-alt mx-2"></i>';
 
+    new_comment.id = 'comment-' + item.id;
     new_comment.className = "card pb-0 px-3 pt-3 my-3";
     new_comment.innerHTML = '<div class="row"><div class="col"><a class="d-flex flex-row pt-1" href="'+
         profile_route + '"><i class="fas fa-user mr-1"></i><h6>' +
