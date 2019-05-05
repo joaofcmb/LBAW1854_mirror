@@ -20,20 +20,20 @@
     </div>
     <div id="main-content" class="row mx-auto align-items-center">
         <div class="col-lg-8 px-0 order-12 order-lg-1">
-            <div id="content" class="container pb-3 p-lg-5 mb-5 mb-lg-4 align-self-center justify-content-center">
+            <div id="content" class="container py-5 align-self-center justify-content-center">
                 @isset($team)
                     <div class="main-tab card border-left-0 border-right-0 rounded-0 p-2">
                         <div class="row">
                             <div class="col-6">
-                                <h4>Team - <span>{{ $team->name }}</span> </h4>
+                                <h4><i class="d-none d-md-inline">Team - </i><span>{{ $team->name }}</span> </h4>
                             </div>
                             @if($team->skill != null)
                                 <div class="col-6 text-right">
-                                    Skill: {{ $team->skill }}
+                                    <i class="d-none d-md-inline">Skill: </i>{{ $team->skill }}
                                 </div>
                             @endif
                         </div>
-                        <div class="container px-5">
+                        <div class="container px-1 px-sm-5">
                             <div class="row mt-3 justify-content-center">
                                 <div class="col-12 col-sm-8 col-lg-5">
                                     <h5 class="text-center">Leader</h5>

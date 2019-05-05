@@ -131,10 +131,8 @@ div.main-tab {
     color: var(--brand-color);  
 }
 
-@media (min-width: 768px) {
-    #background-button {
+#background-button {
         position: fixed;
-        bottom: 4%;
-        right: 1.5%;
-    }
+        bottom: 40px;
+        right: 20px;
 }
