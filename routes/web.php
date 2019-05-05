@@ -45,7 +45,7 @@ Route::get('/project/{id_project}/forum/thread/{id_thread}', 'ProjectController@
 Route::get('/project/{id}/forum/createthread', 'ProjectController@createForumThread')->name('forum-create-thread');
 Route::post('/project/{id_project}/forum/createthread', 'ProjectController@createForumThreadAction')->name('forum-create-thread-action');
 Route::post('/project/{id_project}/forum/thread/{id_thread}/delete', 'ProjectController@deleteForumThread');
-Route::get('/project/{id_project}/forum/thread/{id_thread}/addcomment', 'ProjectController@addThreadComment');
+Route::post('/project/{id_project}/forum/thread/{id_thread}/addcomment', 'ProjectController@addThreadComment');
 
 // Project
 Route::get('/project/{id_project}', 'ProjectController@show')->name('project-overview');

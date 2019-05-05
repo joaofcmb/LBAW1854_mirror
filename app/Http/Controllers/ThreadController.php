@@ -65,16 +65,15 @@ class ThreadController extends Controller
 
         $comment = new Comment();
 
-        $comment['"text"'] = $text;
+        $comment['text'] = $text;
         $comment->id_author = Auth::user()->getAuthIdentifier();
-
         $comment->save();
 
-        /*$thread_comment = new ThreadComment();
+        $thread_comment = new ThreadComment();
 
         $thread_comment->id_comment = $comment->id;
         $thread_comment->id_thread = $id_thread;
-        $thread_comment->save();*/
+        $thread_comment->save();
 
         return $comment;
 
