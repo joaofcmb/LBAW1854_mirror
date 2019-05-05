@@ -49,7 +49,7 @@
             <p class="mt-2">{{ $thread->description }}</p>
         </div>
         @foreach($comments as $comment)
-            @include('partials.cards.comment', ['comment => $comment'])
+            @include('partials.cards.comment', ['comment' => $comment, 'thread' => $thread, 'project' => $isProjectForum ? $project : null, 'isProjectForum' => $isProjectForum])
         @endforeach
         <form id="add-comment-{{ $thread->id }}-{{ $isProjectForum ? $project->id : 0 }}" {{ $isProjectForum ? "belongsToProject=\"true\"" : '' }} class="add-comment">
             @if(!$isProjectForum  || $canAddComment)

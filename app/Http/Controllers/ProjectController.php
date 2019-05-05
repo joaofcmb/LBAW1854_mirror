@@ -259,6 +259,36 @@ class ProjectController extends Controller
         return $comment;
     }
 
+    /**
+     * Deletes a project forum thread comment
+     *
+     * @param $id_project
+     * @param $id_thread
+     * @param $id_comment
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteThreadComment($id_project, $id_thread, $id_comment) {
+
+        $project = Project::find($id_project);
+        $thread = Thread::find($id_thread);
+        $comment = Comment::find($id_comment);
+        $thread_comment = ThreadComment::where([['id_comment', $id_comment],['id_thread', $id_thread]])->first();
+
+        try {
+            if(empty($project) || empty($thread) || empty($comment) || empty($thread_comment))
+                return response("", 404, []);
+
+            $this->authorize('deleteForumThreadComment', [$project, $thread, $comment]);
+        }
+        catch (AuthorizationException $e) {
+            return response("", 404, []);
+        }
+
+        $comment->delete();
+        ThreadComment::where([['id_comment', $id_comment],['id_thread', $id_thread]])->delete();
+
+    }
+
     public function changeMilestoneView(Request $request, $id_project)
     {
         $project = Project::find($id_project);

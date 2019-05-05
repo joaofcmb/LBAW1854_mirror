@@ -39,6 +39,7 @@ Route::view('/companyforum/createthread', 'pages.forum.createThread', ['isProjec
 Route::post('/companyforum/createthread', 'ThreadController@create')->name('company-forum-create-thread-action');
 Route::post('/companyforum/thread/{id_thread}/delete', 'ThreadController@delete');
 Route::post('/companyforum/thread/{id_thread}/addcomment', 'ThreadController@addComment');
+Route::post('/companyforum/thread/{id_thread}/deletecomment/{id_comment}', 'ThreadController@deleteComment');
 
 Route::get('/project/{id}/forum', 'ProjectController@showForum')->name('project-forum');
 Route::get('/project/{id_project}/forum/thread/{id_thread}', 'ProjectController@showForumThread')->name('forum-thread');
@@ -46,6 +47,7 @@ Route::get('/project/{id}/forum/createthread', 'ProjectController@createForumThr
 Route::post('/project/{id_project}/forum/createthread', 'ProjectController@createForumThreadAction')->name('forum-create-thread-action');
 Route::post('/project/{id_project}/forum/thread/{id_thread}/delete', 'ProjectController@deleteForumThread');
 Route::post('/project/{id_project}/forum/thread/{id_thread}/addcomment', 'ProjectController@addThreadComment');
+Route::post('/project/{id_project}/forum/thread/{id_thread}/deletecomment/{id_comment}', 'ProjectController@deleteThreadComment');
 
 // Project
 Route::get('/project/{id_project}', 'ProjectController@show')->name('project-overview');

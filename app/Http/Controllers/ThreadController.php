@@ -7,6 +7,7 @@ use App\Forum;
 use App\Project;
 use App\Thread;
 use App\ThreadComment;
+use App\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -142,5 +143,25 @@ class ThreadController extends Controller
         }
 
         $thread->delete();
+    }
+
+    /**
+     * Deletes a company forum thread comment
+     *
+     * @param $id_thread
+     * @param $id_comment
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteComment($id_thread, $id_comment)
+    {
+        $thread = Thread::find($id_thread);
+        $comment = Comment::find($id_comment);
+        $thread_comment = ThreadComment::where([['id_comment', $id_comment],['id_thread', $id_thread]])->first();
+
+        if(empty($thread) || empty($comment) || empty($thread_comment) || $thread->id_forum != 1 || $comment->id_author != Auth::user()->getAuthIdentifier())
+            return response("", 404, []);
+
+        $comment->delete();
+        ThreadComment::where([['id_comment', $id_comment],['id_thread', $id_thread]])->delete();
     }
 }

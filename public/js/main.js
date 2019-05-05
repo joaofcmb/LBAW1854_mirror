@@ -99,6 +99,27 @@ if(addThreadComment != null) {
     });
 }
 
+let deleteThreadComment = document.getElementsByClassName('comment-delete');
+
+let deleteThreadCommentListener = function () {
+    let thread_id_info = this.getAttribute('id').split('-');
+
+    let id_comment = thread_id_info[1];
+    let id_thread = thread_id_info[2];
+    let id_project = thread_id_info[3];
+
+    if(this.hasAttribute('belongstoproject'))
+        sendAjaxRequest.call(this, 'post', '/project/' + id_project + '/forum/thread/' + id_thread + '/deletecomment/' + id_comment, null, deleteThreadCommentHandler);
+    else
+        sendAjaxRequest.call(this, 'post', '/companyforum/thread/' + id_thread + '/deletecomment/' + id_comment, null, deleteThreadCommentHandler);
+};
+
+for(let i = 0; i < deleteThreadComment.length; i++) {
+    deleteThreadListener.bind(deleteThreadComment[i])
+    deleteThreadComment[i].addEventListener('click', deleteThreadCommentListener)
+}
+
+
 let milestones = document.getElementsByClassName('milestone-switch')
 
 for(let i = 0; i < milestones.length; i++) {
@@ -144,7 +165,11 @@ function addThreadCommentHandler() {
     if (this.status !== 200) return;
 
     let item = JSON.parse(this.responseText);
-    
+
+}
+
+function deleteThreadCommentHandler() {
+    document.getElementById('comment-' + this.prototype.getAttribute('id').split('-')[1]).remove();
 }
 
 function changeMilestoneHandler() {

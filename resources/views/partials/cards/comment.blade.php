@@ -16,12 +16,12 @@
         <p class="mb-1">{{ $comment->text }}</p>
     </section>
 @else
-    <div class="card pb-0 px-3 pt-3 my-3">
+    <div id="comment-{{ $comment->id }}" class="card pb-0 px-3 pt-3 my-3">
         <div class="row">
             <div class="col">
                 <a class="d-flex flex-row pt-1" href="{{ route('profile', ['id' => $comment->id_author]) }}">
                     <i class="fas fa-user mr-1"></i>
-                    <h6>{{ $comment->author_name }}{{ $comment->username }}</h6>
+                    <h6>{{ $comment->author_name }}</h6>
                 </a>
             </div>
             <div class="col text-right">
@@ -29,7 +29,7 @@
                     <a href=""><i class="fas fa-pen mx-3"></i></a>
                 @endif
                 @if($comment->id_author === Auth::user()->getAuthIdentifier() || Auth::user()->isAdmin())
-                    <a href=""><i class="fas fa-trash-alt mx-2"></i></a>
+                    <a style="cursor: pointer;"><i id="comment-{{ $comment->id }}-{{ $thread->id }}-{{ $isProjectForum ? $project->id : 0 }}" {{ $isProjectForum ? "belongsToProject=\"true\"" : '' }} class="comment-delete fas fa-trash-alt mx-2"></i></a>
                 @endif
             </div>
         </div>

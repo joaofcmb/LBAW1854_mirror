@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Comment;
 use App\Developer;
 use App\TeamProject;
 use App\Thread;
@@ -94,5 +95,20 @@ class ProjectPolicy
     public function deleteForumThread(User $user, Project $project, Thread $thread)
     {
         return $user->id == $project->id_manager || $user->id == $thread->id_author;
+    }
+
+    /**
+     * Determine whether the user can delete the project forum thread comment
+     *
+     * @param User $user
+     * @param Project $project
+     * @param Thread $thread
+     * @param Comment $comment
+     * @return bool
+     */
+    public function deleteForumThreadComment(User $user, Project $project, Thread $thread, Comment $comment)
+    {
+        return ($thread->id_forum == $project->forum->id && $user->id == $project->id_manager) ||
+            ($thread->id_forum == $project->forum->id && $comment->id_author == $user->id) ;
     }
 }
