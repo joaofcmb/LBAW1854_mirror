@@ -226,6 +226,10 @@ class ProjectController extends Controller
         return redirect()->route('forum-thread', ['id_project' => $id, 'id_thread' => $thread->id]);
     }
 
+    public function addThreadComment(Request $request, $id_project, $id_thread) {
+
+    }
+
     public function changeMilestoneView(Request $request, $id_project)
     {
         $project = Project::find($id_project);

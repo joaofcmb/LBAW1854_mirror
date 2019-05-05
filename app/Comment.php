@@ -18,7 +18,7 @@ class Comment extends Model
      *
      * @var string
      */
-    protected $table = 'thread';
+    protected $table = 'comment';
 
     /**
      * The thread the comment belongs

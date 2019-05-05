@@ -79,6 +79,26 @@ for(let i = 0; i < deleteThread.length; i++) {
     deleteThread[i].addEventListener('click', deleteThreadListener)
 }
 
+
+let addThreadComment = document.getElementsByClassName('add-comment')[0];
+
+if(addThreadComment != null) {
+    addThreadComment.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        let thread_id_info = addThreadComment.getAttribute('id').split('-');
+        let id_thread = thread_id_info[2];
+        let id_project = thread_id_info[3];
+
+        let comment_content = document.getElementById('commentContent').value;
+
+        if(addThreadComment.hasAttribute('belongstoproject'))
+            sendAjaxRequest.call(this, 'post', '/project/' + id_project + '/forum/thread/' + id_thread +'/addcomment', {text: comment_content}, addThreadCommentHandler);
+        else
+            sendAjaxRequest.call(this, 'post', '/companyforum/thread/' + id_thread + '/addcomment', {text: comment_content}, addThreadCommentHandler);
+    });
+}
+
 let milestones = document.getElementsByClassName('milestone-switch')
 
 for(let i = 0; i < milestones.length; i++) {
@@ -118,6 +138,13 @@ function deleteThreadHandler() {
     if (this.status !== 200) return;
 
     document.getElementById('thread-' + this.prototype.getAttribute('id').split('-')[1]).remove();
+}
+
+function addThreadCommentHandler() {
+    if (this.status !== 200) return;
+
+    let item = JSON.parse(this.responseText);
+    console.log(item)
 }
 
 function changeMilestoneHandler() {

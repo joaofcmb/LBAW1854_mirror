@@ -36,7 +36,7 @@ class ThreadController extends Controller
         $description = isset($_POST['description']) ? htmlentities($_POST['description']) : '';
 
         if($title === '' || $description === '')
-            return redirect()->route('company-forum-create-thread-action');
+            return redirect()->route('companyforum');
 
         $thread = new Thread();
 
@@ -51,14 +51,33 @@ class ThreadController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Adds a new comment
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return Comment
      */
-    public function store(Request $request)
+    public function addComment(Request $request, $id_thread)
     {
-        //
+        if(!Thread::where([['id', $id_thread], ['id_forum', 1]])->exists())
+            return response("", 404, []);
+
+        $text = $request->input('text');
+
+        $comment = new Comment();
+
+        $comment['"text"'] = $text;
+        $comment->id_author = Auth::user()->getAuthIdentifier();
+
+        $comment->save();
+
+        /*$thread_comment = new ThreadComment();
+
+        $thread_comment->id_comment = $comment->id;
+        $thread_comment->id_thread = $id_thread;
+        $thread_comment->save();*/
+
+        return $comment;
+
     }
 
     /**
