@@ -26,7 +26,7 @@
         </div>
 
         <div id="menu-option" class="container-fluid justify-content-start mx-auto py-4">
-            <a href="{{ route('project-forum', ['id' => $id_project]) }}"><i class="fas fa-chevron-circle-left mx-2"></i>Back</a>
+            <a href="{{ route('project-forum', ['id' => $project->id]) }}"><i class="fas fa-chevron-circle-left mx-2"></i>Back</a>
         </div>
     @else
         <div id="menu-option" class="container-fluid justify-content-start mx-auto py-4">
@@ -42,7 +42,7 @@
                         <h5>Create Thread</h5>
                     </div>
                     <div class="card-body">
-                        <form id="create-thread-form" method="post" action="{{ $isProjectForum ? route('company-forum-create-thread-action') : route('company-forum-create-thread-action') }}">
+                        <form id="create-thread-form" method="post" action="{{ $isProjectForum ? route('forum-create-thread-action', ['id_project' => $project->id]) : route('company-forum-create-thread-action') }}">
                             {{ csrf_field() }}
                             <div class="form-row">
                                 <div class="form-group col-md-12">

@@ -6,11 +6,11 @@
             <h5>{{ $thread->title }}</h5>            
             @if($isProjectForum && ($project->id_manager == Auth::user()->getAuthIdentifier() || Auth::user()->getAuthIdentifier() === $thread->id_author ))
                 <form id="thread-button">
-                    <button type="submit"><i id="thread-{{ $thread->id }}-{{ $project->id }}" belongsToProject="true" class="thread-delete fas fa-trash-alt mx-3"></i></button>
+                    <button><i id="thread-{{ $thread->id }}-{{ $project->id }}" belongsToProject="true" class="thread-delete fas fa-trash-alt mx-3"></i></button>
                 </form>
             @elseif(Auth::user()->isAdmin() ||  Auth::user()->getAuthIdentifier() === $thread->id_author)
                 <form id="thread-button">
-                    <button><i id="thread-{{ $thread->id }}-0" class="thread-delete fas fa-trash-alt mx-3"></i></button>
+                    <i id="thread-{{ $thread->id }}-0" class="thread-delete fas fa-trash-alt mx-3"></i>
                 </form>
             @endif                
         </div>

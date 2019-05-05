@@ -184,7 +184,7 @@ class ProfileController extends Controller
     public function follow($id_user)
     {
         if(empty(User::find($id_user)))
-            return response("", 403, []);
+            return response("", 404, []);
 
         if(Follow::where([['id_follower', Auth::user()->getAuthIdentifier()],['id_followee', $id_user]])->exists()) {
             Follow::where([['id_follower', Auth::user()->getAuthIdentifier()],['id_followee', $id_user]])->delete();
@@ -200,10 +200,10 @@ class ProfileController extends Controller
 
     }
 
-    public function favorite(Request $request, $id_project)
+    public function favorite($id_project)
     {
         if(empty(Project::find($id_project)))
-            return response("", 403, []);
+            return response("", 404, []);
 
         if (Favorite::where([['id_user', Auth::user()->getAuthIdentifier()], ['id_project', $id_project]])->exists()) {
             Favorite::where([['id_user', Auth::user()->getAuthIdentifier()], ['id_project', $id_project]])->delete();

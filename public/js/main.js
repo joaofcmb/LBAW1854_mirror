@@ -59,47 +59,22 @@ for(let i = 0; i < favorite.length; i++) {
     })
 }
 
-deleteThreadListener();
+let deleteThread = document.getElementsByClassName('thread-delete')
 
-function deleteThreadListener() {
+for(let i = 0; i < deleteThread.length; i++) {
 
-    let deleteThread = document.getElementsByClassName('thread-delete')
+    deleteThread[i].addEventListener('click', function (event) {
+        event.preventDefault();
 
-    for(let i = 0; i < deleteThread.length; i++) {
+        let thread_id_info = deleteThread[i].getAttribute('id').split('-');
+        let id_thread = thread_id_info[1];
+        let id_project = thread_id_info[2];
 
-        deleteThread[i].addEventListener('click', function (event) {
-            event.preventDefault();
-
-            let thread_id_info = deleteThread[i].getAttribute('id').split('-');
-            let id_thread = thread_id_info[1];
-            let id_project = thread_id_info[2];
-
-            if(deleteThread[i].hasAttribute('belongsToProject'))
-                sendAjaxRequest.call(this, 'post', '/project/' + id_project + '/forum/thread/' + id_thread + '/delete', null, deleteThreadHandler);
-            else
-                sendAjaxRequest.call(this, 'post', '/companyforum/thread/' + id_thread + '/delete', null, deleteThreadHandler);
-        })
-    }
-}
-
-function resetDeleteThread() {
-    let sss = document.getElementsByClassName('thread-delete')
-
-    for(let i = 0; i < sss.length; i++) {
-        sss[i].addEventListener('click', function (event) {
-            event.preventDefault();
-
-            let thread_id_info = sss[i].getAttribute('id').split('-');
-            let id_thread = thread_id_info[1];
-            let id_project = thread_id_info[2];
-
-            if(sss[i].hasAttribute('belongsToProject'))
-                sendAjaxRequest.call(this, 'post', '/project/' + id_project + '/forum/thread/' + id_thread + '/delete', null, deleteThreadHandler);
-            else
-                sendAjaxRequest.call(this, 'post', '/companyforum/thread/' + id_thread + '/delete', null, deleteThreadHandler);
-        })
-    }
-
+        if(deleteThread[i].hasAttribute('belongsToProject'))
+            sendAjaxRequest.call(this, 'post', '/project/' + id_project + '/forum/thread/' + id_thread + '/delete', null, deleteThreadHandler);
+        else
+            sendAjaxRequest.call(this, 'post', '/companyforum/thread/' + id_thread + '/delete', null, deleteThreadHandler);
+    })
 }
 
 let milestones = document.getElementsByClassName('milestone-switch')
@@ -140,7 +115,6 @@ function favoriteHandler() {
 function deleteThreadHandler() {
     if (this.status !== 200) return;
 
-    //console.log(document.getElementById('thread-' + this.prototype.getAttribute('id').split('-')[1]));
     document.getElementById('thread-' + this.prototype.getAttribute('id').split('-')[1]).remove();
 }
 

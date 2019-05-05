@@ -231,10 +231,9 @@ class ProjectController extends Controller
         $project = Project::find($id_project);
 
         if(!$this->validateAccess($project, 'view'))
-            return response("", 403, []);
+            return response("", 404, []);
 
-        $response = [];
-        $response[0] = Project::getMilestone($request->input('milestone'));
+        $response = Project::getMilestone($request->input('milestone'));
 
         return json_encode($response);
     }
@@ -263,14 +262,27 @@ class ProjectController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified thread resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function deleteForumThread($id_project, $id_thread)
     {
+        $project = Project::find($id_project);
+        $thread = Thread::find($id_thread);
 
+        try {
+            if(empty($project) || empty($thread))
+                throw new AuthorizationException();
+
+            $this->authorize('deleteForumThread', [$project, $thread]);
+        }
+        catch (AuthorizationException $e) {
+            return response("", 404, []);
+        }
+
+        $thread->delete();
     }
 
 

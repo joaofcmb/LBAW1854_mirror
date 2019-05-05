@@ -4,9 +4,11 @@ namespace App\Policies;
 
 use App\Developer;
 use App\TeamProject;
+use App\Thread;
 use App\User;
 use App\Project;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectPolicy
 {
@@ -68,5 +70,18 @@ class ProjectPolicy
     public function delete(User $user, Project $project)
     {
         //
+    }
+
+    /**
+     * Determine whether the user can delete the project forum thread.
+     *
+     * @param User $user
+     * @param Project $project
+     * @param Thread $thread
+     * @return bool
+     */
+    public function deleteForumThread(User $user, Project $project, Thread $thread)
+    {
+        return $user->id == $project->id_manager || $user->id == $thread->id_author;
     }
 }

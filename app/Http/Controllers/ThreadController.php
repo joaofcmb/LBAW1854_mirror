@@ -7,6 +7,7 @@ use App\Forum;
 use App\Project;
 use App\Thread;
 use App\ThreadComment;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -103,13 +104,25 @@ class ThreadController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resource (thread) from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function delete(Request $request, $id)
     {
+        $thread = Thread::find($id);
 
+        try {
+            if(empty($thread))
+                throw new AuthorizationException();
+
+            $this->authorize('delete', $thread);
+        }
+        catch (AuthorizationException $e) {
+            return response("", 404, []);
+        }
+
+        $thread->delete();
     }
 }
