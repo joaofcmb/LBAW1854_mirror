@@ -144,7 +144,7 @@ function addThreadCommentHandler() {
     if (this.status !== 200) return;
 
     let item = JSON.parse(this.responseText);
-    console.log(item)
+    
 }
 
 function changeMilestoneHandler() {

@@ -9,6 +9,7 @@ use App\Project;
 use App\Task;
 use App\TaskGroup;
 use App\Thread;
+use App\ThreadComment;
 use DateTime;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
@@ -226,8 +227,36 @@ class ProjectController extends Controller
         return redirect()->route('forum-thread', ['id_project' => $id, 'id_thread' => $thread->id]);
     }
 
-    public function addThreadComment(Request $request, $id_project, $id_thread) {
+    /**
+     * Add new comment to a project forum thread
+     *
+     * @param Request $request
+     * @param $id_project
+     * @param $id_thread
+     * @return Comment|\Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    public function addThreadComment(Request $request, $id_project, $id_thread)
+    {
+        $project = Project::find($id_project);
 
+        if(!$this->validateAccess($project, 'addComment') || !Thread::where([['id', $id_thread], ['id_forum', $project->forum->id]])->exists())
+            return response("", 404, []);
+
+        $text = $request->input('text');
+
+        $comment = new Comment();
+
+        $comment['text'] = $text;
+        $comment->id_author = Auth::user()->getAuthIdentifier();
+        $comment->save();
+
+        $thread_comment = new ThreadComment();
+
+        $thread_comment->id_comment = $comment->id;
+        $thread_comment->id_thread = $id_thread;
+        $thread_comment->save();
+
+        return $comment;
     }
 
     public function changeMilestoneView(Request $request, $id_project)

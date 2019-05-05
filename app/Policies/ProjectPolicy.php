@@ -49,6 +49,17 @@ class ProjectPolicy
     }
 
     /**
+     * Determine whether the user can add comments on project forum threads
+     *
+     * @param  \App\User  $user
+     * @return mixed
+     */
+    public function addComment(User $user, Project $project)
+    {
+        return $project->id_manager == $user->id || TeamProject::join('team', 'team.id', '=', 'team_project.id_team')->where([['team.id_leader', $user->id], ['id_project', $project->id]])->exists();
+    }
+
+    /**
      * Determine whether the user can update the project.
      *
      * @param  \App\User  $user
