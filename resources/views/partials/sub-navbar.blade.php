@@ -34,7 +34,8 @@
             <a class="nav-item nav-link {{($active == 'following')? 'active' : ''}} mx-lg-3" href="{{route('profile-following', ['id' => $id])}}">Following</a>
 
             @if(Auth::user()->isAdmin() && Auth::user()->getAuthIdentifier() != $id)
-                <a class="text-danger font-weight-bolder ml-3 ml-sm-auto" href=""><i class="fas fa-times"></i><span class="d-sm-none d-md-inline"> Remove User</span></a>
+                <a href="{{route('remove-user', ['id' => $id])}} " class="text-danger font-weight-bolder ml-3 ml-sm-auto" style="cursor: pointer;"
+                ><i class="fas fa-times"></i><span class="d-sm-none d-md-inline"> Remove User</span></a>
             @endif
         @endisset
     </div>

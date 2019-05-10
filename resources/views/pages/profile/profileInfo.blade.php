@@ -49,9 +49,9 @@
                             </div>
                         </div>
                     </div>
-                    <div id="brand-btn" class="text-center">
-                        <button class="btn btn-outline-secondary mx-2" type="button">
-                            <a href="" class="px-2" role="button">Save</a>
+                    <div id="brand-btn" class="edit-profile-info text-center">
+                        <button id="{{ $user->id }}" class="btn btn-outline-secondary mx-2" type="button">
+                            <a class="px-2" role="button">Save</a>
                         </button>
                     </div>
                 </div>

@@ -79,7 +79,6 @@ class ThreadController extends Controller
         $thread_comment->save();
 
         return $comment;
-
     }
 
     /**

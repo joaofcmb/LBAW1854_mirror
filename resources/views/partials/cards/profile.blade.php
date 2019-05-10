@@ -2,13 +2,13 @@
     <div class="row justify-content-center pb-4">
         <div class="col-11 col-md-8 ali">
             @if(!$user->is_active)
-                <div class="restore card">
+                <div id="card-{{ $user->id }}" class="restore card">
             @else
-                <div class="card">
+                <div id="card-{{ $user->id }}" class="card">
             @endif
                 <div class="card-body p-2">
                     @if($user->is_active)
-                        <a href="{{ route('profile', ['id' => $user->id_user]) }}">
+                        <a href="{{ route('profile', ['id' => $user->id]) }}">
                     @endif
                         <img src="{{ asset('img/profile.png') }}" width="50" height="50"
                                 class="d-inline-block rounded-circle align-self-center my-auto" alt="User photo">
@@ -16,7 +16,7 @@
                     @if($user->is_active)
                         </a>
                     @endif
-                    <a href="" class="float-right pt-2 pr-2">
+                    <a id="{{ $user->id }}" class="{{ $user->is_active? 'remove' : 'restore' }}-user float-right pt-2 pr-2">
                         @if(!$user->is_active)
                             <span>Restore</span>
                             <i class="fas fa-trash-restore"></i>

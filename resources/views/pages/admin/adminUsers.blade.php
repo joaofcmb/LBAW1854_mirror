@@ -18,7 +18,7 @@
         </div>
     </div>
 
-    <div id="search-content" class="container mt-3 mb-4">
+    <div id="search-content" class="container mt-3 mb-4">        
         @foreach($users as $user)
             @include('partials.cards.profile', [
                 'adminView' => true,

@@ -10,11 +10,13 @@
             <div class="p-1"></div>
         </div>
         <div class="roadmap-right"></div>
-
+        @if($currentMilestone != null)
         <div class="milestone-description mx-auto text-center">
+
             {{ $currentMilestone->timeLeft }} days left
             <h6>{{ $currentMilestone->name }}</h6>
         </div>
+        @endif
     </div>
 
 @elseif ($page == 'roadmap')
@@ -35,8 +37,13 @@
             @foreach($milestones as $milestone)
                 <a id="{{ $milestone->id_project }}-milestone-{{ $milestone->id }}" data-toggle="collapse"
                     href="#milestone{{ $milestone->id }}"
-                    {{ $milestone->id == $currentMilestone->id ? 'aria-expanded=true' : '' }}
-                    class="{{ $milestone->id == $currentMilestone->id ? '' : 'milestone-switch'}} {{ $milestone->id == $currentMilestone->id ? 'milestone-info active' : 'collapsed milestone-info'}} text-center pb-3"
+                    @if ($currentMilestone != null)
+                        {{ $milestone->id == $currentMilestone->id ? 'aria-expanded=true' : '' }}
+                        class="{{ $milestone->id == $currentMilestone->id ? '' : 'milestone-switch' }}
+                        {{ $milestone->id == $currentMilestone->id ? 'milestone-info active' : 'collapsed milestone-info'}} text-center pb-3"
+                    @else
+                        class="milestone-switch collapsed milestone-info text-center pb-3"
+                    @endif
                     style="border-color: rgb(12, 116, 214);">
                     <h6 class="mb-1">{{ date_format(date_create($milestone->deadline), 'Y-m-d') }}</h6>
                     {{ $milestone->deadline < $date ? 'Elapsed' : $milestone->timeLeft . ' days left' }}

@@ -41,6 +41,67 @@ if (milestoneCount > 0) {
 // EVENT LISTENERS //
 /////////////////////
 
+// PROFILE //
+let edit_profile_info = document.getElementsByClassName('edit-profile-info')[0];
+
+if (edit_profile_info !== undefined) {
+    edit_profile_info.addEventListener('click', function (event) {
+        event.preventDefault();
+
+        let button = edit_profile_info.getElementsByClassName('btn')[0];
+        let id = button.getAttribute('id');
+        let email = document.getElementById('email');
+        let oldPassword = document.getElementById('old-password');
+        let newPassword = document.getElementById('new-password');
+        let confirmPassword = document.getElementById('confirm-password');
+
+        let to_send = {};
+        to_send.email = email.value;
+        
+        // TODO: Password change
+        // if (oldPassword.value != "" && newPassword != "" &&
+        //     newPassword.value === confirmPassword.value) {
+        //     to_send.new_password =  newPassword.value;
+        // }
+
+        // oldPassword.value = "";
+        // newPassword.value = "";
+        // confirmPassword.value = "";
+
+        sendAjaxRequest.call(this, 'post', '/profile/' + id + '/edit', to_send, null);
+    })
+}
+
+let edit_biography = document.getElementById('edit-biography');
+
+if(edit_biography !== null) {
+    edit_biography.addEventListener('click', function (event) {
+        event.preventDefault();
+
+        let biography_div = document.getElementById('biography');
+        let biography_text = biography_div.getElementsByTagName('p')[0];
+        let textArea = document.createElement('textArea');
+        
+        textArea.value = biography_text.textContent;
+        textArea.className = biography_text.className + 'form-control';
+        textArea.setAttribute('rows', 6);
+        textArea.setAttribute('cols', 30);
+        textArea.setAttribute('placeholder', 'Describe yourself ...');
+        textArea.setAttribute('id', biography_text.getAttribute('id'));
+
+        biography_div.replaceChild(textArea, biography_text);
+
+        textArea.addEventListener( 'keyup', function(event) {
+            if(event.keyCode == '13') {
+                let id_user = textArea.getAttribute('id')
+                let biography = textArea.value;
+
+                sendAjaxRequest.call(this, 'post', '/profile/' + id_user + '/edit', {biography: biography}, editBiography);
+            }
+        })
+    })
+}
+
 let follow = document.getElementsByClassName('follow');
 
 for(let i = 0; i < follow.length; i++) {
@@ -58,6 +119,8 @@ for(let i = 0; i < favorite.length; i++) {
         sendAjaxRequest.call(this, 'get', '/favorites/' + id_project, null, favoriteHandler);
     })
 }
+
+// FORUM //
 
 let deleteThread = document.getElementsByClassName('thread-delete')
 
@@ -122,7 +185,7 @@ for(let i = 0; i < deleteThreadComment.length; i++) {
     deleteThreadComment[i].addEventListener('click', deleteThreadCommentListener)
 }
 
-
+// ROADMAP //
 let milestones = document.getElementsByClassName('milestone-switch')
 
 for(let i = 0; i < milestones.length; i++) {
@@ -135,10 +198,49 @@ for(let i = 0; i < milestones.length; i++) {
     })
 }
 
+// ADMINISTRATION //
+
+let remove_user = document.getElementsByClassName('remove-user');
+
+function removeUserListener(event) {
+    let id = this.getAttribute('id');
+    sendAjaxRequest.call(this, 'get', '/admin/users/'+ id + '/remove', null, removeUserHandler);
+    event.preventDefault();
+}
+
+for(let i = 0; i < remove_user.length; i++) {
+    removeUserListener.bind(remove_user[i]);
+    remove_user[i].addEventListener('click', removeUserListener)
+}
+
+let restore_user = document.getElementsByClassName('restore-user');
+
+function restoreUserListener(event) {
+    let id = this.getAttribute('id');
+    sendAjaxRequest.call(this, 'get', '/admin/users/'+ id + '/restore', null, restoreUserHandler);
+    event.preventDefault();
+}
+
+for(let i = 0; i < restore_user.length; i++) {
+    restoreUserListener.bind(restore_user[i]);
+    restore_user[i].addEventListener('click', restoreUserListener)
+}
 
 //////////////
 // HANDLERS //
 //////////////
+
+function editBiography() {
+    let biography_div = document.getElementById('biography');
+    let textArea = biography_div.getElementsByTagName('textarea')[0];
+    let biography_text = document.createElement('p');
+    
+    biography_text.textContent = textArea.value;
+    biography_text.className = "pt-2 mb-0";
+    biography_text.setAttribute('id', textArea.getAttribute('id'));
+
+    biography_div.replaceChild(biography_text, textArea);
+}
 
 function followHandler() {
     if (this.status !== 200) return;
@@ -202,6 +304,60 @@ function changeMilestoneHandler() {
     let currentMilestone = item[0];
 
     changeRoadmapInfo(document.getElementById(this.prototype.getAttribute('id')).parentElement.children, currentMilestone);
+}
+
+function removeUserHandler() {
+    if (this.status !== 200) return;
+
+    let id_user = this.prototype.getAttribute('id');
+    let card = document.getElementById("card-" + id_user);
+    let container = card.parentElement;
+    let image = card.getElementsByTagName('img')[0];
+    let username = card.getElementsByTagName('span')[0];
+
+    let new_card = document.createElement('div');
+    new_card.setAttribute('id', "card-" + id_user);
+    new_card.className = 'restore card';
+    new_card.innerHTML = '<div class="card-body p-2">' + 
+        '<img src="' + image.src + '" width="50" height="50"' +
+        'class="d-inline-block rounded-circle align-self-center my-auto" alt="User photo">'
+        + '<span class="pl-2 pl-sm-4">' + username.textContent + '</span> <a id="' +
+        id_user + '" class="restore-user float-right pt-2 pr-2">' +
+        '<span>Restore</span> <i class="fas fa-trash-restore"></i> </a>' ;
+
+    container.replaceChild(new_card, card);
+
+    let new_restore = new_card.getElementsByClassName('restore-user')[0];
+    restoreUserListener.bind(new_restore);
+    new_restore.addEventListener('click', restoreUserListener);
+}
+
+function restoreUserHandler() {
+    if (this.status !== 200) return;
+
+    let id_user = this.prototype.getAttribute('id');
+    let card = document.getElementById("card-" + id_user);
+    let container = card.parentElement;
+    let image = card.getElementsByTagName('img')[0];
+    let username = card.getElementsByTagName('span')[0];
+
+    let profile_route = "{{ route('profile', ['id' => " + id_user + "]) }}";
+
+    let new_card = document.createElement('div');
+    new_card.setAttribute('id', "card-" + id_user);
+    new_card.className = 'card';
+    new_card.innerHTML = '<div class="card-body p-2"> <a href="' + profile_route + 
+        '" > <img src="' + image.src + '" width="50" height="50"' +
+        'class="d-inline-block rounded-circle align-self-center my-auto" alt="User photo">'
+        + ' <span class="pl-2 pl-sm-4">' + username.textContent + '</span></a> <a id="' +
+        id_user + '" class="remove-user float-right pt-2 pr-2">' +
+        '<i class="fas fa-times"></i> </a>' ;
+
+    container.replaceChild(new_card, card);
+
+    let new_remove = new_card.getElementsByClassName('remove-user')[0];
+    removeUserListener.bind(new_remove);
+    new_remove.addEventListener('click', removeUserListener);
 }
 
 ////////////

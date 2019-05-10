@@ -133,10 +133,15 @@ class Project extends Model
         $date = $currentDate->format('Y-m-d');
 
         $currentMilestone = Milestone::where([['id_project', $project->id], ['deadline', '>=', $date]])->orderBy('deadline', 'asc')->first();
-        $currentMilestone['timeLeft'] = $currentDate->diff(new DateTime($currentMilestone->deadline))->format('%a');
-        $currentMilestone['tasks'] = Task::information(Task::where([['id_milestone', $currentMilestone->id], ['progress', '<', 100]])->get());
-
-        return $currentMilestone;
+        
+        if(is_object($currentMilestone)) {
+            $currentMilestone['timeLeft'] = $currentDate->diff(new DateTime($currentMilestone->deadline))->format('%a');
+            $currentMilestone['tasks'] = Task::information(Task::where([['id_milestone', $currentMilestone->id], ['progress', '<', 100]])->get());
+      
+            return $currentMilestone;
+        }
+        else
+            return null;
     }
 
     /**
@@ -155,6 +160,4 @@ class Project extends Model
 
         return $currentMilestone;
     }
-
-
 }

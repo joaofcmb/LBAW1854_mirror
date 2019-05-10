@@ -61,14 +61,20 @@ Route::get('/project/{id_project}/tasks/{id_task}/edit', 'TaskController@edit')-
 Route::get('/project/{id_project}/tasks/{id_task}/assign', 'TaskController@assign')->name('task-assign');
 
 // Profile
-Route::get('profile/{id}', 'ProfileController@show')->name('profile');
-Route::get('profile/{id}/team', 'ProfileController@showTeam')->name('profile-team');
-Route::get('profile/{id}/favorites', 'ProfileController@showFavorites')->name('profile-favorites');
-Route::get('profile/{id}/followers', 'ProfileController@showFollowers')->name('profile-followers');
-Route::get('profile/{id}/following', 'ProfileController@showFollowing')->name('profile-following');
+Route::get('/profile/{id}', 'ProfileController@show')->name('profile');
+Route::get('/profile/{id}/team', 'ProfileController@showTeam')->name('profile-team');
+Route::get('/profile/{id}/favorites', 'ProfileController@showFavorites')->name('profile-favorites');
+Route::get('/profile/{id}/followers', 'ProfileController@showFollowers')->name('profile-followers');
+Route::get('/profile/{id}/following', 'ProfileController@showFollowing')->name('profile-following');
+Route::post('/profile/{id}/edit', 'ProfileController@editProfile');
+Route::get('/profile/{id}/remove', 'ProfileController@remove')->name('remove-user');
 
 // Administrator
 Route::get('/admin/users', 'AdministratorController@showUsers')->name('admin-users');
+
+Route::get('/admin/users/{id}/remove', 'AdministratorController@removeUser');
+Route::get('/admin/users/{id}/restore', 'AdministratorController@restoreUser');
+
 Route::get('/admin/teams', 'AdministratorController@showTeams')->name('admin-teams');
 Route::get('/admin/teams/create', 'AdministratorController@createTeam')->name('admin-create-team');
 Route::get('/admin/teams/{id}/edit', 'AdministratorController@editTeam')->name('admin-edit-team');

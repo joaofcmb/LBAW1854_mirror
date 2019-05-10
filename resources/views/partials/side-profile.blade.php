@@ -22,7 +22,7 @@
                         <i id="edit-biography" class="fas fa-edit ml-2 float-right"></i>
                     @endisset 
                 </h5>
-                <p class="pt-2 mb-0">{{ $user->biography }}</p>
+                <p id="{{ $user->id }}" class="pt-2 mb-0">{{ $user->biography }}</p>
             </div>
         </div>
     </div>
@@ -30,7 +30,7 @@
 
 @isset ($isInfo)
 </div>
-<div id="background-button" class="row col-12 p-0">
+<div id="background-button" class="row col-1 p-0">
     <div class="col-12 text-right p-0">
         <a href="" class="btn px-2 py-1" role="button">
             <i class="fa fa-camera" aria-hidden="true"></i>

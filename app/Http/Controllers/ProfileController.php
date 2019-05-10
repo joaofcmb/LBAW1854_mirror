@@ -215,7 +215,43 @@ class ProfileController extends Controller
 
             $favorite->save();
         }
+    }
 
+    /**
+     * Edit the profile information
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     */
+    public function editProfile(Request $request, $id)
+    {
+        $user = User::find($id);
+        $email = $request->input('email');
+        $password = $request->input('new_password');
+        $biography = $request->input('biography');
+
+        if(!empty($email))
+            $user->email = $email;
+
+        if(!empty($biography))
+            $user->biography = $biography;
+
+        $user->save();
+    }
+
+    /**
+     * Change the user status to removed
+     * 
+     * @param int $id
+     * @return \Illuminate\View\View
+     */
+    public function remove($id) 
+    {
+        $user = Developer::find($id);
+        $user->is_active = false;
+        $user->save();
+
+        return redirect()->route('admin-users');
     }
 
     /**

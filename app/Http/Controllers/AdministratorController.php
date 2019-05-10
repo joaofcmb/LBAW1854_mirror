@@ -161,6 +161,30 @@ class AdministratorController extends Controller
     }
 
     /**
+     * 
+     */
+    public function removeUser($id)
+    {
+        $user = Developer::find($id);
+        
+        if(Project::where('id_manager', $id)->exists() || Team::where('id_leader', $id)->exists())
+            return response("", 400, []);
+        
+        $user->is_active = FALSE;
+        $user->save();
+    }
+
+    /**
+     * 
+     */
+    public function restoreUser($id)
+    {
+        $user = Developer::find($id);
+        $user->is_active = TRUE;
+        $user->save();        
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
