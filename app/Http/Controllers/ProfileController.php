@@ -247,9 +247,17 @@ class ProfileController extends Controller
      */
     public function remove($id) 
     {
-        $user = Developer::find($id);
-        $user->is_active = false;
-        $user->save();
+        try {
+            $user = Developer::find($id);
+            $user->is_active = false;
+            $user->save();
+        } catch (\Exception $exception) {
+            $message = $exception->getMessage();
+            $message = substr($message, strrpos($message,"ERROR: "));
+            $message = substr($message, 0, strrpos($message, "(SQL"));
+
+            return redirect()->back()->withErrors($message);
+        }
 
         return redirect()->route('admin-users');
     }

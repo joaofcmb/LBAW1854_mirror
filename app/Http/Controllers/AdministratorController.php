@@ -165,13 +165,13 @@ class AdministratorController extends Controller
      */
     public function removeUser($id)
     {
-        $user = Developer::find($id);
-        
-        if(Project::where('id_manager', $id)->exists() || Team::where('id_leader', $id)->exists())
-            return response("", 400, []);
-        
-        $user->is_active = FALSE;
-        $user->save();
+        try {
+            $user = Developer::find($id);
+            $user->is_active = false;
+            $user->save();
+        } catch (\Exception $exception) {
+            return response('', 400, []);
+        }
     }
 
     /**

@@ -307,7 +307,29 @@ function changeMilestoneHandler() {
 }
 
 function removeUserHandler() {
+    if (this.status === 400) {
+        let container = document.querySelector('#content');
+        let alert = document.querySelector('div.alert');
+        let message = 
+            "ERROR: This user cannot be removed because he’s a Team Leader or Project Manager." + 
+            " You must first reassign his role in order to be able to remove him." ;
+
+        if(alert === null) {
+            let error_div = document.createElement('div');
+
+            error_div.className = "alert alert-danger";
+            error_div.innerHTML = '<ul class="mb-0"> <li>' + message + '</li> </ul>';
+            container.parentElement.insertBefore(error_div, container);
+        }
+        else 
+            alert.innerHTML = '<ul class="mb-0"> <li>' + message + '</li> </ul>';    
+        return;
+    }
+
     if (this.status !== 200) return;
+
+    let alert = document.querySelector('div.alert');
+    if(!(alert === null)) alert.remove();
 
     let id_user = this.prototype.getAttribute('id');
     let card = document.getElementById("card-" + id_user);
@@ -320,7 +342,7 @@ function removeUserHandler() {
     new_card.className = 'restore card';
     new_card.innerHTML = '<div class="card-body p-2">' + 
         '<img src="' + image.src + '" width="50" height="50"' +
-        'class="d-inline-block rounded-circle align-self-center my-auto" alt="User photo">'
+        'class="d-inline-block rounded-circle align-self-center my-auto" alt="User photo"> '
         + '<span class="pl-2 pl-sm-4">' + username.textContent + '</span> <a id="' +
         id_user + '" class="restore-user float-right pt-2 pr-2">' +
         '<span>Restore</span> <i class="fas fa-trash-restore"></i> </a>' ;
@@ -334,6 +356,9 @@ function removeUserHandler() {
 
 function restoreUserHandler() {
     if (this.status !== 200) return;
+
+    let alert = document.querySelector('div.alert');
+    if(!(alert === null)) alert.remove();
 
     let id_user = this.prototype.getAttribute('id');
     let card = document.getElementById("card-" + id_user);

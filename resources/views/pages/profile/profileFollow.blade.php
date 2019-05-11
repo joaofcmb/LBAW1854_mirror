@@ -18,6 +18,15 @@
             'owner' => $ownUser,
         ])
     </div>
+    @if ($errors->any())    
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>    
+        </div>
+    @endif
     <div id="main-content" class="row mx-auto align-items-center">
         <div class="col-lg-8 px-0 order-12 order-lg-1">
             <div id="content" class="container py-5 align-self-center justify-content-center">
