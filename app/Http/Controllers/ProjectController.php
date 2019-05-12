@@ -14,6 +14,7 @@ use DateTime;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class ProjectController extends Controller
 {
@@ -367,8 +368,17 @@ class ProjectController extends Controller
     public function closeProject($id_project) 
     {
         $project = Project::find($id_project);
+        
+        if(empty($project) || Project::isLocked($project))
+            return redirect()->route('404');
+
+        if($project->id_manager != Auth::user()->getAuthIdentifier())
+            return redirect()->route('project-overview', ['id', $id_project]);
+
         $project->status = 'closed';
         $project->save();
+
+        return redirect()->route('home');
     }
 
     public function validateAccess($project, $action)

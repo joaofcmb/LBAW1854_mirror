@@ -13,7 +13,7 @@
             'auth' => 'session'
         ])
         <div class="row w-100 mx-auto">
-            @if (count($managementProjects) > 0 && count($teamProjects) > 0)
+            @if (count($managementProjects) > 0 || count($teamProjects) > 0)
                 <div class="col-lg-8 px-0">
                     <div id="content" class="container py-3 mb-4">
                         @include('partials.collapsableTablist', [

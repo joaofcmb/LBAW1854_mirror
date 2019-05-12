@@ -19,7 +19,7 @@
             <a class="nav-item nav-link {{($active == 'forum')? 'active' : ''}} mx-lg-3" href="{{route('project-forum', ['id' => $project->id])}}">Forum</a>
             
             @if($isProjectManager)
-                <a class="text-danger font-weight-bolder ml-3 ml-sm-auto" href="" style="text-decoration: none;"><i
+                <a class="text-danger font-weight-bolder ml-3 ml-sm-auto" href="{{route('close-project', ['id_project' => $project->id])}}" style="text-decoration: none;"><i
                     class="fas fa-times"></i><span class="d-sm-none d-md-inline"> Close Project</span></a>
             @endif
         @else

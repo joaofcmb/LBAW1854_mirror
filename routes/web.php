@@ -56,7 +56,7 @@ Route::get('/project/{id_project}', 'ProjectController@show')->name('project-ove
 Route::get('/project/{id_project}/roadmap', 'ProjectController@showRoadmap')->name('project-roadmap');
 Route::get('/project/{id}/tasks', 'ProjectController@showTasks')->name('project-tasks');
 Route::get('/project/{id_project}/tasks/createtask/{id_taskgroup?}', 'ProjectController@createTask')->name('task-create');
-Route::post('/project/{id_project}/close', 'ProjectController@closeProject');
+Route::get('/project/{id_project}/close', 'ProjectController@closeProject')->name('close-project');
 
 // Tasks
 Route::get('/project/{id_project}/tasks/{id_task}', 'TaskController@show')->name('task');
