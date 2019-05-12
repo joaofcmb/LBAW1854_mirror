@@ -184,6 +184,14 @@ class AdministratorController extends Controller
         $user->save();        
     }
 
+
+    public function cancelProject($id_project) 
+    {
+        $project = Project::find($id_project);
+        $project->status = 'canceled';
+        $project->save();
+    }
+
     /**
      * Update the specified resource in storage.
      *

@@ -118,7 +118,8 @@ class Project extends Model
         return !(Project::where([['id_manager', Auth::user()->getAuthIdentifier()], ['id', $project['id']]])->exists() ||
                  TeamProject::join('developer', 'developer.id_team', '=', 'team_project.id_team')
                      ->where([['developer.id_user', Auth::user()->getAuthIdentifier()], ['id_project', $project['id']]])
-                     ->exists());
+                     ->exists() ||
+                 Auth::user()->isAdmin());
     }
 
     /**

@@ -5,8 +5,8 @@
         </a>
         <h5 class="flex-grow-1 d-flex justify-content-end align-items-center">
             @isset($admin)
-                <a href="{{ route('admin-edit-project', ['id' => $project->id]) }}"><i class="far fa-edit"></i></a>
-                <a href=""><i class="far fa-trash-alt"></i></a>
+                <a href="{{ route('admin-edit-project', ['id' => $project->id]) }}"><i class="far fa-edit"></i> </a>
+                <a class="pl-2"> <i class="far fa-trash-alt"></i></a>
             @else
                 <a><i id="project-{{ $project->id }}" class="favorite {{ $project->favorite ? 'fas' : 'far' }} fa-star" style="cursor: pointer;" aria-hidden="true"></i></a>
                 <i class="pl-1 fa fa-{{ $project->isLocked ? 'lock' : 'unlock' }}" aria-hidden="true"></i>

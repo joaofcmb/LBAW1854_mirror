@@ -100,6 +100,19 @@ class ThreadController extends Controller
         return View('pages.forum.thread', ['thread' => $thread, 'comments' => Comment::information(Thread::find($id)->comments), 'isProjectForum' => false]);
     }
 
+    public function editComment(Request $request, $id_thread, $id_comment)
+    {
+        $thread = Thread::find($id_thread);
+        $comment = Comment::find($id_comment);
+
+        if(empty($thread) || empty($comment) || $thread->id_forum != 1 || $comment->id_author != Auth::user()->getAuthIdentifier())
+            return response("", 404, []);
+
+        $comment['text'] = $request->input('text');
+        // $comment->last_edit_date = time();
+        $comment->save();
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -129,7 +142,7 @@ class ThreadController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete(Request $request, $id)
+    public function delete($id)
     {
         $thread = Thread::find($id);
 

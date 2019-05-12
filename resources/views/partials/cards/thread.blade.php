@@ -8,7 +8,7 @@
                 <form id="thread-button">
                     <button><i id="thread-{{ $thread->id }}-{{ $project->id }}" belongsToProject="true" class="thread-delete fas fa-trash-alt mx-3"></i></button>
                 </form>
-            @elseif(Auth::user()->isAdmin() ||  Auth::user()->getAuthIdentifier() === $thread->id_author)
+            @elseif(Auth::user()->isAdmin() || Auth::user()->getAuthIdentifier() === $thread->id_author)
                 <form id="thread-button">
                     <i id="thread-{{ $thread->id }}-0" class="thread-delete fas fa-trash-alt mx-3"></i>
                 </form>

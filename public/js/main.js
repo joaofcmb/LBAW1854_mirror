@@ -165,6 +165,60 @@ if(addThreadComment != null) {
     });
 }
 
+let editThreadComment = document.getElementsByClassName('comment-edit');
+
+let editThreadCommentListener = function (event) {
+    let info = this.getAttribute('id').split('-');
+    let comment_div = document.getElementById(info[0] + '-' + info[2]);
+    let text = comment_div.querySelector('p');
+    let input_text = document.createElement('textarea');
+
+    input_text.value = text.textContent;
+    input_text.className = text.className + ' mb-3 form-control';
+    input_text.setAttribute('placeholder', 'Comment ...');
+    input_text.setAttribute('id', this.getAttribute('id'));
+
+    comment_div.replaceChild(input_text, text);
+
+    input_text.addEventListener('keyup', function(event) {
+        if(event.keyCode == '13') {
+            let info = input_text.getAttribute('id').split('-');
+            let id_comment = info[2];
+            let id_thread = info[3];
+            let id_project = info[4];        
+
+            if(this.hasAttribute('belongstoproject'))
+                sendAjaxRequest.call(this, 'post', '/project/' + id_project + '/forum/thread/' + id_thread 
+                    + '/editcomment/' + id_comment, {text: input_text.value}, editThreadCommentHandler);
+            else
+                sendAjaxRequest.call(this, 'post', '/companyforum/thread/' + id_thread + '/editcomment/' 
+                    + id_comment, {text: input_text.value}, editThreadCommentHandler);
+        }
+    });
+
+    this.removeEventListener('click', editThreadCommentListener);
+    this.addEventListener('click', function() {
+        let info = input_text.getAttribute('id').split('-');
+        let id_comment = info[2];
+        let id_thread = info[3];
+        let id_project = info[4];        
+
+        if(this.hasAttribute('belongstoproject'))
+            sendAjaxRequest.call(this, 'post', '/project/' + id_project + '/forum/thread/' + id_thread 
+                + '/editcomment/' + id_comment, {text: input_text.value}, editThreadCommentHandler);
+        else
+            sendAjaxRequest.call(this, 'post', '/companyforum/thread/' + id_thread + '/editcomment/' 
+                + id_comment, {text: input_text.value}, editThreadCommentHandler);
+    });
+    
+    event.preventDefault();
+}
+
+for (let i = 0; i< editThreadComment.length; i++) {
+    editThreadCommentListener.bind(editThreadComment[i]);
+    editThreadComment[i].addEventListener('click', editThreadCommentListener);
+}
+
 let deleteThreadComment = document.getElementsByClassName('comment-delete');
 
 let deleteThreadCommentListener = function () {
@@ -235,7 +289,7 @@ function editBiography() {
     let textArea = biography_div.getElementsByTagName('textarea')[0];
     let biography_text = document.createElement('p');
     
-    biography_text.textContent = textArea.value;
+    biography_text.textContent = textArea.value.replace(/(\r\n|\n|\r)/gm, "");
     biography_text.className = "pt-2 mb-0";
     biography_text.setAttribute('id', textArea.getAttribute('id'));
 
@@ -270,6 +324,8 @@ function addThreadCommentHandler() {
     if (this.status !== 200) return;
 
     let item = JSON.parse(this.responseText);
+
+    let id_project = this.prototype.getAttribute('id').split('-')[3];
     
     let thread = document.querySelector('#thread-content');
     let add_comment = document.querySelector('form.add-comment');
@@ -278,21 +334,57 @@ function addThreadCommentHandler() {
 
     let profile_route = "{{ route('profile', ['id' => " + item.id_author + " ]) }}"
 
-    let delete_button = '<i id="comment-' + item.id + '-' + item.id_thread + '-0"  class="comment-delete fas fa-trash-alt mx-2" style="cursor: pointer;"></i>';
+    let edit_button = '<i id="comment-edit-' + item.id + '-' + item.id_thread + '-' + id_project + '" ';
+    let delete_button = '<i id="comment-' + item.id + '-' + item.id_thread + '-' + id_project + '" ';
+
+    if(id_project != 0) {
+        edit_button += "belongsToProject=\"true\"";
+        delete_button += "belongsToProject=\"true\"";
+    }
+
+    edit_button += ' class="comment-edit fas fa-pen mx-2"></i>';
+    delete_button += ' class="comment-delete fas fa-trash-alt mx-2" style="cursor: pointer;"></i>';
 
     new_comment.id = 'comment-' + item.id;
     new_comment.className = "card pb-0 px-3 pt-3 my-3";
     new_comment.innerHTML = '<div class="row"><div class="col"><a class="d-flex flex-row pt-1" href="'+
         profile_route + '"><i class="fas fa-user mr-1"></i><h6>' +
-        item.author_name + '</h6></a></div><div class="col text-right"><a style="cursor: pointer;">' +
-        '<a style="cursor: pointer;"><i class="fas fa-pen mx-3"></i></a>' +
+        item.author_name + '</h6></a></div><div class="col text-right"> ' +
+        '<a style="cursor: pointer;"> ' + edit_button + ' </a> <a style="cursor: pointer;">' +
         delete_button + '</a></div></div><p class="mt-2">' + item.text + '</p>';
+
+    let edit_comment = new_comment.querySelector('i.comment-edit'); 
+    editThreadCommentListener.bind(edit_comment);
+    edit_comment.addEventListener('click', editThreadCommentListener);
 
     let deletecomment = new_comment.querySelector('i.comment-delete');
     deleteThreadCommentListener.bind(deletecomment);
     deletecomment.addEventListener('click', deleteThreadCommentListener);
     
     thread.insertBefore(new_comment, add_comment);
+}
+
+function editThreadCommentHandler() {
+    if (this.status !== 200) return;
+
+    let id = this.prototype.getAttribute('id');
+    let info = id.split('-');
+    let comment_div = document.getElementById(info[0] + '-' + info[2]);
+    let input = comment_div.querySelector('textarea');
+    let text = document.createElement('p');
+
+    text.textContent = input.value.replace(/(\r\n|\n|\r)/gm, "");
+    text.className = 'mt-2';
+    text.setAttribute('id', id);
+    
+    comment_div.replaceChild(text, input);
+
+    let old_button = comment_div.querySelector('#'+id);
+    let new_button = old_button.cloneNode(true);
+    old_button.parentElement.replaceChild(new_button,old_button);
+
+    editThreadCommentListener.bind(new_button);
+    new_button.addEventListener('click', editThreadCommentListener);
 }
 
 function deleteThreadCommentHandler() {

@@ -261,6 +261,20 @@ class ProjectController extends Controller
         return $comment;
     }
 
+    public function editThreadComment(Request $request, $id_project, $id_thread, $id_comment)
+    {
+        $project = Project::find($id_project);
+        $thread = Thread::find($id_thread);
+        $comment = Comment::find($id_comment);
+
+        if(empty($project) || empty($thread) || empty($comment) || 
+            ($comment->id_author != Auth::user()->getAuthIdentifier() && $project->id_manager != Auth::user()->getAuthIdentifier()))
+            return response('', 404, []);
+
+        $comment['text'] = $request->input('text');
+        $comment->save();
+    }
+
     /**
      * Deletes a project forum thread comment
      *
@@ -350,7 +364,12 @@ class ProjectController extends Controller
         $thread->delete();
     }
 
-
+    public function closeProject($id_project) 
+    {
+        $project = Project::find($id_project);
+        $project->status = 'closed';
+        $project->save();
+    }
 
     public function validateAccess($project, $action)
     {
