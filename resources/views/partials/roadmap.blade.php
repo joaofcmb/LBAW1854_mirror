@@ -1,5 +1,4 @@
 @if($page == 'overview')
-
     <div class="roadmap m-sm-5 my-4">
         <div class="roadmap-left"></div>
         <div class="roadmap-diagram border-top-0 border-bottom-0 d-flex justify-content-between align-items-center">
@@ -18,9 +17,7 @@
         </div>
         @endif
     </div>
-
 @elseif ($page == 'roadmap')
-
     <div class="roadmap my-5 mx-sm-5">
         <div class="roadmap-left"></div>
         <div class="roadmap-diagram border-top-0 border-bottom-0 d-flex justify-content-between align-items-center">
@@ -36,11 +33,9 @@
             <div class="p-4"></div>
             @foreach($milestones as $milestone)
                 <a id="{{ $milestone->id_project }}-milestone-{{ $milestone->id }}" data-toggle="collapse"
-                    href="#milestone{{ $milestone->id }}"
                     @if ($currentMilestone != null)
                         {{ $milestone->id == $currentMilestone->id ? 'aria-expanded=true' : '' }}
-                        class="{{ $milestone->id == $currentMilestone->id ? '' : 'milestone-switch' }}
-                        {{ $milestone->id == $currentMilestone->id ? 'milestone-info active' : 'collapsed milestone-info'}} text-center pb-3"
+                        class="milestone-switch milestone-info {{ $milestone->id == $currentMilestone->id ? 'active' : 'collapsed'}} text-center pb-3"
                     @else
                         class="milestone-switch collapsed milestone-info text-center pb-3"
                     @endif
@@ -52,5 +47,4 @@
             <div class="p-4"></div>
         </div>
     </div>
-    
 @endif

@@ -242,14 +242,17 @@ for(let i = 0; i < deleteThreadComment.length; i++) {
 // ROADMAP //
 let milestones = document.getElementsByClassName('milestone-switch')
 
-for(let i = 0; i < milestones.length; i++) {
-    milestones[i].addEventListener('click', function () {
-        let milestone = milestones[i].getAttribute('id').split('-');
-        let id_project = milestone[0];
-        let id_milestone = milestone[2];
+let milestoneSwitchListener = function() {
+    let milestone = this.getAttribute('id').split('-');
+    let id_project = milestone[0];
+    let id_milestone = milestone[2];
 
-        //sendAjaxRequest.call(this, 'post', '/api/project/' + id_project + '/roadmap/changeview', {milestone: id_milestone}, changeMilestoneHandler);
-    })
+    sendAjaxRequest.call(this, 'post', '/api/project/' + id_project + '/roadmap/changeview', {milestone: id_milestone}, changeMilestoneHandler);
+}
+
+for(let i = 0; i < milestones.length; i++){
+    milestoneSwitchListener.bind(milestones[i]);
+    milestones[i].addEventListener('click', milestoneSwitchListener)
 }
 
 // ADMINISTRATION //
@@ -332,7 +335,7 @@ function addThreadCommentHandler() {
 
     let new_comment = document.createElement('div');
 
-    let profile_route = "{{ route('profile', ['id' => " + item.id_author + " ]) }}"
+    let profile_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/profile/" + item.id_author;
 
     let edit_button = '<i id="comment-edit-' + item.id + '-' + item.id_thread + '-' + id_project + '" ';
     let delete_button = '<i id="comment-' + item.id + '-' + item.id_thread + '-' + id_project + '" ';
@@ -351,7 +354,7 @@ function addThreadCommentHandler() {
         profile_route + '"><i class="fas fa-user mr-1"></i><h6>' +
         item.author_name + '</h6></a></div><div class="col text-right"> ' +
         '<a style="cursor: pointer;"> ' + edit_button + ' </a> <a style="cursor: pointer;">' +
-        delete_button + '</a></div></div><p class="mt-2">' + item.text + '</p>';
+        delete_button + '</a></div></div><p class="mt-2">' + item.text + '</p>';  
 
     let edit_comment = new_comment.querySelector('i.comment-edit'); 
     editThreadCommentListener.bind(edit_comment);
@@ -393,9 +396,9 @@ function deleteThreadCommentHandler() {
 
 function changeMilestoneHandler() {
     let item = JSON.parse(this.responseText);
-    let currentMilestone = item[0];
+    console.log(item);
 
-    changeRoadmapInfo(document.getElementById(this.prototype.getAttribute('id')).parentElement.children, currentMilestone);
+    changeRoadmapInfo(document.getElementById(this.prototype.getAttribute('id')).parentElement.children, item);
 }
 
 function removeUserHandler() {
@@ -458,7 +461,7 @@ function restoreUserHandler() {
     let image = card.getElementsByTagName('img')[0];
     let username = card.getElementsByTagName('span')[0];
 
-    let profile_route = "{{ route('profile', ['id' => " + id_user + "]) }}";
+    let profile_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/profile/" + id_user;
 
     let new_card = document.createElement('div');
     new_card.setAttribute('id', "card-" + id_user);
@@ -490,6 +493,8 @@ function changeRoadmapInfo(milestones, currentMilestone) {
             milestones[i].removeAttribute('aria-expanded');
             milestones[i].setAttribute('class', 'milestone-switch collapsed milestone-info text-center pb-3');
 
+            milestoneSwitchListener.bind(milestones[i]);
+            milestones[i].addEventListener('click', milestoneSwitchListener);
             old_milestone_id = milestones[i].getAttribute('id').split('-')[2];
         }
         else if(milestones[i].getAttribute('id').includes('milestone-' + currentMilestone['id'])) {
@@ -498,7 +503,83 @@ function changeRoadmapInfo(milestones, currentMilestone) {
         }
     }
 
-    return old_milestone_id;
+    let milestone_content = document.getElementById('milestone' + old_milestone_id);
+    let isProjectManager = (document.getElementById('create') !== null);
+
+    if(milestone_content !== null) {
+        if(old_milestone_id == currentMilestone.id){
+            milestone_content.remove();
+            return;
+        }
+
+        milestone_content.setAttribute('id', 'milestone' + currentMilestone.id);
+        let header = milestone_content.querySelector('div.d-flex');
+        let milestone_name = header.querySelector('h3');
+        milestone_name.innerHTML = currentMilestone.name;
+// ADD UPDATE MILESTONE NAME LISTENER
+        if(isProjectManager)
+            milestone_name.innerHTML += ' <i class="far fa-edit ml-2"></i> ';
+        
+        header.querySelector('span').textContent = currentMilestone.tasks.length + ' remaining';
+
+        let tasks_content = milestone_content.querySelector('div.mx-auto');
+        tasks_content.innerHTML = createTaskHtml(currentMilestone.tasks, isProjectManager);
+    }
+    else {
+        milestone_content = document.createElement('div');
+        milestone_content.setAttribute('id', 'milestone' + currentMilestone.id);
+        milestone_content.setAttribute('data-parent', '#content');
+        milestone_content.className = "collapse show main-tab card border-left-0 border-right-0 rounded-0 p-2";
+        milestone_content.innerHTML = ' <div class="d-flex justify-content-between align-items-center">' +
+            '<h3>' + currentMilestone.name + (isProjectManager ? ' <i class="far fa-edit ml-2"></i> ' : '') +
+            '</h3> <span class="font-weight-light mr-2 flex-shrink-0">' + currentMilestone.tasks.length + 
+            ' remaining</span></div> <div class="mx-auto"> ' + createTaskHtml(currentMilestone.tasks, isProjectManager) + ' </div> </div>';
+        
+        document.getElementById('content').appendChild(milestone_content);
+    }
+    $('.border-hover').hover(
+        function() {$(this).find('>:first-child .hover-icon').css('display', 'inline-block')},
+        function() {$(this).find('>:first-child .hover-icon').css('display', 'none')}
+    )
+}
+
+function createTaskHtml(tasks, isProjectManager) {
+    let html = '';
+
+    for(let i = 0; i < tasks.length; i++) {
+        html += ' <section class="task card border-hover float-sm-left p-2 m-2 mt-3"> ';
+        let task = tasks[i];
+
+        if(isProjectManager) {
+            let edit_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + 
+                "/project/" + task.id_project + "/tasks/" + task.id + "/edit";
+            let assign_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + 
+                "/project/" + task.id_project + "/tasks/" + task.id + "/assign";
+// ADD REMOVE TASK LISTENER
+            html += '<div class="mx-auto mb-1"> <a href="' + edit_route + '"><i class="far fa-edit hover-icon mr-2"></i></a> ' +
+                    '<a href="' + assign_route + '"><i class="fas fa-link fa-fw hover-icon mx-2"></i></a>' + 
+                    '<a><i class="far fa-trash-alt fa-fw hover-icon ml-2"></i></a> </div>';
+        }
+
+        let task_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + 
+            "/project/" + task.id_project + "/tasks/" + task.id;
+
+        html += '<h6 class="text-center mb-auto"><a href="' + task_route + '">' + task.title + '</a></h6> ' +  
+                '<p class="ml-1 m-0">' + task.teams.length + ' Teams</p>' +
+                '<p class="ml-1 mb-2">' + task.developers + ' Developers</p>' +
+                '<div class="work-progress mx-2 mb-1"> <h6 class="text-center mb-1"><i class="fas fa-chart-line mr-1"></i>' +
+                task.progress + '% done</h6> <div class="progress"> ' +
+                '<div class="progress-bar progress-bar-striped bg-success progress-bar-animated" ' +
+                    'role="progressbar" style="width:' + task.progress + '%" aria-valuenow="' + 
+                    task.progress + '" aria-valuemin="0" aria-valuemax="100"></div> </div> </div> ' +
+                '<div class="time-progress mx-2 my-1"> <h6 class="text-center mb-1"><i class="far fa-clock mr-1"></i>' + 
+                task.timeLeft + ' days left</h6> <div class="progress"> ' +
+                '<div class="progress-bar progress-bar-striped bg-' + (task.timePercentage == 100 ? 'danger' : 'warning') + 
+                    ' progress-bar-animated" role="progressbar" style="width:' + task.timePercentage + '%" aria-valuenow="' +
+                    task.timePercentage + '" aria-valuemin="0" aria-valuemax="100"> </div> </div> </div> </section>';
+    }
+
+    return html;
 }
 
 //////////

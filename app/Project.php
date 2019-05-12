@@ -157,7 +157,7 @@ class Project extends Model
 
         $currentMilestone = Milestone::where('id', $milestone_id)->orderBy('deadline', 'asc')->first();
         $currentMilestone['timeLeft'] = $currentDate->diff(new DateTime($currentMilestone->deadline))->format('%a');
-        $currentMilestone['tasks'] = Task::information(Task::where([['id_milestone', $currentMilestone->id], ['progress', '<', 100]])->get());
+        $currentMilestone['tasks'] = Task::information(Task::where([['id_milestone', $currentMilestone->id]])->get());
 
         return $currentMilestone;
     }
