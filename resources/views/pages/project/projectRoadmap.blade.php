@@ -41,11 +41,13 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <h3>{{ $currentMilestone->name }}
                             @if($isProjectManager)
-                                <i class="far fa-edit ml-2"></i>
-                            @endif
-                        </h3>
+                                <button type="button" data-toggle="modal" data-target="#editNameModal">
+                                    <i class="far fa-edit ml-2"></i>
+                                </button>
+                            @endif                            
+                        </h3>                       
                         <span class="font-weight-light mr-2 flex-shrink-0">{{ sizeof($currentMilestone->tasks) }} remaining</span>
-                    </div>
+                    </div>                   
                     <div class="mx-auto">
                         @foreach($currentMilestone->tasks as $task)
                             @include('partials.cards.task', [
@@ -54,7 +56,32 @@
                             ])
                         @endforeach
                     </div>
-                </div>
+                </div> 
+                @if($isProjectManager)
+                    <!-- Modal -->
+                    <div class="modal fade" id="editNameModal" tabindex="-1" role="dialog" aria-labelledby="editNameModalTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editNameModalTitle">Edit Milestone Name</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="milestone-name" class="col-form-label">Name:</label>
+                                        <input type="text" class="form-control" id="milestone-name" value="{{ $currentMilestone->name }}">
+                                    </div>
+                                </div>
+                                <div id="brand-btn" class="modal-footer">
+                                    <button id="editName-{{ $project->id }}-{{ $currentMilestone->id }}" type="button" 
+                                        class="save-new-milestone-name btn btn-primary" data-dismiss="modal">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
             @endif
         </div>
     </div>

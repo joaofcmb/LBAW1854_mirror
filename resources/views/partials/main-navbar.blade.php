@@ -18,7 +18,7 @@
         @elseif($auth == 'index')
             <a class="nav-item nav-link" href="#home">Home</a>
             <a class="nav-item nav-link" href="#about">About</a>
-            <a class="nav-item nav-link" href="#benefits-text">Benefits</a>
+            <a class="nav-item nav-link" href="#benefits">Benefits</a>
             <a class="nav-item nav-link" href="#founders">Founders</a>
             
             <a id="login" class="ml-auto pl-3" href="{{ route('login') }}">

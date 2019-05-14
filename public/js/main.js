@@ -255,6 +255,18 @@ for(let i = 0; i < milestones.length; i++){
     milestones[i].addEventListener('click', milestoneSwitchListener)
 }
 
+let editMilestoneName = document.getElementById('editNameModal');
+
+if(editMilestoneName != null) {
+    let save = editMilestoneName.querySelector('.save-new-milestone-name');
+    save.addEventListener('click', function() {
+        let info = save.getAttribute('id').split('-');
+        let input = editMilestoneName.querySelector('input#milestone-name');
+
+        sendAjaxRequest.call(this, 'post', '/project/' + info[1] + '/roadmap/' + info[2] + '/update', {name: input.value}, editMilestoneNameHandler);
+    })
+}
+
 // ADMINISTRATION //
 
 let remove_user = document.getElementsByClassName('remove-user');
@@ -395,10 +407,22 @@ function deleteThreadCommentHandler() {
 }
 
 function changeMilestoneHandler() {
+    if (this.status !== 200) return;
     let item = JSON.parse(this.responseText);
-    console.log(item);
 
-    changeRoadmapInfo(document.getElementById(this.prototype.getAttribute('id')).parentElement.children, item);
+    changeRoadmapInfo(document.getElementById('all-milestones').children, item);
+}
+
+function editMilestoneNameHandler() {
+    if (this.status !== 200) return;
+
+    let info = this.prototype.getAttribute('id').split('-');
+    let milestone_content = document.querySelector('div#milestone' + info[2]);
+    let milestone_name = milestone_content.querySelector('h3');
+    let input = document.querySelector('input#milestone-name');
+
+    milestone_name.innerHTML = input.value + 
+        '<button type="button" data-toggle="modal" data-target="#editNameModal"> <i class="far fa-edit ml-2"></i> </button>';   
 }
 
 function removeUserHandler() {
@@ -516,9 +540,13 @@ function changeRoadmapInfo(milestones, currentMilestone) {
         let header = milestone_content.querySelector('div.d-flex');
         let milestone_name = header.querySelector('h3');
         milestone_name.innerHTML = currentMilestone.name;
-// ADD UPDATE MILESTONE NAME LISTENER
-        if(isProjectManager)
-            milestone_name.innerHTML += ' <i class="far fa-edit ml-2"></i> ';
+
+        if(isProjectManager) {
+            milestone_name.innerHTML += ' <button type="button" data-toggle="modal" data-target="#editNameModal"> <i class="far fa-edit ml-2"></i> </button> ';
+            document.querySelector('input#milestone-name').value = currentMilestone.name;
+
+            document.querySelector('.save-new-milestone-name').setAttribute('id', 'editName-' + currentMilestone.id_project + '-' + currentMilestone.id);
+        }
         
         header.querySelector('span').textContent = currentMilestone.tasks.length + ' remaining';
 
@@ -530,13 +558,19 @@ function changeRoadmapInfo(milestones, currentMilestone) {
         milestone_content.setAttribute('id', 'milestone' + currentMilestone.id);
         milestone_content.setAttribute('data-parent', '#content');
         milestone_content.className = "collapse show main-tab card border-left-0 border-right-0 rounded-0 p-2";
-        milestone_content.innerHTML = ' <div class="d-flex justify-content-between align-items-center">' +
-            '<h3>' + currentMilestone.name + (isProjectManager ? ' <i class="far fa-edit ml-2"></i> ' : '') +
+        milestone_content.innerHTML = ' <div class="d-flex justify-content-between align-items-center">' + '<h3>' + currentMilestone.name + 
+            (isProjectManager ? ' <button type="button" data-toggle="modal" data-target="#editNameModal"> <i class="far fa-edit ml-2"></i> </button> ' : '') +
             '</h3> <span class="font-weight-light mr-2 flex-shrink-0">' + currentMilestone.tasks.length + 
             ' remaining</span></div> <div class="mx-auto"> ' + createTaskHtml(currentMilestone.tasks, isProjectManager) + ' </div> </div>';
         
+        if(isProjectManager) {
+            document.querySelector('input#milestone-name').value = currentMilestone.name;
+            document.querySelector('.save-new-milestone-name').setAttribute('id', 'editName-' + currentMilestone.id_project + '-' + currentMilestone.id);
+        }
+
         document.getElementById('content').appendChild(milestone_content);
     }
+    
     $('.border-hover').hover(
         function() {$(this).find('>:first-child .hover-icon').css('display', 'inline-block')},
         function() {$(this).find('>:first-child .hover-icon').css('display', 'none')}

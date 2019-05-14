@@ -23,13 +23,13 @@
         <div class="roadmap-diagram border-top-0 border-bottom-0 d-flex justify-content-between align-items-center">
             <div class="p-1"></div>
             @foreach($milestones as $milestone)
-                <a data-toggle="collapse" href="#milestone{{ $milestone->id }}" class="milestone py-2"><i
-                    class="far fa-{{ $milestone->deadline < $date ? 'dot-' : '' }}circle align-middle"></i></a>
+                <a id="{{ $milestone->id_project }}-milestone1-{{ $milestone->id }}" data-toggle="collapse"  
+                    class="milestone-switch milestone py-2"><i class="far fa-{{ $milestone->deadline < $date ? 'dot-' : '' }}circle align-middle"></i></a>
             @endforeach
             <div class="p-1"></div>
         </div>
         <div class="roadmap-right"></div>
-        <div class="d-none d-lg-flex justify-content-between align-items-center">
+        <div id="all-milestones" class="d-none d-lg-flex justify-content-between align-items-center">
             <div class="p-4"></div>
             @foreach($milestones as $milestone)
                 <a id="{{ $milestone->id_project }}-milestone-{{ $milestone->id }}" data-toggle="collapse"

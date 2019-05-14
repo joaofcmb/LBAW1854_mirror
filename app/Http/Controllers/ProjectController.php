@@ -311,11 +311,26 @@ class ProjectController extends Controller
         $project = Project::find($id_project);
 
         if(!$this->validateAccess($project, 'view'))
-            return response("", 404, []);
+            return response("", 400, []);
 
         $response = Project::getMilestone($request->input('milestone'));
 
         return json_encode($response);
+    }
+
+    public function updateMilestoneName(Request $request, $id_project, $id_milestone)
+    {
+        $project = Project::find($id_project);
+        $milestone = Milestone::find($id_milestone);
+
+        if(!$this->validateAccess($project, 'view')) // IS 'VIEW' ??
+            return response("", 400, []);
+
+        if(empty($project) || empty($milestone))
+            return response('', 404, []);        
+
+        $milestone->name = $request->input('name');
+        $milestone->save();
     }
 
     /**
