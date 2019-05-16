@@ -13,18 +13,16 @@
         'auth' => 'session'
     ])
     <div id="content" class="container">
-        <div class="row" id="search-bar">
+        <div class="row">
             @include('partials.searchBar', ['page' => 'search', 'content' => 'Users...'])
             <div id="filter" class="col-12 col-md-4 col-lg-3 text-center pt-2 pb-3 py-md-4">
                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
                     <label class="btn active">
                         <input type="radio" name="options" id="option1" autocomplete="off" checked>
-                        <i class="fa fa-user" aria-hidden="true"></i> Users
-                    </label>
+                        <i class="fa fa-user mr-1" aria-hidden="true"></i>Users</label>
                     <label class="btn">
                         <input type="radio" name="options" id="option2" autocomplete="off">
-                        <i class="fas fa-project-diagram"></i> Project
-                    </label>
+                        <i class="fas fa-project-diagram mr-1"></i>Projects</label>
                 </div>
             </div>
         </div>

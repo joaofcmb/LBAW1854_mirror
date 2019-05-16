@@ -655,6 +655,42 @@ function insertMilestoneInRoadmap(milestoneHtml) {
 // AJAX //
 //////////
 
+
+// Search page - Filter: users/projects - Search: users/projects Conditions: none
+// Task Assigment - Filer: none - Search: teams/milestones - Conditions: teams/milestones not it already displayed teams/milestones
+// Admin Users - Filter: none - Search: users - Conditions: none
+// Admin Teams - Filter: none - Search: teams - Conditions: none
+// Admin Projects - Filter: none - Search: projects - Conditions: none
+// Admin Create/Edit Team - Filter: none - Search: users - Conditions: users not present in leader and members
+// Admin Create/Edit Project - Filter: none - Search: users - Conditions: users not project manager
+
+let typingTimer;                //timer identifier
+let doneTypingInterval = 500;  //time in ms, 5 second for example
+let search = document.getElementsByClassName('search-bar')
+
+let doneTyping = function () {
+    let type = document.getElementById('filter')
+
+    if(type != null)
+        console.log(document.getElementsByClassName('btn active')[0].lastChild.textContent)
+    else
+        console.log("NAO TEM FILTER")
+
+   // console.log(this)
+};
+
+for(let i = 0; i < search.length; i++) {
+
+    search[i].addEventListener('keyup', function () {
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(doneTyping.bind(search[i]), doneTypingInterval);
+    });
+
+    search[i].addEventListener('keydown', function () {
+        clearTimeout(typingTimer);
+    });
+}
+
 function sendAjaxRequest(method, url, data, handler) {
     let request = new XMLHttpRequest();
 

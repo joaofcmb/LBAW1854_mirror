@@ -1,4 +1,4 @@
-<div id="search" class="
+<div class="search-bar
     @switch($page)
         @case('admin')
             col-12 col-sm-10 col-md-8 pt-4
