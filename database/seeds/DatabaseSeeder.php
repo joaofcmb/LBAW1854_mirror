@@ -13,11 +13,8 @@ class DatabaseSeeder extends Seeder
      {
          Eloquent::unguard();
 
-         $path_database = 'resources/sql/database.sql';
-         $path_data = 'resources/sql/data.sql';
-
-         DB::unprepared(file_get_contents($path_database));
-         DB::unprepared(file_get_contents($path_data));
+         $path = 'resources/sql/seed.sql';
+         DB::unprepared(file_get_contents($path));
          $this->command->info('Database seeded!');
      }
 }

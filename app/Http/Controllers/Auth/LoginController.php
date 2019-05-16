@@ -25,35 +25,15 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = 'home';
-
-    /**
-     * Show the application's login form.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function showLoginForm()
-    {
-        return view('pages.auth.login');
-    }
-
-    /**
-     * Get the login username to be used by the controller.
-     *
-     * @return string
-     */
-    public function username()
-    {
-        return 'username';
-    }
+    protected $redirectTo = '/cards';
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('guest')->except('logout');
     }
-
 }

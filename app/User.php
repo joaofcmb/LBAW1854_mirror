@@ -4,18 +4,12 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use App;
-use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
     use Notifiable;
 
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
+    // Don't add create and update timestamps in database.
     public $timestamps  = false;
 
     /**
@@ -24,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'first_name', 'last_name', 'email', 'password', 'confirm_password',
+        'name', 'email', 'password',
     ];
 
     /**
@@ -33,24 +27,13 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
+        'password', 'remember_token',
     ];
 
     /**
-     * The table associated with the model.
-     *
-     * @var string
+     * The cards this user owns.
      */
-    protected $table = 'user';
-
-    /**
-     * Checks if user is an administrator
-     *
-     * @return mixed
-     */
-    public function isAdmin() {
-        return Administrator::where('id_user', $this->id)->exists();
+     public function cards() {
+      return $this->hasMany('App\Card');
     }
-
-
 }
