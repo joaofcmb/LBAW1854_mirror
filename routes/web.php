@@ -57,7 +57,8 @@ Route::get('/project/{id_project}/roadmap', 'ProjectController@showRoadmap')->na
 Route::get('/project/{id}/tasks', 'ProjectController@showTasks')->name('project-tasks');
 Route::get('/project/{id_project}/tasks/createtask/{id_taskgroup?}', 'ProjectController@createTask')->name('task-create');
 Route::get('/project/{id_project}/close', 'ProjectController@closeProject')->name('close-project');
-Route::post('/project/{id_project}/roadmap/{id_milestone}/update', 'ProjectController@updateMilestoneName');
+Route::post('/project/{id_project}/roadmap/createmilestone', 'ProjectController@createMilestone')->name('create-milestone-action');
+Route::post('/project/{id_project}/roadmap/{id_milestone}/update', 'ProjectController@updateMilestone');
 
 // Tasks
 Route::get('/project/{id_project}/tasks/{id_task}', 'TaskController@show')->name('task');

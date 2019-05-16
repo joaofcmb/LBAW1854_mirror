@@ -24,7 +24,8 @@
         @if($isProjectManager)
             @include('partials.mainButton', [
                 'text' => 'Create Milestone',
-                'icon' => 'fas fa-plus-circle'
+                'icon' => 'fas fa-plus-circle',
+                'modal' => 'data-toggle=modal data-target=#createMilestoneModal'
             ])
         @endif
         <div id="content" class="container py-3 mb-4">     
@@ -41,9 +42,10 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <h3>{{ $currentMilestone->name }}
                             @if($isProjectManager)
-                                <button type="button" data-toggle="modal" data-target="#editNameModal">
+                                <button type="button" data-toggle="modal" data-target="#editMilestoneModal">
                                     <i class="far fa-edit ml-2"></i>
                                 </button>
+                                
                             @endif                            
                         </h3>                       
                         <span class="font-weight-light mr-2 flex-shrink-0">{{ sizeof($currentMilestone->tasks) }} remaining</span>
@@ -59,11 +61,11 @@
                 </div> 
                 @if($isProjectManager)
                     <!-- Modal -->
-                    <div class="modal fade" id="editNameModal" tabindex="-1" role="dialog" aria-labelledby="editNameModalTitle" aria-hidden="true">
+                    <div class="modal fade" id="editMilestoneModal" tabindex="-1" role="dialog" aria-labelledby="editMilestoneModalTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="editNameModalTitle">Edit Milestone Name</h5>
+                                    <h5 class="modal-title" id="editMilestoneModalTitle">Edit Milestone</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -72,11 +74,44 @@
                                     <div class="form-group">
                                         <label for="milestone-name" class="col-form-label">Name:</label>
                                         <input type="text" class="form-control" id="milestone-name" value="{{ $currentMilestone->name }}">
+
+                                        <label for="milestone-deadline" class="col-form-label">Deadline:</label>
+                                        <input type="date" class="form-control" id="milestone-deadline" min="{{$date}}" 
+                                            value="{{\Carbon\Carbon::parse($currentMilestone->deadline)->format('Y-m-d')}}">
                                     </div>
                                 </div>
                                 <div id="brand-btn" class="modal-footer">
-                                    <button id="editName-{{ $project->id }}-{{ $currentMilestone->id }}" type="button" 
-                                        class="save-new-milestone-name btn btn-primary" data-dismiss="modal">Save changes</button>
+                                    <button id="editMilestone-{{ $project->id }}-{{ $currentMilestone->id }}" type="button" 
+                                        class="update-milestone btn btn-primary" data-dismiss="modal">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="createMilestoneModal" tabindex="-1" role="dialog" aria-labelledby="createMilestoneModalTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="createMilestoneModalTitle">Create Milestone</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="create-milestone-form" method="post" action="{{ route('create-milestone-action', ['id_project' => $project->id]) }}">
+                                        {{ csrf_field() }}
+                                        <div class="form-group">
+                                            <label for="milestone-name" class="col-form-label">Name:</label>
+                                            <input type="text" class="form-control" name="name" id="milestone-name" placeholder="Enter milestone name..." required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="milestone-deadline" class="col-form-label">Deadline:</label>
+                                            <input type="date" class="form-control" name="deadline" id="milestone-deadline" min="{{$date}}" required>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div id="brand-btn" class="modal-footer">
+                                    <button form="create-milestone-form" class="btn btn-primary" type="submit">Create</button>
                                 </div>
                             </div>
                         </div>

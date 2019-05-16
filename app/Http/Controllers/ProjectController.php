@@ -318,19 +318,48 @@ class ProjectController extends Controller
         return json_encode($response);
     }
 
-    public function updateMilestoneName(Request $request, $id_project, $id_milestone)
+    public function createMilestone($id_project)
+    {
+        $project = Project::find($id_project);
+
+        if(!$this->validateAccess($project, 'manager'))
+            return redirect()->route('project-roadmap', ['id_project' => $id_project]);
+        
+        $milestone = new Milestone();
+        $milestone->id_project = $project->id;
+        $milestone->name = $_POST['name'];
+        $milestone->deadline = $_POST['deadline'];
+
+        $milestone->save();
+
+        return redirect()->route('project-roadmap', ['id_project' => $id_project]);
+    }
+
+    public function updateMilestone(Request $request, $id_project, $id_milestone)
     {
         $project = Project::find($id_project);
         $milestone = Milestone::find($id_milestone);
 
-        if(!$this->validateAccess($project, 'view')) // IS 'VIEW' ??
+        if(!$this->validateAccess($project, 'manager'))
             return response("", 400, []);
 
-        if(empty($project) || empty($milestone))
+        if(empty($milestone))
             return response('', 404, []);        
 
         $milestone->name = $request->input('name');
+        $milestone->deadline = $request->input('deadline');
         $milestone->save();
+
+        $currentDate = new DateTime();
+        $milestone['timeLeft'] = $currentDate->diff(new DateTime($milestone->deadline))->format('%a');
+        $milestone['tasks'] = Task::information(Task::where([['id_milestone', $milestone->id], ['progress', '<', 100]])->get());
+      
+
+        return json_encode(['isProjectManager' => Project::isProjectManager($project),
+                            'milestones' => Milestone::information($project->milestones),
+                            'currentMilestone' => $milestone,
+                            'date' => (new DateTime())->format('Y-m-d'),
+                            'project' => Project::information([$project])[0]]);
     }
 
     /**
