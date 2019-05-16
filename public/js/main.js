@@ -59,14 +59,6 @@ if (edit_profile_info !== undefined) {
         to_send.email = email.value;
         
         // TODO: Password change
-        // if (oldPassword.value != "" && newPassword != "" &&
-        //     newPassword.value === confirmPassword.value) {
-        //     to_send.new_password =  newPassword.value;
-        // }
-
-        // oldPassword.value = "";
-        // newPassword.value = "";
-        // confirmPassword.value = "";
 
         sendAjaxRequest.call(this, 'post', '/profile/' + id + '/edit', to_send, null);
     })
@@ -269,6 +261,16 @@ if(editMilestone != null) {
     })
 }
 
+let removeMilestone = document.querySelector('i.remove-milestone');
+
+if(removeMilestone != null) {
+    removeMilestone.addEventListener('click', function() {
+        let info = removeMilestone.getAttribute('id').split('-');
+           
+        sendAjaxRequest.call(this, 'delete', '/project/' + info[1] + '/roadmap/' + info[2] + '/remove', null, removeMilestoneHandler);
+    })
+}
+
 // ADMINISTRATION //
 
 let remove_user = document.getElementsByClassName('remove-user');
@@ -451,8 +453,25 @@ function editMilestoneHandler() {
     }
 
     milestone_name.innerHTML = item.currentMilestone.name + 
-        ' <button type="button" data-toggle="modal" data-target="#editNameModal"> <i class="far fa-edit ml-2"></i> </button>';
+        ' <button type="button" data-toggle="modal" data-target="#editNameModal"> <i class="far fa-edit ml-2"></i> </button> ' + 
+        '<i id="removeMilestone-' + item.currentMilestone.id_project + '-' + item.currentMilestone.id + '" class="remove-milestone far fa-trash-alt"></i>';
+    
+    let removeMilestone = milestone_name.querySelector('i.remove-milestone');
+    removeMilestone.addEventListener('click', function() {
+        let info = removeMilestone.getAttribute('id').split('-');  
+        sendAjaxRequest.call(this, 'delete', '/project/' + info[1] + '/roadmap/' + info[2] + '/remove', null, removeMilestoneHandler);
+    })
+
     milestone_tasks.innerHTML = createTaskHtml(item.currentMilestone.tasks, item.isProjectManager);
+}
+
+function removeMilestoneHandler() {
+    if(this.status !== 200) return;
+
+    let info = this.prototype.getAttribute('id').split('-');
+    document.getElementById(info[1] + '-milestone1-' + info[2]).remove();
+    document.getElementById(info[1] + '-milestone-' + info[2]).remove();
+    document.getElementById('milestone' + info[2]).remove();
 }
 
 function removeUserHandler() {
@@ -572,7 +591,16 @@ function changeRoadmapInfo(milestones, currentMilestone) {
         milestone_name.innerHTML = currentMilestone.name;
 
         if(isProjectManager) {
-            milestone_name.innerHTML += ' <button type="button" data-toggle="modal" data-target="#editMilestoneModal"> <i class="far fa-edit ml-2"></i> </button> ';
+            milestone_name.innerHTML += ' <button type="button" data-toggle="modal" data-target="#editMilestoneModal"> ' + 
+                '<i class="far fa-edit ml-2"></i> </button> <i id="removeMilestone-' + 
+                currentMilestone.id_project + '-' + currentMilestone.id + '" class="remove-milestone far fa-trash-alt"></i>';
+
+            let removeMilestone = milestone_name.querySelector('i.remove-milestone');
+            removeMilestone.addEventListener('click', function() {
+                let info = removeMilestone.getAttribute('id').split('-');  
+                sendAjaxRequest.call(this, 'delete', '/project/' + info[1] + '/roadmap/' + info[2] + '/remove', null, removeMilestoneHandler);
+            })
+            
             document.querySelector('input#milestone-name').value = currentMilestone.name;
             document.querySelector('input#milestone-deadline').value = currentMilestone.deadline.substr(0, 10);
             document.querySelector('.update-milestone').setAttribute('id', 'editMilestone-' + currentMilestone.id_project + '-' + currentMilestone.id);
@@ -589,11 +617,19 @@ function changeRoadmapInfo(milestones, currentMilestone) {
         milestone_content.setAttribute('data-parent', '#content');
         milestone_content.className = "collapse show main-tab card border-left-0 border-right-0 rounded-0 p-2";
         milestone_content.innerHTML = ' <div class="d-flex justify-content-between align-items-center">' + '<h3>' + currentMilestone.name + 
-            (isProjectManager ? ' <button type="button" data-toggle="modal" data-target="#editMilestoneModal"> <i class="far fa-edit ml-2"></i> </button> ' : '') +
-            '</h3> <span class="font-weight-light mr-2 flex-shrink-0">' + currentMilestone.tasks.length + 
+            (isProjectManager ? 
+                ' <button type="button" data-toggle="modal" data-target="#editMilestoneModal"> <i class="far fa-edit ml-2"></i> </button> <i id="removeMilestone-' + 
+                currentMilestone.id_project + '-' + currentMilestone.id + '" class="remove-milestone far fa-trash-alt"></i> ' 
+                : ''
+            ) + '</h3> <span class="font-weight-light mr-2 flex-shrink-0">' + currentMilestone.tasks.length + 
             ' remaining</span></div> <div class="mx-auto"> ' + createTaskHtml(currentMilestone.tasks, isProjectManager) + ' </div> </div>';
         
         if(isProjectManager) {
+            let removeMilestone = milestone_content.querySelector('i.remove-milestone');
+            removeMilestone.addEventListener('click', function() {
+                let info = removeMilestone.getAttribute('id').split('-');  
+                sendAjaxRequest.call(this, 'delete', '/project/' + info[1] + '/roadmap/' + info[2] + '/remove', null, removeMilestoneHandler);
+            })
             document.querySelector('input#milestone-name').value = currentMilestone.name;
             document.querySelector('input#milestone-deadline').value = currentMilestone.deadline.substr(0, 10);
             document.querySelector('.update-milestone').setAttribute('id', 'editName-' + currentMilestone.id_project + '-' + currentMilestone.id);

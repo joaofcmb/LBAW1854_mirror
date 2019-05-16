@@ -45,7 +45,7 @@
                                 <button type="button" data-toggle="modal" data-target="#editMilestoneModal">
                                     <i class="far fa-edit ml-2"></i>
                                 </button>
-                                
+                                <i id="removeMilestone-{{ $project->id }}-{{ $currentMilestone->id }}" class="remove-milestone far fa-trash-alt"></i>
                             @endif                            
                         </h3>                       
                         <span class="font-weight-light mr-2 flex-shrink-0">{{ sizeof($currentMilestone->tasks) }} remaining</span>

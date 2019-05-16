@@ -59,6 +59,11 @@ Route::get('/project/{id_project}/tasks/createtask/{id_taskgroup?}', 'ProjectCon
 Route::get('/project/{id_project}/close', 'ProjectController@closeProject')->name('close-project');
 Route::post('/project/{id_project}/roadmap/createmilestone', 'ProjectController@createMilestone')->name('create-milestone-action');
 Route::post('/project/{id_project}/roadmap/{id_milestone}/update', 'ProjectController@updateMilestone');
+Route::delete('/project/{id_project}/roadmap/{id_milestone}/remove', 'ProjectController@deleteMilestone');
+
+Route::post('/project/{id_project}/tasks/creategroup','ProjectController@createTaskGroup');
+Route::post('/project/{id_project}/tasks/taskgroup/{id_taskgroup}/update','ProjectController@updateTaskGroup');
+Route::delete('/project/{id_project}/tasks/taskgroup/{id_taskgroup}/remove', 'ProjectController@deleteTaskGroup');
 
 // Tasks
 Route::get('/project/{id_project}/tasks/{id_task}', 'TaskController@show')->name('task');

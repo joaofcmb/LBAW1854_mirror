@@ -347,10 +347,10 @@ class ProjectController extends Controller
             return response('', 404, []);        
 
         $milestone->name = $request->input('name');
-        $milestone->deadline = $request->input('deadline');
+        $milestone->deadline = new DateTime($request->input('deadline'));
         $milestone->save();
 
-        $currentDate = new DateTime();
+        $currentDate = new DateTime(date('Y/m/d'));
         $milestone['timeLeft'] = $currentDate->diff(new DateTime($milestone->deadline))->format('%a');
         $milestone['tasks'] = Task::information(Task::where([['id_milestone', $milestone->id], ['progress', '<', 100]])->get());
       
@@ -362,27 +362,62 @@ class ProjectController extends Controller
                             'project' => Project::information([$project])[0]]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function deleteMilestone($id_project, $id_milestone)
     {
-        //
+        $project = Project::find($id_project);
+        $milestone = Milestone::find($id_milestone);
+
+        if(!$this->validateAccess($project, 'manager'))
+            return response('', 400, []);
+
+        if(empty($milestone))
+            return response('', 404, []);
+
+        $milestone->delete();
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    function createTaskGroup($id_project)
     {
-        //
+        $project = Project::find($id_project);
+
+        if(!$this->validateAccess($project, 'manager'))
+            return response("", 400, []);
+
+        $taskGroup = new TaskGroup();
+        
+        // ...
+        
+        $taskGroup->save();
+    }
+
+    function updateTaskGroup($id_project, $id_taskgroup)
+    {
+        $project = Project::find($id_project);
+        $taskGroup = TaskGroup::find($id_taskgroup);
+
+        if(!$this->validateAccess($project, 'manager'))
+            return response("", 400, []);
+
+        if(empty($taskGroup))
+            return response('', 404, []); 
+
+        // ...
+        
+        $taskGroup->save();
+    }
+
+    function deleteTaskGroup($id_project, $id_taskgroup) 
+    {
+        $project = Project::find($id_project);
+        $taskGroup = TaskGroup::find($id_taskgroup);
+
+        if(!$this->validateAccess($project, 'manager'))
+            return response("", 400, []);
+
+        if(empty($taskGroup))
+            return response('', 404, []);
+
+        $taskGroup->delete();
     }
 
     /**

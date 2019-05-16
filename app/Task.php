@@ -81,7 +81,7 @@ class Task extends Model
             $task['teams'] = $task->teams;
             $task['developers'] = TeamTask::join('developer', 'developer.id_team', '=', 'team_task.id_team')->where('id_task', $task['id'])->count();
 
-            $currentDate = new DateTime();
+            $currentDate = new DateTime(date('Y/m/d'));
             $creationDate = new DateTime($task['creation_date']);
             $deadline = new DateTime(Milestone::where('id', $task['id_milestone'])->value('deadline'));
 

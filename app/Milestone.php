@@ -39,7 +39,7 @@ class Milestone extends Model
      */
     public static function information($milestones) {
 
-        $currentDate = new DateTime();
+        $currentDate = new DateTime(date('Y/m/d'));
 
         foreach ($milestones as $milestone) {
             $milestone['timeLeft'] = $currentDate->diff(new DateTime($milestone->deadline))->format('%a');

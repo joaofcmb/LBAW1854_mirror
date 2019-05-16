@@ -130,10 +130,9 @@ class Project extends Model
      * @throws \Exception
      */
     public static function getCurrentMilestone($project) {
-        $currentDate = new DateTime();
-        $date = $currentDate->format('Y-m-d');
+        $currentDate = new DateTime(date('Y/m/d'));
 
-        $currentMilestone = Milestone::where([['id_project', $project->id], ['deadline', '>=', $date]])->orderBy('deadline', 'asc')->first();
+        $currentMilestone = Milestone::where([['id_project', $project->id], ['deadline', '>=', $currentDate]])->orderBy('deadline', 'asc')->first();
         
         if(is_object($currentMilestone)) {
             $currentMilestone['timeLeft'] = $currentDate->diff(new DateTime($currentMilestone->deadline))->format('%a');
@@ -153,7 +152,7 @@ class Project extends Model
      * @throws \Exception
      */
     public static function getMilestone($milestone_id) {
-        $currentDate = new DateTime();
+        $currentDate = new DateTime(date('Y/m/d'));
 
         $currentMilestone = Milestone::where('id', $milestone_id)->orderBy('deadline', 'asc')->first();
         $currentMilestone['timeLeft'] = $currentDate->diff(new DateTime($currentMilestone->deadline))->format('%a');
