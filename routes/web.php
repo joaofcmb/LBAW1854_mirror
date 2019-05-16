@@ -11,17 +11,28 @@
 |
 */
 
-use App\Forum;
-
 Route::get('/', function () {
-    return redirect('index');
+    return redirect('login');
 });
 
+// Cards
+Route::get('cards', 'CardController@list');
+Route::get('cards/{id}', 'CardController@show');
+
+// API
+Route::put('api/cards', 'CardController@create');
+Route::delete('api/cards/{card_id}', 'CardController@delete');
+Route::put('api/cards/{card_id}/', 'ItemController@create');
+Route::post('api/item/{id}', 'ItemController@update');
+Route::delete('api/item/{id}', 'ItemController@delete');
+
 // Authentication
+
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-Route::post('login', 'Auth\LoginController@login')->name('login-action');
+Route::post('login', 'Auth\LoginController@login');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+<<<<<<< HEAD
 Route::post('register', 'Auth\RegisterController@register')->name('register-action');
 
 // Home, Search and Static pages
@@ -90,3 +101,6 @@ Route::get('/admin/project/{id}/cancel', 'AdministratorController@cancelProject'
 Route::post('/api/project/{id_project}/roadmap/changeview', 'ProjectController@changeMilestoneView');
 
 
+=======
+Route::post('register', 'Auth\RegisterController@register');
+>>>>>>> master
