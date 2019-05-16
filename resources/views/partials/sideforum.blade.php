@@ -24,7 +24,7 @@
         </div>
     </div>
 @else
-    <div id="side-forum" class="col-lg-4 px-0 mt-md-5 mt-lg-3 mb-4">
+    <div id="side-forum" class="col-lg-4 px-0 mt-2 mt-md-5 mt-lg-3 mb-4">
         <div class="container">
             <div class="d-flex justify-content-between align-items-center">
                 <a href="{{ route('companyforum') }}" id="companyForum">

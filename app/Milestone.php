@@ -30,7 +30,6 @@ class Milestone extends Model
         return $this->belongsTo('App\Project', 'id_project');
     }
 
-
     /**
      * Get information about milestones
      *

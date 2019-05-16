@@ -240,7 +240,7 @@ for(let i = 0; i < deleteThreadComment.length; i++) {
 }
 
 // ROADMAP //
-let milestones = document.getElementsByClassName('milestone-switch')
+let milestones = document.getElementsByClassName('milestone-switch');
 
 let milestoneSwitchListener = function() {
     let milestone = this.getAttribute('id').split('-');
@@ -255,15 +255,17 @@ for(let i = 0; i < milestones.length; i++){
     milestones[i].addEventListener('click', milestoneSwitchListener)
 }
 
-let editMilestoneName = document.getElementById('editNameModal');
+let editMilestone = document.getElementById('editMilestoneModal');
 
-if(editMilestoneName != null) {
-    let save = editMilestoneName.querySelector('.save-new-milestone-name');
+if(editMilestone != null) {
+    let save = editMilestone.querySelector('.update-milestone');
     save.addEventListener('click', function() {
         let info = save.getAttribute('id').split('-');
-        let input = editMilestoneName.querySelector('input#milestone-name');
-
-        sendAjaxRequest.call(this, 'post', '/project/' + info[1] + '/roadmap/' + info[2] + '/update', {name: input.value}, editMilestoneNameHandler);
+        let input_name = editMilestone.querySelector('input#milestone-name');
+        let input_deadline = editMilestone.querySelector('input#milestone-deadline');
+        
+        sendAjaxRequest.call(this, 'post', '/project/' + info[1] + '/roadmap/' + info[2] + '/update', 
+            {name: input_name.value, deadline: input_deadline.value}, editMilestoneHandler);
     })
 }
 
@@ -292,7 +294,7 @@ function restoreUserListener(event) {
 
 for(let i = 0; i < restore_user.length; i++) {
     restoreUserListener.bind(restore_user[i]);
-    restore_user[i].addEventListener('click', restoreUserListener)
+    restore_user[i].addEventListener('click', restoreUserListener);
 }
 
 //////////////
@@ -413,16 +415,44 @@ function changeMilestoneHandler() {
     changeRoadmapInfo(document.getElementById('all-milestones').children, item);
 }
 
-function editMilestoneNameHandler() {
+function editMilestoneHandler() {
     if (this.status !== 200) return;
 
-    let info = this.prototype.getAttribute('id').split('-');
-    let milestone_content = document.querySelector('div#milestone' + info[2]);
+    let item = JSON.parse(this.responseText);
+    let roadmap_bar = document.querySelector('div.roadmap-diagram');
+    let roadmap_descrip = document.getElementById('all-milestones');
+    let milestone_content = document.getElementById('milestone'+ item.currentMilestone.id);
     let milestone_name = milestone_content.querySelector('h3');
-    let input = document.querySelector('input#milestone-name');
+    let milestone_tasks = milestone_content.querySelector('div.mx-auto');
+    let milestones = item.milestones;
 
-    milestone_name.innerHTML = input.value + 
-        '<button type="button" data-toggle="modal" data-target="#editNameModal"> <i class="far fa-edit ml-2"></i> </button>';   
+    roadmap_bar.innerHTML = '<div class="p-1"></div> ';
+    roadmap_descrip.innerHTML = '<div class="p-4"></div> ';
+
+    for (let i = 0; i < milestones.length; i++) {
+        roadmap_bar.innerHTML += '<a id="' + milestones[i].id_project + '-milestone1-' + milestones[i].id + '" data-toggle="collapse" ' + 
+            'class="milestone-switch milestone py-2"><i class="far fa-' + (new Date(milestones[i].deadline) < new Date(item.date) ? 'dot-' : '' ) + 
+            'circle align-middle"></i></a> ';
+        roadmap_descrip.innerHTML += '<a id="' + milestones[i].id_project + '-milestone-' + milestones[i].id + '" data-toggle="collapse" ' +
+            (milestones[i].id == item.currentMilestone.id ? 'aria-expanded=true' : '') +
+            ' class="milestone-switch milestone-info ' + (milestones[i].id == item.currentMilestone.id ? 'active' : 'collapsed') + ' text-center pb-3" ' +
+            'style="border-color: rgb(12, 116, 214);"> <h6 class="mb-1">' + milestones[i].deadline.substr(0,10) + '</h6> ' +
+            (new Date(milestones[i].deadline) < new Date(item.date) ? 'Elapsed' : milestones[i].timeLeft + ' days left') + ' </a> ';
+        milestones[i];
+    }
+
+    roadmap_bar.innerHTML += '<div class="p-1"></div> ';
+    roadmap_descrip.innerHTML += '<div class="p-4"></div> ';
+
+    let milestones_button = document.getElementsByClassName('milestone-switch');
+    for(let i = 0; i < milestones_button.length; i++){
+        milestoneSwitchListener.bind(milestones_button[i]);
+        milestones_button[i].addEventListener('click', milestoneSwitchListener)
+    }
+
+    milestone_name.innerHTML = item.currentMilestone.name + 
+        ' <button type="button" data-toggle="modal" data-target="#editNameModal"> <i class="far fa-edit ml-2"></i> </button>';
+    milestone_tasks.innerHTML = createTaskHtml(item.currentMilestone.tasks, item.isProjectManager);
 }
 
 function removeUserHandler() {
@@ -542,10 +572,10 @@ function changeRoadmapInfo(milestones, currentMilestone) {
         milestone_name.innerHTML = currentMilestone.name;
 
         if(isProjectManager) {
-            milestone_name.innerHTML += ' <button type="button" data-toggle="modal" data-target="#editNameModal"> <i class="far fa-edit ml-2"></i> </button> ';
+            milestone_name.innerHTML += ' <button type="button" data-toggle="modal" data-target="#editMilestoneModal"> <i class="far fa-edit ml-2"></i> </button> ';
             document.querySelector('input#milestone-name').value = currentMilestone.name;
-
-            document.querySelector('.save-new-milestone-name').setAttribute('id', 'editName-' + currentMilestone.id_project + '-' + currentMilestone.id);
+            document.querySelector('input#milestone-deadline').value = currentMilestone.deadline.substr(0, 10);
+            document.querySelector('.update-milestone').setAttribute('id', 'editMilestone-' + currentMilestone.id_project + '-' + currentMilestone.id);
         }
         
         header.querySelector('span').textContent = currentMilestone.tasks.length + ' remaining';
@@ -559,13 +589,14 @@ function changeRoadmapInfo(milestones, currentMilestone) {
         milestone_content.setAttribute('data-parent', '#content');
         milestone_content.className = "collapse show main-tab card border-left-0 border-right-0 rounded-0 p-2";
         milestone_content.innerHTML = ' <div class="d-flex justify-content-between align-items-center">' + '<h3>' + currentMilestone.name + 
-            (isProjectManager ? ' <button type="button" data-toggle="modal" data-target="#editNameModal"> <i class="far fa-edit ml-2"></i> </button> ' : '') +
+            (isProjectManager ? ' <button type="button" data-toggle="modal" data-target="#editMilestoneModal"> <i class="far fa-edit ml-2"></i> </button> ' : '') +
             '</h3> <span class="font-weight-light mr-2 flex-shrink-0">' + currentMilestone.tasks.length + 
             ' remaining</span></div> <div class="mx-auto"> ' + createTaskHtml(currentMilestone.tasks, isProjectManager) + ' </div> </div>';
         
         if(isProjectManager) {
             document.querySelector('input#milestone-name').value = currentMilestone.name;
-            document.querySelector('.save-new-milestone-name').setAttribute('id', 'editName-' + currentMilestone.id_project + '-' + currentMilestone.id);
+            document.querySelector('input#milestone-deadline').value = currentMilestone.deadline.substr(0, 10);
+            document.querySelector('.update-milestone').setAttribute('id', 'editName-' + currentMilestone.id_project + '-' + currentMilestone.id);
         }
 
         document.getElementById('content').appendChild(milestone_content);
@@ -614,6 +645,10 @@ function createTaskHtml(tasks, isProjectManager) {
     }
 
     return html;
+}
+
+function insertMilestoneInRoadmap(milestoneHtml) {
+
 }
 
 //////////
