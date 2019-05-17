@@ -376,7 +376,7 @@ class ProjectController extends Controller
         $milestone->delete();
     }
 
-    function createTaskGroup($id_project)
+    public function createTaskGroup(Request $request, $id_project)
     {
         $project = Project::find($id_project);
 
@@ -384,13 +384,14 @@ class ProjectController extends Controller
             return response("", 400, []);
 
         $taskGroup = new TaskGroup();
-        
-        // ...
-        
+        $taskGroup->id_project = $id_project;  
+        $taskGroup->title = $request->input('title');  
         $taskGroup->save();
+
+        return json_encode($taskGroup);
     }
 
-    function updateTaskGroup($id_project, $id_taskgroup)
+    public function updateTaskGroup(Request $request, $id_project, $id_taskgroup)
     {
         $project = Project::find($id_project);
         $taskGroup = TaskGroup::find($id_taskgroup);
@@ -398,15 +399,14 @@ class ProjectController extends Controller
         if(!$this->validateAccess($project, 'manager'))
             return response("", 400, []);
 
-        if(empty($taskGroup))
+        if(empty($taskGroup) || $taskGroup->id_project != $id_project)
             return response('', 404, []); 
 
-        // ...
-        
+        $taskGroup->title = $request->input('title');        
         $taskGroup->save();
     }
 
-    function deleteTaskGroup($id_project, $id_taskgroup) 
+    public function deleteTaskGroup($id_project, $id_taskgroup) 
     {
         $project = Project::find($id_project);
         $taskGroup = TaskGroup::find($id_taskgroup);

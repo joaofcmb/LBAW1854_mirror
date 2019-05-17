@@ -271,6 +271,49 @@ if(removeMilestone != null) {
     })
 }
 
+// TASKS //
+
+let addTaskGroup = document.querySelector('button.add-group');
+
+if(addTaskGroup != null) {
+    addTaskGroup.addEventListener('click', function() {
+        let id_project = this.getAttribute('id').split('-')[1];
+        let title = document.querySelector('#task-group-title').value;
+        
+        sendAjaxRequest.call(this, 'post', '/project/' + id_project + '/tasks/creategroup', {title: title}, createTaskGroupHandler);
+    })
+}
+
+$('#editTaskGroupModal').on('show.bs.modal', function () {
+    let modal = this;
+    let button = document.getElementsByClassName('editTaskGroupButton')[0];
+    let title = button.getAttribute('data-whatever');
+    let id_taskgroup = button.getAttribute('id').split('-')[1];
+    modal.querySelector('.modal-body input').value = title;
+
+    let save = modal.querySelector('button.edit-group');
+    let id_project = save.getAttribute('id').split('-')[1];
+    save.setAttribute('id', 'editGroup-' + id_project + '-' + id_taskgroup);
+
+    save.addEventListener('click', function() {
+        let new_title = modal.querySelector('input#task-group-title-edit').value;
+        sendAjaxRequest.call(this, 'post', '/project/' + id_project + '/tasks/taskgroup/' + id_taskgroup + '/update', 
+            {title: new_title}, editTaskGroupHandler);
+    })
+})
+
+let removeTaskGroup = document.getElementsByClassName('remove-task-group');
+
+let removeTaskGroupListener = function() {
+    let info = this.getAttribute('id').split('-');
+    sendAjaxRequest.call(this, 'delete', '/project/' + info[1] + '/tasks/taskgroup/' + info[2] + '/remove', null, removeTaskGroupHandler);
+}
+
+for(let i = 0; i < removeTaskGroup.length; i++) {
+    removeTaskGroupListener.bind(removeTaskGroup[i]);
+    removeTaskGroup[i].addEventListener('click', removeTaskGroupListener);
+}
+
 // ADMINISTRATION //
 
 let remove_user = document.getElementsByClassName('remove-user');
@@ -472,6 +515,55 @@ function removeMilestoneHandler() {
     document.getElementById(info[1] + '-milestone1-' + info[2]).remove();
     document.getElementById(info[1] + '-milestone-' + info[2]).remove();
     document.getElementById('milestone' + info[2]).remove();
+}
+
+function createTaskGroupHandler() {
+    if(this.status !== 200) return;
+
+    let taskgroup = JSON.parse(this.responseText);
+    let group_div = document.createElement('div');
+    group_div.setAttribute('class', 'main-tab task-group border-hover flex-shrink-0 card open border-left-0 border-right-0 rounded-0 py-2 mr-5');
+    group_div.setAttribute('id', 'group-' + taskgroup.id_project + '-' + taskgroup.id);
+
+    let createTaskRoute = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/project/" + 
+        taskgroup.id_project + "/tasks/createtask/" + taskgroup.id + "/";
+
+    group_div.innerHTML = '<div id="task-group-hover" class="mx-auto mb-1"> <a href="' + createTaskRoute + '"><i class="fas fa-plus fa-fw hover-icon mr-2"></i></a> ' +
+        '<button id="editTaskGroup-' + taskgroup.id + '" type="button" data-toggle="modal" data-target="#editTaskGroupModal" '+
+        'data-whatever="' + taskgroup.title + '" class="editTaskGroupButton mx-2 px-0"><i class="far fa-edit fa-fw hover-icon"></i></button> ' +
+        '<i id="removeTaskGroup-' + taskgroup.id_project + '-' + taskgroup.id + '" class="remove-task-group far fa-trash-alt fa-fw hover-icon ml-2"></i> ' +
+        '</div> <div class="d-flex flex-shrink-0 text-center my-1 mx-auto"> <h3>' + taskgroup.title + '</h3> </div>' + 
+        '<div class="px-3 overflow-auto pr-2 pl-2 mt-1 mb-2"> </div> </div>';
+
+    let add_group_div = document.getElementById('add-group').parentElement;
+
+    document.getElementById('task-groups').insertBefore(group_div, add_group_div);
+
+    let removeTaskGroup = document.getElementById('removeTaskGroup-' + taskgroup.id_project + '-' + taskgroup.id);
+    removeTaskGroupListener.bind(removeTaskGroup);
+    removeTaskGroup.addEventListener('click', removeTaskGroupListener);
+
+    $('.border-hover').hover(
+        function() {$(this).find('>:first-child .hover-icon').css('display', 'inline-block')},
+        function() {$(this).find('>:first-child .hover-icon').css('display', 'none')}
+    )
+}
+
+function editTaskGroupHandler() {
+    if(this.status !== 200) return;
+
+    let info = this.prototype.getAttribute('id').split('-');
+    let group = document.getElementById('group-' + info[1] + '-' + info[2]);
+    let title = document.querySelector('input#task-group-title-edit').value;
+    group.querySelector('h3').textContent = title;
+    group.querySelector('button#editTaskGroup-' + info[2]).setAttribute('data-whatever', title);
+}
+
+function removeTaskGroupHandler() {
+    if(this.status !== 200) return;
+
+    let info = this.prototype.getAttribute('id').split('-');
+    document.getElementById('group-' + info[1] + '-' + info[2]).remove();
 }
 
 function removeUserHandler() {
