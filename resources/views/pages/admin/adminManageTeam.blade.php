@@ -30,12 +30,12 @@
                         <h4>Users</h4>
                     </div>
                     <div class="card-body">
-                        @include('partials.searchBar', ['page' => 'manageTeam', 'content' => 'Users...'])
+                        @include('partials.searchBar', ['page' => 'manageTeam', 'content' => 'Users...', 'searchPage' => 'manageTeam'])
                         
                         @foreach($users as $user)
                             @include('partials.cards.profile', [
                                 'isLeader' => false,
-                                'user' => $user, 
+                                'user' => $user,
                                 'manageTeam' => true
                             ])
                         @endforeach
@@ -66,7 +66,7 @@
                                     @endif >
                             </div>
                         </form>
-                        <div>
+                        <div id="Leader">
                             <h5 class="text-center">Leader</h5>
                             @isset($team)
                                 @include('partials.cards.profile', [
@@ -77,7 +77,7 @@
                                 ])
                             @endisset
                         </div>
-                        <div>
+                        <div id="Members">
                             <h5 class="text-center">Members</h5>
                             @isset($team)
                                 @foreach($team->members as $member)

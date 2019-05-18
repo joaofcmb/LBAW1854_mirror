@@ -93,5 +93,5 @@ Route::get('/admin/project/{id}/cancel', 'AdministratorController@cancelProject'
 
 // API - Project
 Route::post('/api/project/{id_project}/roadmap/changeview', 'ProjectController@changeMilestoneView');
-
+Route::post('/api/search/data', 'SearchController@search');
 

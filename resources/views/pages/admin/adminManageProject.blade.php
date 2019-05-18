@@ -61,12 +61,12 @@
                                           rows="7">{{ isset($project) ? $project->description : '' }}</textarea>
                             </div>
                         </form>
-                        @include('partials.searchBar', ['page' => 'manageProject', 'content' => 'Project Manager'])
+                        @include('partials.searchBar', ['page' => 'manageProject', 'content' => 'Project Manager', 'searchPage' => 'manageProject'])
                         
                         @isset($project)
                             @include('partials.cards.profile', [
                                 'isLeader' => false,
-                                'user' => (object) array('id' => $project->id_leader, 'username' => $project->manager),
+                                'user' => (object) array('id' => $project->id_manager, 'username' => $project->manager),
                                 'manager' => true
                             ])
                         @endisset

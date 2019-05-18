@@ -10,6 +10,7 @@ use App\Developer;
 use App\Team;
 use App\Task;
 use App\Forum;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {

@@ -1,5 +1,5 @@
 @isset ($adminView)
-    <div class="row justify-content-center pb-4">
+    <div id="{{ $user->id }}" class="row justify-content-center pb-4">
         <div class="col-11 col-md-8 ali">
             @if(!$user->is_active)
                 <div id="card-{{ $user->id }}" class="restore card">
@@ -30,7 +30,7 @@
     </div>
 @else
     @if($isLeader)
-        <div class="profile card my-3">
+        <div id="{{ $leader->id }}"class="profile card my-3">
             <div class="card-body text-center">
                 <a href="{{ route('profile', ['id' => $leader->id]) }}">
                     <img src="{{ asset('img/profile.png') }}" width="125px" height="125px"
@@ -48,9 +48,9 @@
     @else
         @isset($manager)
             @isset($teamMember)
-                <div class="profile card my-3">
+                <div id="{{ isset($user->id_user) ? $user->id_user : $user->id }}" class="profile card my-3">
             @else
-                <div class="profile card my-3 col-sm-12 col-md-6 pl-0">
+                <div id="{{ isset($user->id_user) ? $user->id_user : $user->id }}" class="profile card my-3 col-sm-12 col-md-6 pl-0">
             @endisset
         @else
             <div class="profile card my-3">

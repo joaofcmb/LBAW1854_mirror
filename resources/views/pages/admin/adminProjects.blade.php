@@ -19,7 +19,7 @@
 
     <div id="content" class="container">
         <div class="row justify-content-center" id="search-bar">
-            @include('partials.searchBar', ['page' => 'admin', 'content' => 'Projects...'])
+            @include('partials.searchBar', ['page' => 'admin', 'content' => 'Projects...', 'searchPage' => 'adminProjects'])
         </div>
     </div>
 

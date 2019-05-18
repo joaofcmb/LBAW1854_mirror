@@ -10,10 +10,10 @@
         </nav>
         <div class="tab-content border border-top-0">
             <div class="tab-pane fade show active" id="teams" role="tabpanel">
-                @include('partials.searchBar', ['page' => 'assign', 'content' => 'Teams...'])
+                @include('partials.searchBar', ['page' => 'assign', 'content' => 'Teams...', 'searchPage' => 'teamAssign'])
 
                 @foreach($teams as $team)
-                    <div class="card open flex-row justify-content-between p-2 mx-3 my-2">
+                    <div id="{{ $team->id }}" class="card open flex-row justify-content-between p-2 mx-3 my-2">
                         <div class="custom-control custom-checkbox">
                             <input checked type="checkbox" class="custom-control-input" id="team{{ $team->id }}">
                             <label class="custom-control-label team-name" for="team{{ $team->id }}">{{ $team->name }}</label>
@@ -24,7 +24,7 @@
             </div>
 
             <div class="tab-pane fade" id="milestone" role="tabpanel">
-                @include('partials.searchBar', ['page' => 'assign', 'content' => 'Milestone...'])
+                @include('partials.searchBar', ['page' => 'assign', 'content' => 'Milestone...', 'searchPage' => 'milestoneAssign'])
 
                 <div class="card open flex-row justify-content-between p-2 mx-3 my-2">
                     <div class="custom-control custom-radio">

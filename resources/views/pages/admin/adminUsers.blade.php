@@ -24,11 +24,11 @@
     
     <div id="content" class="container">
         <div class="row justify-content-center" id="search-bar">
-            @include('partials.searchBar', ['page' => 'admin', 'content' => 'Users...'])
+            @include('partials.searchBar', ['page' => 'admin', 'content' => 'Users...', 'searchPage' => 'adminUsers'])
         </div>
     </div>
 
-    <div id="search-content" class="container mt-3 mb-4">        
+    <div id="search-content" class="container mt-3 mb-4">
         @foreach($users as $user)
             @include('partials.cards.profile', [
                 'adminView' => true,

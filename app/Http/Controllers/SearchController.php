@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Project;
+use App\Team;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class SearchController extends Controller
@@ -39,14 +44,54 @@ class SearchController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Search for the specified data.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return array
      */
-    public function show()
+    public function search(Request $request)
     {
-        //
+        $query = $request->input('query');
+        $data = $request->input('data');
+
+        $constraints = $request->input('constraints');
+        $constraints = empty($constraints) ? [] : explode(",", $constraints);
+
+        if($data == 'Users')
+            return $this->searchUsers(str_replace_first(':* | ', ':A* | ', (str_replace(" ", ':* | ', $query) . ':*')), $constraints);
+        else if($data == 'Projects')
+            return $this->searchProjects(str_replace_first(':* | ', ':A* | ', (str_replace(" ", ':* | ', $query) . ':*')));
+        else
+            return $this->searchTeams(str_replace_first(':* | ', ':A* | ', (str_replace(" ", ':* | ', $query) . ':*')), $constraints);
+    }
+
+    public function searchUsers($query, $constraints) {
+
+        return User::selectRaw("id, first_name, last_name")
+            ->whereRaw("to_tsvector(first_name || ' ' || last_name) @@ to_tsquery('simple', ?)", [$query])
+            ->whereNotIn('id', $constraints)
+            ->orderByRaw("ts_rank(to_tsvector(first_name || ' ' || last_name), to_tsquery('simple', ?)) DESC", [$query])
+            ->get();
+
+    }
+
+    public function searchProjects($query) {
+
+        return Project::selectRaw("id, name, description")
+            ->whereRaw("(setweight(to_tsvector(name), 'A') || setweight(to_tsvector(description), 'B')) @@ to_tsquery('simple', ?)", [$query])
+            ->orderByRaw("ts_rank((setweight(to_tsvector(name), 'A') || setweight(to_tsvector(description), 'B')), to_tsquery('simple', ?)) DESC", [$query])
+            ->get();
+
+    }
+
+    public function searchTeams($query, $constraints) {
+
+        return Team::selectRaw("id, name, skill")
+            ->whereRaw("to_tsvector(name || ' ' || skill) @@ to_tsquery('simple', ?)", [$query])
+            ->whereNotIn('id', $constraints)
+            ->orderByRaw("ts_rank(to_tsvector(name || ' ' || skill), to_tsquery('simple', ?)) DESC", [$query])
+            ->get();
+
     }
 
     /**
