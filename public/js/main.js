@@ -793,6 +793,11 @@ let searchBar = document.getElementsByClassName('search-bar')
 
 let doneTyping = function () {
 
+    let regex = /\w/gm;
+
+    if(this.firstElementChild.firstElementChild.value.search(new RegExp(regex)) === -1)
+        return
+
     let page = this.getAttribute('class').split(' ')[1];
 
     switch (page) {
