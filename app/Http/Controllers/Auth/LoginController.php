@@ -47,6 +47,16 @@ class LoginController extends Controller
         return 'username';
     }
 
+     /**
+     * Get the login name (first + last name) to be used by the controller.
+     *
+     * @return string
+     */
+    public function name() {
+
+        return 'first_name ' + 'last_name';
+    }
+
     /**
      * Create a new controller instance.
      *
