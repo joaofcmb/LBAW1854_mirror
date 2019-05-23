@@ -15,7 +15,7 @@
     <div class="d-flex flex-shrink-0 text-center my-1 mx-auto">
         <h3>{{ $title }}</h3>
     </div>
-    <div class="px-3 overflow-auto pr-2 pl-2 mt-1 mb-2">
+    <div class="drop-area px-3 overflow-auto pr-2 pl-2 mt-1 mb-2">
         @foreach($tasks as $task)
             @include('partials.cards.task', [
                 'task' => $task,

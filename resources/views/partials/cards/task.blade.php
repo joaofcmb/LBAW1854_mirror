@@ -1,6 +1,6 @@
 @isset($isProjectManager)
     @isset($isTasksPage)
-        <section class="task card border-hover p-2 m-2 mt-3">
+        <section id="task-{{$task->id}}"draggable="true" class="task draggable card border-hover p-2 m-2 mt-3">
     @else
         <section class="task card border-hover @isset($selected) sticky @endisset float-sm-left p-2 m-2 mt-3">
     @endisset

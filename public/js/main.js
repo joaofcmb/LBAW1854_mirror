@@ -880,7 +880,6 @@ function editSearch() {
 }
 
 for(let i = 0; i < searchBar.length; i++) {
-
     searchBar[i].addEventListener('keyup', function () {
         clearTimeout(typingTimer);
         typingTimer = setTimeout(doneTyping.bind(searchBar[i]), doneTypingInterval);
@@ -904,7 +903,33 @@ function sendAjaxRequest(method, url, data, handler) {
 
 function encodeForAjax(data) {
     if (data == null) return null;
-    return Object.keys(data).map(function(k){
+    return Object.keys(data).map(function(k) {
         return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
     }).join('&');
 }
+
+// DRAG AND DROP (Task Groups) //
+let tasks = document.getElementsByClassName('draggable');
+let taskGroups = document.getElementsByClassName('task-group');
+
+for (const task of tasks) {
+    task.addEventListener('dragstart', function(ev) {
+        ev.dataTransfer.setData("text/plain", ev.target.id);
+    });
+}
+
+for (const taskGroup of taskGroups) {
+    taskGroup.addEventListener('dragover', function(ev) {
+        ev.preventDefault();
+    });
+
+    taskGroup.addEventListener('drop', function(ev) {
+        ev.preventDefault();
+        let movedTask = document.getElementById(ev.dataTransfer.getData("text/plain"));
+
+        ev.target.getElementsByClassName('drop-area')[0].appendChild(movedTask);
+    })
+}
+
+
+
