@@ -69,6 +69,7 @@ Route::delete('/project/{id_project}/tasks/taskgroup/{id_taskgroup}/remove', 'Pr
 Route::get('/project/{id_project}/tasks/{id_task}', 'TaskController@show')->name('task');
 Route::get('/project/{id_project}/tasks/{id_task}/edit', 'TaskController@edit')->name('task-edit');
 Route::get('/project/{id_project}/tasks/{id_task}/assign', 'TaskController@assign')->name('task-assign');
+Route::post('/project/{id_project}/tasks/{id_task}/assign-group/{id_group}', 'TaskController@group');
 
 // Profile
 Route::get('/profile/{id}', 'ProfileController@show')->name('profile');

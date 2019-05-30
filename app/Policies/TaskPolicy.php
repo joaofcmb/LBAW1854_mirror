@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Developer;
 use App\Project;
+use App\TaskGroup;
 use App\TeamProject;
 use App\User;
 use App\Task;
@@ -50,6 +51,10 @@ class TaskPolicy
     public function assign(User $user, Task $task, Project $project)
     {
         return $project->id_manager == $user->id && $task->id_project == $project->id;
+    }
+
+    public function group(User $user, Project $project, Task $task, TaskGroup $group) {
+        return $project->id_manager == $user->id && $task->id_project == $project->id && $group->id_project == $project->id;
     }
 
     /**

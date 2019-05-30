@@ -925,9 +925,13 @@ for (const taskGroup of taskGroups) {
 
     taskGroup.addEventListener('drop', function(ev) {
         ev.preventDefault();
-        let movedTask = document.getElementById(ev.dataTransfer.getData("text/plain"));
 
-        ev.target.getElementsByClassName('drop-area')[0].appendChild(movedTask);
+        let movedTask = document.getElementById(ev.dataTransfer.getData("text/plain"));
+        let taskId = movedTask.id.split('-')[1];
+        let groupIds = taskGroup.id.split('-');
+        sendAjaxRequest('post', '/project/' + groupIds[1] + '/tasks/' + taskId + '/assign-group/' + groupIds[2], {}, new function() {
+            ev.target.getElementsByClassName('drop-area')[0].appendChild(movedTask);
+        });
     })
 }
 

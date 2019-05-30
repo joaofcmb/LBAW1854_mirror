@@ -6,6 +6,7 @@ use App\Developer;
 use App\Milestone;
 use App\Project;
 use App\Task;
+use App\TaskGroup;
 use App\Team;
 use App\TeamTask;
 use App\User;
@@ -123,6 +124,18 @@ class TaskController extends Controller
                                                     'milestones' => $milestones,
                                                     'currentMilestone' => $currentMilestone
         ]);
+    }
+
+    public function group($id_project, $id_task, $id_group) {
+        $project = Project::find($id_project);
+        $task = Task::find($id_task);
+        $group = TaskGroup::find($id_group);
+
+        if(!$this->validateAccess('group', $project, $task, $group))
+            return redirect()->route('404');
+
+        $task->id_group = $id_group;
+        $task->save();
     }
 
     /**
