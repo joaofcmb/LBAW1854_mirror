@@ -24,13 +24,13 @@ INSERT INTO "user"(username, first_name, last_name, email, password, biography) 
 INSERT INTO "user"(username, first_name, last_name, email, password, biography) VALUES ('curranlamb','Curran','Lamb','Larissa@tristique.gov','$2y$12$UvZyRmzEu/PHx3yYD9Zi/eT9EyjTEQ2r1tYIslKWx/KnisGWj1wa.','Aliquam aliquet at diam fermentum Mauris vestibulum facilisi justo posuere porta tellus semper nulla'); --Andallthatglittersisgold
 INSERT INTO "user"(username, first_name, last_name, email, password, biography) VALUES ('maianavarro','Maia','Navarro','Gary@nisl.net','$2y$12$YfbZgJUn.oB8mRskBctRh.vrcqOe4KCNDXYuAuavd.pJQKehD5OES','Nulla mi Nam penatibus metus pellentesque orci justo Phasellus justo eget'); --Onlyshootingstarsbreakthemold
 INSERT INTO "user"(username, first_name, last_name, email, password, biography) VALUES ('mariamwilcox','Mariam','Wilcox','Hu@vulputate.org','$2y$12$DbtydK27rZfbD8Ua.2K7deHHUd87fWA2SjuLLbnIxw4RnaX48nR/G','Class hymenaeos cursus'); --Itsacoolplaceandtheysayitgetscolder
-INSERT INTO "user"(username, first_name, last_name, email, password, biography) VALUES ('cullenleblanc','Cullen','Leblanc','Erich@varius.net','$2y$12$wRvW1RafF6KmvK6sQeLz/ePgiwT4C.bE7.CBqNEDSbQbhYTyYbcmy','sodales id Quisque in risus Curabitur pede'); --Yourebundledupnow
+INSERT INTO "user"(username, first_name, last_name, email, password, biography) VALUES ('cullenleblanc','Cullen','Leblanc','Erich@varius.net','$2y$12$wRvW1RafF6KmvK6sQeLz/ePgiwT4C.bE7.CBqNEDSbQbhYTyYbcmy','Am but a simple computer science engineer who also enjoys partying and the occasional d&d game. :)'); --Yourebundledupnow
 INSERT INTO "user"(username, first_name, last_name, email, password, biography) VALUES ('stacystephenson','Stacy','Stephenson','Brody@mus.org','$2y$12$JnKR44i6VUbemJFjoqB0e.6C5yar0isiRFkTEuY5JzB3NmUeV7p7.','eros hendrerit neque nulla congue justo ultricies purus Vestibulum'); --waittillyougetolder
 INSERT INTO "user"(username, first_name, last_name, email, password, biography) VALUES ('inezgates','Inez','Gates','Rashad@euismod.edu','$2y$12$J/.fBzA7ggMqKMTlWO.oGOX/zhR98JNjy12rG6q2B8C1eCn7C4NBe','nonummy sit non nunc consequat accumsan fames Integer parturient libero ante pharetra tincidunt arcu imperdiet'); --Butthemeteormenbegtodiffer
 INSERT INTO "user"(username, first_name, last_name, email, password, biography) VALUES ('maisieyang','Maisie','Yang','Desirae@pulvinar.com','$2y$12$HpckhdZ18h3vweSb4qDb2OiX2Bv6fFlWsBKv2Os3M.AgBxsaYMBkK','et facilisis augue purus sagittis sodales vestibulum nascetur massa nostra Quisque scelerisque inceptos netus aptent Aenean'); --Judgingbytheholeinthesatellitepicture
 INSERT INTO "user"(username, first_name, last_name, email, password, biography) VALUES ('howardreilly','Howard','Reilly','Stuart@eget.us','$2y$12$uEx3jO1qxIBCPwEdfULMGuV8zJSFf7fhp5eaxS6R/aFY/pN7bd02e','purus nisl lectus'); --Theiceweskateisgettingprettythin
 INSERT INTO "user"(username, first_name, last_name, email, password, biography) VALUES ('jamesonhanson','Jameson','Hanson','Lucian@metus.com','$2y$12$IKzbWPddGCerLl6XOMzFWO/Ec4nttLo.JHScNwxhh91Xmm/fhljdu','urna est Pellentesque Pellentesque ullamcorper eros Ut penatibus Curae felis blandit nec sociosqu'); --Thewatersgettingwarm
-INSERT INTO "user"(username, first_name, last_name, email, password, biography) VALUES ('armandomartinez','Armando','Martinez','Jarrod@nascetur.gov','$2y$12$.4DzTOUwxzJ4fa54hhfm2uLFK71nbXqpHe/pKqCGOQeP.1FPQL6F6','Alisa Keith is the CEO of Big Co. During her 10-year tenure, Keith oversaw operations and strategic planning that resulted in net profit increases in more than 20 percent. Before this role, Keith was executive director of Small Co., where she directed the activity of three regional branches. Alisa holds a masters degree in Computer Science from MIT. In her spare time she enjoys fly fishing and gourmet cooking with her husband, John.'); --Myworldsonfire
+INSERT INTO "user"(username, first_name, last_name, email, password, biography) VALUES ('armandomartinez','Armando','Martinez','Jarrod@nascetur.gov','$2y$12$.4DzTOUwxzJ4fa54hhfm2uLFK71nbXqpHe/pKqCGOQeP.1FPQL6F6','Armando Martinez is the CEO of Big Co. During his 10-year tenure, he oversaw operations and strategic planning that resulted in net profit increases in more than 20 percent. Before this role, Martinez was executive director of Small Co., where he directed the activity of three regional branches. Martinez holds a masters degree in Computer Science from MIT. In his spare time he enjoys fly fishing and gourmet cooking with his husband, John.'); --Myworldsonfire
 INSERT INTO "user"(username, first_name, last_name, email, password, biography) VALUES ('lanerollins','Lane','Rollins','Ira@ut.com','$2y$12$44tVpnnyyEB.GAZbcoDab.swZNKL6H2i9iZgaz1sefPjAVgmJDvJa','sed magna'); --howaboutyours?
 INSERT INTO "user"(username, first_name, last_name, email, password, biography) VALUES ('aleacrawford','Alea','Crawford','Leila@Proin.org','$2y$12$1fTAfxSq4u5zgSrZTqLa9ugNEfay1Sb.ZajioG.3zBqnDpH9ZoYFO','tortor'); --ThatsthewayIlikeit 
 INSERT INTO "user"(username, first_name, last_name, email, password, biography) VALUES ('jaspernguyen','Jasper','Nguyen','Eve@aliquam.us','$2y$12$ndpWokd9U5W7i9Ests/oZuVoBJOsEeBGv8p5TBDK.WgKlqjhhkpaa','fringilla fringilla Nunc In pellentesque porttitor montes'); --andInevergetbored
@@ -879,17 +879,17 @@ INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_proj
 INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('turpis dapibus','torquent nulla velit',7,'2019/04/09','2019/04/04',6,19,7);
 INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('semper senectus','lacinia nascetur',83,'2019/04/06','2019/04/09',5,null,4);
 INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('Vestibulum nunc tortor','sit felis leo congue posuere Lorem eros velit dignissim',86,'2019/04/06','2019/04/04',3,15,5);
-INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('auctor ipsum','Suspendisse neque In nisi placerat at',50,'2019/04/08','2019/04/05',3,7,5);
+INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('Change website color palette','The color chosen do not flow together and are too dark',50,'2019/04/08','2019/04/05',3,7,5);
 INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('venenatis viverra Phasellus','Nunc dui in',95,'2019/04/06','2019/04/04',6,5,7);
 INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('Cras at gravida','quis viverra eros et tristique',52,'2019/04/03','2019/04/03',4,16,8);
 INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('cubilia litora luctus','facilisi blandit luctus lectus laoreet primis varius',56,'2019/04/04','2019/04/09',8,null,9);
-INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('Nulla Vestibulum','gravida convallis libero',67,'2019/04/05','2019/04/03',7,3,10);
+INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('Add Interactive Features','Create animations and responsive design',67,'2019/04/05','2019/04/03',7,3,10);
 INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('at facilisis','Proin pretium accumsan molestie sollicitudin',53,'2019/04/07','2019/04/07',3,15,11);
 INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('lacinia Fusce a','id Cras Pellentesque lacinia ipsum per arcu morbi torquent',89,'2019/04/04','2019/04/08',9,13,12);
 INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('taciti','eu gravida Morbi faucibus placerat',87,'2019/04/05','2019/04/05',8,4,13);
 INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('Curabitur','conubia feugiat convallis',15,'2019/04/07','2019/04/09',7,null,14);
 INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('eget varius','fringilla elit magnis a vehicula habitant eu',90,'2019/04/08','2019/04/04',9,13,15);
-INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('sociis condimentum','magna',70,'2019/04/05','2019/04/08',2,17,16);
+INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('Create FAQ Page','Important page that needs to be designed and developed',70,'2019/04/05','2019/04/08',2,17,16);
 INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('torquent','litora dolor mattis litora Duis pellentesque feugiat ante rhoncus',31,'2019/04/07','2019/04/04',10,null,17);
 INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('Curae elementum conubia','a in',70,'2019/04/08','2019/04/09',3,1,18);
 INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('orci','imperdiet',6,'2019/04/07','2019/04/03',10,null,19);
@@ -963,12 +963,12 @@ INSERT INTO team_task VALUES (2,9);
 INSERT INTO team_task VALUES (2,8);
 INSERT INTO team_task VALUES (3,17);
 INSERT INTO team_task VALUES (4,6);
-INSERT INTO team_task VALUES (1,9);
+INSERT INTO team_task VALUES (1,9); 
 INSERT INTO team_task VALUES (3,9);
 INSERT INTO team_task VALUES (5,5);
-INSERT INTO team_task VALUES (1,5);
+INSERT INTO team_task VALUES (1,5); 
 INSERT INTO team_task VALUES (4,13);
 INSERT INTO team_task VALUES (1,12);
 INSERT INTO team_task VALUES (3,12);
 INSERT INTO team_task VALUES (2,2);
-INSERT INTO team_task VALUES (1,15);
+INSERT INTO team_task VALUES (1,15); 
