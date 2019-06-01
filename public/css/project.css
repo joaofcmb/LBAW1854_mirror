@@ -41,11 +41,11 @@ body * {
     background-color: transparent;
 }
 
-#create .col-sm-:hover a, #create a:hover {
+#create .col-sm-:hover a, #create a:hover, #create button:hover {
     color: var(--brand-color);
 }
 
-#create .col-sm- a, #create a {
+#create .col-sm- a, #create a, #create button {
     font-size: 1.3em;    
     color: white;
     text-decoration: none;

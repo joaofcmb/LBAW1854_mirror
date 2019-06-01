@@ -24,9 +24,7 @@
             </div>
 
             <div class="tab-pane fade" id="milestone" role="tabpanel">
-                @include('partials.searchBar', ['page' => 'assign', 'content' => 'Milestone...', 'searchPage' => 'milestoneAssign'])
-
-                <div class="card open flex-row justify-content-between p-2 mx-3 my-2">
+                <div class="card flex-row justify-content-between p-2 mx-3 my-2">
                     <div class="custom-control custom-radio">
                         <input checked type="radio" class="custom-control-input" name="milestone" id="milestone{{ $currentMilestone->id }}">
                         <label class="custom-control-label team-name" for="milestone{{ $currentMilestone->id }}">{{ $currentMilestone->name }}</label>

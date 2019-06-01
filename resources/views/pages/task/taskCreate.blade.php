@@ -56,8 +56,7 @@
                         </form>
                         <div id="action-button" class="text-center mb-2">
                             <button class="px-0 mr-2 mt-3" form="create-task-form" type="submit">
-                                
-                                    <a class="btn" role="button">Create & Assign</a>
+                                <a class="btn" role="button">Create & Assign</a>
                             </button>                            
                             <button class="px-0 mt-3" form="create-task-form" type="submit">
                                 <a class="btn">Create</a>

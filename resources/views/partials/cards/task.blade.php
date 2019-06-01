@@ -1,15 +1,15 @@
 @isset($isProjectManager)
     @isset($isTasksPage)
-        <section id="task-{{$task->id}}"draggable="true" class="task draggable card border-hover p-2 m-2 mt-3">
+        <section id="task-{{$task->id_project}}-{{$task->id}}" draggable="true" class="task draggable card border-hover p-2 m-2 mt-3">
     @else
-        <section class="task card border-hover @isset($selected) sticky @endisset float-sm-left p-2 m-2 mt-3">
+        <section id="task-{{$task->id_project}}-{{$task->id}}" class="task card border-hover @isset($selected) sticky @endisset float-sm-left p-2 m-2 mt-3">
     @endisset
     
     @if($isProjectManager)
     <div class="mx-auto mb-1">
         <a href="{{ route('task-edit', ['id_project' => $project->id, 'id_task' => $task->id]) }}"><i class="far fa-edit hover-icon mr-2"></i></a>
         <a href="{{ route('task-assign', ['id_project' => $project->id, 'id_task' => $task->id]) }}"><i class="fas fa-link fa-fw hover-icon mx-2"></i></a>
-        <a href=""><i class="far fa-trash-alt fa-fw hover-icon ml-2"></i></a>
+        <i id="removeTask-{{ $task->id_project }}-{{ $task->id }}" class="remove-task far fa-trash-alt fa-fw hover-icon ml-2"></i>
     </div>
     @endif
 @else

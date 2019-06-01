@@ -14,6 +14,7 @@ use DateTime;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Comment;
 
 class TaskController extends Controller
 {
@@ -61,11 +62,11 @@ class TaskController extends Controller
         $isProjectManager = Project::isProjectManager($project);
 
         return View('pages.task.task', ['project' => $project,
-                                              'isProjectManager' => $isProjectManager,
-                                              'teams' => $teams,
-                                              'comments' => $task->comments,
-                                              'canAddComment' => Developer::canAddTaskComment($task) || $isProjectManager,
-                                              'task' => Task::information([$task])[0]
+                                        'isProjectManager' => $isProjectManager,
+                                        'teams' => $teams,
+                                        'comments' => $task->comments,
+                                        'canAddComment' => Developer::canAddTaskComment($task) || $isProjectManager,
+                                        'task' => Task::information([$task])[0]
         ]);
     }
 
@@ -100,6 +101,56 @@ class TaskController extends Controller
                                                   'currentMilestone' => $currentMilestone,
                                                   'task' => Task::information([$task])[0]
         ]);
+    }
+
+    public function editAction($id_project, $id_task)
+    {
+        $project = Project::find($id_project);
+        $task = Task::find($id_task);
+
+        if(!$this->validateAccess('edit', $project, $task))
+            return redirect()->route('404');
+
+        $name = isset($_POST['name']) ? htmlentities($_POST['name']) : '';
+        $description = isset($_POST['description']) ? htmlentities($_POST['description']) : '';
+
+        if($name === '' || $description === '')
+            return redirect()->route('task-edit', ['id' => $project->id, 'id_task' => $id_task]);
+        
+        $task->title = $name;
+        $task->description = $description;
+
+        try {
+            $task->save();
+        } catch (\Exception $exception) {
+            $message = "ERROR: A task with the same name already exists in this project.";
+            return redirect()->back()->withErrors($message);
+        }
+        
+        return redirect()->route('task', ['id_project' => $project->id, 'id_task' => $task->id ]);
+    }
+
+    public function delete($id_project, $id_task) {
+        $project = Project::find($id_project);
+        $task = Task::find($id_task);
+
+        if(!$this->validateAccess('delete', $project, $task))
+            return redirect()->route('404');
+        
+        // TODO: DELETE COMMENTS
+
+        $task->delete();
+    }
+
+    public function updateProgress(Request $request, $id_project, $id_task) {
+        $project = Project::find($id_project);
+        $task = Task::find($id_task);
+
+        if(!$this->validateAccess('edit', $project, $task))
+            return redirect()->route('404');
+
+        $task->progress = $request->input('progress');
+        $task->save();
     }
 
     public function assign($id_project, $id_task) {

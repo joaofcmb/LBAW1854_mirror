@@ -271,7 +271,7 @@ if(removeMilestone != null) {
     })
 }
 
-// TASKS //
+// TASKS GROUP //
 
 let addTaskGroup = document.querySelector('button.add-group');
 
@@ -312,6 +312,30 @@ let removeTaskGroupListener = function() {
 for(let i = 0; i < removeTaskGroup.length; i++) {
     removeTaskGroupListener.bind(removeTaskGroup[i]);
     removeTaskGroup[i].addEventListener('click', removeTaskGroupListener);
+}
+
+// TASKS //
+
+let update_progress = document.querySelector('button.update-progress');
+
+if(update_progress != null)
+    update_progress.addEventListener('click', function() {
+        let info = this.getAttribute('id').split('-');
+        let progress = document.querySelector('input#progressValue').value;
+
+        sendAjaxRequest.call(this, 'post', '/project/' + info[1] + '/tasks/' + info[2] + '/updateprogress', {progress: progress}, updateProgressHandler);
+    })
+
+let remove_task = document.getElementsByClassName('remove-task');
+
+let removeTaskListener = function() {
+    let info = this.getAttribute('id').split('-');
+    sendAjaxRequest.call(this, 'delete', '/project/' + info[1] + '/tasks/' + info[2] + '/delete', null, removeTaskHandler);
+}
+
+for(let i = 0; i< remove_task.length; i++) {
+    removeTaskListener.bind(remove_task[i]);
+    remove_task[i].addEventListener('click', removeTaskListener);
 }
 
 // ADMINISTRATION //
@@ -566,6 +590,27 @@ function removeTaskGroupHandler() {
     document.getElementById('group-' + info[1] + '-' + info[2]).remove();
 }
 
+function updateProgressHandler() {
+    if(this.status !== 200) return;
+
+    let progress_value = document.querySelector('input#progressValue').value;
+    let progress_code = document.querySelector('div.work-progress');
+    let label = progress_code.querySelector('h6');
+    let progress_bar = progress_code.querySelector('div.progress-bar');
+
+    label.innerHTML = '<i class="fas fa-chart-line mr-1"></i>' + progress_value + '% done';
+    progress_bar.setAttribute('style', 'width:' + progress_value + '%');
+    progress_bar.setAttribute('aria-valuenow', progress_value);
+}
+
+function removeTaskHandler() {
+    if(this.status !== 200) return;
+
+    let info = this.prototype.getAttribute('id').split('-');
+    let task = document.getElementById('task-' + info[1] + '-' + info[2]);
+    task.remove();
+}
+
 function removeUserHandler() {
     if (this.status === 400) {
         let container = document.querySelector('#content');
@@ -730,6 +775,13 @@ function changeRoadmapInfo(milestones, currentMilestone) {
         document.getElementById('content').appendChild(milestone_content);
     }
 
+    let remove_task = document.getElementsByClassName('remove-task');
+
+    for(let i = 0; i< remove_task.length; i++) {
+        removeTaskListener.bind(remove_task[i]);
+        remove_task[i].addEventListener('click', removeTaskListener);
+    }
+
     $('.border-hover').hover(
         function() {$(this).find('>:first-child .hover-icon').css('display', 'inline-block')},
         function() {$(this).find('>:first-child .hover-icon').css('display', 'none')}
@@ -751,23 +803,22 @@ function createEditMilestoneModal(currentMilestone) {
     return modal;
 }
 
-
 function createTaskHtml(tasks, isProjectManager) {
     let html = '';
 
     for(let i = 0; i < tasks.length; i++) {
-        html += ' <section class="task card border-hover float-sm-left p-2 m-2 mt-3"> ';
         let task = tasks[i];
-
+        html += ' <section id="task-' + task.id_project + '-' + task.id + '" class="task card border-hover float-sm-left p-2 m-2 mt-3"> ';
+        
         if(isProjectManager) {
             let edit_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") +
                 "/project/" + task.id_project + "/tasks/" + task.id + "/edit";
             let assign_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") +
                 "/project/" + task.id_project + "/tasks/" + task.id + "/assign";
-// ADD REMOVE TASK LISTENER
+
             html += '<div class="mx-auto mb-1"> <a href="' + edit_route + '"><i class="far fa-edit hover-icon mr-2"></i></a> ' +
                     '<a href="' + assign_route + '"><i class="fas fa-link fa-fw hover-icon mx-2"></i></a>' +
-                    '<a><i class="far fa-trash-alt fa-fw hover-icon ml-2"></i></a> </div>';
+                    '<i id="removeTask-' + task.id_project + '-' + task.id + '" class="remove-task far fa-trash-alt fa-fw hover-icon ml-2"></i> </div>';
         }
 
         let task_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") +
@@ -789,10 +840,6 @@ function createTaskHtml(tasks, isProjectManager) {
     }
 
     return html;
-}
-
-function insertMilestoneInRoadmap(milestoneHtml) {
-
 }
 
 //////////
@@ -943,7 +990,7 @@ for (const taskGroup of taskGroups) {
         ev.preventDefault();
 
         let movedTask = document.getElementById(ev.dataTransfer.getData("text/plain"));
-        let taskId = movedTask.id.split('-')[1];
+        let taskId = movedTask.id.split('-')[2];
         let groupIds = taskGroup.id.split('-');
         sendAjaxRequest('post', '/project/' + groupIds[1] + '/tasks/' + taskId + '/assign-group/' + groupIds[2], {}, new function() {
             ev.target.getElementsByClassName('drop-area')[0].appendChild(movedTask);

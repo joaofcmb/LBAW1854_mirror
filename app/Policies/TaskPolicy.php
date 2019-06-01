@@ -87,8 +87,7 @@ class TaskPolicy
      * @param  \App\Task  $task
      * @return mixed
      */
-    public function delete(User $user, Task $task)
-    {
-        //
+    public function delete(User $user, Task $task, Project $project) {
+        return $project->id_manager == $user->id && $task->id_project == $project->id;
     }
 }
