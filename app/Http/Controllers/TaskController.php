@@ -58,12 +58,13 @@ class TaskController extends Controller
             $team['isTeamLeader'] = $team->leader->id == Auth::user()->getAuthIdentifier();
         }
 
+        $isProjectManager = Project::isProjectManager($project);
 
         return View('pages.task.task', ['project' => $project,
-                                              'isProjectManager' => Project::isProjectManager($project),
+                                              'isProjectManager' => $isProjectManager,
                                               'teams' => $teams,
                                               'comments' => $task->comments,
-                                              'canAddComment' => Developer::canAddTaskComment($task),
+                                              'canAddComment' => Developer::canAddTaskComment($task) || $isProjectManager,
                                               'task' => Task::information([$task])[0]
         ]);
     }

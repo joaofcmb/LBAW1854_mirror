@@ -496,7 +496,7 @@ function editMilestoneHandler() {
     }
 
     milestone_name.innerHTML = item.currentMilestone.name +
-        ' <button type="button" data-toggle="modal" data-target="#editNameModal"> <i class="far fa-edit ml-2"></i> </button> ' +
+        ' <button type="button" data-toggle="modal" data-target="#editMilestoneModal"> <i class="far fa-edit ml-2"></i> </button> ' +
         '<i id="removeMilestone-' + item.currentMilestone.id_project + '-' + item.currentMilestone.id + '" class="remove-milestone far fa-trash-alt"></i>';
 
     let removeMilestone = milestone_name.querySelector('i.remove-milestone');
@@ -693,9 +693,10 @@ function changeRoadmapInfo(milestones, currentMilestone) {
                 sendAjaxRequest.call(this, 'delete', '/project/' + info[1] + '/roadmap/' + info[2] + '/remove', null, removeMilestoneHandler);
             })
 
-            document.querySelector('input#milestone-name').value = currentMilestone.name;
-            document.querySelector('input#milestone-deadline').value = currentMilestone.deadline.substr(0, 10);
-            document.querySelector('.update-milestone').setAttribute('id', 'editMilestone-' + currentMilestone.id_project + '-' + currentMilestone.id);
+            document.querySelector('#editMilestoneModal input#milestone-name').value = currentMilestone.name;
+            document.querySelector('#editMilestoneModal input#milestone-deadline').value = currentMilestone.deadline.substr(0, 10);
+            document.querySelector('#editMilestoneModal .update-milestone').setAttribute('id', 
+                'editMilestone-' + currentMilestone.id_project + '-' + currentMilestone.id);
         }
 
         header.querySelector('span').textContent = currentMilestone.tasks.length + ' remaining';
@@ -722,9 +723,8 @@ function changeRoadmapInfo(milestones, currentMilestone) {
                 let info = removeMilestone.getAttribute('id').split('-');
                 sendAjaxRequest.call(this, 'delete', '/project/' + info[1] + '/roadmap/' + info[2] + '/remove', null, removeMilestoneHandler);
             })
-            document.querySelector('input#milestone-name').value = currentMilestone.name;
-            document.querySelector('input#milestone-deadline').value = currentMilestone.deadline.substr(0, 10);
-            document.querySelector('.update-milestone').setAttribute('id', 'editName-' + currentMilestone.id_project + '-' + currentMilestone.id);
+
+            milestone_content.innerHTML += createEditMilestoneModal(currentMilestone); 
         }
 
         document.getElementById('content').appendChild(milestone_content);
@@ -735,6 +735,22 @@ function changeRoadmapInfo(milestones, currentMilestone) {
         function() {$(this).find('>:first-child .hover-icon').css('display', 'none')}
     )
 }
+
+function createEditMilestoneModal(currentMilestone) {
+    let modal = '<div class="modal fade" id="editMilestoneModal" tabindex="-1" role="dialog" aria-labelledby="editMilestoneModalTitle" ' +
+        'aria-hidden="true"> <div class="modal-dialog modal-dialog-centered" role="document"> <div class="modal-content"> ' +
+        '<div class="modal-header"> <h5 class="modal-title" id="editMilestoneModalTitle">Edit Milestone</h5> ' +
+        '<button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button> ' +
+        '</div> <div class="modal-body"> <div class="form-group"> <label for="milestone-name" class="col-form-label">Name:</label> ' +
+        '<input type="text" class="form-control" id="milestone-name" value="' + currentMilestone.name + '"> ' +
+        '<label for="milestone-deadline" class="col-form-label">Deadline:</label> <input type="date" class="form-control" id="milestone-deadline" ' +
+        'min="' + new Date().toDateString().substr(0,10) + '" value="' + currentMilestone.deadline.substr(0, 10) + '"> </div> </div> ' +
+        '<div id="brand-btn" class="modal-footer"> <button id="editMilestone-' + currentMilestone.id_project + '-' + currentMilestone.id + 
+        '" type="button" class="update-milestone btn btn-primary" data-dismiss="modal">Save changes</button> </div> </div> </div> </div>';
+    
+    return modal;
+}
+
 
 function createTaskHtml(tasks, isProjectManager) {
     let html = '';

@@ -11,7 +11,6 @@
         <div class="roadmap-right"></div>
         @if($currentMilestone != null)
         <div class="milestone-description mx-auto text-center">
-
             {{ $currentMilestone->timeLeft }} days left
             <h6>{{ $currentMilestone->name }}</h6>
         </div>

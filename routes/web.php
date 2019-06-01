@@ -56,6 +56,7 @@ Route::get('/project/{id_project}', 'ProjectController@show')->name('project-ove
 Route::get('/project/{id_project}/roadmap', 'ProjectController@showRoadmap')->name('project-roadmap');
 Route::get('/project/{id}/tasks', 'ProjectController@showTasks')->name('project-tasks');
 Route::get('/project/{id_project}/tasks/createtask/{id_taskgroup?}', 'ProjectController@createTask')->name('task-create');
+Route::post('/project/{id_project}/tasks/createtask/{id_taskgroup?}', 'ProjectController@createTaskAction')->name('task-create-action');
 Route::get('/project/{id_project}/close', 'ProjectController@closeProject')->name('close-project');
 Route::post('/project/{id_project}/roadmap/createmilestone', 'ProjectController@createMilestone')->name('create-milestone-action');
 Route::post('/project/{id_project}/roadmap/{id_milestone}/update', 'ProjectController@updateMilestone');
@@ -67,6 +68,7 @@ Route::delete('/project/{id_project}/tasks/taskgroup/{id_taskgroup}/remove', 'Pr
 
 // Tasks
 Route::get('/project/{id_project}/tasks/{id_task}', 'TaskController@show')->name('task');
+
 Route::get('/project/{id_project}/tasks/{id_task}/edit', 'TaskController@edit')->name('task-edit');
 Route::get('/project/{id_project}/tasks/{id_task}/assign', 'TaskController@assign')->name('task-assign');
 Route::post('/project/{id_project}/tasks/{id_task}/assign-group/{id_group}', 'TaskController@group');

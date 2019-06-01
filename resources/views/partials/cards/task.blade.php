@@ -14,12 +14,12 @@
     @endif
 @else
 <section class="task card float-sm-left p-2 m-2 mt-3">
-    <h5 class="card-title text-center pb-2 mb-2" style="border-color: {{$task->color}}">{{$task->project_name}}</h5>
+    <h5 class="card-title text-center pb-2 mb-2" style="border-color: {{$task->color}}">{{ $task->project_name }}</h5>
 @endisset  
-    <h6 class="text-center mb-auto"><a href="{{ route('task', ['id_project' => $task->id_project, 'id_task' => $task->id]) }}">{{$task->title}}</a></h6>
+    <h6 class="text-center mb-auto"><a href="{{ route('task', ['id_project' => $task->id_project, 'id_task' => $task->id]) }}">{{ $task->title }}</a></h6>
 
     <p class="ml-1 m-0">{{ sizeof($task->teams) }} Teams</p>
-    <p class="ml-1 mb-2">{{$task-> developers}} Developers</p>
+    <p class="ml-1 mb-2">{{ $task->developers }} Developers</p>
 
     <div class="work-progress mx-2 mb-1">
         <h6 class="text-center mb-1"><i class="fas fa-chart-line mr-1"></i>{{ $task->progress }}% done</h6>

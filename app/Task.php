@@ -70,7 +70,6 @@ class Task extends Model
 
     /**
      * Retrieves tasks card information
-     *
      */
     public static function information($tasks) {
         foreach ($tasks as $task) {
@@ -87,9 +86,15 @@ class Task extends Model
 
             $deltaTime = $creationDate->diff($currentDate)->format('%a');
             $totalTime = $creationDate->diff($deadline)->format('%a');
+            $timeLeft = $currentDate->diff($deadline)->format('%R%a');
 
-            $task['timeLeft'] = $currentDate->diff($deadline)->format('%a');
-            $task['timePercentage'] = $totalTime == 0 ? 100 : $deltaTime * 100 / $totalTime;
+            if(substr($timeLeft,0,1) == "-"){
+                $task['timeLeft'] = 0;
+                $task['timePercentage'] = 100;
+            } else {
+                $task['timeLeft'] = substr($timeLeft,1);
+                $task['timePercentage'] = $totalTime == 0 ? 100 : $deltaTime * 100 / $totalTime;
+            }
         }
 
         return $tasks;

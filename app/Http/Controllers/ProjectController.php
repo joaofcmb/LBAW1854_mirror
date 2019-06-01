@@ -47,6 +47,37 @@ class ProjectController extends Controller
         ]);
     }
 
+    public function createTaskAction($id_project, $id_taskgroup = 0)
+    {
+        $project = Project::find($id_project);
+        $taskGroup = $id_taskgroup != 0 ? TaskGroup::find($id_taskgroup) : null;
+
+        if(!$this->validateAccess($project, 'createTask') || ($taskGroup != null && (empty($taskGroup) || $taskGroup->id_project != $project->id)))
+            return redirect()->route('404');
+
+        $name = isset($_POST['name']) ? htmlentities($_POST['name']) : '';
+        $description = isset($_POST['description']) ? htmlentities($_POST['description']) : '';
+
+        if($name === '' || $description === '')
+            return redirect()->route('task-create', ['id' => $project->id ($id_taskgroup != 0 ? ", 'id_taskgroup' => $id_taskgroup" : '')]);
+        
+        $task = new Task();
+        $task->title = $name;
+        $task->description = $description;
+        $task->id_project = $id_project;
+        if($id_taskgroup != 0)
+            $task->id_group = $id_taskgroup;
+
+        try {
+            $task->save();
+        } catch (\Exception $exception) {
+            $message = "ERROR: A task with the same name already exists in this project.";
+            return redirect()->back()->withErrors($message);
+        }
+        
+        return redirect()->route('task', ['id_project' => $project->id, 'id_task' => $task->id ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -241,7 +272,7 @@ class ProjectController extends Controller
         $project = Project::find($id_project);
 
         if(!$this->validateAccess($project, 'addComment') || !Thread::where([['id', $id_thread], ['id_forum', $project->forum->id]])->exists())
-            return response("", 404, []);
+            return response('', 404, []);
 
         $text = $request->input('text');
 
@@ -293,12 +324,12 @@ class ProjectController extends Controller
 
         try {
             if(empty($project) || empty($thread) || empty($comment) || empty($thread_comment))
-                return response("", 404, []);
+                return response('', 404, []);
 
             $this->authorize('deleteForumThreadComment', [$project, $thread, $comment]);
         }
         catch (AuthorizationException $e) {
-            return response("", 404, []);
+            return response('', 404, []);
         }
 
         $comment->delete();
@@ -311,7 +342,7 @@ class ProjectController extends Controller
         $project = Project::find($id_project);
 
         if(!$this->validateAccess($project, 'view'))
-            return response("", 400, []);
+            return response('', 400, []);
 
         $response = Project::getMilestone($request->input('milestone'));
 
@@ -341,7 +372,7 @@ class ProjectController extends Controller
         $milestone = Milestone::find($id_milestone);
 
         if(!$this->validateAccess($project, 'manager'))
-            return response("", 400, []);
+            return response('', 400, []);
 
         if(empty($milestone))
             return response('', 404, []);        
@@ -381,7 +412,7 @@ class ProjectController extends Controller
         $project = Project::find($id_project);
 
         if(!$this->validateAccess($project, 'manager'))
-            return response("", 400, []);
+            return response('', 400, []);
 
         $taskGroup = new TaskGroup();
         $taskGroup->id_project = $id_project;  
@@ -397,7 +428,7 @@ class ProjectController extends Controller
         $taskGroup = TaskGroup::find($id_taskgroup);
 
         if(!$this->validateAccess($project, 'manager'))
-            return response("", 400, []);
+            return response('', 400, []);
 
         if(empty($taskGroup) || $taskGroup->id_project != $id_project)
             return response('', 404, []); 
@@ -412,7 +443,7 @@ class ProjectController extends Controller
         $taskGroup = TaskGroup::find($id_taskgroup);
 
         if(!$this->validateAccess($project, 'manager'))
-            return response("", 400, []);
+            return response('', 400, []);
 
         if(empty($taskGroup))
             return response('', 404, []);
@@ -438,7 +469,7 @@ class ProjectController extends Controller
             $this->authorize('deleteForumThread', [$project, $thread]);
         }
         catch (AuthorizationException $e) {
-            return response("", 404, []);
+            return response('', 404, []);
         }
 
         $thread->delete();

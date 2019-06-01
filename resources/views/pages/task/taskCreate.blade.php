@@ -19,6 +19,15 @@
             'isProjectManager' => $isProjectManager
         ])
     </div>
+    @if ($errors->any())    
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>    
+        </div>
+    @endif
     
     <div id="menu-option" class="container-fluid justify-content-start mx-auto py-4">
         <a href="{{ route('project-tasks', ['id_project' => $project->id]) }}"><i class="fas fa-chevron-circle-left mx-2"></i>Back</a>
@@ -32,20 +41,27 @@
                         <h5>Create Task</h5>
                     </div>
                     <div class="card-body">
-                        <form>
+                        <form id="create-task-form" method="post" 
+                            action="{{ route('task-create-action', ['id_project' => $project->id , 'id_taskgroup' => $id_taskgroup]) }}">
+                            {{ csrf_field() }}
                             <div class="form-row">
                                 <div class="form-group col-md-12">
-                                    <input type="text" class="form-control" id="projectName" placeholder="Name">
+                                    <input type="text" class="form-control" id="projectName" name="name" placeholder="Name" required>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <textarea class="form-control" id="projectDescription" placeholder="Task Description"
-                                          rows="7"></textarea>
+                                <textarea class="form-control" id="projectDescription" name="description" placeholder="Task Description" 
+                                          rows="7" required></textarea>
                             </div>
                         </form>
                         <div id="action-button" class="text-center mb-2">
-                            <a href="" class="btn mt-3 mr-2" role="button">Create & Assign</a>
-                            <a href="" class="btn mt-3" role="button">Create</a>
+                            <button class="px-0 mr-2 mt-3" form="create-task-form" type="submit">
+                                
+                                    <a class="btn" role="button">Create & Assign</a>
+                            </button>                            
+                            <button class="px-0 mt-3" form="create-task-form" type="submit">
+                                <a class="btn">Create</a>
+                            </button>
                         </div>
                     </div>
                 </div>
