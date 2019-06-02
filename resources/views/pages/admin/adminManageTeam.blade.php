@@ -29,17 +29,18 @@
                     <div class="card-header">
                         <h4>Users</h4>
                     </div>
-                    <div class="card-body">
+                    
                         @include('partials.searchBar', ['page' => 'manageTeam', 'content' => 'Users...', 'searchPage' => 'manageTeam'])
-                        
-                        @foreach($users as $user)
-                            @include('partials.cards.profile', [
-                                'isLeader' => false,
-                                'user' => $user,
-                                'manageTeam' => true
-                            ])
-                        @endforeach
-                    </div>
+                        <div id="search-display">
+                            @foreach($users as $user)
+                                @include('partials.cards.profile', [
+                                    'isLeader' => false,
+                                    'user' => $user,
+                                    'manageTeam' => true
+                                ])
+                            @endforeach
+                        </div>
+                    
                 </div>
             </div>
             <div class="col-lg-6 px-sm-3 px-lg-5 pb-5">

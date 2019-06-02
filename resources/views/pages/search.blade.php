@@ -7,7 +7,6 @@
 @section('title', 'Search')
 
 @section('body')
-    <body class="bg-light">
     @include('partials.main-navbar', [
         'active' => 'search',
         'auth' => 'session'
@@ -35,9 +34,4 @@
             </div>
         </div>
     </div>
-
-    <footer class="fixed-bottom p-1 pl-2">
-        COPYRIGHT © EPMA 2019
-    </footer>
-    </body>
 @endsection

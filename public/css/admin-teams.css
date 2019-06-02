@@ -19,6 +19,7 @@
 
 #search-content .card a:hover {
     color: var(--brand-color);
+    cursor: pointer;
 }
 
 #search-content .card-header {

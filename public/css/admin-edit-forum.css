@@ -58,6 +58,7 @@ section.sticky {
 
 .fa-angle-down:hover, .fa-angle-up:hover, .fa-plus-circle:hover {
     color: var(--brand-color);
+    cursor: pointer;
      -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
 }

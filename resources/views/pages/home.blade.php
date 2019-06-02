@@ -7,7 +7,6 @@
 @section('title', 'Home')
 
 @section('body')
-    <body class="bg-light">
         @include('partials.main-navbar', [
             'active' => 'home',
             'auth' => 'session'
@@ -49,5 +48,4 @@
             @endif
             @include('partials.sideforum', ['threads' => $threads])
         </div>
-    </body>
 @endsection
