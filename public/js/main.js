@@ -58,10 +58,43 @@ if (edit_profile_info !== undefined) {
         let to_send = {};
         to_send.email = email.value;
 
-        // TODO: Password change
-
-        sendAjaxRequest.call(this, 'post', '/profile/' + id + '/edit', to_send, null);
+        if(!validateEmail(email.value))
+            blockHelpNode(email.parentElement, "Invalid email !", "red")
+        else if(newPassword.value !== confirmPassword.value)
+            blockHelpNode(newPassword.parentElement, "Passwords do not match !", "red")
+        else if(newPassword.value !== "" && confirmPassword.value !== "" && oldPassword.value === "")
+            blockHelpNode(newPassword.parentElement, "Old Password field cannot be empty !", "red")
+        else if(newPassword.value !== "" && newPassword.value.length < 6)
+            blockHelpNode(newPassword.parentElement, "New password must be at least 6 characters !", "red")
+        else
+            sendAjaxRequest.call(this, 'post', '/profile/' + id + '/edit', {email: email.value, oldPassword: oldPassword.value, newPassword: newPassword.value}, editProfileInformation);
     })
+}
+
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
+
+function blockHelpNode(element, message, color) {
+    let blockHelp = document.getElementById('block-help')
+
+    if(color === "green" && blockHelp != null) {
+        document.getElementById('block-help').remove();
+        blockHelp = null;
+    }
+
+
+    if(blockHelp == null) {
+        let node = document.createElement("p");
+        node.setAttribute('id', 'block-help')
+        node.setAttribute('class', 'pt-3')
+        node.setAttribute('style', 'color: ' + color + ';')
+        node.textContent = message
+        element.appendChild(node)
+    }
+    else
+        blockHelp.textContent = message;
 }
 
 let edit_biography = document.getElementById('edit-biography');
@@ -369,6 +402,18 @@ for(let i = 0; i < restore_user.length; i++) {
 //////////////
 // HANDLERS //
 //////////////
+
+function editProfileInformation() {
+    if (this.status !== 200) return;
+
+    let item = JSON.parse(this.responseText);
+
+    if(item['status'] === "FAILED")
+        blockHelpNode(document.getElementById('new-password').parentElement, "Old Password field does not match our records !", "red");
+    else if(item['status'] === "SUCCESS")
+        blockHelpNode(document.getElementById('new-password').parentElement, "Information updated with success !", "green");
+
+}
 
 function editBiography() {
     let biography_div = document.getElementById('biography');

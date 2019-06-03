@@ -8,8 +8,10 @@ use App\Developer;
 use App\Follow;
 use App\Team;
 use App\User;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -227,16 +229,33 @@ class ProfileController extends Controller
     {
         $user = User::find($id);
         $email = $request->input('email');
-        $password = $request->input('new_password');
+        $oldPassword = $request->input('oldPassword');
+        $newPassword = $request->input('newPassword');
         $biography = $request->input('biography');
 
-        if(!empty($email))
-            $user->email = $email;
+        $status = "SUCCESS";
+
+        if(!empty($email)) {
+            if($user->email == $email)
+                $status = "NOTHING";
+            else
+                $user->email = $email;
+        }
+
 
         if(!empty($biography))
             $user->biography = $biography;
 
+        if(!empty($oldPassword) && !empty($newPassword)) {
+            if(Hash::check($oldPassword, $user->getAuthPassword()))
+                $user->password = Hash::make($newPassword);
+            else
+                $status = "FAILED";
+        }
+
         $user->save();
+
+        return json_encode(['status' => $status]);
     }
 
     /**
