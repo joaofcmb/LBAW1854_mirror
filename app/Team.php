@@ -28,7 +28,7 @@ class Team extends Model
      */
     public function members() {
         return $this->hasMany('App\Developer', 'id_team')
-            ->select('user.id', 'user.username')
+            ->select('user.id', 'user.username', 'user.first_name', 'user.last_name')
             ->join('user', 'user.id', '=', 'developer.id_user')
             ->where([['id_user', '!=', $this->id_leader]]);
     }
@@ -40,7 +40,7 @@ class Team extends Model
      */
     public function leader() {
         return $this->hasOne('App\Developer', 'id_user', 'id_leader')
-            ->select('user.id', 'user.username')
+            ->select('user.id', 'user.username', 'user.first_name', 'user.last_name')
             ->join('user', 'user.id', '=', 'developer.id_user');
     }
 

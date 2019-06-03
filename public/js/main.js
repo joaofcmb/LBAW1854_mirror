@@ -987,9 +987,11 @@ function teamAssign() {
     let teams = []
     let query = this.firstElementChild.firstElementChild.value;
 
-    if(this.parentElement.children.length > 1) {
-        for(let index = 1; index < this.parentElement.children.length; index++)
-            teams.push(Number(this.parentElement.children[index].getAttribute('id')))
+    let search_content = this.parentElement.querySelector('#search-content');
+    if(search_content.children.length > 1) {
+        for(let index = 0; index < search_content.children.length; index++)
+            if(search_content.children[index].querySelector('input').checked)
+                teams.push(Number(search_content.children[index].getAttribute('id')))
     }
 
     sendAjaxRequest.call(this, 'post', '/api/search/data', {'query': query, 'data': 'Teams', 'constraints': teams}, editSearch)
@@ -1045,10 +1047,9 @@ function editSearch() {
             printUsers(container, response)
             break;
         case 'manageProject':
-
             break;
         case 'teamAssign':
-            // clear non checked teams on display
+            removeNotCheckedTeam(container);
             printTeamsInput(container, response);
             break;
     }
@@ -1151,77 +1152,106 @@ function printUsers(container, users, isAdminView) {
 
 function printProjects(container, projects, isAdminView) {
 
-    // for (const project of projects) {
-    //     let card = document.createElement('div');
-    //     card.setAttribute('class','card py-2 px-3 mt-4 mx-3 mx-sm-5 mb-2');
-    //     card.setAttribute('style','border-top-width: 0.25em; border-top-color: ' + project.color + ';');
+    for (const project of projects) {
+        let card = document.createElement('div');
+        card.setAttribute('id','project');
+        card.setAttribute('class','card py-2 px-3 mt-4 mx-3 mx-sm-5 mb-2');
+        card.setAttribute('style','border-top-width: 0.25em; border-top-color: ' + project.color + ';');
 
-    //     let overview_route = project.isLocked ? '' : 
-    //         "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/project/" + project.id_project;
+        let overview_route = project.isLocked ? '' : 
+            "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/project/" + project.id;
         
-    //     let icons;
+        let icons;
 
-    //     if(isAdminView) {
-    //         let edit_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + 
-    //             "/admin/projects/" + project.id_project + '/edit';
-    //         icons = '<a href="' + edit_route + '"><i class="far fa-edit"></i> </a>' + '<a class="pl-2"> <i class="far fa-trash-alt"></i></a>';
-    //     }
-    //     else
-    //         icons = '<a><i id="project-' + project.id + '" class="favorite ' + project.favorite ? 'fas' : 'far' + ' fa-star" ' + 
-    //             'style="cursor: pointer;" aria-hidden="true"></i></a> <i class="pl-1 fa fa-' + project.isLocked ? 'lock' : 'unlock' + 
-    //             '" aria-hidden="true"></i>';
+        if(isAdminView) {
+            let edit_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + 
+                "/admin/projects/" + project.id + '/edit';
+            icons = '<a href="' + edit_route + '"><i class="far fa-edit"></i> </a>' + '<a class="pl-2"> <i class="far fa-trash-alt"></i></a>';
+        }
+        else
+            icons = '<a><i id="project-' + project.id + '" class="favorite ' + (project.favorite ? 'fas' : 'far') + ' fa-star" ' + 
+                'style="cursor: pointer;" aria-hidden="true"></i></a> <i class="pl-1 fa fa-' + (project.isLocked ? 'lock' : 'unlock') + 
+                '" aria-hidden="true"></i>';
 
-    //     let manager_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/profile/" + project.id_manager;
-    //     card.innerHTML = '<div class="d-flex justify-content-between"> <a href="' + overview_route + '"> <h5 class="card-title my-1">' +
-    //         project.name + '</h5> </a> <h5 class="flex-grow-1 d-flex justify-content-end align-items-center"> ' + icons + 
-    //         '</h5> </div> <div class="row"> <div class="col-sm-7"> Project Manager: <a href="' + manager_route + '"> <h6 class="d-inline-block mb-3">' +
-    //         project.manager + '</h6> </a> <br> Brief Description: <h6 class="d-inline">' + project.description + '</h6> </div>' +
-    //         '<div class="col-sm-5 mt-3 mt-sm-0"> Statistics <h6> <p class="m-0"><i class="far fa-fw fa-user mr-1"></i>' + project.teams + 
-    //         ' Teams involved</p> <p class="m-0"><i class="fas fa-fw fa-check text-success mr-1"></i>' + sizeof(project.tasks_done) + 
-    //         ' Tasks concluded</p> <p class="m-0"><i class="fas fa-fw fa-times text-danger mr-1"></i>' + (project.tasks_ongoing.length + project.tasks_todo.length) +
-    //         ' Tasks remaining</p> </h6> </div> </div> </div>';
+        let manager_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/profile/" + project.id_manager;
+        card.innerHTML = '<div class="d-flex justify-content-between"> <a ' + (project.isLocked ? '' : 'href="' + overview_route) + '"> <h5 class="card-title my-1">' +
+            project.name + '</h5> </a> <h5 class="flex-grow-1 d-flex justify-content-end align-items-center"> ' + icons + 
+            ' </h5> </div> <div class="row"> <div class="col-sm-7"> Project Manager: <a href="' + manager_route + '"> <h6 class="d-inline-block mb-3">' +
+            project.manager + '</h6> </a> <br> Brief Description: <h6 class="d-inline">' + project.description + '</h6> </div>' +
+            '<div class="col-sm-5 mt-3 mt-sm-0"> Statistics <h6> <p class="m-0"><i class="far fa-fw fa-user mr-1"></i>' + project.teams + 
+            ' Teams involved</p> <p class="m-0"><i class="fas fa-fw fa-check text-success mr-1"></i>' + project.tasks_done.length + 
+            ' Tasks concluded</p> <p class="m-0"><i class="fas fa-fw fa-times text-danger mr-1"></i>' + (project.tasks_ongoing.length + project.tasks_todo.length) +
+            ' Tasks remaining</p> </h6> </div> </div> </div>';
 
-    //     container.appendChild(card);
-    // }
+        container.appendChild(card);
+    }
+
+// ADD Favorite and Remove Listeners
 }
 
 function printTeams(container, teams) {
-    /*
-    <div class="col-sm-4 my-3">
-        <div class="card text-center">      
-        <div class="card-header" style="clear: both;">
-            <p id="team-name" class="m-0" style="float: left;">{{ $team->name }}</p>
-            <p class="m-0" style="float: right;">{{ $team->skill == null ? '' : $team->skill }}</p>
-        </div>
-        <div class="card-body">
-            <a href="{{ route('profile', ['id' => $team->leader->id]) }}">
-                <p style="font-weight: bold;">{{ $team->leader->username }}</p>
-            </a>
-            <div class="mt-3">
-            @foreach($team->members as $member)
-                <a href="{{ route('profile', ['id' => $member->id]) }}">
-                    <p>{{ $member->username }}</p>
-                </a>
-            @endforeach
-            </div>
-                <a id="edit-button" href="{{ route('admin-edit-team', ['id' => $team->id]) }}" class="btn mt-3" role="button">Edit</a>
-                <a id="edit-button" href="" class="btn mt-3" role="button">Remove</a>
-            </div>
-        </div>
-    </div> 
-    */
+
+    for (const team of teams) {
+        let card = document.createElement('div');
+        card.setAttribute('class','col-sm-4 my-3');
+        
+        let members = '';
+        for (const member of team.members) {
+            members += profileLink(member.id, member.first_name + ' ' + member.last_name);
+        }
+
+        let leader_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + 
+            "/profile/" + team.leader.id;
+        let edit_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + 
+            "/admin/teams/" + team.id + "/edit";
+
+        card.innerHTML = '<div class="card text-center"> <div class="card-header" style="clear: both;"> <p id="team-name" class="m-0" style="float: left;">'
+            + team.name + '</p> <p class="m-0" style="float: right;">' + (team.skill == null ? '' : team.skill) + '</p> </div> <div class="card-body">' +
+            '<a href="' + leader_route + '"><p style="font-weight: bold;">' + team.leader.first_name + ' ' + team.leader.last_name + 
+            '</p></a> <div class="mt-3"> ' + members + '</div> <a id="edit-button" href="' + edit_route + '" class="btn mt-3" role="button">Edit</a>' +
+            ' <a id="edit-button" class="btn mt-3" role="button">Remove</a> </div> </div> </div>';
+
+        container.appendChild(card);
+    }
+
+// ADD Remove Team Listener
+}
+
+function profileLink(id, name) {
+    let route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/profile/" + id;
+    return ' <a href="' + route + '"> <p>' + name + '</p> </a>';
+}
+
+function removeNotCheckedTeam(container) {
+
+    for (let i = 0; i< container.children.length; i++) {
+        let input = container.children[i].querySelector('input');
+
+        if(input.checked != true){
+            container.children[i].remove();
+            i--;
+        }
+    }
 }
 
 function printTeamsInput(container, teams) {
-    /* 
-    <div id="{{ $team->id }}" class="card open flex-row justify-content-between p-2 mx-3 my-2">
-        <div class="custom-control custom-checkbox">
-            <input checked type="checkbox" class="custom-control-input" id="team{{ $team->id }}">
-            <label class="custom-control-label team-name" for="team{{ $team->id }}">{{ $team->name }}</label>
-        </div>
-        {{ $team->skill == null ? '' : $team->skill }}
-    </div> 
-    */
+    let first_element = container.firstElementChild;
+
+    for (const team of teams) {
+
+        let card = document.createElement('div');
+        card.setAttribute('id', team.id);
+        card.setAttribute('class', 'card open flex-row justify-content-between p-2 mx-3 my-2');
+
+        card.innerHTML = '<div class="custom-control custom-checkbox"> <input type="checkbox" class="custom-control-input" id="team-' +
+            team.id + '"> <label class="custom-control-label team-name" for="team-' + team.id + '">' + team.name + '</label></div>' +
+            (team.skill == null ? '' : team.skill) + ' </div>';
+
+        if(first_element == null)
+            container.appendChild(card);
+        else
+            container.insertBefore(card, first_element);
+    }
 }
 
 function sendAjaxRequest(method, url, data, handler) {

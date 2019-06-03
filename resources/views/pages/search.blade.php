@@ -25,7 +25,7 @@
                 </div>
             </div>
         </div>
-        <div id="search-content" class="container">
+        <div id="search-content" class="container pb-4 mb-4">
             <div class="row justify-content-center pb-4">
                 <img id="looking-img" class="mt-5"src="{{ asset('img/lookingFor.png') }}" alt="Search Picture">
             </div>
