@@ -2,7 +2,7 @@
     <div class="container pb-4 my-auto">
         <div class="row justify-content-center">
             <div id="profile-picture" class="col-  mx-auto">
-                <img class="profile-img rounded-circle" src="{{ asset('img/avatar.png') }}" width="250" height="250"
+                <img class="profile-img rounded-circle" src="{{ file_exists('img/profile/33.png') ? asset('img/profile/33.png') :  asset('img/profile/33.jpeg')}}" width="250" height="250"
                         alt="User Photo">
                 <div id="upload-profile-picture" class="text-center">
                     <i class="fas fa-camera"></i>

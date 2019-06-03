@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -299,45 +300,34 @@ class ProfileController extends Controller
        // echo  $_FILES['picture'];
 
         // Determine if it's channel/profile valid image
-        $imgInfo['availableExtensions'] = ['image/jpeg', 'image/png'];
+        $imgInfo['availableExtensions'] = ['jpeg', 'png'];
 
         $imgInfo['type'] = 'profile'; //TODO - PROFILE OR BACKGROUND
-        $imgInfo['directory'] = '../resources/images/users/';
-        $imgInfo['extension'] = $picture['type'];
+        $imgInfo['directory'] = '../public/img/profile/';
+        $imgInfo['extension'] = explode('/', $picture['type'])[1];
 
         // Check if file extension is valid
         if(!in_array($imgInfo['extension'], $imgInfo['availableExtensions'])) {
-            return redirect()->route('profile');
+            echo "asdasda";
+            //return redirect()->route('profile');
         }
 
-//        // Delete previous image if exists
-//        for($index = 0; $index < count($imgInfo['availableExtensions']); $index++) {
-//            if(file_exists($imgInfo['directory'] . sha1($id) . '.' . $imgInfo['availableExtensions'][$index])) {
-//                unlink($imgInfo['directory'] . sha1($id) . '.' . $imgInfo['availableExtensions'][$index]);
-//            }
-//        }
+        // Delete previous image if exists
+        for($index = 0; $index < count($imgInfo['availableExtensions']); $index++) {
+            if(file_exists($imgInfo['directory'] . Auth::user()->getAuthIdentifier() . '.' . $imgInfo['availableExtensions'][$index])) {
+                unlink($imgInfo['directory'] . Auth::user()->getAuthIdentifier() . '.' . $imgInfo['availableExtensions'][$index]);
+            }
+        }
 
-//        // Generate filenames for original
-//        $originalFileName = $imgInfo['directory'] . sha1($id) . '.' . $imgInfo['extension'];
+        // Generate filename
+        $filename = $imgInfo['directory'] . Auth::user()->getAuthIdentifier() . '.' . $imgInfo['extension'];
 
-//        // Move the uploaded file to its final destination
-//        move_uploaded_file($_FILES['image']['tmp_name'], $originalFileName);
-//        if($imgInfo['extension'] == 'jpg') {
-//            imagecreatefromjpeg($originalFileName);
-//        }
-//        else if($imgInfo['extension'] == 'png') {
-//            imagecreatefrompng($originalFileName);
-//        }
-//        else if($imgInfo['extension'] == 'gif') {
-//            imagecreatefromgif($originalFileName);
-//        }
-//
-//        if($imgInfo['type'] == 'profile') {
-//            die(header('Location: ../pages/profile.php?username=' . $id));
-//        }
-//        else if($imgInfo['type'] == 'channel') {
-//            die(header('Location: ../pages/channel.php?channelName=' . $id));
-//        }
+        //echo $originalFileName;
+
+        // Move the uploaded file to its final destination
+        move_uploaded_file($picture['tmp_name'], $filename);
+
+        return redirect()->route('profile', ['id' => Auth::user()->getAuthIdentifier()]);
     }
 
     /**
