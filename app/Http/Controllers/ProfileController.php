@@ -282,6 +282,65 @@ class ProfileController extends Controller
     }
 
     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function uploadPicture(Request $request)
+    {
+        // Get image ID
+        $picture = isset($_FILES['picture']) ? $_FILES['picture'] : null;
+
+        if($picture == null)
+            return redirect()->route('profile');
+
+       // echo  $_FILES['picture'];
+
+        // Determine if it's channel/profile valid image
+        $imgInfo['availableExtensions'] = ['image/jpeg', 'image/png'];
+
+        $imgInfo['type'] = 'profile'; //TODO - PROFILE OR BACKGROUND
+        $imgInfo['directory'] = '../resources/images/users/';
+        $imgInfo['extension'] = $picture['type'];
+
+        // Check if file extension is valid
+        if(!in_array($imgInfo['extension'], $imgInfo['availableExtensions'])) {
+            return redirect()->route('profile');
+        }
+
+//        // Delete previous image if exists
+//        for($index = 0; $index < count($imgInfo['availableExtensions']); $index++) {
+//            if(file_exists($imgInfo['directory'] . sha1($id) . '.' . $imgInfo['availableExtensions'][$index])) {
+//                unlink($imgInfo['directory'] . sha1($id) . '.' . $imgInfo['availableExtensions'][$index]);
+//            }
+//        }
+
+//        // Generate filenames for original
+//        $originalFileName = $imgInfo['directory'] . sha1($id) . '.' . $imgInfo['extension'];
+
+//        // Move the uploaded file to its final destination
+//        move_uploaded_file($_FILES['image']['tmp_name'], $originalFileName);
+//        if($imgInfo['extension'] == 'jpg') {
+//            imagecreatefromjpeg($originalFileName);
+//        }
+//        else if($imgInfo['extension'] == 'png') {
+//            imagecreatefrompng($originalFileName);
+//        }
+//        else if($imgInfo['extension'] == 'gif') {
+//            imagecreatefromgif($originalFileName);
+//        }
+//
+//        if($imgInfo['type'] == 'profile') {
+//            die(header('Location: ../pages/profile.php?username=' . $id));
+//        }
+//        else if($imgInfo['type'] == 'channel') {
+//            die(header('Location: ../pages/channel.php?channelName=' . $id));
+//        }
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id

@@ -4,10 +4,16 @@
             <div id="profile-picture" class="col-  mx-auto">
                 <img class="profile-img rounded-circle" src="{{ asset('img/avatar.png') }}" width="250" height="250"
                         alt="User Photo">
-                <div id="change-picture" class="text-center">
+                <div id="upload-profile-picture" class="text-center">
                     <i class="fas fa-camera"></i>
                     <p>Update</p>
                 </div>
+                <form id="upload-profile-picture-form" method="post" action="{{ route('upload-picture') }}" enctype="multipart/form-data" style="display: none;">
+                    {{ csrf_field() }}
+
+                    <input type="file" name="picture" class="form-control-file" id="upload-profile-picture-file">
+                    <input id="upload-profile-picture-form-submit" type="submit">
+                </form>
             </div>
         </div>
         <div class="row justify-content-center pt-4 pb-3">

@@ -89,6 +89,7 @@ Route::get('/profile/{id}/followers', 'ProfileController@showFollowers')->name('
 Route::get('/profile/{id}/following', 'ProfileController@showFollowing')->name('profile-following');
 Route::post('/profile/{id}/edit', 'ProfileController@editProfile');
 Route::get('/profile/{id}/remove', 'ProfileController@remove')->name('remove-user');
+Route::post('profile/uploadpicture', 'ProfileController@uploadPicture')->name('upload-picture');
 
 // Administrator
 Route::get('/admin/users', 'AdministratorController@showUsers')->name('admin-users');

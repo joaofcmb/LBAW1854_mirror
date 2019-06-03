@@ -6,7 +6,7 @@
     object-fit: cover;
 }
 
-#change-picture {    
+#upload-profile-picture {    
     position: absolute;
     transform: translate(150%, -200%);    
     opacity: 0;
@@ -19,21 +19,22 @@
     background-color: var(--light-grey-color);
 }
 
-#profile-picture:hover #change-picture {
+#profile-picture:hover #upload-profile-picture {
     opacity: 1;
     font-family: 'Roboto', sans-serif;
 }
 
-#change-picture > i {
+#upload-profile-picture > i {
     font-size: 2em;
 }
 
-#change-picture > p {
+#upload-profile-picture > p {
     font-size: 1.25em;
 }
 
-#change-picture:hover {
+#upload-profile-picture:hover {
     cursor: pointer;
+    color: var(--brand-color);
 }
 
 #edit-biography {

@@ -121,6 +121,22 @@ if(edit_biography !== null) {
     })
 }
 
+let uploadProfilePicture = document.getElementById('upload-profile-picture')
+let uploadProfilePictureFile = document.getElementById('upload-profile-picture-file')
+let uploadProfilePictureSubmit = document.getElementById('upload-profile-picture-form-submit')
+
+if(uploadProfilePicture != null) {
+    uploadProfilePicture.addEventListener('click', function() {
+        uploadProfilePictureFile.click()
+    })
+}
+
+if(uploadProfilePictureFile != null) {
+    uploadProfilePictureFile.addEventListener('change', function () {
+        uploadProfilePictureSubmit.click()
+    })
+}
+
 let follow = document.getElementsByClassName('follow');
 
 for(let i = 0; i < follow.length; i++) {
