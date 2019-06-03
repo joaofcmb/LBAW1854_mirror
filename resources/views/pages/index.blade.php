@@ -7,7 +7,6 @@
 @section('title', 'Index')
 
 @section('body')
-<body>
     @include('partials.main-navbar', [
         'auth' => 'index'
     ])
@@ -150,8 +149,4 @@
         </div>
         <div class="row mb-5 pb-5"></div>
     </div>
-    <footer class="bottom p-2">
-        COPYRIGHT © EPMA 2019
-    </footer>
-</body>
 @endsection

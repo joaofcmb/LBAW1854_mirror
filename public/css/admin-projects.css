@@ -19,6 +19,7 @@
 
 #search-content .card a:hover {
     color: var(--brand-color);
+    cursor: pointer;
 }
 
 #search-content .card-header {
@@ -46,5 +47,6 @@
 }
 
 #search-content .card .card-body #action-button a:hover {
+    cursor: pointer;
     background-color: var(--brand-color);
 }

@@ -886,7 +886,6 @@ let doneTyping = function () {
             teamAssign.call(this);
             break;
     }
-
 };
 
 function search(data) {
@@ -935,13 +934,6 @@ function teamAssign() {
     sendAjaxRequest.call(this, 'post', '/api/search/data', {'query': query, 'data': 'Teams', 'constraints': teams}, editSearch)
 }
 
-function editSearch() {
-    if(this.status !== 200) return;
-
-    let response = JSON.parse(this.responseText);
-    console.log(response)
-}
-
 for(let i = 0; i < searchBar.length; i++) {
     searchBar[i].addEventListener('keyup', function () {
         clearTimeout(typingTimer);
@@ -951,6 +943,224 @@ for(let i = 0; i < searchBar.length; i++) {
     searchBar[i].addEventListener('keydown', function () {
         clearTimeout(typingTimer);
     });
+}
+
+function editSearch() {
+    if(this.status !== 200) return;
+
+    let response = JSON.parse(this.responseText);
+
+    let page = this.prototype.getAttribute('class').split(' ')[1];
+    let container = document.getElementById('search-content');
+    console.log(response)
+    switch (page) {
+        case 'globalSearch':
+            container.innerHTML = '';
+            if(document.getElementsByClassName('btn active')[0].lastChild.textContent == 'Users')
+                printUsers(container, response, false);
+            else
+                printProjects(container, response, false);
+            break;
+        case 'adminUsers':
+            container.innerHTML = '';
+            // 'adminView' => true
+            printUsers(container, response, true)
+            break;
+        case 'adminTeams':
+            container = container.firstElementChild;
+            container.innerHTML = '';
+            printTeams(container, response)
+            break;
+        case 'adminProjects':
+            container.innerHTML = '';
+            printProjects(container, response, true)
+            break;
+        case 'manageTeam':
+            container = container.querySelector('#search-display');
+            container.innerHTML = '';
+            // 'isLeader' => false,
+            // 'user' => $user,
+            // 'manageTeam' => true
+            printUsers(container, response)
+            break;
+        case 'manageProject':
+
+            break;
+        case 'teamAssign':
+            // clear non checked teams on display
+            printTeamsInput(container, response);
+            break;
+    }
+
+}
+
+function printUsers(container, users, isAdminView) {
+    /* @isset ($adminView)
+    <div id="{{ $user->id }}" class="row justify-content-center pb-4">
+        <div class="col-11 col-md-8 ali">
+            @if(!$user->is_active)
+                <div id="card-{{ $user->id }}" class="restore card">
+            @else
+                <div id="card-{{ $user->id }}" class="card">
+            @endif
+                <div class="card-body p-2">
+                    @if($user->is_active)
+                        <a href="{{ route('profile', ['id' => $user->id]) }}">
+                    @endif
+                        <img src="{{ asset('img/profile.png') }}" width="50" height="50"
+                                class="d-inline-block rounded-circle align-self-center my-auto" alt="User photo">
+                        <span class="pl-2 pl-sm-4">{{ $user->username }}</span>
+                    @if($user->is_active)
+                        </a>
+                    @endif
+                    <a id="{{ $user->id }}" class="{{ $user->is_active? 'remove' : 'restore' }}-user float-right pt-2 pr-2">
+                        @if(!$user->is_active)
+                            <span>Restore</span>
+                            <i class="fas fa-trash-restore"></i>
+                        @else
+                            <i class="fas fa-times"></i>
+                        @endif
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+@else
+    @if($isLeader)
+        <div id="{{ $leader->id }}"class="profile card my-3">
+            <div class="card-body text-center">
+                <a href="{{ route('profile', ['id' => $leader->id]) }}">
+                    <img src="{{ asset('img/profile.png') }}" width="125px" height="125px"
+                            class="profile-img-team d-inline-block rounded-circle align-self-center my-3 my-md-1 p-md-0 p-lg-3 p-xl-0 "
+                            alt="User photo">
+                    <p class="m-0 pt-2">{{ $leader->username }}</p>
+                </a>
+                <a class="float-right" style="cursor: pointer;">
+                    @if($leader->id != Auth::user()->getAuthIdentifier())
+                        <i id="user-{{ $leader->id }}" class="follow {{ $leader->follow ? 'fas' : 'far' }} fa-star"></i>
+                    @endif
+                </a>
+            </div>
+        </div>
+    @else
+        @isset($manager)
+            @isset($teamMember)
+                <div id="{{ isset($user->id_user) ? $user->id_user : $user->id }}" class="profile card my-3">
+            @else
+                <div id="{{ isset($user->id_user) ? $user->id_user : $user->id }}" class="profile card my-3 col-sm-12 col-md-6 pl-0">
+            @endisset
+        @else
+            <div class="profile card my-3">
+        @endisset
+            <div class="card-body p-2">
+                @isset($user->id_user)
+                    <a href="{{ route('profile', ['id' => $user->id_user]) }}">
+                @else
+                    <a href="{{ route('profile', ['id' => $user->id]) }}">
+                @endisset
+                    <img src="{{ asset('img/profile.png') }}" width="50" height="50"
+                            class="d-inline-block rounded-circle align-self-center my-auto"
+                            alt="User photo">
+                    <span class="pl-2 pl-sm-4">{{ $user->username }}</span>
+                </a>
+                <a class="float-right pt-2 pr-2">
+                    @isset($manager)
+                        @isset($teamMember)
+                            @if($teamMember)
+                                <i class="fas fa-user-tie" style="color:grey;"></i>
+                            @endif
+                        @endisset
+                        <i class="fas fa-fw fa-times text-danger"></i>
+                    @else
+                        @isset($manageTeam)
+                            <i class="fas fa-plus"></i>
+                        @else
+                            @if($user->id != Auth::user()->getAuthIdentifier())
+                                <i id="user-{{ $user->id }}" class="follow {{ $follow ? 'fas' : 'far' }} fa-star" style="cursor: pointer;"></i>
+                            @endif
+                        @endisset
+                    @endisset
+                </a>
+            </div>
+        </div>
+    @endif
+@endisset */
+
+}
+
+function printProjects(container, projects, isAdminView) {
+
+    // for (const project of projects) {
+    //     let card = document.createElement('div');
+    //     card.setAttribute('class','card py-2 px-3 mt-4 mx-3 mx-sm-5 mb-2');
+    //     card.setAttribute('style','border-top-width: 0.25em; border-top-color: ' + project.color + ';');
+
+    //     let overview_route = project.isLocked ? '' : 
+    //         "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/project/" + project.id_project;
+        
+    //     let icons;
+
+    //     if(isAdminView) {
+    //         let edit_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + 
+    //             "/admin/projects/" + project.id_project + '/edit';
+    //         icons = '<a href="' + edit_route + '"><i class="far fa-edit"></i> </a>' + '<a class="pl-2"> <i class="far fa-trash-alt"></i></a>';
+    //     }
+    //     else
+    //         icons = '<a><i id="project-' + project.id + '" class="favorite ' + project.favorite ? 'fas' : 'far' + ' fa-star" ' + 
+    //             'style="cursor: pointer;" aria-hidden="true"></i></a> <i class="pl-1 fa fa-' + project.isLocked ? 'lock' : 'unlock' + 
+    //             '" aria-hidden="true"></i>';
+
+    //     let manager_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/profile/" + project.id_manager;
+    //     card.innerHTML = '<div class="d-flex justify-content-between"> <a href="' + overview_route + '"> <h5 class="card-title my-1">' +
+    //         project.name + '</h5> </a> <h5 class="flex-grow-1 d-flex justify-content-end align-items-center"> ' + icons + 
+    //         '</h5> </div> <div class="row"> <div class="col-sm-7"> Project Manager: <a href="' + manager_route + '"> <h6 class="d-inline-block mb-3">' +
+    //         project.manager + '</h6> </a> <br> Brief Description: <h6 class="d-inline">' + project.description + '</h6> </div>' +
+    //         '<div class="col-sm-5 mt-3 mt-sm-0"> Statistics <h6> <p class="m-0"><i class="far fa-fw fa-user mr-1"></i>' + project.teams + 
+    //         ' Teams involved</p> <p class="m-0"><i class="fas fa-fw fa-check text-success mr-1"></i>' + sizeof(project.tasks_done) + 
+    //         ' Tasks concluded</p> <p class="m-0"><i class="fas fa-fw fa-times text-danger mr-1"></i>' + (project.tasks_ongoing.length + project.tasks_todo.length) +
+    //         ' Tasks remaining</p> </h6> </div> </div> </div>';
+
+    //     container.appendChild(card);
+    // }
+}
+
+function printTeams(container, teams) {
+    /*
+    <div class="col-sm-4 my-3">
+        <div class="card text-center">      
+        <div class="card-header" style="clear: both;">
+            <p id="team-name" class="m-0" style="float: left;">{{ $team->name }}</p>
+            <p class="m-0" style="float: right;">{{ $team->skill == null ? '' : $team->skill }}</p>
+        </div>
+        <div class="card-body">
+            <a href="{{ route('profile', ['id' => $team->leader->id]) }}">
+                <p style="font-weight: bold;">{{ $team->leader->username }}</p>
+            </a>
+            <div class="mt-3">
+            @foreach($team->members as $member)
+                <a href="{{ route('profile', ['id' => $member->id]) }}">
+                    <p>{{ $member->username }}</p>
+                </a>
+            @endforeach
+            </div>
+                <a id="edit-button" href="{{ route('admin-edit-team', ['id' => $team->id]) }}" class="btn mt-3" role="button">Edit</a>
+                <a id="edit-button" href="" class="btn mt-3" role="button">Remove</a>
+            </div>
+        </div>
+    </div> 
+    */
+}
+
+function printTeamsInput(container, teams) {
+    /* 
+    <div id="{{ $team->id }}" class="card open flex-row justify-content-between p-2 mx-3 my-2">
+        <div class="custom-control custom-checkbox">
+            <input checked type="checkbox" class="custom-control-input" id="team{{ $team->id }}">
+            <label class="custom-control-label team-name" for="team{{ $team->id }}">{{ $team->name }}</label>
+        </div>
+        {{ $team->skill == null ? '' : $team->skill }}
+    </div> 
+    */
 }
 
 function sendAjaxRequest(method, url, data, handler) {

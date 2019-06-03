@@ -34,6 +34,7 @@
 
 #search-content .card a:hover {
     color: var(--brand-color);
+    cursor: pointer;
 }
 
 #create .col-sm- {
@@ -49,6 +50,7 @@
 
 #create .col-sm-:hover a {
     color: var(--brand-color);
+    cursor: pointer;
 }
 
 #create .col-sm- a {
