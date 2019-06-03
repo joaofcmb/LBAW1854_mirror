@@ -70,6 +70,9 @@
                     <div id="register" class="row justify-content-center pt-3">
                         <p>Don’t have an account ? <a href="{{ route('register') }}"><span>Sign Up</span></a></p>
                     </div>
+                    <div id="register" class="row justify-content-center pt">
+                        <p>Forgot your password ? <a href="{{ route('password.request') }}"><span>Reset Password</span></a></p>
+                    </div>
                 </div>
             </div>
         </div>

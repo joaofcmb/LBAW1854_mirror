@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS follow, project, favorite, forum, thread CASCADE;
 DROP TABLE IF EXISTS comment, task_comment, thread_comment CASCADE;
 DROP TABLE IF EXISTS task, team, team_project, team_task CASCADE;
 DROP TABLE IF EXISTS task_group, milestone CASCADE;
+DROP TABLE IF EXISTS password_resets;
 
 DROP TYPE IF EXISTS ProjectStatus CASCADE;
 
@@ -56,6 +57,13 @@ CREATE TABLE "user" (
     password TEXT NOT NULL,
     biography TEXT,
     remember_token TEXT DEFAULT NULL
+);
+
+-- R0X
+CREATE TABLE password_resets (
+    email TEXT NOT NULL,
+    token TEXT,
+    created_at timestamp
 );
 
 -- R02
