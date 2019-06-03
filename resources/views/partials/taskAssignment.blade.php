@@ -16,8 +16,8 @@
                     @foreach($teams as $team)
                         <div id="{{ $team->id }}" class="card open flex-row justify-content-between p-2 mx-3 my-2">
                             <div class="custom-control custom-checkbox">
-                                <input checked type="checkbox" class="custom-control-input" id="team{{ $team->id }}">
-                                <label class="custom-control-label team-name" for="team{{ $team->id }}">{{ $team->name }}</label>
+                                <input checked type="checkbox" class="custom-control-input" id="team-{{ $team->id }}">
+                                <label class="custom-control-label team-name" for="team-{{ $team->id }}">{{ $team->name }}</label>
                             </div>
                             {{ $team->skill == null ? '' : $team->skill }}
                         </div>

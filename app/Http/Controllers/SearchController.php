@@ -77,20 +77,29 @@ class SearchController extends Controller
 
     public function searchProjects($query) {
 
-        return Project::selectRaw("id, name, description")
+        $projects = Project::selectRaw("id, name, description, color, id_manager")
             ->whereRaw("(setweight(to_tsvector(name), 'A') || setweight(to_tsvector(description), 'B')) @@ to_tsquery('simple', ?)", [$query])
             ->orderByRaw("ts_rank((setweight(to_tsvector(name), 'A') || setweight(to_tsvector(description), 'B')), to_tsquery('simple', ?)) DESC", [$query])
             ->get();
+        
+        return Project::information($projects);
 
     }
 
     public function searchTeams($query, $constraints) {
 
-        return Team::selectRaw("id, name, skill")
+        $teams = Team::selectRaw("id, name, skill, id_leader")
             ->whereRaw("to_tsvector(name || ' ' || skill) @@ to_tsquery('simple', ?)", [$query])
             ->whereNotIn('id', $constraints)
             ->orderByRaw("ts_rank(to_tsvector(name || ' ' || skill), to_tsquery('simple', ?)) DESC", [$query])
             ->get();
+
+        foreach ($teams as $team) {
+            $team['members'] = $team->members;
+            $team['leader'] = $team->leader;
+        }
+
+        return $teams;
 
     }
 
