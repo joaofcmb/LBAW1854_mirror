@@ -21,7 +21,7 @@
                         {{ csrf_field() }}
                         <div class="form-group row justify-content-center">
                             <div class="col-sm-8 pt-3">
-                                <input name="username" type="text" class="form-control" placeholder="Username" required>
+                                <input id="register-form-username" name="username" type="text" class="form-control" placeholder="Username" required>
                             </div>
                         </div>
                         <div class="form-group row justify-content-center">

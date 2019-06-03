@@ -41,6 +41,9 @@ if (milestoneCount > 0) {
 // EVENT LISTENERS //
 /////////////////////
 
+let typingTimer;                //timer identifier
+let doneTypingInterval = 500;  //time in ms, 5 second for example
+
 // PROFILE //
 let edit_profile_info = document.getElementsByClassName('edit-profile-info')[0];
 
@@ -71,30 +74,21 @@ if (edit_profile_info !== undefined) {
     })
 }
 
-function validateEmail(email) {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
-}
+let registerFormUsername = document.getElementById('register-form-username')
 
-function blockHelpNode(element, message, color) {
-    let blockHelp = document.getElementById('block-help')
+let finishedTyping = function () {
+    sendAjaxRequest.call(this, 'post', 'register/validateusername', {username: this.value}, validateUsername);
+};
 
-    if(color === "green" && blockHelp != null) {
-        document.getElementById('block-help').remove();
-        blockHelp = null;
-    }
+if(registerFormUsername != null) {
+    registerFormUsername.addEventListener('keyup', function () {
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(finishedTyping.bind(registerFormUsername), doneTypingInterval);
+    });
 
-
-    if(blockHelp == null) {
-        let node = document.createElement("p");
-        node.setAttribute('id', 'block-help')
-        node.setAttribute('class', 'pt-3')
-        node.setAttribute('style', 'color: ' + color + ';')
-        node.textContent = message
-        element.appendChild(node)
-    }
-    else
-        blockHelp.textContent = message;
+    registerFormUsername.addEventListener('keydown', function () {
+        clearTimeout(typingTimer);
+    });
 }
 
 let edit_biography = document.getElementById('edit-biography');
@@ -403,6 +397,20 @@ for(let i = 0; i < restore_user.length; i++) {
 // HANDLERS //
 //////////////
 
+function blockHelpNode(element, message, color) {
+    let blockHelp = document.getElementById('block-help')
+
+    if(blockHelp != null)
+        document.getElementById('block-help').remove();
+
+    let node = document.createElement("p");
+    node.setAttribute('id', 'block-help')
+    node.setAttribute('class', 'pt-3 my-0')
+    node.setAttribute('style', 'color: ' + color + '; font-family: \'Comfortaa\', sans-serif;')
+    node.textContent = message
+    element.appendChild(node)
+}
+
 function editProfileInformation() {
     if (this.status !== 200) return;
 
@@ -412,7 +420,17 @@ function editProfileInformation() {
         blockHelpNode(document.getElementById('new-password').parentElement, "Old Password field does not match our records !", "red");
     else if(item['status'] === "SUCCESS")
         blockHelpNode(document.getElementById('new-password').parentElement, "Information updated with success !", "green");
+}
 
+function validateUsername() {
+    if (this.status !== 200) return;
+
+    let item = JSON.parse(this.responseText);
+
+    if(item['status'] === true)
+        blockHelpNode(document.getElementById('register-form-username').parentElement.parentElement, "This username already exists !", "red");
+    else
+        blockHelpNode(document.getElementById('register-form-username').parentElement.parentElement, "This username is available !", "green");
 }
 
 function editBiography() {
@@ -895,8 +913,6 @@ function createTaskHtml(tasks, isProjectManager) {
 // Asssociado ao display pode ser necessario acrescentar atributos a serem retornados
 // Display do HTML
 
-let typingTimer;                //timer identifier
-let doneTypingInterval = 500;  //time in ms, 5 second for example
 let searchBar = document.getElementsByClassName('search-bar')
 
 let doneTyping = function () {
@@ -1224,6 +1240,11 @@ function encodeForAjax(data) {
     return Object.keys(data).map(function(k) {
         return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
     }).join('&');
+}
+
+function validateEmail(email) {
+    let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
 }
 
 // DRAG AND DROP (Task Groups) //
