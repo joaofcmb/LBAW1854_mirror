@@ -8,18 +8,23 @@ use App\Developer;
 use App\Follow;
 use App\Team;
 use App\User;
+use Exception;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -29,7 +34,7 @@ class ProfileController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -39,8 +44,8 @@ class ProfileController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -51,7 +56,7 @@ class ProfileController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
@@ -74,7 +79,7 @@ class ProfileController extends Controller
      * Displays user profile team section
      *
      * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function showTeam($id) {
 
@@ -107,7 +112,7 @@ class ProfileController extends Controller
      * Displays user profile favorites section
      *
      * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function showFavorites($id)
     {
@@ -131,7 +136,7 @@ class ProfileController extends Controller
      * Displays user profile followers section
      *
      * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @return Factory|RedirectResponse|View
      */
     public function showFollowers($id)
     {
@@ -156,7 +161,7 @@ class ProfileController extends Controller
      * Displays user profile following section
      *
      * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function showFollowing($id)
     {
@@ -223,7 +228,7 @@ class ProfileController extends Controller
     /**
      * Edit the profile information
      * 
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  int  $id
      */
     public function editProfile(Request $request, $id)
@@ -263,7 +268,7 @@ class ProfileController extends Controller
      * Change the user status to removed
      * 
      * @param int $id
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function remove($id) 
     {
@@ -271,7 +276,7 @@ class ProfileController extends Controller
             $user = Developer::find($id);
             $user->is_active = false;
             $user->save();
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $message = $exception->getMessage();
             $message = substr($message, strrpos($message,"ERROR: "));
             $message = substr($message, 0, strrpos($message, "(SQL"));
@@ -283,19 +288,19 @@ class ProfileController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Uploads picture
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function uploadPicture(Request $request)
+    public function uploadPicture()
     {
         // Get image ID
         $picture = isset($_FILES['picture']) ? $_FILES['picture'] : null;
 
         if($picture == null)
             return redirect()->back()->withErrors('Internal error due to changes on html');
+        else if($picture['size'] == 0)
+            return redirect()->back()->withErrors('Upload picture appears to be corrupted');
 
         // Determine if it's channel/profile valid image
         $imgInfo['availableExtensions'] = ['jpg', 'png'];
@@ -329,7 +334,7 @@ class ProfileController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit($id)
     {
@@ -339,9 +344,9 @@ class ProfileController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -352,7 +357,7 @@ class ProfileController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {

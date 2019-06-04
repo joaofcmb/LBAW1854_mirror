@@ -3,7 +3,8 @@
         <div class="row justify-content-center">
             <div id="profile-picture" class="col-  mx-auto">
                 <img class="profile-img rounded-circle"
-                     src="{{ file_exists('img/profile/' . $user->id . '.png') ? asset('img/profile/' . $user->id . '.png') :  asset('img/profile/' . $user->id . '.jpg')}}" width="250" height="250"
+                     src="{{ file_exists('img/profile/' . $user->id . '.png') ? asset('img/profile/' . $user->id . '.png') :
+                        (file_exists('img/profile/' . $user->id . '.jpg') ? asset('img/profile/' . $user->id . '.jpg') : asset('img/profile.png')) }}" width="250" height="250"
                      alt="User photo">
                 @isset ($isInfo)
                     <div id="upload-profile-picture" class="text-center">

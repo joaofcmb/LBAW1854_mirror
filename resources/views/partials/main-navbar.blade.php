@@ -37,7 +37,8 @@
                 <a href="{{ route('logout') }}" class="pr-2">
                     <span class="font-weight-bold px-2">Sign out</span>
                 </a>
-                <a href="{{ route('profile', ['id' => Auth::user()->getAuthIdentifier()]) }}"><img class="profile-img d-inline-block rounded-circle my-auto" src="{{ asset('img/avatar.png') }}"
+                <a href="{{ route('profile', ['id' => Auth::user()->getAuthIdentifier()]) }}"><img class="profile-img d-inline-block rounded-circle my-auto" src="{{ file_exists('img/profile/' . Auth::user()->getAuthIdentifier() . '.png') ? asset('img/profile/' . Auth::user()->getAuthIdentifier() . '.png') :
+                        (file_exists('img/profile/' . Auth::user()->getAuthIdentifier() . '.jpg') ? asset('img/profile/' . Auth::user()->getAuthIdentifier() . '.jpg') : asset('img/profile.png')) }}"
                                 width="50" height="50" alt="Website Logo"></a>
             </div>
         @else
@@ -56,7 +57,8 @@
                     <span class="font-weight-bold pl-3">Sign out</span>
                 </a>
                 <a href="{{ route('profile', ['id' => Auth::user()->getAuthIdentifier()]) }}" class="pl-lg-3">
-                    <img class="profile-img d-none d-md-inline-block rounded-circle my-auto" src="{{ asset('img/avatar.png') }}" width="50" height="50" alt="Profile Image">
+                    <img class="profile-img d-none d-md-inline-block rounded-circle my-auto" src="{{ file_exists('img/profile/' . Auth::user()->getAuthIdentifier() . '.png') ? asset('img/profile/' . Auth::user()->getAuthIdentifier() . '.png') :
+                        (file_exists('img/profile/' . Auth::user()->getAuthIdentifier() . '.jpg') ? asset('img/profile/' . Auth::user()->getAuthIdentifier() . '.jpg') : asset('img/profile.png')) }}" width="50" height="50" alt="Profile Image">
                 </a>
             </div>
         @endif

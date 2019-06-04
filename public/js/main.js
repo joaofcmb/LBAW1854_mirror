@@ -113,7 +113,6 @@ if(edit_biography !== null) {
     })
 }
 
-
 let uploadProfilePicture = document.getElementById('upload-profile-picture')
 let uploadProfilePictureFile = document.getElementById('upload-profile-picture-file')
 let uploadProfilePictureSubmit = document.getElementById('upload-profile-picture-form-submit')
