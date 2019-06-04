@@ -63,13 +63,15 @@
                         </form>
                         @include('partials.searchBar', ['page' => 'manageProject', 'content' => 'Project Manager', 'searchPage' => 'manageProject'])
                         
-                        @isset($project)
-                            @include('partials.cards.profile', [
-                                'isLeader' => false,
-                                'user' => (object) array('id' => $project->id_manager, 'username' => $project->manager),
-                                'manager' => true
-                            ])
-                        @endisset
+                        <div id="search-display">
+                            @isset($project)
+                                @include('partials.cards.profile', [
+                                    'isLeader' => false,
+                                    'user' => (object) array('id' => $project->id_manager, 'username' => $project->manager),
+                                    'manager' => true
+                                ])
+                            @endisset
+                        </div>
                         <div id="action-button" class="text-right mb-2">
                             <a href="#" class="btn mt-3" role="button">
                                 @isset($project)

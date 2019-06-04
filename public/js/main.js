@@ -2,14 +2,6 @@
 // BOOTSTRAP //
 ///////////////
 
-// $('.main-tab > .collapse').on('show.bs.collapse', function() {
-//     $(this).parent().css('background-color', '#f1f2f3')
-// })
-
-// $('.main-tab > .collapse').on('hide.bs.collapse', function() {
-//     $(this).parent().css('background-color', '#f8f9fa')
-// })
-
 $('#progress-form input').on('input', function() {
     $("#progress-form label").text($(this)[0].value);
 })
@@ -193,7 +185,6 @@ for(let i = 0; i < deleteThread.length; i++) {
     deleteThreadListener.bind(deleteThread[i])
     deleteThread[i].addEventListener('click', deleteThreadListener)
 }
-
 
 let addThreadComment = document.getElementsByClassName('add-comment')[0];
 
@@ -424,6 +415,104 @@ function restoreUserListener(event) {
 for(let i = 0; i < restore_user.length; i++) {
     restoreUserListener.bind(restore_user[i]);
     restore_user[i].addEventListener('click', restoreUserListener);
+}
+
+// SEARCH //
+
+let searchBar = document.getElementsByClassName('search-bar')
+
+let doneTyping = function () {
+
+    let regex = /\w/gm;
+
+    if(this.firstElementChild.firstElementChild.value.search(new RegExp(regex)) === -1)
+        return
+
+    let page = this.getAttribute('class').split(' ')[1];
+
+    switch (page) {
+        case 'globalSearch':
+            search.call(this, document.getElementsByClassName('btn active')[0].lastChild.textContent);
+            break;
+        case 'adminUsers':
+            search.call(this, 'Users');
+            break;
+        case 'adminTeams':
+            search.call(this, 'Teams');
+            break;
+        case 'adminProjects':
+            search.call(this, 'Projects');
+            break;
+        case 'manageTeam':
+            manageTeam.call(this);
+            break;
+        case 'manageProject':
+            manageProject.call(this);
+            break;
+        case 'teamAssign':
+            teamAssign.call(this);
+            break;
+    }
+};
+
+function search(data) {
+    let query = this.firstElementChild.firstElementChild.value;
+
+    sendAjaxRequest.call(this, 'post', '/api/search/data', {'query': query, 'data': data, 'constraints': []}, editSearch)
+}
+
+function manageTeam() {
+    let team = [];
+    let query = this.firstElementChild.firstElementChild.value;
+
+    let leader = document.getElementById('Leader');
+    let members = document.getElementById('Members')
+
+    if(leader.children.length > 1)
+        team.push(Number(leader.children[1].getAttribute('id')));
+
+    if(members.children.length > 1) {
+        for(let index = 1; index < members.children.length; index++)
+            team.push(Number(members.children[index].getAttribute('id')))
+    }
+
+    sendAjaxRequest.call(this, 'post', '/api/search/data', {'query': query, 'data': 'Users', 'constraints': team}, editSearch)
+}
+
+function manageProject() {
+    let manager_id = null;
+    let query = this.firstElementChild.firstElementChild.value;
+
+    let search_content = this.parentElement.querySelector('#search-display');
+    if(search_content.children.length > 0)
+        manager_id = Number(search_content.firstElementChild.getAttribute('id'));
+
+    sendAjaxRequest.call(this, 'post', '/api/search/data', {'query': query, 'data': 'Users', 'constraints': [manager_id]}, editSearch)
+}
+
+function teamAssign() {
+    let teams = []
+    let query = this.firstElementChild.firstElementChild.value;
+
+    let search_content = this.parentElement.querySelector('#search-content');
+    if(search_content.children.length > 1) {
+        for(let index = 0; index < search_content.children.length; index++)
+            if(search_content.children[index].querySelector('input').checked)
+                teams.push(Number(search_content.children[index].getAttribute('id')))
+    }
+
+    sendAjaxRequest.call(this, 'post', '/api/search/data', {'query': query, 'data': 'Teams', 'constraints': teams}, editSearch)
+}
+
+for(let i = 0; i < searchBar.length; i++) {
+    searchBar[i].addEventListener('keyup', function () {
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(doneTyping.bind(searchBar[i]), doneTypingInterval);
+    });
+
+    searchBar[i].addEventListener('keydown', function () {
+        clearTimeout(typingTimer);
+    });
 }
 
 //////////////
@@ -786,6 +875,54 @@ function restoreUserHandler() {
     new_remove.addEventListener('click', removeUserListener);
 }
 
+function editSearch() {
+    if(this.status !== 200) return;
+
+    let response = JSON.parse(this.responseText);
+
+    let page = this.prototype.getAttribute('class').split(' ')[1];
+    let container = document.getElementById('search-content');
+    console.log(response)
+    switch (page) {
+        case 'globalSearch':
+            container.innerHTML = '';
+            if(document.getElementsByClassName('btn active')[0].lastChild.textContent == 'Users')
+                printUsers(container, response, false, false, false);
+            else
+                printProjects(container, response, false);
+            break;
+        case 'adminUsers':
+            container.innerHTML = '';
+            printUsers(container, response, true, false, false);
+            break;
+        case 'adminTeams':
+            container = container.firstElementChild;
+            container.innerHTML = '';
+            printTeams(container, response)
+            break;
+        case 'adminProjects':
+            container.innerHTML = '';
+            printProjects(container, response, true)
+            break;
+        case 'manageTeam':
+            container = container.querySelector('#search-display');
+            container.innerHTML = '';
+            printUsers(container, response, false, true, false)
+            break;
+        case 'manageProject':
+            container = container.querySelector('#search-display');
+            let first_child = container.firstElementChild;
+            container.innerHTML = '';
+            container.appendChild(first_child);
+            printUsers(container, response, false, false, true)
+            break;
+        case 'teamAssign':
+            removeNotCheckedTeam(container);
+            printTeamsInput(container, response);
+            break;
+    }
+}
+
 ////////////
 // OTHERS //
 ////////////
@@ -938,249 +1075,73 @@ function createTaskHtml(tasks, isProjectManager) {
     return html;
 }
 
-//////////
-// AJAX //
-//////////
+function printUsers(container, users, isAdminView, manageTeam, manageProject) {
 
-// Documentar funçoes criadas no search controller e ajustar estas do js para os sitios certos
-// Asssociado ao display pode ser necessario acrescentar atributos a serem retornados
-// Display do HTML
+    for (const user of users) {
+        let card = document.createElement('div');
+        let profile_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/profile/" + user.id;
+        let image_src = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/img/avatar.png";
 
-let searchBar = document.getElementsByClassName('search-bar')
+        if(isAdminView) {
+            card.setAttribute('id', user.id);
+            card.setAttribute('class', 'row justify-content-center pb-4');     
 
-let doneTyping = function () {
+            card.innerHTML = '<div class="col-11 col-md-8 ali"> <div id="card-' + user.id + '" class="' + (user.is_active? '':'restore') +
+                ' card"> <div class="card-body p-2"> ' + (user.is_active? '<a href="' + profile_route + '">':'') + '<img src="' + image_src + 
+                '" width="50" height="50" class="d-inline-block rounded-circle align-self-center my-auto" alt="User photo">' +
+                ' <span class="pl-2 pl-sm-4">' + user.first_name + ' ' + user.last_name + '</span>' + (user.is_active? '</a>':'') +
+                ' <a id="' + user.id + '" class="' + (user.is_active? 'remove':'restore') + '-user float-right pt-2 pr-2">' + 
+                (user.is_active? '<i class="fas fa-times"></i>':'<span>Restore</span> <i class="fas fa-trash-restore"></i>') +
+                ' </a> </div> </div> </div> </div> ';
+        }
+        else {
+            let icons = '';
 
-    let regex = /\w/gm;
+            if(manageProject) {
+                card.setAttribute('id', user.id);
+                card.setAttribute('class', 'profile card my-3 col-sm-12 col-md-6 pl-0');
 
-    if(this.firstElementChild.firstElementChild.value.search(new RegExp(regex)) === -1)
-        return
+                icons = '<i class="fas fa-fw fa-times text-danger"></i>';
+            } else {
+                card.setAttribute('class', 'profile card my-3');
 
-    let page = this.getAttribute('class').split(' ')[1];
+                if(manageTeam)
+                    icons = '<i class="fas fa-plus"></i>';
+                else
+                    icons = '<i id="user-' + user.id + '" class="follow ' + (user.follow ? 'fas' : 'far') + ' fa-star" style="cursor: pointer;"></i>';
+            }
 
-    switch (page) {
-        case 'globalSearch':
-            search.call(this, document.getElementsByClassName('btn active')[0].lastChild.textContent);
-            break;
-        case 'adminUsers':
-            search.call(this, 'Users');
-            break;
-        case 'adminTeams':
-            search.call(this, 'Teams');
-            break;
-        case 'adminProjects':
-            search.call(this, 'Projects');
-            break;
-        case 'manageTeam':
-            manageTeam.call(this);
-            break;
-        case 'manageProject':
-            manageProject.call(this);
-            break;
-        case 'teamAssign':
-            teamAssign.call(this);
-            break;
-    }
-};
+            
+            card.innerHTML = '<div class="card-body p-2"> <a href="' + profile_route + '"> <img src="' + image_src + 
+                '" width="50" height="50" class="d-inline-block rounded-circle align-self-center my-auto" alt="User photo">' +
+                ' <span class="pl-2 pl-sm-4">' + user.first_name + ' ' + user.last_name + '</span></a> <a class="float-right pt-2 pr-2"> ' +
+                icons + ' </a> </div> </div>';
+        }
 
-function search(data) {
-    let query = this.firstElementChild.firstElementChild.value;
-
-    sendAjaxRequest.call(this, 'post', '/api/search/data', {'query': query, 'data': data, 'constraints': []}, editSearch)
-}
-
-function manageTeam() {
-    let team = [];
-    let query = this.firstElementChild.firstElementChild.value;
-
-    let leader = document.getElementById('Leader');
-    let members = document.getElementById('Members')
-
-    if(leader.children.length > 1)
-        team.push(Number(leader.children[1].getAttribute('id')));
-
-    if(members.children.length > 1) {
-        for(let index = 1; index < members.children.length; index++)
-            team.push(Number(members.children[index].getAttribute('id')))
+        container.appendChild(card);
     }
 
-    sendAjaxRequest.call(this, 'post', '/api/search/data', {'query': query, 'data': 'Users', 'constraints': team}, editSearch)
-}
+    // ADD Manage team and project listeners
 
-function manageProject() {
-    let manager_id = null;
-    let query = this.firstElementChild.firstElementChild.value;
-
-    if(this.nextElementSibling.getAttribute('id') !== 'action-button')
-        manager_id = Number(this.nextElementSibling.getAttribute('id'));
-
-    sendAjaxRequest.call(this, 'post', '/api/search/data', {'query': query, 'data': 'Users', 'constraints': [manager_id]}, editSearch)
-}
-
-function teamAssign() {
-    let teams = []
-    let query = this.firstElementChild.firstElementChild.value;
-
-    let search_content = this.parentElement.querySelector('#search-content');
-    if(search_content.children.length > 1) {
-        for(let index = 0; index < search_content.children.length; index++)
-            if(search_content.children[index].querySelector('input').checked)
-                teams.push(Number(search_content.children[index].getAttribute('id')))
+    let follow = document.getElementsByClassName('follow');
+    for(let i = 0; i < follow.length; i++) {
+        follow[i].addEventListener('click', function () {
+            let id_user = follow[i].getAttribute('id').split('-')[1];
+            sendAjaxRequest.call(this, 'get', '/follow/' + id_user, null, followHandler);
+        })
     }
 
-    sendAjaxRequest.call(this, 'post', '/api/search/data', {'query': query, 'data': 'Teams', 'constraints': teams}, editSearch)
-}
-
-for(let i = 0; i < searchBar.length; i++) {
-    searchBar[i].addEventListener('keyup', function () {
-        clearTimeout(typingTimer);
-        typingTimer = setTimeout(doneTyping.bind(searchBar[i]), doneTypingInterval);
-    });
-
-    searchBar[i].addEventListener('keydown', function () {
-        clearTimeout(typingTimer);
-    });
-}
-
-function editSearch() {
-    if(this.status !== 200) return;
-
-    let response = JSON.parse(this.responseText);
-
-    let page = this.prototype.getAttribute('class').split(' ')[1];
-    let container = document.getElementById('search-content');
-    console.log(response)
-    switch (page) {
-        case 'globalSearch':
-            container.innerHTML = '';
-            if(document.getElementsByClassName('btn active')[0].lastChild.textContent == 'Users')
-                printUsers(container, response, false);
-            else
-                printProjects(container, response, false);
-            break;
-        case 'adminUsers':
-            container.innerHTML = '';
-            // 'adminView' => true
-            printUsers(container, response, true)
-            break;
-        case 'adminTeams':
-            container = container.firstElementChild;
-            container.innerHTML = '';
-            printTeams(container, response)
-            break;
-        case 'adminProjects':
-            container.innerHTML = '';
-            printProjects(container, response, true)
-            break;
-        case 'manageTeam':
-            container = container.querySelector('#search-display');
-            container.innerHTML = '';
-            // 'isLeader' => false,
-            // 'user' => $user,
-            // 'manageTeam' => true
-            printUsers(container, response)
-            break;
-        case 'manageProject':
-            break;
-        case 'teamAssign':
-            removeNotCheckedTeam(container);
-            printTeamsInput(container, response);
-            break;
+    let remove_user = document.getElementsByClassName('remove-user');
+    for(let i = 0; i < remove_user.length; i++) {
+        removeUserListener.bind(remove_user[i]);
+        remove_user[i].addEventListener('click', removeUserListener)
     }
 
-}
-
-function printUsers(container, users, isAdminView) {
-    /* @isset ($adminView)
-    <div id="{{ $user->id }}" class="row justify-content-center pb-4">
-        <div class="col-11 col-md-8 ali">
-            @if(!$user->is_active)
-                <div id="card-{{ $user->id }}" class="restore card">
-            @else
-                <div id="card-{{ $user->id }}" class="card">
-            @endif
-                <div class="card-body p-2">
-                    @if($user->is_active)
-                        <a href="{{ route('profile', ['id' => $user->id]) }}">
-                    @endif
-                        <img src="{{ asset('img/profile.png') }}" width="50" height="50"
-                                class="d-inline-block rounded-circle align-self-center my-auto" alt="User photo">
-                        <span class="pl-2 pl-sm-4">{{ $user->username }}</span>
-                    @if($user->is_active)
-                        </a>
-                    @endif
-                    <a id="{{ $user->id }}" class="{{ $user->is_active? 'remove' : 'restore' }}-user float-right pt-2 pr-2">
-                        @if(!$user->is_active)
-                            <span>Restore</span>
-                            <i class="fas fa-trash-restore"></i>
-                        @else
-                            <i class="fas fa-times"></i>
-                        @endif
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-@else
-    @if($isLeader)
-        <div id="{{ $leader->id }}"class="profile card my-3">
-            <div class="card-body text-center">
-                <a href="{{ route('profile', ['id' => $leader->id]) }}">
-                    <img src="{{ asset('img/profile.png') }}" width="125px" height="125px"
-                            class="profile-img-team d-inline-block rounded-circle align-self-center my-3 my-md-1 p-md-0 p-lg-3 p-xl-0 "
-                            alt="User photo">
-                    <p class="m-0 pt-2">{{ $leader->username }}</p>
-                </a>
-                <a class="float-right" style="cursor: pointer;">
-                    @if($leader->id != Auth::user()->getAuthIdentifier())
-                        <i id="user-{{ $leader->id }}" class="follow {{ $leader->follow ? 'fas' : 'far' }} fa-star"></i>
-                    @endif
-                </a>
-            </div>
-        </div>
-    @else
-        @isset($manager)
-            @isset($teamMember)
-                <div id="{{ isset($user->id_user) ? $user->id_user : $user->id }}" class="profile card my-3">
-            @else
-                <div id="{{ isset($user->id_user) ? $user->id_user : $user->id }}" class="profile card my-3 col-sm-12 col-md-6 pl-0">
-            @endisset
-        @else
-            <div class="profile card my-3">
-        @endisset
-            <div class="card-body p-2">
-                @isset($user->id_user)
-                    <a href="{{ route('profile', ['id' => $user->id_user]) }}">
-                @else
-                    <a href="{{ route('profile', ['id' => $user->id]) }}">
-                @endisset
-                    <img src="{{ asset('img/profile.png') }}" width="50" height="50"
-                            class="d-inline-block rounded-circle align-self-center my-auto"
-                            alt="User photo">
-                    <span class="pl-2 pl-sm-4">{{ $user->username }}</span>
-                </a>
-                <a class="float-right pt-2 pr-2">
-                    @isset($manager)
-                        @isset($teamMember)
-                            @if($teamMember)
-                                <i class="fas fa-user-tie" style="color:grey;"></i>
-                            @endif
-                        @endisset
-                        <i class="fas fa-fw fa-times text-danger"></i>
-                    @else
-                        @isset($manageTeam)
-                            <i class="fas fa-plus"></i>
-                        @else
-                            @if($user->id != Auth::user()->getAuthIdentifier())
-                                <i id="user-{{ $user->id }}" class="follow {{ $follow ? 'fas' : 'far' }} fa-star" style="cursor: pointer;"></i>
-                            @endif
-                        @endisset
-                    @endisset
-                </a>
-            </div>
-        </div>
-    @endif
-@endisset */
-
+    let restore_user = document.getElementsByClassName('restore-user');
+    for(let i = 0; i < restore_user.length; i++) {
+        restoreUserListener.bind(restore_user[i]);
+        restore_user[i].addEventListener('click', restoreUserListener);
+    }
 }
 
 function printProjects(container, projects, isAdminView) {
@@ -1219,7 +1180,15 @@ function printProjects(container, projects, isAdminView) {
         container.appendChild(card);
     }
 
-// ADD Favorite and Remove Listeners
+// ADD Remove Project Listeners
+    let favorite = document.getElementsByClassName('favorite');
+
+    for(let i = 0; i < favorite.length; i++) {
+        favorite[i].addEventListener('click', function () {
+            let id_project = favorite[i].getAttribute('id').split('-')[1];
+            sendAjaxRequest.call(this, 'get', '/favorites/' + id_project, null, favoriteHandler);
+        })
+    }
 }
 
 function printTeams(container, teams) {
@@ -1287,6 +1256,11 @@ function printTeamsInput(container, teams) {
     }
 }
 
+
+//////////
+// AJAX //
+//////////
+
 function sendAjaxRequest(method, url, data, handler) {
     let request = new XMLHttpRequest();
 
@@ -1309,6 +1283,8 @@ function validateEmail(email) {
     let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
 }
+
+
 
 // DRAG AND DROP (Task Groups) //
 let tasks = document.getElementsByClassName('draggable');
@@ -1336,6 +1312,5 @@ for (const taskGroup of taskGroups) {
         });
     })
 }
-
 
 

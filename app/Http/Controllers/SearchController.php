@@ -6,9 +6,11 @@ use App\Project;
 use App\Team;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use App\Developer;
 
 class SearchController extends Controller
 {
@@ -65,14 +67,34 @@ class SearchController extends Controller
             return $this->searchTeams(str_replace_first(':* | ', ':A* | ', (str_replace(" ", ':* | ', $query) . ':*')), $constraints);
     }
 
-    public function searchUsers($query, $constraints) {
+    public function searchUsers($query, $constraints) {        
+        array_push($constraints, Auth::user()->getAuthIdentifier());
 
-        return User::selectRaw("id, first_name, last_name")
+        $users = User::selectRaw("id, first_name, last_name")
             ->whereRaw("to_tsvector(first_name || ' ' || last_name) @@ to_tsquery('simple', ?)", [$query])
             ->whereNotIn('id', $constraints)
             ->orderByRaw("ts_rank(to_tsvector(first_name || ' ' || last_name), to_tsquery('simple', ?)) DESC", [$query])
             ->get();
 
+        $followers = User::select('user.id')
+            ->join('follow', 'follow.id_followee', '=', 'user.id')
+            ->where('follow.id_follower', Auth::user()->getAuthIdentifier())
+            ->get();       
+        
+        foreach ($users as $user) {
+            $dev = Developer::find($user->id);
+
+            $user->is_active = $dev !== null ? $dev->is_active : true ;
+            $user->follow = false;
+
+// Tentar simplificar codigo
+            foreach ($followers as $follower) {
+                if($user->id == $follower->id)
+                    $user->follow = true;
+            }
+        }
+        
+        return $users;
     }
 
     public function searchProjects($query) {
