@@ -18,7 +18,9 @@
             'owner' => true
         ])
     </div>
-    <div id="main-content" class="row mx-auto align-items-center">
+    <div id="main-content" class="row mx-auto align-items-center" style="background-image: url({{ file_exists('img/background/' . $user->id . '.png') ? asset('img/background/' . $user->id . '.png') :  asset('img/background/' . $user->id . '.jpg')}});  background-position: center;
+                                                                                                                          background-repeat: no-repeat;
+                                                                                                                          background-size: cover;">
         <div class="col-lg-8 px-0 order-12 order-lg-1">
             <div id="content" class="container py-5 align-self-center justify-content-center">
                 <div class="main-tab card border-left-0 border-right-0 rounded-0 p-2">

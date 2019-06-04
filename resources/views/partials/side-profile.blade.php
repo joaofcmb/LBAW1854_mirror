@@ -3,8 +3,8 @@
         <div class="row justify-content-center">
             <div id="profile-picture" class="col-  mx-auto">
                 <img class="profile-img rounded-circle"
-                     src="{{ file_exists('img/profile/33.png') ? asset('img/profile/33.png') :  asset('img/profile/33.jpg')}}" width="250" height="250"
-                     alt="User Photo">
+                     src="{{ file_exists('img/profile/' . $user->id . '.png') ? asset('img/profile/' . $user->id . '.png') :  asset('img/profile/' . $user->id . '.jpg')}}" width="250" height="250"
+                     alt="User photo">
                 @isset ($isInfo)
                     <div id="upload-profile-picture" class="text-center">
                         <i class="fas fa-camera"></i>
@@ -50,7 +50,7 @@
 @isset ($isInfo)
     <div id="background-button" class="row col-1 p-0">
         <div class="col-12 text-right p-0">
-            <a href="" class="btn px-2 py-1" role="button">
+            <a class="btn px-2 py-1" role="button">
                 <i class="fa fa-camera" aria-hidden="true"></i>
             </a>
         </div>

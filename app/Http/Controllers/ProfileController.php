@@ -297,14 +297,11 @@ class ProfileController extends Controller
         if($picture == null)
             return redirect()->back()->withErrors('Internal error due to changes on html');
 
-        echo $picture;
-        die();
-
         // Determine if it's channel/profile valid image
         $imgInfo['availableExtensions'] = ['jpg', 'png'];
 
         $imgInfo['type'] = $_POST['type'];
-        $imgInfo['directory'] = '../public/img/' . $imgInfo['type'] . '/';
+        $imgInfo['directory'] = './img/' . $imgInfo['type'] . '/';
         $imgInfo['extension'] = pathinfo($picture['name'], PATHINFO_EXTENSION);
 
         // Check if file extension is valid

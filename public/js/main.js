@@ -138,13 +138,19 @@ if(uploadProfilePictureFile != null) {
     })
 }
 
-let x = document.getElementById('background-button')
-let y = document.getElementById('upload-profile-background-file')
-let z = document.getElementById('upload-profile-background-form-submit')
+let uploadProfileBackground = document.getElementById('background-button')
+let uploadProfileBackgroundFile = document.getElementById('upload-profile-background-file')
+let uploadProfileBackgroundSubmit = document.getElementById('upload-profile-background-form-submit')
 
-if(x != null) {
-    x.addEventListener('click', function() {
-        y.click()
+if(uploadProfileBackground != null) {
+    uploadProfileBackground.addEventListener('click', function() {
+        uploadProfileBackgroundFile.click()
+    })
+}
+
+if(uploadProfileBackgroundFile != null) {
+    uploadProfileBackgroundFile.addEventListener('change', function () {
+        uploadProfileBackgroundSubmit.click()
     })
 }
 
