@@ -295,21 +295,21 @@ class ProfileController extends Controller
         $picture = isset($_FILES['picture']) ? $_FILES['picture'] : null;
 
         if($picture == null)
-            return redirect()->route('profile');
+            return redirect()->back()->withErrors('Internal error due to changes on html');
 
-       // echo  $_FILES['picture'];
+        echo $picture;
+        die();
 
         // Determine if it's channel/profile valid image
-        $imgInfo['availableExtensions'] = ['jpeg', 'png'];
+        $imgInfo['availableExtensions'] = ['jpg', 'png'];
 
-        $imgInfo['type'] = 'profile'; //TODO - PROFILE OR BACKGROUND
-        $imgInfo['directory'] = '../public/img/profile/';
-        $imgInfo['extension'] = explode('/', $picture['type'])[1];
+        $imgInfo['type'] = $_POST['type'];
+        $imgInfo['directory'] = '../public/img/' . $imgInfo['type'] . '/';
+        $imgInfo['extension'] = pathinfo($picture['name'], PATHINFO_EXTENSION);
 
         // Check if file extension is valid
         if(!in_array($imgInfo['extension'], $imgInfo['availableExtensions'])) {
-            echo "asdasda";
-            //return redirect()->route('profile');
+            return redirect()->back()->withErrors('File extension <' . $imgInfo['extension'] . '> is not valid !');
         }
 
         // Delete previous image if exists
@@ -321,8 +321,6 @@ class ProfileController extends Controller
 
         // Generate filename
         $filename = $imgInfo['directory'] . Auth::user()->getAuthIdentifier() . '.' . $imgInfo['extension'];
-
-        //echo $originalFileName;
 
         // Move the uploaded file to its final destination
         move_uploaded_file($picture['tmp_name'], $filename);

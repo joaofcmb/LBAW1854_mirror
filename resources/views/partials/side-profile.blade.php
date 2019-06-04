@@ -2,18 +2,31 @@
     <div class="container pb-4 my-auto">
         <div class="row justify-content-center">
             <div id="profile-picture" class="col-  mx-auto">
-                <img class="profile-img rounded-circle" src="{{ file_exists('img/profile/33.png') ? asset('img/profile/33.png') :  asset('img/profile/33.jpeg')}}" width="250" height="250"
-                        alt="User Photo">
-                <div id="upload-profile-picture" class="text-center">
-                    <i class="fas fa-camera"></i>
-                    <p>Update</p>
-                </div>
-                <form id="upload-profile-picture-form" method="post" action="{{ route('upload-picture') }}" enctype="multipart/form-data" style="display: none;">
-                    {{ csrf_field() }}
+                <img class="profile-img rounded-circle"
+                     src="{{ file_exists('img/profile/33.png') ? asset('img/profile/33.png') :  asset('img/profile/33.jpg')}}" width="250" height="250"
+                     alt="User Photo">
+                @isset ($isInfo)
+                    <div id="upload-profile-picture" class="text-center">
+                        <i class="fas fa-camera"></i>
+                        <p>Update</p>
+                    </div>
+                    <form id="upload-profile-picture-form" method="post" action="{{ route('upload-picture') }}" enctype="multipart/form-data" style="display: none;">
+                        {{ csrf_field() }}
 
-                    <input type="file" name="picture" class="form-control-file" id="upload-profile-picture-file">
-                    <input id="upload-profile-picture-form-submit" type="submit">
-                </form>
+                        <input type="hidden" name="type" value="profile">
+                        <input type="file" name="picture" class="form-control-file" id="upload-profile-picture-file">
+                        <input id="upload-profile-picture-form-submit" type="submit">
+                    </form>
+                @endisset
+                @if ($errors->any())
+                    <div class="mt-3 mx-auto">
+                    @foreach ($errors->all() as $error)
+                        <span class="error" style="color: red; font-family: 'Comfortaa', sans-serif;">
+                            {{ $error }}
+                        </span>
+                    @endforeach
+                    </div>
+                @endif
             </div>
         </div>
         <div class="row justify-content-center pt-4 pb-3">
@@ -35,12 +48,19 @@
 </div>
 
 @isset ($isInfo)
-</div>
-<div id="background-button" class="row col-1 p-0">
-    <div class="col-12 text-right p-0">
-        <a href="" class="btn px-2 py-1" role="button">
-            <i class="fa fa-camera" aria-hidden="true"></i>
-        </a>
+    <div id="background-button" class="row col-1 p-0">
+        <div class="col-12 text-right p-0">
+            <a href="" class="btn px-2 py-1" role="button">
+                <i class="fa fa-camera" aria-hidden="true"></i>
+            </a>
+        </div>
     </div>
-</div>
+
+    <form id="upload-profile-background-form" method="post" action="{{ route('upload-picture') }}" enctype="multipart/form-data" style="display: none;">
+        {{ csrf_field() }}
+
+        <input type="hidden" name="type" value="background">
+        <input type="file" name="picture" class="form-control-file" id="upload-profile-background-file">
+        <input id="upload-profile-background-form-submit" type="submit">
+    </form>
 @endisset
