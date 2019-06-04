@@ -1,8 +1,8 @@
 <nav class="navbar sticky-top navbar-expand-sm navbar-dark py-0 px-3 px-sm-1 px-lg-3">
-    <a class="navbar-brand" href="">
+    <div class="navbar-brand" href="">
         <img src="{{ asset('img/logo.png') }}" width="35" class="d-inline-block" alt="Website Logo">
         <span class="font-weight-bold font-italic">EPMA</span>
-    </a>
+    </div>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
