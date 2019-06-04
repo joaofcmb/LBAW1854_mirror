@@ -36,6 +36,23 @@ if (milestoneCount > 0) {
 let typingTimer;                //timer identifier
 let doneTypingInterval = 500;  //time in ms, 5 second for example
 
+let registerFormUsername = document.getElementById('register-form-username')
+
+let finishedTyping = function () {
+    sendAjaxRequest.call(this, 'post', 'register/validateusername', {username: this.value}, validateUsername);
+};
+
+if(registerFormUsername != null) {
+    registerFormUsername.addEventListener('keyup', function () {
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(finishedTyping.bind(registerFormUsername), doneTypingInterval);
+    });
+
+    registerFormUsername.addEventListener('keydown', function () {
+        clearTimeout(typingTimer);
+    });
+}
+
 // PROFILE //
 let edit_profile_info = document.getElementsByClassName('edit-profile-info')[0];
 
@@ -66,27 +83,10 @@ if (edit_profile_info !== undefined) {
     })
 }
 
-let registerFormUsername = document.getElementById('register-form-username')
-
-let finishedTyping = function () {
-    sendAjaxRequest.call(this, 'post', 'register/validateusername', {username: this.value}, validateUsername);
-};
-
-if(registerFormUsername != null) {
-    registerFormUsername.addEventListener('keyup', function () {
-        clearTimeout(typingTimer);
-        typingTimer = setTimeout(finishedTyping.bind(registerFormUsername), doneTypingInterval);
-    });
-
-    registerFormUsername.addEventListener('keydown', function () {
-        clearTimeout(typingTimer);
-    });
-}
-
 let edit_biography = document.getElementById('edit-biography');
 
 if(edit_biography !== null) {
-    edit_biography.addEventListener('click', function (event) {
+    function editBiographyListener(event) {
         event.preventDefault();
 
         let biography_div = document.getElementById('biography');
@@ -102,15 +102,22 @@ if(edit_biography !== null) {
 
         biography_div.replaceChild(textArea, biography_text);
 
-        textArea.addEventListener( 'keyup', function(event) {
-            if(event.keyCode == '13') {
-                let id_user = textArea.getAttribute('id')
-                let biography = textArea.value;
+        let save_biography = document.createElement('i');
+        save_biography.setAttribute('id', 'edit-biography');
+        save_biography.setAttribute('class', 'fas fa-check ml-2 float-right');
 
-                sendAjaxRequest.call(this, 'post', '/profile/' + id_user + '/edit', {biography: biography}, editBiography);
-            }
+        biography_div.firstElementChild.replaceChild(save_biography, this);
+
+        save_biography.addEventListener('click', function() {
+            let id_user = textArea.getAttribute('id')
+            let biography = textArea.value;
+
+            sendAjaxRequest.call(this, 'post', '/profile/' + id_user + '/edit', {biography: biography}, editBiography);
         })
-    })
+    }
+
+    editBiographyListener.bind(edit_biography);
+    edit_biography.addEventListener('click', editBiographyListener)
 }
 
 let uploadProfilePicture = document.getElementById('upload-profile-picture')
@@ -564,6 +571,16 @@ function editBiography() {
     biography_text.setAttribute('id', textArea.getAttribute('id'));
 
     biography_div.replaceChild(biography_text, textArea);
+
+    let save_biography = document.getElementById('edit-biography');
+    let edit = document.createElement('i');
+    edit.setAttribute('id', 'edit-biography');
+    edit.setAttribute('class', 'fas fa-edit ml-2 float-right');
+
+    biography_div.firstElementChild.replaceChild(edit, save_biography);
+    
+    editBiographyListener.bind(edit);
+    edit.addEventListener('click', editBiographyListener);
 }
 
 function followHandler() {
