@@ -602,7 +602,7 @@ function addThreadCommentHandler() {
 
     let new_comment = document.createElement('div');
 
-    let profile_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/profile/" + item.id_author;
+    let profile_route = "../profile/" + item.id_author;
 
     let edit_button = '<i id="comment-edit-' + item.id + '-' + item.id_thread + '-' + id_project + '" ';
     let delete_button = '<i id="comment-' + item.id + '-' + item.id_thread + '-' + id_project + '" ';
@@ -733,8 +733,7 @@ function createTaskGroupHandler() {
     group_div.setAttribute('class', 'main-tab task-group border-hover flex-shrink-0 card open border-left-0 border-right-0 rounded-0 py-2 mr-5');
     group_div.setAttribute('id', 'group-' + taskgroup.id_project + '-' + taskgroup.id);
 
-    let createTaskRoute = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/project/" +
-        taskgroup.id_project + "/tasks/createtask/" + taskgroup.id + "/";
+    let createTaskRoute = "../project/" + taskgroup.id_project + "/tasks/createtask/" + taskgroup.id + "/";
 
     group_div.innerHTML = '<div id="task-group-hover" class="mx-auto mb-1"> <a href="' + createTaskRoute + '"><i class="fas fa-plus fa-fw hover-icon mr-2"></i></a> ' +
         '<button id="editTaskGroup-' + taskgroup.id + '" type="button" data-toggle="modal" data-target="#editTaskGroupModal" '+
@@ -877,7 +876,7 @@ function restoreUserHandler() {
     let image = card.getElementsByTagName('img')[0];
     let username = card.getElementsByTagName('span')[0];
 
-    let profile_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/profile/" + id_user;
+    let profile_route = "../profile/" + id_user;
 
     let new_card = document.createElement('div');
     new_card.setAttribute('id', "card-" + id_user);
@@ -1065,18 +1064,15 @@ function createTaskHtml(tasks, isProjectManager) {
         html += ' <section id="task-' + task.id_project + '-' + task.id + '" class="task card border-hover float-sm-left p-2 m-2 mt-3"> ';
 
         if(isProjectManager) {
-            let edit_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") +
-                "/project/" + task.id_project + "/tasks/" + task.id + "/edit";
-            let assign_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") +
-                "/project/" + task.id_project + "/tasks/" + task.id + "/assign";
+            let edit_route = "../project/" + task.id_project + "/tasks/" + task.id + "/edit";
+            let assign_route = "../project/" + task.id_project + "/tasks/" + task.id + "/assign";
 
             html += '<div class="mx-auto mb-1"> <a href="' + edit_route + '"><i class="far fa-edit hover-icon mr-2"></i></a> ' +
                     '<a href="' + assign_route + '"><i class="fas fa-link fa-fw hover-icon mx-2"></i></a>' +
                     '<i id="removeTask-' + task.id_project + '-' + task.id + '" class="remove-task far fa-trash-alt fa-fw hover-icon ml-2"></i> </div>';
         }
 
-        let task_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") +
-            "/project/" + task.id_project + "/tasks/" + task.id;
+        let task_route = "../project/" + task.id_project + "/tasks/" + task.id;
 
         html += '<h6 class="text-center mb-auto"><a href="' + task_route + '">' + task.title + '</a></h6> ' +
                 '<p class="ml-1 m-0">' + task.teams.length + ' Teams</p>' +
@@ -1100,8 +1096,13 @@ function printUsers(container, users, isAdminView, manageTeam, manageProject) {
 
     for (const user of users) {
         let card = document.createElement('div');
-        let profile_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/profile/" + user.id;
-        let image_src = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/img/avatar.png";
+        let profile_route = "../profile/" + user.id;
+        let image_src = '../img/profile.png';
+
+        if(checkImage('../img/profile/' + user.id + '.jpg'))
+            image_src = '../img/profile/' + user.id + '.jpg';
+        else if(checkImage('../img/profile/' + user.id + '.png'))
+            image_src = '../img/profile/' + user.id + '.png';
 
         if(isAdminView) {
             card.setAttribute('id', user.id);
@@ -1165,6 +1166,15 @@ function printUsers(container, users, isAdminView, manageTeam, manageProject) {
     }
 }
 
+function checkImage(url) {
+    var http = new XMLHttpRequest();
+
+    http.open('HEAD', url, false);
+    http.send();
+
+    return http.status != 404; 
+}
+
 function printProjects(container, projects, isAdminView) {
 
     for (const project of projects) {
@@ -1173,14 +1183,12 @@ function printProjects(container, projects, isAdminView) {
         card.setAttribute('class','card py-2 px-3 mt-4 mx-3 mx-sm-5 mb-2');
         card.setAttribute('style','border-top-width: 0.25em; border-top-color: ' + project.color + ';');
 
-        let overview_route = project.isLocked ? '' :
-            "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/project/" + project.id;
-
+        let overview_route = project.isLocked ? '' : "../project/" + project.id;
+        
         let icons;
 
         if(isAdminView) {
-            let edit_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") +
-                "/admin/projects/" + project.id + '/edit';
+            let edit_route = "../admin/projects/" + project.id + '/edit';
             icons = '<a href="' + edit_route + '"><i class="far fa-edit"></i> </a>' + '<a class="pl-2"> <i class="far fa-trash-alt"></i></a>';
         }
         else
@@ -1188,7 +1196,7 @@ function printProjects(container, projects, isAdminView) {
                 'style="cursor: pointer;" aria-hidden="true"></i></a> <i class="pl-1 fa fa-' + (project.isLocked ? 'lock' : 'unlock') +
                 '" aria-hidden="true"></i>';
 
-        let manager_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/profile/" + project.id_manager;
+        let manager_route = "../profile/" + project.id_manager;
         card.innerHTML = '<div class="d-flex justify-content-between"> <a ' + (project.isLocked ? '' : 'href="' + overview_route) + '"> <h5 class="card-title my-1">' +
             project.name + '</h5> </a> <h5 class="flex-grow-1 d-flex justify-content-end align-items-center"> ' + icons +
             ' </h5> </div> <div class="row"> <div class="col-sm-7"> Project Manager: <a href="' + manager_route + '"> <h6 class="d-inline-block mb-3">' +
@@ -1216,17 +1224,15 @@ function printTeams(container, teams) {
 
     for (const team of teams) {
         let card = document.createElement('div');
-        card.setAttribute('class','col-sm-4 my-3');
-
+        card.setAttribute('class','col-lg-4 col-sm-6 my-3');
+        
         let members = '';
         for (const member of team.members) {
-            members += profileLink(member.id, member.first_name + ' ' + member.last_name);
+            members += ' <a href="../profile/' + member.id + '"> <p>' + member.first_name + ' ' + member.last_name + '</p> </a>';
         }
 
-        let leader_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") +
-            "/profile/" + team.leader.id;
-        let edit_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") +
-            "/admin/teams/" + team.id + "/edit";
+        let leader_route = "../profile/" + team.leader.id;
+        let edit_route = "../admin/teams/" + team.id + "/edit";
 
         card.innerHTML = '<div class="card text-center"> <div class="card-header" style="clear: both;"> <p id="team-name" class="m-0" style="float: left;">'
             + team.name + '</p> <p class="m-0" style="float: right;">' + (team.skill == null ? '' : team.skill) + '</p> </div> <div class="card-body">' +
@@ -1238,11 +1244,6 @@ function printTeams(container, teams) {
     }
 
 // ADD Remove Team Listener
-}
-
-function profileLink(id, name) {
-    let route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/profile/" + id;
-    return ' <a href="' + route + '"> <p>' + name + '</p> </a>';
 }
 
 function removeNotCheckedTeam(container) {

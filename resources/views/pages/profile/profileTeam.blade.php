@@ -20,14 +20,13 @@
     </div>
     @if ($errors->any())    
         <div class="alert alert-danger">
-            <ul class="mb-0">
+            <ul class="mb-0" style="font-family: 'Comfortaa', sans-serif;">
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
             </ul>    
         </div>
     @endif
-
     <div id="main-content" class="row mx-auto align-items-center" style="background-image: url({{ file_exists('img/background/' . $user->id . '.png') ? asset('img/background/' . $user->id . '.png') :  asset('img/background/' . $user->id . '.jpg')}});  background-position: center;
             background-repeat: no-repeat;
             background-size: cover;">
@@ -57,7 +56,7 @@
                                 <div class="col-12 col-lg-7">
                                     <h5 class="text-center">Members</h5>
                                     @foreach($team->members as $member)
-                                        @if($member->id != $id && $member->id != Auth::user()->getAuthIdentifier())
+                                        @if($member->id != $id)
                                             @include('partials.cards.profile', [
                                                 'isLeader' => false,
                                                 'user' => $member,
