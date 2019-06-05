@@ -31,11 +31,10 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <h3>Task List</h3>
                         <div class="d-flex justify-content-end align-items-center">
-                            <span class="font-weight-light mr-2">{{ sizeof($tasks) + 1 }} Tasks</span>
+                            <span class="font-weight-light mr-2">{{ sizeof($tasks) }} Tasks</span>
                         </div>
                     </div>
-                    <div class="mx-auto">
-                        
+                    <div class="mx-auto">                        
                         @foreach($tasks as $task)
                             @if($task->id == $selectedTask->id)
                                 @include('partials.cards.task', [

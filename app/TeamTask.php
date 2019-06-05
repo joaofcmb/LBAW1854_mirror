@@ -21,11 +21,18 @@ class TeamTask extends Pivot
     protected $table = 'team_task';
 
     /**
+     * Table primary key
+     *
+     * @var array
+     */
+    protected $primaryKey = ['id_team', 'id_task'];
+
+    /**
      * Indicates if the IDs are auto-incrementing.
      *
      * @var bool
      */
-    public $incrementing = true;
+    public $incrementing = false;
 
 
 }

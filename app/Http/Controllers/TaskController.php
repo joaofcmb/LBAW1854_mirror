@@ -137,9 +137,7 @@ class TaskController extends Controller
 
         if(!$this->validateAccess('delete', $project, $task))
             return redirect()->route('404');
-        
-        TaskComment::where('id_task',$id_task)->delete();
-
+            
         $task->delete();
     }
 
@@ -154,7 +152,7 @@ class TaskController extends Controller
         $task->save();
     }
 
-    public function assign($id_project, $id_task) {
+    public function showAssign($id_project, $id_task) {
 
         $project = Project::find($id_project);
         $task = Task::find($id_task);
@@ -166,7 +164,7 @@ class TaskController extends Controller
         $currentMilestone = $task->milestone;
 
         foreach ($project->milestones as $milestone) {
-            if(($currentMilestone->id == null || $currentMilestone->id != $milestone->id) && $milestone->deadline >= (new DateTime())->format('Y-m-d'))
+            if(($currentMilestone == null || $currentMilestone->id != $milestone->id) && $milestone->deadline >= (new DateTime())->format('Y-m-d'))
                 array_push($milestones, $milestone);
         }
 
@@ -177,6 +175,41 @@ class TaskController extends Controller
                                                     'milestones' => $milestones,
                                                     'currentMilestone' => $currentMilestone
         ]);
+    }
+
+    public function assign(Request $request, $id_project, $id_task) {
+        $project = Project::find($id_project);
+        $task = Task::find($id_task);
+
+        if(!$this->validateAccess('assign', $project, $task))
+            return redirect()->route('404');
+        
+        $new_teams = explode(',', $request->input('teams'));
+
+        if($new_teams[0] == "")
+            $new_teams = [];
+
+        foreach ($new_teams as $new_team) {
+            if(!TeamTask::where([['id_team',$new_team],['id_task',$task->id]])->exists()) {
+                $team_task = new TeamTask();
+                $team_task->id_team = intval($new_team);
+                $team_task->id_task = $task->id;
+                $team_task->save();
+            }
+        }
+
+        TeamTask::where('id_task', $id_task)->whereNotIn('id_team', $new_teams)->delete();
+
+        $id_milestone = $request->input('milestone');
+        $milestone = Milestone::find($id_milestone);
+
+        if(empty($milestone) || $milestone->id_project != $project->id)
+            return redirect()->route('404');
+
+        $task->id_milestone = $milestone->id;
+        $task->save();
+
+        return Task::information([$task])[0];
     }
 
     public function group($id_project, $id_task, $id_group) {
@@ -209,7 +242,6 @@ class TaskController extends Controller
         $comment->author_name = Auth::user()->username;
         $comment->id_task = $id_task;
 
-//CORRIGIR ERRO
         $task_comment = new TaskComment();
         $task_comment->id_comment = $comment->id;
         $task_comment->id_task = $id_task;

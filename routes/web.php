@@ -78,7 +78,7 @@ Route::post('/project/{id_project}/tasks/{id_task}/edit', 'TaskController@editAc
 Route::delete('/project/{id_project}/tasks/{id_task}/delete', 'TaskController@delete');
 Route::post('/project/{id_project}/tasks/{id_task}/updateprogress', 'TaskController@updateProgress');
 
-Route::get('/project/{id_project}/tasks/{id_task}/assign', 'TaskController@assign')->name('task-assign');
+Route::get('/project/{id_project}/tasks/{id_task}/assign', 'TaskController@showAssign')->name('task-assign');
 Route::post('/project/{id_project}/tasks/{id_task}/assign-group/{id_group}', 'TaskController@group');
 
 Route::post('/project/{id_project}/tasks/{id_task}/addcomment', 'TaskController@addTaskComment');
@@ -109,5 +109,5 @@ Route::get('/admin/project/{id}/cancel', 'AdministratorController@cancelProject'
 
 // API - Project
 Route::post('/api/project/{id_project}/roadmap/changeview', 'ProjectController@changeMilestoneView');
+Route::post('/api/project/{id_project}/tasks/{id_task}/assign', 'TaskController@assign');
 Route::post('/api/search/data', 'SearchController@search');
-

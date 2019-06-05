@@ -16,7 +16,7 @@
                     @foreach($teams as $team)
                         <div id="{{ $team->id }}" class="card open flex-row justify-content-between p-2 mx-3 my-2">
                             <div class="custom-control custom-checkbox">
-                                <input checked type="checkbox" class="custom-control-input" id="team-{{ $team->id }}">
+                                <input checked type="checkbox" class="custom-control-input" name="team" id="team-{{ $team->id }}">
                                 <label class="custom-control-label team-name" for="team-{{ $team->id }}">{{ $team->name }}</label>
                             </div>
                             {{ $team->skill == null ? '' : $team->skill }}
@@ -26,31 +26,29 @@
             </div>
 
             <div class="tab-pane fade" id="milestone" role="tabpanel">
-                <div class="card flex-row justify-content-between p-2 mx-3 my-2">
-                    <div class="custom-control custom-radio">
-                        <input checked type="radio" class="custom-control-input" name="milestone" id="milestone{{ $currentMilestone->id }}">
-                        <label class="custom-control-label team-name" for="milestone{{ $currentMilestone->id }}">{{ $currentMilestone->name }}</label>
+                @if($currentMilestone != null)
+                    <div class="card flex-row justify-content-between p-2 mx-3 my-2">
+                        <div class="custom-control custom-radio">
+                            <input checked type="radio" class="custom-control-input" name="milestone" id="milestone-{{ $currentMilestone->id }}">
+                            <label class="custom-control-label team-name" for="milestone-{{ $currentMilestone->id }}">{{ $currentMilestone->name }}</label>
+                        </div>
                     </div>
-                </div>
+                @endif
 
                 @foreach($milestones as $milestone)
-                    @if($milestone->id != $currentMilestone->id)
                         <div class="card flex-row justify-content-between p-2 mx-3 my-2">
                             <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" name="milestone" id="milestone{{ $milestone->id }}">
-                                <label class="custom-control-label team-name" for="milestone{{ $milestone->id }}">{{ $milestone->name }}</label>
+                                <input type="radio" class="custom-control-input" name="milestone" id="milestone-{{ $milestone->id }}">
+                                <label class="custom-control-label team-name" for="milestone-{{ $milestone->id }}">{{ $milestone->name }}</label>
                             </div>
                         </div>
-                    @endif
                 @endforeach
             </div>
         </div>
         <div class="text-center">
             <div id="create" class="container-fluid mx-auto mb-2">
                 <div class="row mt-4 justify-content-center">
-                    <a href="#">
-                        <div class="col-sm- px-3">Assign</div>
-                    </a>
+                    <a id="assignButton-{{ $task->id_project }}-{{ $task->id }}" class="assign-button col-sm- px-3">Assign</a>
                 </div>
             </div>
             <h6 class="py-1">{{ $task->title }}</h6>

@@ -365,10 +365,10 @@ BEGIN
                 FROM team_task INNER JOIN task 
                     ON team_task.id_task = task.id 
                 WHERE team_task.id_team = OLD.id_team AND task.id_project = id_project_task) THEN
-            RETURN NULL;
+            RETURN OLD;
         ELSE
             DELETE FROM team_project WHERE id_team = OLD.id_team AND id_project = id_project_task;
-            RETURN NULL;
+            RETURN OLD;
         END IF;
     END IF;
 END

@@ -383,18 +383,6 @@ if(update_progress != null)
         sendAjaxRequest.call(this, 'post', '/project/' + info[1] + '/tasks/' + info[2] + '/updateprogress', {progress: progress}, updateProgressHandler);
     })
 
-let remove_task = document.getElementsByClassName('remove-task');
-
-let removeTaskListener = function() {
-    let info = this.getAttribute('id').split('-');
-    sendAjaxRequest.call(this, 'delete', '/project/' + info[1] + '/tasks/' + info[2] + '/delete', null, removeTaskHandler);
-}
-
-for(let i = 0; i< remove_task.length; i++) {
-    removeTaskListener.bind(remove_task[i]);
-    remove_task[i].addEventListener('click', removeTaskListener);
-}
-
 let addTaskComment = document.getElementsByClassName('add-task-comment')[0];
 
 if(addTaskComment != null) {
@@ -471,7 +459,38 @@ let deleteTaskCommentListener = function () {
 for(let i = 0; i < deleteTaskComment.length; i++) {
     deleteTaskCommentListener.bind(deleteTaskComment[i])
     deleteTaskComment[i].addEventListener('click', deleteTaskCommentListener)
-} 
+}
+
+let assign = document.querySelector('a.assign-button');
+
+if(assign != null) {
+    assign.addEventListener('click', function() {
+        let info = assign.getAttribute('id').split('-');
+
+        let teams = document.querySelectorAll('input[name="team"]:checked');
+        let teams_id = [];
+        
+        for (const team of teams)
+            teams_id.push(team.id.split('-')[1]);
+        
+        let milestone_id = document.querySelector('input[name="milestone"]:checked').getAttribute('id').split('-')[1];
+
+        sendAjaxRequest.call(this, 'post', '/api/project/' + info[1] + '/tasks/' + info[2] + '/assign', 
+            {teams: teams_id, milestone: milestone_id}, assignTaskHandler);
+    })
+}
+
+let remove_task = document.getElementsByClassName('remove-task');
+
+let removeTaskListener = function() {
+    let info = this.getAttribute('id').split('-');
+    sendAjaxRequest.call(this, 'delete', '/project/' + info[1] + '/tasks/' + info[2] + '/delete', null, removeTaskHandler);
+}
+
+for(let i = 0; i< remove_task.length; i++) {
+    removeTaskListener.bind(remove_task[i]);
+    remove_task[i].addEventListener('click', removeTaskListener);
+}
 
 // ADMINISTRATION //
 
@@ -753,6 +772,8 @@ function editThreadCommentHandler() {
 }
 
 function deleteThreadCommentHandler() {
+    if(this.status !== 200) return;
+
     document.getElementById('comment-' + this.prototype.getAttribute('id').split('-')[1]).remove();
 }
 
@@ -903,14 +924,6 @@ function updateProgressHandler() {
     progress_bar.setAttribute('aria-valuenow', progress_value);
 }
 
-function removeTaskHandler() {
-    if(this.status !== 200) return;
-
-    let info = this.prototype.getAttribute('id').split('-');
-    let task = document.getElementById('task-' + info[1] + '-' + info[2]);
-    task.remove();
-}
-
 function addTaskCommentHandler() {
     if (this.status !== 200) return;
 
@@ -967,7 +980,58 @@ function editTaskCommentHandler() {
 }
 
 function deleteTaskCommentHandler() {
+    if(this.status !== 200) return;
+
     document.getElementById('comment-' + this.prototype.getAttribute('id').split('-')[1]).remove();
+}
+
+function removeTaskHandler() {
+    if(this.status !== 200) return;
+
+    let info = this.prototype.getAttribute('id').split('-');
+    let task = document.getElementById('task-' + info[1] + '-' + info[2]);
+    
+    let task_counter = task.parentElement.parentElement.querySelector('span.font-weight-light.mr-2');
+    let counter = Number(task_counter.textContent.split(' ')[0]);
+
+    switch(task_counter.parentElement.children.length) {
+        case 1:
+        case 3:              
+            task_counter.textContent = (counter-1) + ' Tasks';
+            break;
+        case 2:            
+            task_counter.textContent = (counter-1) + ' remaining';
+            break;
+    }
+
+    task.remove();
+}
+
+function assignTaskHandler() {
+    if(this.status !== 200) return;
+
+    let item = JSON.parse(this.responseText);
+    let search_bar = document.getElementsByClassName('search-bar')[0];
+    let task = document.getElementsByClassName('sticky')[0];
+    
+    if(search_bar != null) {
+        search_bar.querySelector('input').value = '';
+        removeNotCheckedTeam(document.getElementById('search-content'));
+    }
+
+    if(task != null) {
+        task.querySelector('p.teams').textContent = item.teams.length + ' Teams';
+        task.querySelector('p.developers').textContent = item.developers + ' Developers';
+    } else
+        task = document.getElementById('content');
+
+    let time_bar = task.querySelector('div.time-progress');
+    time_bar.querySelector('h6').innerHTML = '<i class="far fa-clock mr-1"></i>' + item.timeLeft + ' days left';
+    
+    time_bar = time_bar.querySelector('.progress-bar');
+    time_bar.className = 'progress-bar progress-bar-striped bg-' + (item.timePercentage == 100 ? 'danger' : 'warning') + ' progress-bar-animated';
+    time_bar.setAttribute('style', "width:" + item.timePercentage + "%");
+    time_bar.setAttribute('aria-valuenow', item.timePercentage);
 }
 
 function removeUserHandler() {
@@ -1422,7 +1486,7 @@ function printTeamsInput(container, teams) {
         card.setAttribute('id', team.id);
         card.setAttribute('class', 'card open flex-row justify-content-between p-2 mx-3 my-2');
 
-        card.innerHTML = '<div class="custom-control custom-checkbox"> <input type="checkbox" class="custom-control-input" id="team-' +
+        card.innerHTML = '<div class="custom-control custom-checkbox"> <input type="checkbox" name="team" class="custom-control-input" id="team-' +
             team.id + '"> <label class="custom-control-label team-name" for="team-' + team.id + '">' + team.name + '</label></div>' +
             (team.skill == null ? '' : team.skill) + ' </div>';
 
