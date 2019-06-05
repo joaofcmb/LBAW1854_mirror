@@ -51,10 +51,13 @@ class HomeController extends Controller
     public function activeTasks() {
 
         //echo User::find(33);
-        //$user = Developer::find(33);
-       // $team = Team::find($user->id_team);
+        $user = Developer::find(33);
+        $team = Team::find($user->id_team);
 
         Mail::to('sites.21@hotmail.com')->send(new ActiveTasks(33));
+
+        echo User::find(33);
+        echo  Task::information($team->tasks);
         //return view('emails.activeTasks', ['teamTasks' => Task::information($team->tasks)]);
 
     }
