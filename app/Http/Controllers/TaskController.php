@@ -15,6 +15,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Comment;
+use App\TaskComment;
 
 class TaskController extends Controller
 {
@@ -137,7 +138,7 @@ class TaskController extends Controller
         if(!$this->validateAccess('delete', $project, $task))
             return redirect()->route('404');
         
-        // TODO: DELETE COMMENTS
+        TaskComment::where('id_task',$id_task)->delete();
 
         $task->delete();
     }

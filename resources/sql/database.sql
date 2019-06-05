@@ -11,15 +11,13 @@ DROP TABLE IF EXISTS password_resets;
 
 DROP TYPE IF EXISTS ProjectStatus CASCADE;
 
-DROP VIEW IF EXISTS comments_of_task, comments_of_thread CASCADE;
-
 DROP FUNCTION IF EXISTS admin_user() CASCADE;
 DROP FUNCTION IF EXISTS developer_user() CASCADE;
 DROP FUNCTION IF EXISTS company_forum() CASCADE;
 DROP FUNCTION IF EXISTS task_in_task_group_or_milestone() CASCADE;
 DROP FUNCTION IF EXISTS team_member() CASCADE;
-DROP FUNCTION IF EXISTS manage_task_comment() CASCADE;
-DROP FUNCTION IF EXISTS manage_thread_comment() CASCADE;
+DROP FUNCTION IF EXISTS manage_comment() CASCADE;
+
 DROP FUNCTION IF EXISTS team_project() CASCADE;
 DROP FUNCTION IF EXISTS remove_user() CASCADE;
 DROP FUNCTION IF EXISTS add_developer() CASCADE;
@@ -30,8 +28,9 @@ DROP TRIGGER IF EXISTS developer_user ON developer;
 DROP TRIGGER IF EXISTS company_forum ON forum;
 DROP TRIGGER IF EXISTS task_in_task_group_or_milestone ON task;
 DROP TRIGGER IF EXISTS team_member ON developer;
-DROP TRIGGER IF EXISTS manage_view_task_comment ON comments_of_task;
-DROP TRIGGER IF EXISTS manage_view_thread_comment ON comments_of_thread;
+DROP TRIGGER IF EXISTS manage_task_comment ON task_comment;
+DROP TRIGGER IF EXISTS manage_thread_comment ON thread_comment;
+
 DROP TRIGGER IF EXISTS team_project ON team_task;
 DROP TRIGGER IF EXISTS remove_user ON developer;
 DROP TRIGGER IF EXISTS add_developer ON "user";
@@ -202,21 +201,6 @@ CREATE TABLE team_project (
 
 ALTER TABLE developer ADD FOREIGN KEY (id_team) REFERENCES team ON UPDATE CASCADE ON DELETE SET NULL;
 
-
--------------------------------
---- VIEWS
--------------------------------
-
-CREATE VIEW comments_of_task AS
-    SELECT *
-    FROM task_comment LEFT JOIN comment 
-        ON task_comment.id_comment = comment.id;
-
-CREATE VIEW comments_of_thread AS
-   SELECT *
-   FROM thread_comment LEFT JOIN comment
-       ON thread_comment.id_comment = comment.id;
-
 -------------------------------
 --- INDEXES
 -------------------------------
@@ -340,51 +324,25 @@ CREATE TRIGGER team_member
     EXECUTE PROCEDURE team_member();
 
 --- TRIGGER05
-CREATE FUNCTION manage_task_comment() RETURNS TRIGGER AS
+CREATE FUNCTION manage_comment() RETURNS TRIGGER AS
 $BODY$
-DECLARE
-    id_comm comment.id%type;
 BEGIN
-    IF TG_OP = 'INSERT' THEN
-        INSERT INTO comment("text", id_author) VALUES (NEW."text", NEW.id_author) RETURNING id INTO id_comm;
-        INSERT INTO task_comment (id_comment, id_task) VALUES (id_comm, NEW.id_task);
-        RETURN NEW;
-    ELSEIF TG_OP = 'DELETE' THEN
-        DELETE FROM comment WHERE id = OLD.id;
-        RETURN NULL;
-    END IF;
+    DELETE FROM comment WHERE id = OLD.id_comment;
+    RETURN NULL;
 END
 $BODY$
 LANGUAGE plpgsql;
 
-CREATE TRIGGER manage_view_task_comment
-   INSTEAD OF INSERT OR DELETE ON comments_of_task
+CREATE TRIGGER manage_task_comment
+   AFTER DELETE ON task_comment
    FOR EACH ROW
-   EXECUTE PROCEDURE manage_task_comment();
-
+   EXECUTE PROCEDURE manage_comment();
+   
 --- TRIGGER06
-CREATE FUNCTION manage_thread_comment() RETURNS TRIGGER AS
-$BODY$
-DECLARE
-    id_comm comment.id%type;
-BEGIN
-    IF TG_OP = 'INSERT' THEN
-        INSERT INTO comment("text", id_author) VALUES (NEW."text", NEW.id_author) RETURNING id INTO id_comm;
-        INSERT INTO thread_comment(id_comment, id_thread) VALUES (id_comm, NEW.id_thread);
-        RETURN NEW;
-    ELSEIF TG_OP = 'DELETE' THEN
-        DELETE FROM comment WHERE id = OLD.id;
-        RETURN NULL;
-    END IF;
-END
-$BODY$
-LANGUAGE plpgsql;
-
-CREATE TRIGGER manage_view_thread_comment
-   INSTEAD OF INSERT OR DELETE ON comments_of_thread
+CREATE TRIGGER manage_thread_comment
+   AFTER DELETE ON thread_comment
    FOR EACH ROW
-   EXECUTE PROCEDURE manage_thread_comment();
-
+   EXECUTE PROCEDURE manage_comment();
 
 --- TRIGGER07
 CREATE FUNCTION team_project() RETURNS TRIGGER AS
