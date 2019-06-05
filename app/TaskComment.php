@@ -21,10 +21,17 @@ class TaskComment extends Pivot
     protected $table = 'task_comment';
 
     /**
+     * Table primary key
+     *
+     * @var array
+     */
+    protected $primaryKey = ['id_comment', 'id_thread'];
+
+    /**
      * Indicates if the IDs are auto-incrementing.
      *
      * @var bool
      */
-    public $incrementing = true;
+    public $incrementing = false;
 
 }

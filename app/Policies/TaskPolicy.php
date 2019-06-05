@@ -9,6 +9,7 @@ use App\TeamProject;
 use App\User;
 use App\Task;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use App\Comment;
 
 class TaskPolicy
 {
@@ -89,5 +90,29 @@ class TaskPolicy
      */
     public function delete(User $user, Task $task, Project $project) {
         return $project->id_manager == $user->id && $task->id_project == $project->id;
+    }
+
+    /**
+     * Determine whether the user can view the task.
+     *
+     * @param \App\User $user
+     * @param \App\Task $task
+     * @param Project $project
+     * @return mixed
+     */
+    public function addComment(User $user, Task $task, Project $project)
+    {
+        return ($project->id_manager == $user->id || Developer::canAddTaskComment($task)) && $task->id_project == $project->id;
+    }
+
+    /**
+     * Determine whether the user can delete the task comment.
+     *
+     * @param  \App\User  $user
+     * @param  \App\Task  $task
+     * @return mixed
+     */
+    public function deleteTaskComment(User $user, Task $task, Project $project, Comment $comment) {
+        return ($project->id_manager == $user->id || $comment->id_author == $user->id) && $task->id_project == $project->id;
     }
 }

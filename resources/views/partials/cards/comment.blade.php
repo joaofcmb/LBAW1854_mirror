@@ -1,15 +1,12 @@
 @isset ($taskComment)
-    <section class="card float-sm-left p-2 m-2 mt-3">
+    <section id="comment-{{ $comment->id_comment }}" class="card float-sm-left p-2 m-2 mt-3">
         <div class="d-flex justify-content-between" id="comment-header">
             <h6 class="mb-2"><a href="{{ route('profile', ['id' => $comment->id_author]) }}"
                 ><i class="fa fa-user" aria-hidden="true"></i> {{ $comment->username }}</a></h6>
-
             <h6 id="discussion-icons">
-                @if(Auth::user()->getAuthIdentifier() == $comment->id_author)
-                    <a href=""><i class="far fa-edit"></i></a>
-                @endif
-                @if($comment->isTeamLeader || Auth::user()->getAuthIdentifier() == $comment->id_author)
-                    <a href=""><i class="far fa-trash-alt"></i></a>
+                @if(Auth::user()->getAuthIdentifier() == $comment->id_author || Auth::user()->getAuthIdentifier() == $project->id_manager )
+                    <i id="edit-{{ $comment->id_comment }}-{{ $task->id }}-{{ $project->id }}" class="task-comment-edit far fa-edit"></i>
+                    <i id="delete-{{ $comment->id_comment }}-{{ $task->id }}-{{ $project->id }}" class="task-comment-delete far fa-trash-alt"></i>
                 @endif
             </h6>
         </div>

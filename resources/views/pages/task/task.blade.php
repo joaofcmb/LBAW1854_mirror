@@ -105,15 +105,20 @@
                 <div class="main-tab card open border-left-0 border-right-0 border-bottom-1 rounded-0 p-2">
                     <h3>Discussion</h3>
                     @foreach($comments as $comment)
-                        @include('partials.cards.comment', ['comment => $comment', 'taskComment' => true])
+                        @include('partials.cards.comment', [
+                            'comment => $comment', 
+                            'taskComment' => true, 
+                            'task' => $task,
+                            'project' => $project
+                        ])
                     @endforeach
-                    <form>
-                        @if($canAddComment)
+                    @if($canAddComment)
+                        <form id="addTaskComment-{{ $task->id }}-{{ $project->id }}" class="add-task-comment">
                             <div class="form-group m-2 mt-3">
-                                <input type="text" class="form-control" id="projectName" placeholder="Add comment ...">
-                            </div>
-                        @endif
-                    </form>
+                                <input type="text" class="form-control" id="commentContent" placeholder="Add comment ..." required>
+                            </div>                        
+                        </form>
+                    @endif
                 </div>
             </div>
         </div>

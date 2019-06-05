@@ -96,11 +96,11 @@ class TaskController extends Controller
         }
 
         return View('pages.task.taskEdit', ['project' => $project,
-                                                  'isProjectManager' => Project::isProjectManager($project),
-                                                  'teams' => $task->teams,
-                                                  'milestones' => $milestones,
-                                                  'currentMilestone' => $currentMilestone,
-                                                  'task' => Task::information([$task])[0]
+                                            'isProjectManager' => Project::isProjectManager($project),
+                                            'teams' => $task->teams,
+                                            'milestones' => $milestones,
+                                            'currentMilestone' => $currentMilestone,
+                                            'task' => Task::information([$task])[0]
         ]);
     }
 
@@ -189,6 +189,75 @@ class TaskController extends Controller
 
         $task->id_group = $id_group;
         $task->save();
+    }
+
+    public function addTaskComment(Request $request, $id_project, $id_task)
+    {
+        $project = Project::find($id_project);
+        $task = Task::find($id_task);
+
+        if(!$this->validateAccess('addComment', $project, $task))
+            return response('', 404, []);
+
+        $text = $request->input('text');
+
+        $comment = new Comment();
+
+        $comment['text'] = $text;
+        $comment->id_author = Auth::user()->getAuthIdentifier();
+        $comment->save();
+        $comment->author_name = Auth::user()->username;
+        $comment->id_task = $id_task;
+
+//CORRIGIR ERRO
+        $task_comment = new TaskComment();
+        $task_comment->id_comment = $comment->id;
+        $task_comment->id_task = $id_task;
+        $task_comment->save();
+
+        return $comment;
+    }
+
+    public function editTaskComment(Request $request, $id_project, $id_task, $id_comment)
+    {
+        $project = Project::find($id_project);
+        $task = Task::find($id_task);
+        $comment = Comment::find($id_comment);
+
+        if(empty($project) || empty($task) || empty($comment) || 
+            ($comment->id_author != Auth::user()->getAuthIdentifier() && $project->id_manager != Auth::user()->getAuthIdentifier()))
+            return response('', 404, []);
+
+        $comment['text'] = $request->input('text');
+        $comment->save();
+    }
+
+    /**
+     * Deletes a task comment
+     *
+     * @param $id_project
+     * @param $id_task
+     * @param $id_comment
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteTaskComment($id_project, $id_task, $id_comment) {
+
+        $project = Project::find($id_project);
+        $task = Task::find($id_task);
+        $comment = Comment::find($id_comment);
+        $task_comment = TaskComment::where([['id_comment', $id_comment],['id_task', $id_task]])->get();
+
+        try {
+            if(empty($project) || empty($task) || empty($comment) || empty($task_comment))
+                return response('', 404, []);
+
+            $this->authorize('deleteTaskComment', [$task, $project, $comment]);
+        }
+        catch (AuthorizationException $e) {
+            return response('', 404, []);
+        }
+        
+        TaskComment::where([['id_comment', $id_comment],['id_task', $id_task]])->delete();
     }
 
     /**

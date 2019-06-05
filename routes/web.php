@@ -67,7 +67,6 @@ Route::get('/project/{id_project}/close', 'ProjectController@closeProject')->nam
 Route::post('/project/{id_project}/roadmap/createmilestone', 'ProjectController@createMilestone')->name('create-milestone-action');
 Route::post('/project/{id_project}/roadmap/{id_milestone}/update', 'ProjectController@updateMilestone');
 Route::delete('/project/{id_project}/roadmap/{id_milestone}/remove', 'ProjectController@deleteMilestone');
-
 Route::post('/project/{id_project}/tasks/creategroup','ProjectController@createTaskGroup');
 Route::post('/project/{id_project}/tasks/taskgroup/{id_taskgroup}/update','ProjectController@updateTaskGroup');
 Route::delete('/project/{id_project}/tasks/taskgroup/{id_taskgroup}/remove', 'ProjectController@deleteTaskGroup');
@@ -81,6 +80,10 @@ Route::post('/project/{id_project}/tasks/{id_task}/updateprogress', 'TaskControl
 
 Route::get('/project/{id_project}/tasks/{id_task}/assign', 'TaskController@assign')->name('task-assign');
 Route::post('/project/{id_project}/tasks/{id_task}/assign-group/{id_group}', 'TaskController@group');
+
+Route::post('/project/{id_project}/tasks/{id_task}/addcomment', 'TaskController@addTaskComment');
+Route::post('/project/{id_project}/tasks/{id_task}/deletecomment/{id_comment}', 'TaskController@deleteTaskComment');
+Route::post('/project/{id_project}/tasks/{id_task}/editcomment/{id_comment}', 'TaskController@editTaskComment');
 
 // Profile
 Route::get('/profile/{id}', 'ProfileController@show')->name('profile');
