@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Comment;
 use App\TaskComment;
+use Mockery\Undefined;
 
 class TaskController extends Controller
 {
@@ -212,15 +213,25 @@ class TaskController extends Controller
         return Task::information([$task])[0];
     }
 
-    public function group($id_project, $id_task, $id_group) {
+    public function group($id_project, $id_task, $id_group = null) {
         $project = Project::find($id_project);
         $task = Task::find($id_task);
-        $group = TaskGroup::find($id_group);
+        $group = $id_group == null? null : TaskGroup::find($id_group);
 
-        if(!$this->validateAccess('group', $project, $task, $group))
+        try {
+            if(empty($project) || empty($task))
+                throw new AuthorizationException();
+
+            $this->authorize('group', [$task , $project, $group]);
+        }
+        catch (AuthorizationException $e) {
             return redirect()->route('404');
+        }
 
-        $task->id_group = $id_group;
+        // if(!$this->validateAccess('group', $project, $task, $group))
+        //     return redirect()->route('404');
+
+        $task->id_group = $group == null? null : $group->id;
         $task->save();
     }
 

@@ -371,6 +371,19 @@ for(let i = 0; i < removeTaskGroup.length; i++) {
     removeTaskGroup[i].addEventListener('click', removeTaskGroupListener);
 }
 
+function taskGroupDropListener(taskGroup) {
+    return function (ev) {
+        ev.preventDefault();
+
+        let movedTask = document.getElementById(ev.dataTransfer.getData("text/plain"));
+        let taskId = movedTask.id.split('-')[2];
+        let groupIds = taskGroup.id.split('-');
+        let route = '/project/' + groupIds[1] + '/tasks/' + taskId + '/assign-group' + (groupIds[2] != undefined? '/' + groupIds[2] : '');
+
+        sendAjaxRequest.call(this, 'post', route, null, function () { ev.target.getElementsByClassName('drop-area')[0].appendChild(movedTask); });
+    };
+}
+
 // TASKS //
 
 let update_progress = document.querySelector('button.update-progress');
@@ -898,18 +911,6 @@ function removeTaskGroupHandler() {
     taskGroup.remove();
 }
 
-function taskGroupDropListener(taskGroup) {
-    return function (ev) {
-        ev.preventDefault();
-
-        let movedTask = document.getElementById(ev.dataTransfer.getData("text/plain"));
-        let taskId = movedTask.id.split('-')[2];
-        let groupIds = taskGroup.id.split('-');
-        sendAjaxRequest('post', '/project/' + groupIds[1] + '/tasks/' + taskId + '/assign-group/' + groupIds[2], {}, new function () {
-            ev.target.getElementsByClassName('drop-area')[0].appendChild(movedTask);
-        });
-    };
-}
 
 function updateProgressHandler() {
     if(this.status !== 200) return;
@@ -1520,11 +1521,11 @@ function encodeForAjax(data) {
 }
 
 
-
 function validateEmail(email) {
     let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
 }
+
 // DRAG AND DROP (Task Groups) //
 let tasks = document.getElementsByClassName('draggable');
 

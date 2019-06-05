@@ -54,8 +54,8 @@ class TaskPolicy
         return $project->id_manager == $user->id && $task->id_project == $project->id;
     }
 
-    public function group(User $user, Project $project, Task $task, TaskGroup $group) {
-        return $project->id_manager == $user->id && $task->id_project == $project->id && $group->id_project == $project->id;
+    public function group(User $user, Task $task, Project $project, TaskGroup $group = null) {
+        return $project->id_manager == $user->id && $task->id_project == $project->id && ($group != null? $group->id_project == $project->id : true);
     }
 
     /**

@@ -79,7 +79,7 @@ Route::delete('/project/{id_project}/tasks/{id_task}/delete', 'TaskController@de
 Route::post('/project/{id_project}/tasks/{id_task}/updateprogress', 'TaskController@updateProgress');
 
 Route::get('/project/{id_project}/tasks/{id_task}/assign', 'TaskController@showAssign')->name('task-assign');
-Route::post('/project/{id_project}/tasks/{id_task}/assign-group/{id_group}', 'TaskController@group');
+Route::post('/project/{id_project}/tasks/{id_task}/assign-group/{id_group?}', 'TaskController@group');
 
 Route::post('/project/{id_project}/tasks/{id_task}/addcomment', 'TaskController@addTaskComment');
 Route::delete('/project/{id_project}/tasks/{id_task}/deletecomment/{id_comment}', 'TaskController@deleteTaskComment');

@@ -1,4 +1,4 @@
-<div @if(!$ungrouped) id="group-{{ $project->id }}-{{ $taskGroup->id }}" @endif
+<div @if(!$ungrouped) id="group-{{ $project->id }}-{{ $taskGroup->id }}" @else id="group-{{ $project->id }}" @endif
     class="main-tab task-group border-hover flex-shrink-0 card open border-left-0 border-right-0 rounded-0 py-2 mr-5">
     @if($isProjectManager)
         <div id="task-group-hover" class="mx-auto mb-1">
