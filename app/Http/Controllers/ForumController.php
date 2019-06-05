@@ -41,6 +41,13 @@ class ForumController extends Controller
         //
     }
 
+    public function showCompanyForum()
+    {
+        $companyForum = Forum::find(1);
+
+        return View('pages.forum.forum', ['threads' => $companyForum->threads, 'isProjectForum' => false]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

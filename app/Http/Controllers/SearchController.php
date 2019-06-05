@@ -87,7 +87,7 @@ class SearchController extends Controller
             $user->is_active = $dev !== null ? $dev->is_active : true ;
             $user->follow = false;
 
-// Tentar simplificar codigo
+// TODO Tentar simplificar codigo
             foreach ($followers as $follower) {
                 if($user->id == $follower->id)
                     $user->follow = true;

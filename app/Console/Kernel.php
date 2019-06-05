@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Mail\ActiveTasks;
+use App\User;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Facades\Mail;
@@ -26,10 +27,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        //$schedule->call(new EmailUsersActiveTasks)->everyMinute();
 
         $schedule->call(function () {
-            Mail::to('sites.21@hotmail.com')->send(new ActiveTasks());
+
+            $users = User::all();
+
+            Mail::to('sites.21@hotmail.com')->send(new ActiveTasks(33));
         })->everyMinute();
 
     }

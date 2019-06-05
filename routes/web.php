@@ -39,7 +39,7 @@ Route::get('/follow/{id_user}', 'ProfileController@follow');
 Route::get('/favorites/{id_project}', 'ProfileController@favorite');
 
 // Forums
-Route::view('companyforum', 'pages.forum.forum', ['threads' => Forum::find(1)->threads, 'isProjectForum' => false])->name('companyforum');
+Route::get('companyforum', 'ForumController@showCompanyForum')->name('companyforum');
 Route::get('companyforum/thread/{id_thread}', 'ThreadController@show')->name('companyforum-thread');
 Route::view('/companyforum/createthread', 'pages.forum.createThread', ['isProjectForum' => false])->name('company-forum-create-thread');
 Route::post('/companyforum/createthread', 'ThreadController@create')->name('company-forum-create-thread-action');

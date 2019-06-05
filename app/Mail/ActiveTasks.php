@@ -2,23 +2,33 @@
 
 namespace App\Mail;
 
+use App\Developer;
+use App\Task;
+use App\Team;
+use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class ActiveTasks extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
+     * The user instance.
+     *
+     * @var User
+     */
+    public $userID;
+
+    /**
      * Create a new message instance.
      *
-     * @return void
+     * @param $userID
      */
-    public function __construct()
+    public function __construct($userID)
     {
-        //
+        $this->userID = $userID;
     }
 
     /**
@@ -28,6 +38,9 @@ class ActiveTasks extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.activeTasks');
+        $user = Developer::find($this->userID);
+        $team = Team::find($user->id_team);
+
+        return $this->markdown('emails.activeTasks', ['teamTasks' => Task::information($team->tasks), 'user' => $user]);
     }
 }
