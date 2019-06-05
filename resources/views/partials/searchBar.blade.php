@@ -19,7 +19,7 @@
         <input type="text" class="form-control" placeholder="{{ $content }}" aria-label="{{ $content }}"
                 aria-describedby="basic-addon2">
         <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button" id="search-button">
+            <button class="btn btn-outline-secondary" type="button" id="search">
                 <a> <i class="fa fa-search" aria-hidden="true"></i> Search</a>
             </button>
         </div>

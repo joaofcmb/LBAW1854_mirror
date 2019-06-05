@@ -139,12 +139,12 @@ html, body {
 
 /* BRAND BUTTON */
 
-#brand-btn button, #search button {
+#brand-btn button, #search {
     background-color: var(--brand-color);
     color: white;
 }
 
-#brand-btn button:hover, #search button:hover {
+#brand-btn button:hover, #search:hover {
     cursor: pointer;
     background-color: transparent;
     color: var(--brand-color);

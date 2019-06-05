@@ -2,7 +2,7 @@
 @isset($projectTask)
     <div class="team card float-sm-left text-center m-2 mt-3">
 @else
-    <div class="col-sm-4 my-3">
+    <div class="col-lg-4 col-sm-6 my-3">
         <div class="card text-center">
 @endisset        
         <div class="card-header" style="clear: both;">

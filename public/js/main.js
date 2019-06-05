@@ -36,6 +36,23 @@ if (milestoneCount > 0) {
 let typingTimer;                //timer identifier
 let doneTypingInterval = 500;  //time in ms, 5 second for example
 
+let registerFormUsername = document.getElementById('register-form-username')
+
+let finishedTyping = function () {
+    sendAjaxRequest.call(this, 'post', 'register/validateusername', {username: this.value}, validateUsername);
+};
+
+if(registerFormUsername != null) {
+    registerFormUsername.addEventListener('keyup', function () {
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(finishedTyping.bind(registerFormUsername), doneTypingInterval);
+    });
+
+    registerFormUsername.addEventListener('keydown', function () {
+        clearTimeout(typingTimer);
+    });
+}
+
 // PROFILE //
 let edit_profile_info = document.getElementsByClassName('edit-profile-info')[0];
 
@@ -66,27 +83,10 @@ if (edit_profile_info !== undefined) {
     })
 }
 
-let registerFormUsername = document.getElementById('register-form-username')
-
-let finishedTyping = function () {
-    sendAjaxRequest.call(this, 'post', 'register/validateusername', {username: this.value}, validateUsername);
-};
-
-if(registerFormUsername != null) {
-    registerFormUsername.addEventListener('keyup', function () {
-        clearTimeout(typingTimer);
-        typingTimer = setTimeout(finishedTyping.bind(registerFormUsername), doneTypingInterval);
-    });
-
-    registerFormUsername.addEventListener('keydown', function () {
-        clearTimeout(typingTimer);
-    });
-}
-
 let edit_biography = document.getElementById('edit-biography');
 
 if(edit_biography !== null) {
-    edit_biography.addEventListener('click', function (event) {
+    function editBiographyListener(event) {
         event.preventDefault();
 
         let biography_div = document.getElementById('biography');
@@ -102,15 +102,22 @@ if(edit_biography !== null) {
 
         biography_div.replaceChild(textArea, biography_text);
 
-        textArea.addEventListener( 'keyup', function(event) {
-            if(event.keyCode == '13') {
-                let id_user = textArea.getAttribute('id')
-                let biography = textArea.value;
+        let save_biography = document.createElement('i');
+        save_biography.setAttribute('id', 'edit-biography');
+        save_biography.setAttribute('class', 'fas fa-check ml-2 float-right');
 
-                sendAjaxRequest.call(this, 'post', '/profile/' + id_user + '/edit', {biography: biography}, editBiography);
-            }
+        biography_div.firstElementChild.replaceChild(save_biography, this);
+
+        save_biography.addEventListener('click', function() {
+            let id_user = textArea.getAttribute('id')
+            let biography = textArea.value;
+
+            sendAjaxRequest.call(this, 'post', '/profile/' + id_user + '/edit', {biography: biography}, editBiography);
         })
-    })
+    }
+
+    editBiographyListener.bind(edit_biography);
+    edit_biography.addEventListener('click', editBiographyListener)
 }
 
 let uploadProfilePicture = document.getElementById('upload-profile-picture')
@@ -564,6 +571,16 @@ function editBiography() {
     biography_text.setAttribute('id', textArea.getAttribute('id'));
 
     biography_div.replaceChild(biography_text, textArea);
+
+    let save_biography = document.getElementById('edit-biography');
+    let edit = document.createElement('i');
+    edit.setAttribute('id', 'edit-biography');
+    edit.setAttribute('class', 'fas fa-edit ml-2 float-right');
+
+    biography_div.firstElementChild.replaceChild(edit, save_biography);
+    
+    editBiographyListener.bind(edit);
+    edit.addEventListener('click', editBiographyListener);
 }
 
 function followHandler() {
@@ -602,7 +619,7 @@ function addThreadCommentHandler() {
 
     let new_comment = document.createElement('div');
 
-    let profile_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/profile/" + item.id_author;
+    let profile_route = "../profile/" + item.id_author;
 
     let edit_button = '<i id="comment-edit-' + item.id + '-' + item.id_thread + '-' + id_project + '" ';
     let delete_button = '<i id="comment-' + item.id + '-' + item.id_thread + '-' + id_project + '" ';
@@ -733,19 +750,20 @@ function createTaskGroupHandler() {
     group_div.setAttribute('class', 'main-tab task-group border-hover flex-shrink-0 card open border-left-0 border-right-0 rounded-0 py-2 mr-5');
     group_div.setAttribute('id', 'group-' + taskgroup.id_project + '-' + taskgroup.id);
 
-    let createTaskRoute = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/project/" +
-        taskgroup.id_project + "/tasks/createtask/" + taskgroup.id + "/";
+    let createTaskRoute = "../project/" + taskgroup.id_project + "/tasks/createtask/" + taskgroup.id + "/";
 
     group_div.innerHTML = '<div id="task-group-hover" class="mx-auto mb-1"> <a href="' + createTaskRoute + '"><i class="fas fa-plus fa-fw hover-icon mr-2"></i></a> ' +
         '<button id="editTaskGroup-' + taskgroup.id + '" type="button" data-toggle="modal" data-target="#editTaskGroupModal" '+
         'data-whatever="' + taskgroup.title + '" class="editTaskGroupButton mx-2 px-0"><i class="far fa-edit fa-fw hover-icon"></i></button> ' +
         '<i id="removeTaskGroup-' + taskgroup.id_project + '-' + taskgroup.id + '" class="remove-task-group far fa-trash-alt fa-fw hover-icon ml-2"></i> ' +
         '</div> <div class="d-flex flex-shrink-0 text-center my-1 mx-auto"> <h3>' + taskgroup.title + '</h3> </div>' +
-        '<div class="px-3 overflow-auto pr-2 pl-2 mt-1 mb-2"> </div> </div>';
+        '<div class="drop-area px-3 overflow-auto pr-2 pl-2 mt-1 mb-2"> </div> </div>';
 
     let add_group_div = document.getElementById('add-group').parentElement;
 
     document.getElementById('task-groups').insertBefore(group_div, add_group_div);
+    group_div.addEventListener('dragover', ev => ev.preventDefault());
+    group_div.addEventListener('drop', taskGroupDropListener(group_div));
 
     let removeTaskGroup = document.getElementById('removeTaskGroup-' + taskgroup.id_project + '-' + taskgroup.id);
     removeTaskGroupListener.bind(removeTaskGroup);
@@ -771,7 +789,27 @@ function removeTaskGroupHandler() {
     if(this.status !== 200) return;
 
     let info = this.prototype.getAttribute('id').split('-');
-    document.getElementById('group-' + info[1] + '-' + info[2]).remove();
+
+
+    let taskGroup = document.getElementById('group-' + info[1] + '-' + info[2]);
+
+    for (let task of taskGroup.getElementsByClassName('task')) {
+        document.getElementsByClassName('drop-area')[0].appendChild(task);
+    }
+    taskGroup.remove();
+}
+
+function taskGroupDropListener(taskGroup) {
+    return function (ev) {
+        ev.preventDefault();
+
+        let movedTask = document.getElementById(ev.dataTransfer.getData("text/plain"));
+        let taskId = movedTask.id.split('-')[2];
+        let groupIds = taskGroup.id.split('-');
+        sendAjaxRequest('post', '/project/' + groupIds[1] + '/tasks/' + taskId + '/assign-group/' + groupIds[2], {}, new function () {
+            ev.target.getElementsByClassName('drop-area')[0].appendChild(movedTask);
+        });
+    };
 }
 
 function updateProgressHandler() {
@@ -855,7 +893,7 @@ function restoreUserHandler() {
     let image = card.getElementsByTagName('img')[0];
     let username = card.getElementsByTagName('span')[0];
 
-    let profile_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/profile/" + id_user;
+    let profile_route = "../profile/" + id_user;
 
     let new_card = document.createElement('div');
     new_card.setAttribute('id', "card-" + id_user);
@@ -972,7 +1010,7 @@ function changeRoadmapInfo(milestones, currentMilestone) {
 
             document.querySelector('#editMilestoneModal input#milestone-name').value = currentMilestone.name;
             document.querySelector('#editMilestoneModal input#milestone-deadline').value = currentMilestone.deadline.substr(0, 10);
-            document.querySelector('#editMilestoneModal .update-milestone').setAttribute('id', 
+            document.querySelector('#editMilestoneModal .update-milestone').setAttribute('id',
                 'editMilestone-' + currentMilestone.id_project + '-' + currentMilestone.id);
         }
 
@@ -1001,7 +1039,7 @@ function changeRoadmapInfo(milestones, currentMilestone) {
                 sendAjaxRequest.call(this, 'delete', '/project/' + info[1] + '/roadmap/' + info[2] + '/remove', null, removeMilestoneHandler);
             })
 
-            milestone_content.innerHTML += createEditMilestoneModal(currentMilestone); 
+            milestone_content.innerHTML += createEditMilestoneModal(currentMilestone);
         }
 
         document.getElementById('content').appendChild(milestone_content);
@@ -1029,9 +1067,9 @@ function createEditMilestoneModal(currentMilestone) {
         '<input type="text" class="form-control" id="milestone-name" value="' + currentMilestone.name + '"> ' +
         '<label for="milestone-deadline" class="col-form-label">Deadline:</label> <input type="date" class="form-control" id="milestone-deadline" ' +
         'min="' + new Date().toDateString().substr(0,10) + '" value="' + currentMilestone.deadline.substr(0, 10) + '"> </div> </div> ' +
-        '<div id="brand-btn" class="modal-footer"> <button id="editMilestone-' + currentMilestone.id_project + '-' + currentMilestone.id + 
+        '<div id="brand-btn" class="modal-footer"> <button id="editMilestone-' + currentMilestone.id_project + '-' + currentMilestone.id +
         '" type="button" class="update-milestone btn btn-primary" data-dismiss="modal">Save changes</button> </div> </div> </div> </div>';
-    
+
     return modal;
 }
 
@@ -1041,20 +1079,17 @@ function createTaskHtml(tasks, isProjectManager) {
     for(let i = 0; i < tasks.length; i++) {
         let task = tasks[i];
         html += ' <section id="task-' + task.id_project + '-' + task.id + '" class="task card border-hover float-sm-left p-2 m-2 mt-3"> ';
-        
+
         if(isProjectManager) {
-            let edit_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") +
-                "/project/" + task.id_project + "/tasks/" + task.id + "/edit";
-            let assign_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") +
-                "/project/" + task.id_project + "/tasks/" + task.id + "/assign";
+            let edit_route = "../project/" + task.id_project + "/tasks/" + task.id + "/edit";
+            let assign_route = "../project/" + task.id_project + "/tasks/" + task.id + "/assign";
 
             html += '<div class="mx-auto mb-1"> <a href="' + edit_route + '"><i class="far fa-edit hover-icon mr-2"></i></a> ' +
                     '<a href="' + assign_route + '"><i class="fas fa-link fa-fw hover-icon mx-2"></i></a>' +
                     '<i id="removeTask-' + task.id_project + '-' + task.id + '" class="remove-task far fa-trash-alt fa-fw hover-icon ml-2"></i> </div>';
         }
 
-        let task_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") +
-            "/project/" + task.id_project + "/tasks/" + task.id;
+        let task_route = "../project/" + task.id_project + "/tasks/" + task.id;
 
         html += '<h6 class="text-center mb-auto"><a href="' + task_route + '">' + task.title + '</a></h6> ' +
                 '<p class="ml-1 m-0">' + task.teams.length + ' Teams</p>' +
@@ -1078,18 +1113,23 @@ function printUsers(container, users, isAdminView, manageTeam, manageProject) {
 
     for (const user of users) {
         let card = document.createElement('div');
-        let profile_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/profile/" + user.id;
-        let image_src = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/img/avatar.png";
+        let profile_route = "../profile/" + user.id;
+        let image_src = '../img/profile.png';
+
+        if(checkImage('../img/profile/' + user.id + '.jpg'))
+            image_src = '../img/profile/' + user.id + '.jpg';
+        else if(checkImage('../img/profile/' + user.id + '.png'))
+            image_src = '../img/profile/' + user.id + '.png';
 
         if(isAdminView) {
             card.setAttribute('id', user.id);
-            card.setAttribute('class', 'row justify-content-center pb-4');     
+            card.setAttribute('class', 'row justify-content-center pb-4');
 
             card.innerHTML = '<div class="col-11 col-md-8 ali"> <div id="card-' + user.id + '" class="' + (user.is_active? '':'restore') +
-                ' card"> <div class="card-body p-2"> ' + (user.is_active? '<a href="' + profile_route + '">':'') + '<img src="' + image_src + 
+                ' card"> <div class="card-body p-2"> ' + (user.is_active? '<a href="' + profile_route + '">':'') + '<img src="' + image_src +
                 '" width="50" height="50" class="d-inline-block rounded-circle align-self-center my-auto" alt="User photo">' +
                 ' <span class="pl-2 pl-sm-4">' + user.first_name + ' ' + user.last_name + '</span>' + (user.is_active? '</a>':'') +
-                ' <a id="' + user.id + '" class="' + (user.is_active? 'remove':'restore') + '-user float-right pt-2 pr-2">' + 
+                ' <a id="' + user.id + '" class="' + (user.is_active? 'remove':'restore') + '-user float-right pt-2 pr-2">' +
                 (user.is_active? '<i class="fas fa-times"></i>':'<span>Restore</span> <i class="fas fa-trash-restore"></i>') +
                 ' </a> </div> </div> </div> </div> ';
         }
@@ -1110,8 +1150,8 @@ function printUsers(container, users, isAdminView, manageTeam, manageProject) {
                     icons = '<i id="user-' + user.id + '" class="follow ' + (user.follow ? 'fas' : 'far') + ' fa-star" style="cursor: pointer;"></i>';
             }
 
-            
-            card.innerHTML = '<div class="card-body p-2"> <a href="' + profile_route + '"> <img src="' + image_src + 
+
+            card.innerHTML = '<div class="card-body p-2"> <a href="' + profile_route + '"> <img src="' + image_src +
                 '" width="50" height="50" class="d-inline-block rounded-circle align-self-center my-auto" alt="User photo">' +
                 ' <span class="pl-2 pl-sm-4">' + user.first_name + ' ' + user.last_name + '</span></a> <a class="float-right pt-2 pr-2"> ' +
                 icons + ' </a> </div> </div>';
@@ -1143,6 +1183,15 @@ function printUsers(container, users, isAdminView, manageTeam, manageProject) {
     }
 }
 
+function checkImage(url) {
+    var http = new XMLHttpRequest();
+
+    http.open('HEAD', url, false);
+    http.send();
+
+    return http.status != 404; 
+}
+
 function printProjects(container, projects, isAdminView) {
 
     for (const project of projects) {
@@ -1151,28 +1200,26 @@ function printProjects(container, projects, isAdminView) {
         card.setAttribute('class','card py-2 px-3 mt-4 mx-3 mx-sm-5 mb-2');
         card.setAttribute('style','border-top-width: 0.25em; border-top-color: ' + project.color + ';');
 
-        let overview_route = project.isLocked ? '' : 
-            "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/project/" + project.id;
+        let overview_route = project.isLocked ? '' : "../project/" + project.id;
         
         let icons;
 
         if(isAdminView) {
-            let edit_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + 
-                "/admin/projects/" + project.id + '/edit';
+            let edit_route = "../admin/projects/" + project.id + '/edit';
             icons = '<a href="' + edit_route + '"><i class="far fa-edit"></i> </a>' + '<a class="pl-2"> <i class="far fa-trash-alt"></i></a>';
         }
         else
-            icons = '<a><i id="project-' + project.id + '" class="favorite ' + (project.favorite ? 'fas' : 'far') + ' fa-star" ' + 
-                'style="cursor: pointer;" aria-hidden="true"></i></a> <i class="pl-1 fa fa-' + (project.isLocked ? 'lock' : 'unlock') + 
+            icons = '<a><i id="project-' + project.id + '" class="favorite ' + (project.favorite ? 'fas' : 'far') + ' fa-star" ' +
+                'style="cursor: pointer;" aria-hidden="true"></i></a> <i class="pl-1 fa fa-' + (project.isLocked ? 'lock' : 'unlock') +
                 '" aria-hidden="true"></i>';
 
-        let manager_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/profile/" + project.id_manager;
+        let manager_route = "../profile/" + project.id_manager;
         card.innerHTML = '<div class="d-flex justify-content-between"> <a ' + (project.isLocked ? '' : 'href="' + overview_route) + '"> <h5 class="card-title my-1">' +
-            project.name + '</h5> </a> <h5 class="flex-grow-1 d-flex justify-content-end align-items-center"> ' + icons + 
+            project.name + '</h5> </a> <h5 class="flex-grow-1 d-flex justify-content-end align-items-center"> ' + icons +
             ' </h5> </div> <div class="row"> <div class="col-sm-7"> Project Manager: <a href="' + manager_route + '"> <h6 class="d-inline-block mb-3">' +
             project.manager + '</h6> </a> <br> Brief Description: <h6 class="d-inline">' + project.description + '</h6> </div>' +
-            '<div class="col-sm-5 mt-3 mt-sm-0"> Statistics <h6> <p class="m-0"><i class="far fa-fw fa-user mr-1"></i>' + project.teams + 
-            ' Teams involved</p> <p class="m-0"><i class="fas fa-fw fa-check text-success mr-1"></i>' + project.tasks_done.length + 
+            '<div class="col-sm-5 mt-3 mt-sm-0"> Statistics <h6> <p class="m-0"><i class="far fa-fw fa-user mr-1"></i>' + project.teams +
+            ' Teams involved</p> <p class="m-0"><i class="fas fa-fw fa-check text-success mr-1"></i>' + project.tasks_done.length +
             ' Tasks concluded</p> <p class="m-0"><i class="fas fa-fw fa-times text-danger mr-1"></i>' + (project.tasks_ongoing.length + project.tasks_todo.length) +
             ' Tasks remaining</p> </h6> </div> </div> </div>';
 
@@ -1194,21 +1241,19 @@ function printTeams(container, teams) {
 
     for (const team of teams) {
         let card = document.createElement('div');
-        card.setAttribute('class','col-sm-4 my-3');
+        card.setAttribute('class','col-lg-4 col-sm-6 my-3');
         
         let members = '';
         for (const member of team.members) {
-            members += profileLink(member.id, member.first_name + ' ' + member.last_name);
+            members += ' <a href="../profile/' + member.id + '"> <p>' + member.first_name + ' ' + member.last_name + '</p> </a>';
         }
 
-        let leader_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + 
-            "/profile/" + team.leader.id;
-        let edit_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + 
-            "/admin/teams/" + team.id + "/edit";
+        let leader_route = "../profile/" + team.leader.id;
+        let edit_route = "../admin/teams/" + team.id + "/edit";
 
         card.innerHTML = '<div class="card text-center"> <div class="card-header" style="clear: both;"> <p id="team-name" class="m-0" style="float: left;">'
             + team.name + '</p> <p class="m-0" style="float: right;">' + (team.skill == null ? '' : team.skill) + '</p> </div> <div class="card-body">' +
-            '<a href="' + leader_route + '"><p style="font-weight: bold;">' + team.leader.first_name + ' ' + team.leader.last_name + 
+            '<a href="' + leader_route + '"><p style="font-weight: bold;">' + team.leader.first_name + ' ' + team.leader.last_name +
             '</p></a> <div class="mt-3"> ' + members + '</div> <a id="edit-button" href="' + edit_route + '" class="btn mt-3" role="button">Edit</a>' +
             ' <a id="edit-button" class="btn mt-3" role="button">Remove</a> </div> </div> </div>';
 
@@ -1216,11 +1261,6 @@ function printTeams(container, teams) {
     }
 
 // ADD Remove Team Listener
-}
-
-function profileLink(id, name) {
-    let route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/profile/" + id;
-    return ' <a href="' + route + '"> <p>' + name + '</p> </a>';
 }
 
 function removeNotCheckedTeam(container) {
@@ -1234,6 +1274,7 @@ function removeNotCheckedTeam(container) {
         }
     }
 }
+
 
 function printTeamsInput(container, teams) {
     let first_element = container.firstElementChild;
@@ -1254,7 +1295,6 @@ function printTeamsInput(container, teams) {
             container.insertBefore(card, first_element);
     }
 }
-
 
 //////////
 // AJAX //
@@ -1278,15 +1318,15 @@ function encodeForAjax(data) {
     }).join('&');
 }
 
+
+
 function validateEmail(email) {
     let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
 }
-
-
-
 // DRAG AND DROP (Task Groups) //
 let tasks = document.getElementsByClassName('draggable');
+
 let taskGroups = document.getElementsByClassName('task-group');
 
 for (const task of tasks) {
@@ -1296,20 +1336,8 @@ for (const task of tasks) {
 }
 
 for (const taskGroup of taskGroups) {
-    taskGroup.addEventListener('dragover', function(ev) {
-        ev.preventDefault();
-    });
-
-    taskGroup.addEventListener('drop', function(ev) {
-        ev.preventDefault();
-
-        let movedTask = document.getElementById(ev.dataTransfer.getData("text/plain"));
-        let taskId = movedTask.id.split('-')[2];
-        let groupIds = taskGroup.id.split('-');
-        sendAjaxRequest('post', '/project/' + groupIds[1] + '/tasks/' + taskId + '/assign-group/' + groupIds[2], {}, new function() {
-            ev.target.getElementsByClassName('drop-area')[0].appendChild(movedTask);
-        });
-    })
+    taskGroup.addEventListener('dragover', ev => ev.preventDefault());
+    taskGroup.addEventListener('drop', taskGroupDropListener(taskGroup));
 }
 
 

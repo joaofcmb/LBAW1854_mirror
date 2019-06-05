@@ -13,7 +13,7 @@
     transition: 1s;
 }
 
-#profile-picture:hover > img {
+#profile-picture:hover > #profile-img {
     cursor: pointer;
     opacity: 0.5;
     background-color: var(--light-grey-color);
@@ -129,7 +129,8 @@ div.main-tab {
 }
 
 #background-button a:hover, #project.card a:hover, .profile.card .card-body a:hover , #name-container a:hover {
-    color: var(--brand-color);  
+    color: var(--brand-color);
+    cursor: pointer;
 }
 
 #background-button {
