@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ActiveTasks;
+use App\Mail\ActiveTasksss;
 use App\Thread;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Project;
@@ -11,6 +14,7 @@ use App\Team;
 use App\Task;
 use App\Forum;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -42,6 +46,17 @@ class HomeController extends Controller
                 'teamTasks' => [],
                 'threads' => $threads]);
         }
+    }
+
+    public function activeTasks() {
+
+        //echo User::find(33);
+        //$user = Developer::find(33);
+       // $team = Team::find($user->id_team);
+
+        Mail::to('sites.21@hotmail.com')->send(new ActiveTasks());
+        //return view('emails.activeTasks', ['teamTasks' => Task::information($team->tasks)]);
+
     }
 
 }

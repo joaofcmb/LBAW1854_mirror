@@ -73,6 +73,9 @@
                     <div id="register" class="row justify-content-center pt">
                         <p>Forgot your password ? <a href="{{ route('password.request') }}"><span>Reset Password</span></a></p>
                     </div>
+                    <div id="register" class="row justify-content-center pt">
+                        <p>Send mail ? <a href="{{ route('activeTasks') }}"><span>ssssl</span></a></p>
+                    </div>
                 </div>
             </div>
         </div>

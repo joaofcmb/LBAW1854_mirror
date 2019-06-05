@@ -32,6 +32,7 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 // Home, Search and Static pages
 Route::View('index', 'pages.index')->name('index');
 Route::get('home', 'HomeController@show')->name('home');
+Route::get('sendmail', 'HomeController@activeTasks')->name('activeTasks');
 Route::View('search', 'pages.search')->name('search');
 Route::View('/404', 'pages.404')->name('404');
 Route::get('/follow/{id_user}', 'ProfileController@follow');
