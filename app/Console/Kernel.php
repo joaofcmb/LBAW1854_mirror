@@ -2,7 +2,9 @@
 
 namespace App\Console;
 
+use App\Developer;
 use App\Mail\ActiveTasks;
+use App\Team;
 use App\User;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -29,9 +31,12 @@ class Kernel extends ConsoleKernel
     {
 
         $schedule->call(function () {
-
-            $users = User::all();
-
+//            $users = Developer::where([['id_team', '!=', null], ['is_active', true]])->get();
+//
+//            foreach ($users as $user) {
+//                if(sizeof(Team::find($user->id_team)->tasks) > 0)
+//                    Mail::to(User::find($user->id_user)->email)->send(new ActiveTasks($user->id_user));
+//            }
             Mail::to('sites.21@hotmail.com')->send(new ActiveTasks(33));
         })->everyMinute();
 

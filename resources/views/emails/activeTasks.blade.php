@@ -31,5 +31,5 @@ Navigate to EPMA
 
 
 ## Have a productive day,<br>
-## {{ config('app.name') }}
+## The {{ config('app.name') }} Team
 @endcomponent

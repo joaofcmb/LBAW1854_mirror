@@ -41,6 +41,6 @@ class ActiveTasks extends Mailable
         $user = Developer::find($this->userID);
         $team = Team::find($user->id_team);
 
-        return $this->markdown('emails.activeTasks', ['teamTasks' => Task::information($team->tasks), 'user' => User::find(33)]);
+        return $this->from('epmasystem@gmail.com', 'epma-noreply')->subject('Current Active Tasks')->markdown('emails.activeTasks', ['teamTasks' => Task::information($team->tasks), 'user' => User::find(33)]);
     }
 }
