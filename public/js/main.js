@@ -465,7 +465,7 @@ let deleteTaskCommentListener = function () {
     let id_task = info[2];
     let id_project = info[3];
 
-    sendAjaxRequest.call(this, 'post', '/project/' + id_project + '/tasks/' + id_task + '/deletecomment/' + id_comment, null, deleteTaskCommentHandler);
+    sendAjaxRequest.call(this, 'delete', '/project/' + id_project + '/tasks/' + id_task + '/deletecomment/' + id_comment, null, deleteTaskCommentHandler);
 };
 
 for(let i = 0; i < deleteTaskComment.length; i++) {

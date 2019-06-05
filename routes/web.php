@@ -82,7 +82,7 @@ Route::get('/project/{id_project}/tasks/{id_task}/assign', 'TaskController@assig
 Route::post('/project/{id_project}/tasks/{id_task}/assign-group/{id_group}', 'TaskController@group');
 
 Route::post('/project/{id_project}/tasks/{id_task}/addcomment', 'TaskController@addTaskComment');
-Route::post('/project/{id_project}/tasks/{id_task}/deletecomment/{id_comment}', 'TaskController@deleteTaskComment');
+Route::delete('/project/{id_project}/tasks/{id_task}/deletecomment/{id_comment}', 'TaskController@deleteTaskComment');
 Route::post('/project/{id_project}/tasks/{id_task}/editcomment/{id_comment}', 'TaskController@editTaskComment');
 
 // Profile
