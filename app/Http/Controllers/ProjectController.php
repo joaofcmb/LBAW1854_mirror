@@ -331,10 +331,7 @@ class ProjectController extends Controller
         catch (AuthorizationException $e) {
             return response('', 404, []);
         }
-
-        $comment->delete();
         ThreadComment::where([['id_comment', $id_comment],['id_thread', $id_thread]])->delete();
-
     }
 
     public function changeMilestoneView(Request $request, $id_project)

@@ -156,6 +156,8 @@ class ThreadController extends Controller
             return response("", 404, []);
         }
 
+        ThreadComment::where('id_thread',$id)->delete();
+
         $thread->delete();
     }
 
@@ -170,12 +172,11 @@ class ThreadController extends Controller
     {
         $thread = Thread::find($id_thread);
         $comment = Comment::find($id_comment);
-        $thread_comment = ThreadComment::where([['id_comment', $id_comment],['id_thread', $id_thread]])->first();
+        $thread_comment = ThreadComment::where([['id_comment', $id_comment],['id_thread', $id_thread]])->get();
 
         if(empty($thread) || empty($comment) || empty($thread_comment) || $thread->id_forum != 1 || $comment->id_author != Auth::user()->getAuthIdentifier())
             return response("", 404, []);
 
-        $comment->delete();
         ThreadComment::where([['id_comment', $id_comment],['id_thread', $id_thread]])->delete();
     }
 }
