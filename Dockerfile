@@ -15,5 +15,8 @@ COPY .env_production /var/www/.env
 COPY docker_run.sh /docker_run.sh
 RUN mkdir /var/run/php
 
+# Start crontab
+CMD sh /crontab.sh
+
 # Start command
 CMD sh /docker_run.sh
