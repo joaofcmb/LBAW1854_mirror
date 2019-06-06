@@ -139,12 +139,12 @@ html, body {
 
 /* BRAND BUTTON */
 
-#brand-btn button, #search {
+#brand-btn button, #search, #action-btn {
     background-color: var(--brand-color);
     color: white;
 }
 
-#brand-btn button:hover, #search:hover {
+#brand-btn button:hover, #search:hover, #action-btn:hover {
     cursor: pointer;
     background-color: transparent;
     color: var(--brand-color);
@@ -180,6 +180,10 @@ html, body {
 
 #project.card a.float-right i {
     font-size: 1.3em;
+}
+
+a.float-right i.fa-times, a.float-right i.fa-plus, a.float-right i.fa-user-tie {
+    cursor: pointer;
 }
 
 /* Error Page */

@@ -561,10 +561,22 @@ for(let i = 0; i < remove_team.length; i++) {
     remove_team[i].addEventListener('click', removeTeamListener);
 }
 
-let manage_team = document.getElementsByClassName('manage-team')[0];
+let remove_project = document.getElementsByClassName('remove-project');
 
-if(manage_team != null) {
-    manage_team.addEventListener('click', function() {
+function removeProjectListener() {
+    let id = this.getAttribute('id').split('-')[1];
+    sendAjaxRequest.call(this, 'delete', '/admin/project/' + id + '/cancel', null, removeProjectHandler);
+}
+
+for(let i = 0; i < remove_project.length; i++) {
+    removeProjectListener.bind(remove_project[i]);
+    remove_project[i].addEventListener('click', removeProjectListener);
+}
+
+let manage_team_submit = document.getElementsByClassName('manage-team')[0];
+
+if(manage_team_submit != null) {
+    manage_team_submit.addEventListener('click', function() {
         let form = document.getElementsByTagName('form')[0];
         let team_name = form.querySelector('#teamName').value;
         let leader = document.getElementById('Leader').children;
@@ -712,9 +724,6 @@ for (const remove of remove_member) {
     removeMemberListener.bind(remove);
     remove.addEventListener('click', removeMemberListener);
 }
-
-//TODO:   TEAMS   Listener para adicionar membro á equipa, remover membro, promover a leader. (cruz, x, icon)
-//TODO: PROJECTS  Listener para promover e despromover manager (cruz, x)
 
 // SEARCH //
 
@@ -1303,6 +1312,12 @@ function removeTeamHandler() {
     document.getElementById('team-' + this.prototype.getAttribute('id').split('-')[1]).remove();
 }
 
+function removeProjectHandler() {
+    if(this.status !== 200) return;
+
+    document.getElementById('project -' + this.prototype.getAttribute('id').split('-')[1]).remove();
+}
+
 function editSearch() {
     if(this.status !== 200) return;
 
@@ -1553,8 +1568,6 @@ function printUsers(container, users, isAdminView, manageTeam, manageProject) {
         container.appendChild(card);
     }
 
-    // TODO: ADD Manage team and project listeners
-
     let add_member = document.getElementsByClassName('add-member');
     for (const add of add_member) {
         addMemberListener.bind(add);
@@ -1626,6 +1639,8 @@ function printProjects(container, projects, isAdminView) {
     }
 
 // TODO: ADD Remove Project Listeners
+
+
     let favorite = document.getElementsByClassName('favorite');
 
     for(let i = 0; i < favorite.length; i++) {
@@ -1659,7 +1674,12 @@ function printTeams(container, teams) {
         container.appendChild(card);
     }
 
-// TODO: ADD Remove Team Listener
+    let remove_team = document.getElementsByClassName('remove-team');
+
+    for(let i = 0; i < remove_team.length; i++) {
+        removeTeamListener.bind(remove_team[i]);
+        remove_team[i].addEventListener('click', removeTeamListener);
+    }
 }
 
 function removeNotCheckedTeam(container) {

@@ -17,6 +17,16 @@
         'active' => 'teams',
         'auth' => 'admin'
     ])
+
+    @if ($errors->any())    
+        <div class="alert alert-danger">
+            <ul class="mb-0"  style="font-family: 'Comfortaa', sans-serif;">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>    
+        </div>
+    @endif
     
     <div id="menu-option" class="container-fluid justify-content-start mx-auto py-4">
         <a href="{{ route('admin-teams') }}"><i class="fas fa-chevron-circle-left mx-2"></i>Back</a>
@@ -95,14 +105,16 @@
                             @endisset
                         </div>                        
                         <div id="action-button" class="text-center">
-                            @isset($team)
-                                <a id="manageTeam-{{ $team->id }}" class="manage-team btn mt-3" role="button" >
-                                    Update
-                            @else
-                                <a id="manageTeam" class="manage-team btn mt-3" role="button">
-                                    Create
-                            @endisset
-                            </a>
+                            <button id="action-btn" class="btn btn-outline-secondary" type="button">
+                                @isset($team)
+                                    <a id="manageTeam-{{ $team->id }}" class="manage-team" role="button" >
+                                        Update
+                                @else
+                                    <a id="manageTeam" class="manage-team" role="button">
+                                        Create
+                                @endisset
+                                </a>
+                            </button>
                         </div>
                     </div>
                 </div>
