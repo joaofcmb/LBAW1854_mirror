@@ -371,6 +371,22 @@ for(let i = 0; i < removeTaskGroup.length; i++) {
     removeTaskGroup[i].addEventListener('click', removeTaskGroupListener);
 }
 
+// DRAG AND DROP (Task Groups) //
+let tasks = document.getElementsByClassName('draggable');
+
+let taskGroups = document.getElementsByClassName('task-group');
+
+for (const task of tasks) {
+    task.addEventListener('dragstart', function(ev) {
+        ev.dataTransfer.setData("text/plain", ev.target.id);
+    });
+}
+
+for (const taskGroup of taskGroups) {
+    taskGroup.addEventListener('dragover', ev => ev.preventDefault());
+    taskGroup.addEventListener('drop', taskGroupDropListener(taskGroup));
+}
+
 function taskGroupDropListener(taskGroup) {
     return function (ev) {
         ev.preventDefault();
@@ -531,6 +547,50 @@ function restoreUserListener(event) {
 for(let i = 0; i < restore_user.length; i++) {
     restoreUserListener.bind(restore_user[i]);
     restore_user[i].addEventListener('click', restoreUserListener);
+}
+
+let remove_team = document.getElementsByClassName('remove-team');
+
+function removeTeamListener() {
+    let id = this.getAttribute('id').split('-')[1];
+    sendAjaxRequest.call(this, 'delete', '/admin/teams/' + id + '/remove', null, removeTeamHandler);
+}
+
+for(let i = 0; i < remove_team.length; i++) {
+    removeTeamListener.bind(remove_team[i]);
+    remove_team[i].addEventListener('click', removeTeamListener);
+}
+
+let manage_team = document.getElementsByClassName('manage-team')[0];
+
+if(manage_team != null) {
+    manage_team.addEventListener('click', function() {
+        let form = document.getElementsByTagName('form')[0];
+        let team_name = form.querySelector('#teamName').value;
+        let leader = document.getElementById('Leader').children;
+
+        if(team_name == ""){
+            blockHelpNode(form.querySelector('#teamName').parentElement, 'A team must have a name', "red");
+            return;
+        }
+        if(leader.length == 1){
+            blockHelpNode(leader[0].parentElement, 'A team must have a leader', "red");
+            return;
+        }
+
+        let leader_id = leader[1].getAttribute('id');
+        let member_container = document.getElementById('Members').children;
+        let members_id = [4,5];
+
+        for (let i = 1; i < member_container.length; i++) {
+            members_id.push(member_container[i].getAttribute('id'));            
+        }       
+
+        document.getElementById('teamLeader').value = leader_id;
+        document.getElementById('teamMembers').value = members_id;
+        
+        document.getElementById('submit').click();
+    })
 }
 
 // SEARCH //
@@ -1114,6 +1174,12 @@ function restoreUserHandler() {
     new_remove.addEventListener('click', removeUserListener);
 }
 
+function removeTeamHandler() {
+    if(this.status !== 200) return;
+
+    document.getElementById('team-' + this.prototype.getAttribute('id').split('-')[1]).remove();
+}
+
 function editSearch() {
     if(this.status !== 200) return;
 
@@ -1152,8 +1218,10 @@ function editSearch() {
             container = container.querySelector('#search-display');
             let first_child = container.firstElementChild;
             container.innerHTML = '';
+
             if(first_child != null)
                 container.appendChild(first_child);
+            
             printUsers(container, response, false, false, true)
             break;
         case 'teamAssign':
@@ -1363,7 +1431,7 @@ function printUsers(container, users, isAdminView, manageTeam, manageProject) {
         container.appendChild(card);
     }
 
-    // ADD Manage team and project listeners
+    // TODO: ADD Manage team and project listeners
 
     let follow = document.getElementsByClassName('follow');
     for(let i = 0; i < follow.length; i++) {
@@ -1429,7 +1497,7 @@ function printProjects(container, projects, isAdminView) {
         container.appendChild(card);
     }
 
-// ADD Remove Project Listeners
+// TODO: ADD Remove Project Listeners
     let favorite = document.getElementsByClassName('favorite');
 
     for(let i = 0; i < favorite.length; i++) {
@@ -1463,7 +1531,7 @@ function printTeams(container, teams) {
         container.appendChild(card);
     }
 
-// ADD Remove Team Listener
+// TODO: ADD Remove Team Listener
 }
 
 function removeNotCheckedTeam(container) {
@@ -1477,7 +1545,6 @@ function removeNotCheckedTeam(container) {
         }
     }
 }
-
 
 function printTeamsInput(container, teams) {
     let first_element = container.firstElementChild;
@@ -1545,21 +1612,3 @@ function validateEmail(email) {
     let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
 }
-
-// DRAG AND DROP (Task Groups) //
-let tasks = document.getElementsByClassName('draggable');
-
-let taskGroups = document.getElementsByClassName('task-group');
-
-for (const task of tasks) {
-    task.addEventListener('dragstart', function(ev) {
-        ev.dataTransfer.setData("text/plain", ev.target.id);
-    });
-}
-
-for (const taskGroup of taskGroups) {
-    taskGroup.addEventListener('dragover', ev => ev.preventDefault());
-    taskGroup.addEventListener('drop', taskGroupDropListener(taskGroup));
-}
-
-

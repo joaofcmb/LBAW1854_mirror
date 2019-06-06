@@ -43,6 +43,31 @@ class AdministratorController extends Controller
     }
 
     /**
+     * Create a new team
+     * 
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function createTeamAction(Request $request) 
+    {
+        $team = new Team();
+        $team->name = $request->input('name');
+        $team->skill = $request->input('skill');
+        $team->id_leader = $request->input(('id_leader'));
+        $team->save();
+
+        $members = explode(',', $request->input('members'));
+
+        foreach ($members as $id) {
+            $member = Developer::find($id);
+            $member->id_team = $team->id;
+            $member->save();
+        }
+
+        return redirect()->route('admin-teams');
+    }
+
+    /**
      * Show the form for creating a new resource: project
      *
      * @return \Illuminate\Http\Response
@@ -169,6 +194,32 @@ class AdministratorController extends Controller
         return View('pages.admin.adminManageTeam', ['users' => $users, 'team' => $team]);
     }
 
+    public function editTeamAction(Request $request, $id)
+    {
+        $team = Team::find($id);
+        $team->name = $request->input('name');
+        $team->skill = $request->input('skill');
+        $team->id_leader = $request->input('id_leader');
+        $team->save();
+
+        $members = explode(',', $request->input('members'));
+
+        foreach ($members as $id) {
+            $member = Developer::find($id);
+            $member->id_team = $team->id;
+            $member->save();
+        }
+
+        $old_members = Developer::where('id_team',$id)->whereNotIn('id_user', $members)->get();
+
+        foreach ($old_members as $member) {
+            $member->id_team = null;
+            $member->save();
+        }
+
+        return redirect()->route('admin-teams');
+    }
+
     /**
      * Show the form for editing the specified resource: project
      *
@@ -239,6 +290,16 @@ class AdministratorController extends Controller
         $user = Developer::find($id);
         $user->is_active = TRUE;
         $user->save();        
+    }
+
+    public function removeTeam($id)
+    {
+        $team = Team::find($id);
+
+        if(empty($team))
+            return redirect()->route('404');
+
+        $team->delete();
     }
 
     /**

@@ -49,24 +49,29 @@
                         <h4>Team</h4>
                     </div>
                     <div class="card-body">
-                        <form>
+                        <form id="manage-team-form" method="POST" 
+                            @isset($team)
+                                action="{{ route('admin-edit-team-action', ['id' => $team->id ]) }}"
+                            @else
+                                action="{{ route('admin-create-team-action') }}"
+                            @endisset required>
+                            {{ csrf_field() }}
                             <div class="form-group">
-                                <input type="text" class="form-control" id="teamName" 
+                                <input type="text" class="form-control" id="teamName" name="name" placeholder="Name" required
                                     @isset($team)
                                         value="{{ $team->name }}"
-                                    @else
-                                        placeholder="Name"
                                     @endisset>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="teamSkill"
-                                    @isset($team->skill)
+                                <input type="text" class="form-control" id="teamSkill" name="skill" placeholder="Skill"
+                                    @isset($team)
                                         value="{{ $team->skill }}"
-                                    @else
-                                        placeholder="Skill"
-                                    @endif >
+                                    @endisset>
                             </div>
+                            <input type="text" hidden id="teamLeader" name="id_leader">
+                            <input type="text" hidden id="teamMembers" name="members">                            
                         </form>
+                        <button id="submit" type="submit" hidden form="manage-team-form"></button>
                         <div id="Leader">
                             <h5 class="text-center">Leader</h5>
                             @isset($team)
@@ -90,14 +95,16 @@
                                     ])
                                 @endforeach
                             @endisset
-                        </div>
+                        </div>                        
                         <div id="action-button" class="text-center">
-                            <a href="" class="btn mt-3" role="button">
-                                @isset($team)
+                            @isset($team)
+                                <a id="manageTeam-{{ $team->id }}" class="manage-team btn mt-3" role="button" >
                                     Update
-                                @else
+                            @else
+                                <a id="manageTeam" class="manage-team btn mt-3" role="button">
                                     Create
-                                @endisset</a>
+                            @endisset
+                            </a>
                         </div>
                     </div>
                 </div>
