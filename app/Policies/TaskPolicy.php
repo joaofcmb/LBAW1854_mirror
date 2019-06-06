@@ -54,31 +54,17 @@ class TaskPolicy
         return $project->id_manager == $user->id && $task->id_project == $project->id;
     }
 
+    /**
+     * Checks if user is able to manage task groups
+     *
+     * @param User $user
+     * @param Task $task
+     * @param Project $project
+     * @param TaskGroup|null $group
+     * @return bool
+     */
     public function group(User $user, Task $task, Project $project, TaskGroup $group = null) {
         return $project->id_manager == $user->id && $task->id_project == $project->id && ($group != null? $group->id_project == $project->id : true);
-    }
-
-    /**
-     * Determine whether the user can create tasks.
-     *
-     * @param  \App\User  $user
-     * @return mixed
-     */
-    public function create(User $user)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can update the task.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Task  $task
-     * @return mixed
-     */
-    public function update(User $user, Task $task)
-    {
-        //
     }
 
     /**

@@ -74,30 +74,6 @@ class ProjectPolicy
 
 
     /**
-     * Determine whether the user can update the project.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Project  $project
-     * @return mixed
-     */
-    public function update(User $user, Project $project)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can delete the project.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Project  $project
-     * @return mixed
-     */
-    public function delete(User $user, Project $project)
-    {
-        //
-    }
-
-    /**
      * Determine whether the user can delete the project forum thread.
      *
      * @param User $user

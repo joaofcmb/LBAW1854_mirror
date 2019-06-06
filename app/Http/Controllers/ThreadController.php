@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Comment;
 use App\Thread;
 use App\ThreadComment;
-use DateTime;
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -108,9 +107,6 @@ class ThreadController extends Controller
             return response("", 404, []);
 
         $comment['text'] = $request->input('text');
-
-        $date = new DateTime();
-        $comment->last_edit_date = $date->getTimestamp();
 
         $comment->save();
     }
