@@ -91,10 +91,20 @@ class SearchController extends Controller
             ->get();       
         
         foreach ($users as $user) {
+            $filename = "img/profile/".$user->id;
+
+            if (file_exists($filename.'.png'))
+                $filename = $filename.'.png';
+            else if (file_exists($filename.'.jpg'))
+                $filename = $filename.'.jpg';
+            else
+                $filename = 'img/profile.png';
+
             $dev = Developer::find($user->id);
 
             $user->is_active = $dev !== null ? $dev->is_active : true ;
             $user->follow = false;
+            $user->img_url = $filename;
 
             foreach ($followers as $follower) {
                 if($user->id == $follower->id)
