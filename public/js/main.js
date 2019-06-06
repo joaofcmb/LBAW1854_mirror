@@ -632,21 +632,24 @@ function addMemberListener() {
         promote_button.addEventListener('click', promoteLeaderListener);
     }       
     else {
-        let manager = search_content.firstElementChild;        
-        search_content.insertBefore(user_card,manager);
+        let manager = search_content.firstElementChild;
+        
+        if(manager != null) {
+            search_content.insertBefore(user_card,manager);
+            let manager_icon = manager.querySelector('a.float-right');
 
-        let manager_icon = manager.querySelector('a.float-right');
+            if(manager_icon.querySelector('i.remove-member') != null) {
+                let add_button = document.createElement('i');
+                add_button.className = 'add-member fas fa-plus';
 
-        if(manager_icon.querySelector('i.remove-member') != null) {
-            let add_button = document.createElement('i');
-            add_button.className = 'add-member fas fa-plus';
+                manager_icon.replaceChild(add_button, manager_icon.querySelector('i.remove-member'));
 
-            
-            manager_icon.replaceChild(add_button, manager_icon.querySelector('i.remove-member'));
-
-            addMemberListener.bind(add_button);
-            add_button.addEventListener('click', addMemberListener);
+                addMemberListener.bind(add_button);
+                add_button.addEventListener('click', addMemberListener);
+            }
         }
+        else
+            search_content.appendChild(user_card);
     }
 
     removeMemberListener.bind(remove_button);

@@ -37,13 +37,10 @@
 
                             <div class="form-row">
                                 <div class="form-group col-md-9">
-                                    <input type="text" class="form-control" name="name" id="projectName"
+                                    <input type="text" class="form-control" name="name" id="projectName" placeholder="Name"
                                            @isset($project)
                                                 value="{{ $project->name }}"
-                                           @else
-                                                placeholder="Name"
-                                           @endisset
-                                    >
+                                           @endisset >
                                 </div>
                                 <div class="form-group col-md-2 offset-md-1">
                                     <div class="d-flex">
@@ -57,11 +54,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <textarea class="form-control" name="description" id="projectDescription"
-                                          @isset($project)
-                                          @else
-                                            placeholder="Project Description"
-                                          @endisset
+                                <textarea class="form-control" name="description" id="projectDescription" placeholder="Project Description"
                                           rows="7">{{ isset($project) ? $project->description : '' }}</textarea>
                             </div>
 

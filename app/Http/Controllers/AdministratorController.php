@@ -42,19 +42,38 @@ class AdministratorController extends Controller
      * @return Response
      */
     public function createTeamAction(Request $request) 
-    {// TODO - Finalize
+    {
         if(!Auth::user()->isAdmin())
             return redirect()->route('404');
 
+        $id_leader = $request->input('id_leader');
+
+        if(Team::where('id_leader',intVal($id_leader))->exists()){
+            $leader = User::find($id_leader);
+            $message = "ERROR: ". $leader->first_name." ". $leader->last_name." is the leader of an existing team.";
+            return redirect()->back()->withErrors($message);
+        }
+        
         $team = new Team();
         $team->name = $request->input('name');
         $team->skill = $request->input('skill');
-        $team->id_leader = $request->input(('id_leader'));
+        $team->id_leader = $id_leader;
         $team->save();
 
         $members = explode(',', $request->input('members'));
 
+        if($members[0] == "")
+            $members = [];
+
+        array_push($members, $id_leader);
+
         foreach ($members as $id) {
+            if(Team::where('id_leader',intVal($id))->whereNotIn('id',[$team->id])->exists()){
+                $member = User::find($id);
+                $message = "ERROR: ". $member->first_name." ". $member->last_name." is the leader of an existing team.";
+                return redirect()->back()->withErrors($message);
+            }
+
             $member = Developer::find($id);
             $member->id_team = $team->id;
             $member->save();
@@ -183,10 +202,16 @@ class AdministratorController extends Controller
      */
     public function editTeamAction(Request $request, $id)
     {
+        if(!Auth::user()->isAdmin())
+            return redirect()->route('404');
+
         $id_leader = $request->input('id_leader');
 
-        if(Team::where('id_leader',intVal($id_leader))->exists())
-            return redirect()->back()->withErrors("ERROR: A team with the same leader already exists.");
+        if(Team::where('id_leader',intVal($id_leader))->whereNotIn('id',[$id])->exists()){
+            $leader = User::find($id_leader);
+            $message = "ERROR: ". $leader->first_name." ". $leader->last_name." is the leader of an existing team.";
+            return redirect()->back()->withErrors($message);
+        }
 
         $team = Team::find($id);
         $team->name = $request->input('name');
@@ -195,9 +220,18 @@ class AdministratorController extends Controller
         $team->save();
 
         $members = explode(',', $request->input('members'));
+        if($members[0] == "")
+            $members = [];
+            
         array_push($members, $id_leader);
 
         foreach ($members as $id) {
+            if(Team::where('id_leader',intVal($id))->whereNotIn('id',[$team->id])->exists()){
+                $member = User::find($id);
+                $message = "ERROR: ". $member->first_name." ". $member->last_name." is the leader of an existing team.";
+                return redirect()->back()->withErrors($message);
+            }
+
             $member = Developer::find($id);
             $member->id_team = $team->id;
             $member->save();
