@@ -72,7 +72,7 @@
                                     @endisset>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" id="teamSkill" name="skill" placeholder="Skill"
+                                <input type="text" class="form-control" id="teamSkill" name="skill" placeholder="Skill (Optional)"
                                     @isset($team)
                                         value="{{ $team->skill }}"
                                     @endisset>
