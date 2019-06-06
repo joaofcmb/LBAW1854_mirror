@@ -139,22 +139,6 @@ if(uploadProfilePictureFile != null) {
     })
 }
 
-let uploadProfileBackground = document.getElementById('background-button')
-let uploadProfileBackgroundFile = document.getElementById('upload-profile-background-file')
-let uploadProfileBackgroundSubmit = document.getElementById('upload-profile-background-form-submit')
-
-if(uploadProfileBackground != null) {
-    uploadProfileBackground.addEventListener('click', function() {
-        uploadProfileBackgroundFile.click()
-    })
-}
-
-if(uploadProfileBackgroundFile != null) {
-    uploadProfileBackgroundFile.addEventListener('change', function () {
-        uploadProfileBackgroundSubmit.click()
-    })
-}
-
 let follow = document.getElementsByClassName('follow');
 
 for(let i = 0; i < follow.length; i++) {

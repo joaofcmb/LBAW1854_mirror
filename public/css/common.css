@@ -127,7 +127,7 @@ body * {
 }
 
 html, body {
-    min-height: 100%;
+    min-height: 98%;
     background-color: var(--bg-light);
 }
 
@@ -195,4 +195,20 @@ a.float-right i.fa-times, a.float-right i.fa-plus, a.float-right i.fa-user-tie {
 
 #error-text span {
     color: var(--brand-color);
+}
+
+#help-text {
+    font-size: 4rem;
+    font-weight: bold;
+    font-style: italic;
+    color: var(--brand-color);
+}
+
+#help-text + div p {    
+    /* padding: 6px 0; */
+    font-size:1.3em;
+}
+
+#help-text + div span {
+    font-weight: bold;
 }

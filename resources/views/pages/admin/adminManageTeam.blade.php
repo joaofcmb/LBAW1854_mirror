@@ -28,8 +28,9 @@
         </div>
     @endif
     
-    <div id="menu-option" class="container-fluid justify-content-start mx-auto py-4">
+    <div id="menu-option" class="container-fluid d-flex justify-content-between py-4">
         <a href="{{ route('admin-teams') }}"><i class="fas fa-chevron-circle-left mx-2"></i>Back</a>
+        <a href="{{ route('create-team-help') }}"><i class="fas fa-question-circle m-2"></i> </a>
     </div>
 
     <div id="search-content" class="container-fluid px-3">
