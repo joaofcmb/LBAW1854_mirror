@@ -13,7 +13,7 @@
 
         @if($auth == 'authentication')
             <a id="login" class="ml-auto pl-3" href="{{ route('index') }}">
-                <span class="fas fa-chevron-circle-left"></span>
+                <span class="fas fa-chevron-circle-left" title="Click this button to get back to the main page"></span>
             </a>
         @elseif($auth == 'index')
             <a class="nav-item nav-link" href="#home">Home</a>
@@ -22,7 +22,7 @@
             <a class="nav-item nav-link" href="#founders">Founders</a>
             
             <a id="login" class="ml-auto pl-3" href="{{ route('login') }}">
-                <span class="fas fa-chevron-circle-right"></span>
+                <span class="fas fa-chevron-circle-right" title="Click this button to log into the system"></span>
             </a>
         @elseif($auth == 'admin')
             <a class="nav-item nav-link {{($active == 'users')? 'active' : ''}} mx-lg-3" href="{{ route('admin-users') }}">USERS</a>
@@ -58,7 +58,7 @@
                 </a>
                 <a href="{{ route('profile', ['id' => Auth::user()->getAuthIdentifier()]) }}" class="pl-lg-3">
                     <img class="profile-img d-none d-md-inline-block rounded-circle my-auto" src="{{ file_exists('img/profile/' . Auth::user()->getAuthIdentifier() . '.png') ? asset('img/profile/' . Auth::user()->getAuthIdentifier() . '.png') :
-                        (file_exists('img/profile/' . Auth::user()->getAuthIdentifier() . '.jpg') ? asset('img/profile/' . Auth::user()->getAuthIdentifier() . '.jpg') : asset('img/profile.png')) }}" width="50" height="50" alt="Profile Image">
+                        (file_exists('img/profile/' . Auth::user()->getAuthIdentifier() . '.jpg') ? asset('img/profile/' . Auth::user()->getAuthIdentifier() . '.jpg') : asset('img/profile.png')) }}" width="50" height="50" alt="Your Profile Image">
                 </a>
             </div>
         @endif

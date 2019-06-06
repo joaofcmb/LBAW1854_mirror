@@ -41,7 +41,7 @@
             <div id="biography" class="p-3">
                 <h5>Biography 
                     @isset($isInfo)
-                        <i id="edit-biography" class="fas fa-edit ml-2 float-right"></i>
+                        <i id="edit-biography" class="fas fa-edit ml-2 float-right" title="Click this button to update your biography"></i>
                     @endisset 
                 </h5>
                 <p id="{{ $user->id }}" class="pt-2 mb-0">{{ $user->biography }}</p>
