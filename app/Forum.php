@@ -32,6 +32,10 @@ class Forum extends Model
             ->orderBy('last_edit_date', 'desc');
     }
 
+    /**
+     * The project the forum belongs
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function project() {
         return $this->belongsTo('App\Project', 'id_project');
     }

@@ -38,6 +38,11 @@ class Comment extends Model
         return $this->hasOneThrough('App\Thread', 'App\TaskComment', 'id_comment', 'id', 'id', 'id_task');
     }
 
+    /**
+     * Retrieve information about comments
+     * @param $comments
+     * @return mixed
+     */
     public static function information($comments) {
         foreach ($comments as $comment) {
             $comment['author'] = User::where('id', $comment['id_author'])->first();
