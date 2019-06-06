@@ -15,6 +15,8 @@ Route::get('/', function () {
     return redirect('index');
 });
 
+Route::view('/teams/create/help','pages.create-team-help',['page'])->name('create-team-help');
+
 // Authentication
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login-action');
@@ -108,6 +110,7 @@ Route::post('/admin/projects/create', 'AdministratorController@createProjectActi
 Route::get('/admin/projects/{id}/edit', 'AdministratorController@editProject')->name('admin-edit-project');
 Route::post('/admin/projects/{id}/edit', 'AdministratorController@editProjectAction')->name('admin-edit-project-action');
 Route::delete('/admin/project/{id}/cancel', 'AdministratorController@cancelProject');
+
 
 // API - Project
 Route::post('/api/project/{id_project}/roadmap/changeview', 'ProjectController@changeMilestoneView');
