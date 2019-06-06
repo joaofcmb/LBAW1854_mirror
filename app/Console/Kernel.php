@@ -29,16 +29,14 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-
         $schedule->call(function () {
-//            $users = Developer::where([['id_team', '!=', null], ['is_active', true]])->get();
-//
-//            foreach ($users as $user) {
-//                if(sizeof(Team::find($user->id_team)->tasks) > 0)
-//                    Mail::to(User::find($user->id_user)->email)->send(new ActiveTasks($user->id_user));
-//            }
-            Mail::to('sites.21@hotmail.com')->send(new ActiveTasks(33));
-        })->everyMinute();
+            $users = Developer::where([['id_team', '!=', null], ['is_active', true]])->get();
+
+            foreach ($users as $user) {
+                if(sizeof(Team::find($user->id_team)->tasks) > 0)
+                    Mail::to(User::find($user->id_user)->email)->send(new ActiveTasks($user->id_user));
+            }
+        })->dailyAt('05:00')->weekdays();
 
     }
 

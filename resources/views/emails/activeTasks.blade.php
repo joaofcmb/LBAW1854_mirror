@@ -24,12 +24,11 @@ This message serves as quick remainder of your team's current remaining work. Yo
 @endforeach
 
 
-@component('mail::button', ['url' => 'http://localhost:8000/', 'color' => 'green'])
+@component('mail::button', ['url' => 'http://lbaw1854.lbaw-prod.fe.up.pt', 'color' => 'green'])
 Navigate to EPMA
 @endcomponent
 
 
-
 ## Have a productive day,<br>
-## The {{ config('app.name') }} Team
+## {{ config('app.name') }}
 @endcomponent
