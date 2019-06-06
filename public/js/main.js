@@ -818,14 +818,15 @@ for(let i = 0; i < searchBar.length; i++) {
 
         if(loading == null) {
             let parentNode = document.createElement('div')
-            parentNode.setAttribute('class', 'd-flex justify-content-center m-3')
+            parentNode.setAttribute('class', 'd-flex justify-content-center m-4')
+            parentNode.setAttribute('id', 'search-bar-loading')
 
             let node = document.createElement("div");
-            node.setAttribute('id', 'search-bar-loading')
-            node.setAttribute('class', 'spinner-grow')
+            node.setAttribute('class', 'spinner-border')
             node.setAttribute('role', 'status')
 
             parentNode.appendChild(node)
+
 
             searchBar[i].appendChild(parentNode)
 
