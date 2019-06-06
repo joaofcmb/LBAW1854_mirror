@@ -633,7 +633,7 @@ function addMemberListener() {
     }       
     else {
         let manager = search_content.firstElementChild;
-        
+
         if(manager != null) {
             search_content.insertBefore(user_card,manager);
             let manager_icon = manager.querySelector('a.float-right');
@@ -1526,12 +1526,7 @@ function printUsers(container, users, isAdminView, manageTeam, manageProject) {
     for (const user of users) {
         let card = document.createElement('div');
         let profile_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/profile/" + user.id;
-        let image_src = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/img/profile.png";
-
-        if(checkImage("http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/img/profile/" + user.id + '.jpg'))
-            image_src = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/img/profile/" + user.id + '.jpg';
-        else if(checkImage("http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/img/profile/" + user.id + '.png'))
-            image_src = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/img/profile/" + user.id + '.png';
+        let image_src = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/" + user.img_url;
 
         if(isAdminView) {
             card.setAttribute('id', user.id);
@@ -1598,21 +1593,12 @@ function printUsers(container, users, isAdminView, manageTeam, manageProject) {
     }
 }
 
-function checkImage(url) {
-    var http = new XMLHttpRequest();
-
-    http.open('HEAD', url, false);
-    http.send();
-
-    return http.status != 404; 
-}
-
 function printProjects(container, projects, isAdminView) {
 
     for (const project of projects) {
         let card = document.createElement('div');
-        card.setAttribute('id','project');
-        card.setAttribute('class','card py-2 px-3 mt-4 mx-3 mx-sm-5 mb-2');
+        card.setAttribute('id','project -' + project.id);
+        card.setAttribute('class','project card py-2 px-3 mt-4 mx-3 mx-sm-5 mb-2');
         card.setAttribute('style','border-top-width: 0.25em; border-top-color: ' + project.color + ';');
 
         let overview_route = project.isLocked ? '' : "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/project/" + project.id;
@@ -1621,7 +1607,7 @@ function printProjects(container, projects, isAdminView) {
 
         if(isAdminView) {
             let edit_route = "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/admin/projects/" + project.id + '/edit';
-            icons = '<a href="' + edit_route + '"><i class="far fa-edit"></i> </a>' + '<a class="pl-2"> <i class="far fa-trash-alt"></i></a>';
+            icons = '<a href="' + edit_route + '"><i class="far fa-edit"></i> </a> <a id="removeProject-' + project.id + '" class="remove-project pl-2"> <i class="far fa-trash-alt"></i></a>';
         }
         else
             icons = '<a><i id="project-' + project.id + '" class="favorite ' + (project.favorite ? 'fas' : 'far') + ' fa-star" ' +
@@ -1632,7 +1618,7 @@ function printProjects(container, projects, isAdminView) {
         card.innerHTML = '<div class="d-flex justify-content-between"> <a ' + (project.isLocked ? '' : 'href="' + overview_route) + '"> <h5 class="card-title my-1">' +
             project.name + '</h5> </a> <h5 class="flex-grow-1 d-flex justify-content-end align-items-center"> ' + icons +
             ' </h5> </div> <div class="row"> <div class="col-sm-7"> Project Manager: <a href="' + manager_route + '"> <h6 class="d-inline-block mb-3">' +
-            project.manager + '</h6> </a> <br> Brief Description: <h6 class="d-inline">' + project.description + '</h6> </div>' +
+            project.manager.first_name + ' ' + project.manager.last_name + '</h6> </a> <br> Brief Description: <h6 class="d-inline">' + project.description + '</h6> </div>' +
             '<div class="col-sm-5 mt-3 mt-sm-0"> Statistics <h6> <p class="m-0"><i class="far fa-fw fa-user mr-1"></i>' + project.teams +
             ' Teams involved</p> <p class="m-0"><i class="fas fa-fw fa-check text-success mr-1"></i>' + project.tasks_done.length +
             ' Tasks concluded</p> <p class="m-0"><i class="fas fa-fw fa-times text-danger mr-1"></i>' + (project.tasks_ongoing.length + project.tasks_todo.length) +
@@ -1641,8 +1627,12 @@ function printProjects(container, projects, isAdminView) {
         container.appendChild(card);
     }
 
-// TODO: ADD Remove Project Listeners
+    let remove_project = document.getElementsByClassName('remove-project');
 
+    for(let i = 0; i < remove_project.length; i++) {
+        removeProjectListener.bind(remove_project[i]);
+        remove_project[i].addEventListener('click', removeProjectListener);
+    }
 
     let favorite = document.getElementsByClassName('favorite');
 

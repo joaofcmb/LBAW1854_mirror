@@ -34,7 +34,7 @@
         @endisset
         <div class="row justify-content-center pt-4 pb-3">
             <div id="name-container" class=" col-8 col-md-5 align-self-center text-center">
-                <h5>{{ $user->username }}</h5>
+                <h5>{{ $user->first_name . " " . $user->last_name }}</h5>
             </div>
         </div>
         <div class="row justify-content-center mx-3 pt-3">
