@@ -3,33 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
-use App\Forum;
-use App\Project;
 use App\Thread;
 use App\ThreadComment;
-use App\User;
+use DateTime;
+use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\View\View;
-use PhpParser\Node\Expr\Cast\Object_;
 
 class ThreadController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Create a new resource for this page
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -54,7 +43,8 @@ class ThreadController extends Controller
     /**
      * Adds a new comment
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
+     * @param $id_thread
      * @return Comment
      */
     public function addComment(Request $request, $id_thread)
@@ -85,14 +75,14 @@ class ThreadController extends Controller
      * Display the specified resource for company forum thread.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
         if(!Thread::where([['id_forum', 1], ['id', $id]])->exists())
             return redirect()->route('404');
 
-        $thread = Thread::select('thread.id', 'title', 'description', 'id_author', 'id_forum', 'username as author_name')
+        $thread = Thread::select('thread.id', 'title', 'description', 'id_author', 'id_forum', 'username as author_name', 'first_name', 'last_name')
             ->join('user', 'user.id', '=', 'thread.id_author')
             ->where('thread.id', $id)
             ->first();
@@ -100,6 +90,15 @@ class ThreadController extends Controller
         return View('pages.forum.thread', ['thread' => $thread, 'comments' => Comment::information(Thread::find($id)->comments), 'isProjectForum' => false]);
     }
 
+    /**
+     * Edits a certain comment
+     *
+     * @param Request $request
+     * @param $id_thread
+     * @param $id_comment
+     * @return ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws Exception
+     */
     public function editComment(Request $request, $id_thread, $id_comment)
     {
         $thread = Thread::find($id_thread);
@@ -109,38 +108,18 @@ class ThreadController extends Controller
             return response("", 404, []);
 
         $comment['text'] = $request->input('text');
-        // $comment->last_edit_date = time();
+
+        $date = new DateTime();
+        $comment->last_edit_date = $date->getTimestamp();
+
         $comment->save();
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**
      * Remove the specified resource (thread) from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function delete($id)
     {
@@ -166,7 +145,7 @@ class ThreadController extends Controller
      *
      * @param $id_thread
      * @param $id_comment
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @return ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function deleteComment($id_thread, $id_comment)
     {

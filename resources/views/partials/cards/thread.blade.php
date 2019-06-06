@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col">
                 <form id="thread-button" action="{{ route('profile', ['id' => $thread->id_author]) }}" method="get">
-                    <button type="submit"><i class='far fa-user mr-1'></i> {{ $thread->author_name }}</button>
+                    <button type="submit"><i class='far fa-user mr-1'></i> {{ $thread->first_name . " " . $thread->last_name }}</button>
                 </form>
             </div>
         </div>

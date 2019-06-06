@@ -40,7 +40,7 @@ class Comment extends Model
 
     public static function information($comments) {
         foreach ($comments as $comment) {
-            $comment['author_name'] = User::where('id', $comment['id_author'])->value('username');
+            $comment['author'] = User::where('id', $comment['id_author'])->first();
         }
 
         return $comments;

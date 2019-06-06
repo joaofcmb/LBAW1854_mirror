@@ -27,7 +27,7 @@ class Forum extends Model
      */
     public function threads() {
         return $this->hasMany('App\Thread', 'id_forum')->orderBy('last_edit_date', 'desc')
-            ->select('thread.id', 'title', 'description', 'id_author', 'username as author_name')
+            ->select('thread.id', 'title', 'description', 'id_author', 'username as author_name', 'first_name', 'last_name')
             ->join('user', 'user.id', '=', 'id_author')
             ->orderBy('last_edit_date', 'desc');
     }

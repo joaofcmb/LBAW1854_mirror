@@ -17,7 +17,7 @@
                         <div class="d-flex justify-content-between align-items-top">
                             <h5>{{ $thread->title }}</h5>
                         </div>
-                        {{ $thread->author_name }}
+                        {{ $thread->first_name . " " . $thread->last_name }}
                     </section>
                 </a>
             @endforeach
@@ -38,7 +38,7 @@
                         <div class="d-flex justify-content-between align-items-top">
                             <h5>{{ $thread->title }}</h5>
                         </div>
-                        {{ $thread->author_name }}
+                        {{ $thread->first_name . " " . $thread->last_name }}
                     </section>
                 </a>
             @endforeach

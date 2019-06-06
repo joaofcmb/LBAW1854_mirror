@@ -18,7 +18,7 @@
             <div class="col">
                 <a class="d-flex flex-row pt-1" href="{{ route('profile', ['id' => $comment->id_author]) }}">
                     <i class="fas fa-user mr-1"></i>
-                    <h6>{{ $comment->author_name }}</h6>
+                    <h6>{{ $comment->author->first_name . " " . $comment->author->last_name }}</h6>
                 </a>
             </div>
             <div class="col text-right">

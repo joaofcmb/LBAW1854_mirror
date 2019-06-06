@@ -44,7 +44,7 @@
             <h4>{{ $thread->title }}</h4>
             <a class="d-flex flex-row pt-1" href="{{ route('profile', ['id' => $thread->id_author]) }}">
                 <i class="fas fa-user mr-1"></i>
-                <h6>{{ $thread->author_name }}</h6>
+                <h6>{{ $thread->first_name . " " . $thread->last_name }}</h6>
             </a>
             <p class="mt-2">{{ $thread->description }}</p>
         </div>
