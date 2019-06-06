@@ -1,2 +1,0 @@
-INSERT INTO administrator VALUES (0);
-INSERT INTO administrator VALUES (1);

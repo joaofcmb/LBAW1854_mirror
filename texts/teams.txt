@@ -1,5 +1,0 @@
-INSERT INTO team VALUES (0,'Tech Troopers','pretium interdum risus pretium blandit',4);
-INSERT INTO team VALUES (1,'Comic Fanatics','vulputate felis Integer at mollis',4);
-INSERT INTO team VALUES (2,'HBICs','purus quis libero id lacus habitant netus urna sociosqu',3);
-INSERT INTO team VALUES (3,'Fast and Furious','nonummy nibh libero fermentum elit primis viverra lectus litora augue',4);
-INSERT INTO team VALUES (4,'Impact Players','quam metus urna tellus torquent aliquam',6);

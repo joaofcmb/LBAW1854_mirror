@@ -1,5 +1,0 @@
-INSERT INTO team_leader VALUES (2);
-INSERT INTO team_leader VALUES (3);
-INSERT INTO team_leader VALUES (4);
-INSERT INTO team_leader VALUES (5);
-INSERT INTO team_leader VALUES (6);
