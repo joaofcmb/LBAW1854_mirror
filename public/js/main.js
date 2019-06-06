@@ -91,8 +91,10 @@ if(edit_biography !== null) {
 
         let biography_div = document.getElementById('biography');
         let biography_text = biography_div.getElementsByTagName('p')[0];
-        let textArea = document.createElement('textArea');
 
+        let label = document.createElement('label');
+
+        let textArea = document.createElement('textArea');
         textArea.value = biography_text.textContent;
         textArea.className = biography_text.className + 'form-control';
         textArea.setAttribute('rows', 6);
@@ -100,7 +102,8 @@ if(edit_biography !== null) {
         textArea.setAttribute('placeholder', 'Describe yourself ...');
         textArea.setAttribute('id', biography_text.getAttribute('id'));
 
-        biography_div.replaceChild(textArea, biography_text);
+        biography_div.replaceChild(label, biography_text);
+        label.appendChild(textArea);
 
         let save_biography = document.createElement('i');
         save_biography.setAttribute('id', 'edit-biography');
@@ -868,6 +871,7 @@ function validateUsername() {
 
 function editBiography() {
     let biography_div = document.getElementById('biography');
+    let label = biography_div.getElementsByTagName('label')[0];
     let textArea = biography_div.getElementsByTagName('textarea')[0];
     let biography_text = document.createElement('p');
 
@@ -875,7 +879,7 @@ function editBiography() {
     biography_text.className = "pt-2 mb-0";
     biography_text.setAttribute('id', textArea.getAttribute('id'));
 
-    biography_div.replaceChild(biography_text, textArea);
+    biography_div.replaceChild(biography_text, label);
 
     let save_biography = document.getElementById('edit-biography');
     let edit = document.createElement('i');

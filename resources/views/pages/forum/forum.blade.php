@@ -33,10 +33,10 @@
                 <a href="{{ $isProjectForum ? route('forum-create-thread', ['id' => $project->id]) : route('company-forum-create-thread') }}">
                     @if($isProjectForum)
                         @if($canCreateThread)
-                            <i class="fas fa-plus-circle"></i>
+                            <i class="fas fa-plus-circle" title="Click this button to create a project forum thread"></i>
                         @endif
                     @else
-                        <i class="fas fa-plus-circle"></i>
+                        <i class="fas fa-plus-circle" title="Click this button to create a company forum thread"></i>
                     @endif
                 </a>
             </div>
