@@ -593,8 +593,6 @@ if(manage_team != null) {
     })
 }
 
-
-
 function addMemberListener() {
     let id_user = this.parentElement.parentElement.parentElement.getAttribute('id');
     let user_card = document.getElementById(id_user);
@@ -603,14 +601,17 @@ function addMemberListener() {
     let remove_button = document.createElement('i');
     remove_button.className = 'remove-member fas fa-fw fa-times text-danger';
 
-    user_card.replaceChild(remove_button, this);
+    let icons = user_card.querySelector('a.float-right');
+    icons.replaceChild(remove_button, user_card.querySelector('i.add-member'));
     
-    if(document.getElementById('search-display').parentElement.childElementCount == 2) {
+    let search_content = document.getElementById('search-display');
+
+    if(search_content.parentElement.childElementCount == 3) {
         let promote_button = document.createElement('i');
         promote_button.className = 'promote-leader fas fa-user-tie';
         promote_button.setAttribute('style', "color:grey;");
 
-        user_card.insertBefore(promote_button, remove_button);
+        icons.insertBefore(promote_button, remove_button);
         
         let members_div = document.getElementById('Members');
         members_div.appendChild(user_card);
@@ -619,10 +620,25 @@ function addMemberListener() {
         promote_button.addEventListener('click', promoteLeaderListener);
     }       
     else {
+        let manager = search_content.firstElementChild;        
+        search_content.insertBefore(user_card,manager);
 
+        let manager_icon = manager.querySelector('a.float-right');
+
+        if(manager_icon.querySelector('i.remove-member') != null) {
+            let add_button = document.createElement('i');
+            add_button.className = 'add-member fas fa-plus';
+
+            
+            manager_icon.replaceChild(add_button, manager_icon.querySelector('i.remove-member'));
+
+            addMemberListener.bind(add_button);
+            add_button.addEventListener('click', addMemberListener);
+        }
     }
 
-    // TODO: add remove_member listener
+    removeMemberListener.bind(remove_button);
+    remove_button.addEventListener('click', removeMemberListener);
 }
 
 let add_member = document.getElementsByClassName('add-member');
@@ -633,19 +649,29 @@ for (const add of add_member) {
 }
 
 function promoteLeaderListener() {
-    let id_user = this.parentElement.parentElement.parentElement.getAttribute('id');
+    let user_card = this.parentElement.parentElement.parentElement;
     let leader_div = document.getElementById('Leader');
     let members_div = document.getElementById('Members');
-
-    let user_card = members_div.querySelector('#' + id_user);
+    
     user_card.querySelector('i.promote-leader').remove();
     user_card.remove();
     leader_div.appendChild(user_card);
 
     if(leader_div.childElementCount > 2) {
-        let old_leader = leader_div.children[2];
+        let old_leader = leader_div.children[1];
         old_leader.remove();
+
+        let promote_button = document.createElement('i');
+        promote_button.className = 'promote-leader fas fa-user-tie';
+        promote_button.setAttribute('style', "color:grey;");
+
+        let icons = old_leader.querySelector('a.float-right');
+        icons.insertBefore(promote_button, icons.querySelector('.remove-member'));
+
         members_div.appendChild(old_leader);
+
+        promoteLeaderListener.bind(promote_button);
+        promote_button.addEventListener('click', promoteLeaderListener);
     }
 }
 
@@ -656,10 +682,36 @@ for (const promote of promote_leader) {
     promote.addEventListener('click', promoteLeaderListener);
 }
 
+function removeMemberListener() {
+    let user_card = this.parentElement.parentElement.parentElement;
+    
+    let add_button = document.createElement('i');
+    add_button.className = 'add-member fas fa-plus';
+
+    let icons = user_card.querySelector('a.float-right');
+    icons.replaceChild(add_button, user_card.querySelector('i.remove-member'));
+    
+    let search_content = document.getElementById('search-display');
+
+    if(search_content.parentElement.childElementCount == 3) {
+        user_card.remove();
+
+        if(icons.childElementCount > 1)
+            icons.children[0].remove();
+
+        search_content.appendChild(user_card);
+    }
+
+    addMemberListener.bind(add_button);
+    add_button.addEventListener('click', addMemberListener);
+}
+
 let remove_member = document.getElementsByClassName('remove-member');
 
-
-
+for (const remove of remove_member) {
+    removeMemberListener.bind(remove);
+    remove.addEventListener('click', removeMemberListener);
+}
 
 //TODO:   TEAMS   Listener para adicionar membro á equipa, remover membro, promover a leader. (cruz, x, icon)
 //TODO: PROJECTS  Listener para promover e despromover manager (cruz, x)
@@ -734,7 +786,7 @@ function manageProject() {
     if(search_content.children.length > 0)
         manager_id = Number(search_content.firstElementChild.getAttribute('id'));
 
-    sendAjaxRequest.call(this, 'post', '/api/search/data', {'query': query, 'data': 'Users', 'constraints': [manager_id], 'manager': true}, editSearch)
+    sendAjaxRequest.call(this, 'post', '/api/search/data', {'query': query, 'data': 'Users', 'constraints': [manager_id]}, editSearch)
 }
 
 function teamAssign() {
@@ -1258,7 +1310,7 @@ function editSearch() {
 
     let page = this.prototype.getAttribute('class').split(' ')[1];
     let container = document.getElementById('search-content');
-
+    console.log(response)
     switch (page) {
         case 'globalSearch':
             container.innerHTML = '';
