@@ -11,27 +11,25 @@ use App\TaskGroup;
 use App\Thread;
 use App\ThreadComment;
 use DateTime;
+use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
+use Illuminate\View\View;
 
 class ProjectController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
      * Show the form for creating a new resource: task.
      *
-     * @return \Illuminate\Http\Response
+     * @param $id_project
+     * @param int $id_taskgroup
+     * @return Response
      */
     public function createTask($id_project, $id_taskgroup = 0)
     {
@@ -47,6 +45,13 @@ class ProjectController extends Controller
         ]);
     }
 
+    /**
+     * Creates new task
+     *
+     * @param $id_project
+     * @param int $id_taskgroup
+     * @return RedirectResponse
+     */
     public function createTaskAction($id_project, $id_taskgroup = 0)
     {
         $project = Project::find($id_project);
@@ -70,7 +75,7 @@ class ProjectController extends Controller
 
         try {
             $task->save();
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $message = "ERROR: A task with the same name already exists in this project.";
             return redirect()->back()->withErrors($message);
         }
@@ -79,22 +84,11 @@ class ProjectController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource for project overview
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
-     * @throws \Exception
+     * @return Response
+     * @throws Exception
      */
     public function show($id)
     {
@@ -118,8 +112,8 @@ class ProjectController extends Controller
      * Display the specified resource for project roadmap
      *
      * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws \Exception
+     * @return Factory|View
+     * @throws Exception
      */
     public function showRoadmap($id) {
 
@@ -140,7 +134,7 @@ class ProjectController extends Controller
      * Display the specified resource for project roadmap
      *
      * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function showTasks($id) {
 
@@ -167,7 +161,7 @@ class ProjectController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function showForum($id)
     {
@@ -186,8 +180,9 @@ class ProjectController extends Controller
     /**
      * Display the specified resource for project forum thread
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $id_project
+     * @param $id_thread
+     * @return Response
      */
     public function showForumThread($id_project, $id_thread)
     {
@@ -196,7 +191,7 @@ class ProjectController extends Controller
         if(!$this->validateAccess($project, 'view') || !Thread::where([['id_forum', $project->forum->id], ['id', $id_thread]])->exists())
             return redirect()->route('404');
 
-        $thread = Thread::select('thread.id', 'title', 'description', 'id_author', 'id_forum', 'username as author_name')
+        $thread = Thread::select('thread.id', 'title', 'description', 'id_author', 'id_forum', 'username as author_name', 'first_name', 'last_name')
             ->join('user', 'user.id', '=', 'thread.id_author')
             ->where('thread.id', $id_thread)
             ->first();
@@ -213,7 +208,7 @@ class ProjectController extends Controller
      * Create forum thread page
      *
      * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @return Factory|RedirectResponse|View
      */
     public function createForumThread($id)
     {
@@ -232,7 +227,7 @@ class ProjectController extends Controller
      * Creates a new forum thread for this resource
      *
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function createForumThreadAction($id)
     {
@@ -265,7 +260,7 @@ class ProjectController extends Controller
      * @param Request $request
      * @param $id_project
      * @param $id_thread
-     * @return Comment|\Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @return Comment|ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function addThreadComment(Request $request, $id_project, $id_thread)
     {
@@ -293,6 +288,15 @@ class ProjectController extends Controller
         return $comment;
     }
 
+    /**
+     * Edits a comment in a project forum thread
+     *
+     * @param Request $request
+     * @param $id_project
+     * @param $id_thread
+     * @param $id_comment
+     * @return ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function editThreadComment(Request $request, $id_project, $id_thread, $id_comment)
     {
         $project = Project::find($id_project);
@@ -313,7 +317,7 @@ class ProjectController extends Controller
      * @param $id_project
      * @param $id_thread
      * @param $id_comment
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @return ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function deleteThreadComment($id_project, $id_thread, $id_comment) {
 
@@ -334,6 +338,14 @@ class ProjectController extends Controller
         ThreadComment::where([['id_comment', $id_comment],['id_thread', $id_thread]])->delete();
     }
 
+    /**
+     * Changes project current displayed milestone
+     *
+     * @param Request $request
+     * @param $id_project
+     * @return false|ResponseFactory|string|\Symfony\Component\HttpFoundation\Response
+     * @throws Exception
+     */
     public function changeMilestoneView(Request $request, $id_project)
     {
         $project = Project::find($id_project);
@@ -346,6 +358,12 @@ class ProjectController extends Controller
         return json_encode($response);
     }
 
+    /**
+     * Creates a new milestone for the specified resource
+     *
+     * @param $id_project
+     * @return RedirectResponse
+     */
     public function createMilestone($id_project)
     {
         $project = Project::find($id_project);
@@ -363,6 +381,15 @@ class ProjectController extends Controller
         return redirect()->route('project-roadmap', ['id_project' => $id_project]);
     }
 
+    /**
+     * Updates information about specific milestone
+     *
+     * @param Request $request
+     * @param $id_project
+     * @param $id_milestone
+     * @return false|ResponseFactory|string|\Symfony\Component\HttpFoundation\Response
+     * @throws Exception
+     */
     public function updateMilestone(Request $request, $id_project, $id_milestone)
     {
         $project = Project::find($id_project);
@@ -390,6 +417,13 @@ class ProjectController extends Controller
                             'project' => Project::information([$project])[0]]);
     }
 
+    /**
+     * Deletes a certain milestone
+     *
+     * @param $id_project
+     * @param $id_milestone
+     * @return ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function deleteMilestone($id_project, $id_milestone)
     {
         $project = Project::find($id_project);
@@ -404,6 +438,13 @@ class ProjectController extends Controller
         $milestone->delete();
     }
 
+    /**
+     * Creates new task group
+     *
+     * @param Request $request
+     * @param $id_project
+     * @return false|ResponseFactory|string|\Symfony\Component\HttpFoundation\Response
+     */
     public function createTaskGroup(Request $request, $id_project)
     {
         $project = Project::find($id_project);
@@ -419,6 +460,14 @@ class ProjectController extends Controller
         return json_encode($taskGroup);
     }
 
+    /**
+     * Updates task group information
+     *
+     * @param Request $request
+     * @param $id_project
+     * @param $id_taskgroup
+     * @return ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function updateTaskGroup(Request $request, $id_project, $id_taskgroup)
     {
         $project = Project::find($id_project);
@@ -434,6 +483,13 @@ class ProjectController extends Controller
         $taskGroup->save();
     }
 
+    /**
+     * Deletes a certain task group
+     *
+     * @param $id_project
+     * @param $id_taskgroup
+     * @return ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function deleteTaskGroup($id_project, $id_taskgroup) 
     {
         $project = Project::find($id_project);
@@ -451,8 +507,9 @@ class ProjectController extends Controller
     /**
      * Remove the specified thread resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $id_project
+     * @param $id_thread
+     * @return Response
      */
     public function deleteForumThread($id_project, $id_thread)
     {
@@ -472,6 +529,12 @@ class ProjectController extends Controller
         $thread->delete();
     }
 
+    /**
+     * Closes a specific project by changing it status to closed
+     *
+     * @param $id_project
+     * @return RedirectResponse
+     */
     public function closeProject($id_project) 
     {
         $project = Project::find($id_project);
@@ -488,6 +551,13 @@ class ProjectController extends Controller
         return redirect()->route('home');
     }
 
+    /**
+     * Validates access to project related operations
+     *
+     * @param $project
+     * @param $action
+     * @return bool
+     */
     public function validateAccess($project, $action)
     {
         try {

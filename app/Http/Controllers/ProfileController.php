@@ -9,48 +9,17 @@ use App\Follow;
 use App\Team;
 use App\User;
 use Exception;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param Request $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.
@@ -185,7 +154,6 @@ class ProfileController extends Controller
     /**
      * Follows/Unfollows a user
      *
-     * @param Request $request
      * @param $id_user
      * @return false|string
      */
@@ -208,6 +176,12 @@ class ProfileController extends Controller
 
     }
 
+    /**
+     * Adds user new favorite projects
+     *
+     * @param $id_project
+     * @return ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function favorite($id_project)
     {
         if(empty(Project::find($id_project)))
@@ -227,9 +201,10 @@ class ProfileController extends Controller
 
     /**
      * Edit the profile information
-     * 
+     *
      * @param Request $request
-     * @param  int  $id
+     * @param int $id
+     * @return false|string
      */
     public function editProfile(Request $request, $id)
     {
@@ -247,7 +222,6 @@ class ProfileController extends Controller
             else
                 $user->email = $email;
         }
-
 
         if(!empty($biography))
             $user->biography = $biography;
@@ -328,40 +302,6 @@ class ProfileController extends Controller
         move_uploaded_file($picture['tmp_name'], $filename);
 
         return redirect()->route('profile', ['id' => Auth::user()->getAuthIdentifier()]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Request $request
-     * @param  int  $id
-     * @return Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 
 }

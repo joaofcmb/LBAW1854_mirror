@@ -62,7 +62,7 @@ class Task extends Model
      */
     public function comments() {
         return $this->hasMany('App\TaskComment', 'id_task')
-            ->select('id_comment', 'text', 'id_author', 'user.username')
+            ->select('id_comment', 'text', 'id_author', 'user.username', 'first_name', 'last_name')
             ->join('comment', 'id', '=', 'id_comment')
             ->join('user', 'user.id', '=', 'comment.id_author')
             ->orderBy('creation_date', 'asc');

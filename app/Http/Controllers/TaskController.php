@@ -7,17 +7,20 @@ use App\Milestone;
 use App\Project;
 use App\Task;
 use App\TaskGroup;
-use App\Team;
 use App\TeamTask;
-use App\User;
 use DateTime;
+use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use App\Comment;
 use App\TaskComment;
-use Mockery\Undefined;
+use Illuminate\View\View;
+
 
 class TaskController extends Controller
 {
@@ -59,7 +62,7 @@ class TaskController extends Controller
      * @param $id_project
      * @param $id_task
      * @return Response
-     * @throws \Exception
+     * @throws Exception
      */
     public function edit($id_project, $id_task)
     {
@@ -86,6 +89,13 @@ class TaskController extends Controller
         ]);
     }
 
+    /**
+     * Edits the specified resource
+     *
+     * @param $id_project
+     * @param $id_task
+     * @return RedirectResponse
+     */
     public function editAction($id_project, $id_task)
     {
         $project = Project::find($id_project);
@@ -105,7 +115,7 @@ class TaskController extends Controller
 
         try {
             $task->save();
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $message = "ERROR: A task with the same name already exists in this project.";
             return redirect()->back()->withErrors($message);
         }
@@ -113,6 +123,13 @@ class TaskController extends Controller
         return redirect()->route('task', ['id_project' => $project->id, 'id_task' => $task->id ]);
     }
 
+    /**
+     * Deletes the specified resource
+     *
+     * @param $id_project
+     * @param $id_task
+     * @return RedirectResponse
+     */
     public function delete($id_project, $id_task) {
         $project = Project::find($id_project);
         $task = Task::find($id_task);
@@ -123,6 +140,14 @@ class TaskController extends Controller
         $task->delete();
     }
 
+    /**
+     * Updates task progress
+     *
+     * @param Request $request
+     * @param $id_project
+     * @param $id_task
+     * @return RedirectResponse
+     */
     public function updateProgress(Request $request, $id_project, $id_task) {
         $project = Project::find($id_project);
         $task = Task::find($id_task);
@@ -134,6 +159,14 @@ class TaskController extends Controller
         $task->save();
     }
 
+    /**
+     * Display the page responsible for task assign
+     *
+     * @param $id_project
+     * @param $id_task
+     * @return Factory|RedirectResponse|View
+     * @throws Exception
+     */
     public function showAssign($id_project, $id_task) {
 
         $project = Project::find($id_project);
@@ -159,6 +192,14 @@ class TaskController extends Controller
         ]);
     }
 
+    /**
+     * Assign task to teams and milestones
+     *
+     * @param Request $request
+     * @param $id_project
+     * @param $id_task
+     * @return RedirectResponse
+     */
     public function assign(Request $request, $id_project, $id_task) {
         $project = Project::find($id_project);
         $task = Task::find($id_task);
@@ -194,6 +235,14 @@ class TaskController extends Controller
         return Task::information([$task])[0];
     }
 
+    /**
+     * Changes task current task group for a specific one
+     *
+     * @param $id_project
+     * @param $id_task
+     * @param null $id_group
+     * @return RedirectResponse
+     */
     public function group($id_project, $id_task, $id_group = null) {
         $project = Project::find($id_project);
         $task = Task::find($id_task);
@@ -213,6 +262,14 @@ class TaskController extends Controller
         $task->save();
     }
 
+    /**
+     * Adds a new tasks comment to discussion section
+     *
+     * @param Request $request
+     * @param $id_project
+     * @param $id_task
+     * @return Comment|ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function addTaskComment(Request $request, $id_project, $id_task)
     {
         $project = Project::find($id_project);
@@ -239,6 +296,15 @@ class TaskController extends Controller
         return $comment;
     }
 
+    /**
+     * Edits task comment
+     *
+     * @param Request $request
+     * @param $id_project
+     * @param $id_task
+     * @param $id_comment
+     * @return ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function editTaskComment(Request $request, $id_project, $id_task, $id_comment)
     {
         $project = Project::find($id_project);
@@ -259,7 +325,7 @@ class TaskController extends Controller
      * @param $id_project
      * @param $id_task
      * @param $id_comment
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @return ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function deleteTaskComment($id_project, $id_task, $id_comment) {
 
@@ -281,29 +347,15 @@ class TaskController extends Controller
         TaskComment::where([['id_comment', $id_comment],['id_task', $id_task]])->delete();
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
     /**
-     * Remove the specified resource from storage.
+     * Validates access for task related operations
      *
-     * @param  int  $id
-     * @return Response
+     * @param $action
+     * @param $project
+     * @param $task
+     * @return bool
      */
-    public function destroy($id)
-    {
-        //
-    }
-
     public function validateAccess($action, $project, $task)
     {
         try {
