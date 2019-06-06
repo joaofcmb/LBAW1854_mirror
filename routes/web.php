@@ -11,8 +11,6 @@
 |
 */
 
-use App\Forum;
-
 Route::get('/', function () {
     return redirect('index');
 });

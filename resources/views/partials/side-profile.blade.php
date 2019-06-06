@@ -49,21 +49,3 @@
         </div>
     </div>
 </div>
-
-@isset ($isInfo)
-    <div id="background-button" class="row col-1 p-0">
-        <div class="col-12 text-right p-0">
-            <a class="btn px-2 py-1" role="button">
-                <i class="fa fa-camera" aria-hidden="true"></i>
-            </a>
-        </div>
-    </div>
-
-    <form id="upload-profile-background-form" method="post" action="{{ route('upload-picture') }}" enctype="multipart/form-data" style="display: none;">
-        {{ csrf_field() }}
-
-        <input type="hidden" name="type" value="background">
-        <input type="file" name="picture" class="form-control-file" id="upload-profile-background-file">
-        <input id="upload-profile-background-form-submit" type="submit">
-    </form>
-@endisset
