@@ -17,11 +17,6 @@
     opacity: 0.5;
 }
 
-#search-content .card a:hover {
-    color: var(--brand-color);
-    cursor: pointer;
-}
-
 #search-content .card-header {
     background-color: transparent;
     border-bottom: solid var(--brand-color) 3px;
@@ -35,17 +30,4 @@
 
 #search-button:hover {
     background-color: transparent;
-}
-
-#action-button a {
-    background-color: lightgray;
-    border: solid rgb(134, 134, 134) 1px;
-}
-
-#search-content .card .card-body #action-button a {
-    color: white;
-}
-
-#search-content .card .card-body #action-button a:hover {
-    background-color: var(--brand-color);
 }

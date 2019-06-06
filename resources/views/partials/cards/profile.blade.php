@@ -74,13 +74,13 @@
                     @isset($manager)
                         @isset($teamMember)
                             @if($teamMember)
-                                <i class="promote-leader fas fa-user-tie" style="color:grey;"></i>
+                                <i class="promote-leader fas fa-user-tie" style="color: grey; cursor: pointer;"></i>
                             @endif
                         @endisset
-                        <i class="remove-member fas fa-fw fa-times text-danger"></i>
+                        <i class="remove-member fas fa-fw fa-times text-danger" style="cursor: pointer"></i>
                     @else
                         @isset($manageTeam)
-                            <i class="add-member fas fa-plus"></i>
+                            <i class="add-member fas fa-plus" style="cursor: pointer"></i>
                         @else
                             @if($user->id != Auth::user()->getAuthIdentifier())
                                 <i id="user-{{ $user->id }}" class="follow {{ $follow ? 'fas' : 'far' }} fa-star" style="cursor: pointer;"></i>

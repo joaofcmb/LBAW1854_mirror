@@ -95,14 +95,16 @@
                             @endisset
                         </div>                        
                         <div id="action-button" class="text-center">
-                            @isset($team)
-                                <a id="manageTeam-{{ $team->id }}" class="manage-team btn mt-3" role="button" >
-                                    Update
-                            @else
-                                <a id="manageTeam" class="manage-team btn mt-3" role="button">
-                                    Create
-                            @endisset
-                            </a>
+                            <button id="brand-btn" class="btn btn-outline-secondary" type="button">
+                                @isset($team)
+                                    <a id="manageTeam-{{ $team->id }}" class="manage-team" role="button" >
+                                        Update
+                                @else
+                                    <a id="manageTeam" class="manage-team" role="button">
+                                        Create
+                                @endisset
+                                </a>
+                            </button>
                         </div>
                     </div>
                 </div>
