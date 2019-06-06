@@ -30,10 +30,14 @@
                         <h5>{{ isset($project) ? 'Edit' : 'Create' }} Project</h5>
                     </div>
                     <div class="card-body">
-                        <form>
+                        <form id="project-form" method="post" action="{{ isset($project) ? route('admin-edit-project-action', ['id' => $project->id]) : route('admin-create-project-action') }}">
+                            {{ csrf_field() }}
+
+                            <input type="hidden" id="project-manager-ID" name="projectManager" value="{{ isset($project) ? $project->id_manager : 45 }}">
+
                             <div class="form-row">
                                 <div class="form-group col-md-9">
-                                    <input type="text" class="form-control" id="projectName"
+                                    <input type="text" class="form-control" name="name" id="projectName"
                                            @isset($project)
                                                 value="{{ $project->name }}"
                                            @else
@@ -44,7 +48,7 @@
                                 <div class="form-group col-md-2 offset-md-1">
                                     <div class="d-flex">
                                         <p class="m-auto px-2">Color</p>
-                                        <input type="color" id="inputColor" class="form-control"
+                                        <input type="color" id="inputColor" name="color" class="form-control"
                                             @isset($project)
                                                value="#{{ $project->color }}"
                                             @endisset
@@ -53,13 +57,15 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <textarea class="form-control" id="projectDescription"
+                                <textarea class="form-control" name="description" id="projectDescription"
                                           @isset($project)
                                           @else
                                             placeholder="Project Description"
                                           @endisset
                                           rows="7">{{ isset($project) ? $project->description : '' }}</textarea>
                             </div>
+
+                            <button id="submit-project-form" hidden form="project-form" type="submit"></button>
                         </form>
                         @include('partials.searchBar', ['page' => 'manageProject', 'content' => 'Project Manager', 'searchPage' => 'manageProject'])
                         
@@ -73,13 +79,7 @@
                             @endisset
                         </div>
                         <div id="action-button" class="text-right mb-2">
-                            <a href="#" class="btn mt-3" role="button">
-                                @isset($project)
-                                    Edit
-                                @else
-                                    Create
-                                @endisset
-                            </a>
+                            <a id="submit-manage-project-form" class="btn mt-3" role="button">@isset($project) Edit @else Create @endisset</a>
                         </div>
                     </div>
                 </div>

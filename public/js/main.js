@@ -1152,7 +1152,8 @@ function editSearch() {
             container = container.querySelector('#search-display');
             let first_child = container.firstElementChild;
             container.innerHTML = '';
-            container.appendChild(first_child);
+            if(first_child != null)
+                container.appendChild(first_child);
             printUsers(container, response, false, false, true)
             break;
         case 'teamAssign':
@@ -1496,6 +1497,25 @@ function printTeamsInput(container, teams) {
         else
             container.insertBefore(card, first_element);
     }
+}
+
+let submitForm = document.getElementById('submit-project-form')
+let submitManageProjectForm = document.getElementById('submit-manage-project-form')
+
+if(submitManageProjectForm != null) {
+    submitManageProjectForm.addEventListener('click', function () {
+        let name = document.getElementById('projectName')
+        let description = document.getElementById('projectDescription')
+
+        // TODO - Update project manager ID
+
+        if(name.value === "")
+            blockHelpNode(name.parentElement, "Project name must be defined !", "red")
+        else if(description.value === "")
+            blockHelpNode(description.parentElement, "Project description must be defined !", "red")
+        else
+            submitForm.click()
+    })
 }
 
 //////////

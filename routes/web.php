@@ -103,7 +103,9 @@ Route::get('/admin/teams/create', 'AdministratorController@createTeam')->name('a
 Route::get('/admin/teams/{id}/edit', 'AdministratorController@editTeam')->name('admin-edit-team');
 Route::get('/admin/projects', 'AdministratorController@showProjects')->name('admin-projects');
 Route::get('/admin/projects/create', 'AdministratorController@createProject')->name('admin-create-project');
+Route::post('/admin/projects/create', 'AdministratorController@createProjectAction')->name('admin-create-project-action');
 Route::get('/admin/projects/{id}/edit', 'AdministratorController@editProject')->name('admin-edit-project');
+Route::post('/admin/projects/{id}/edit', 'AdministratorController@editProjectAction')->name('admin-edit-project-action');
 Route::get('/admin/project/{id}/cancel', 'AdministratorController@cancelProject')->name('cancel-project');
 
 // API - Project

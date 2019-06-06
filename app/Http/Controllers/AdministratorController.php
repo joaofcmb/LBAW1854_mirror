@@ -56,6 +56,33 @@ class AdministratorController extends Controller
     }
 
     /**
+     * Creates a new project
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function createProjectAction()
+    {
+        if(!Auth::user()->isAdmin())
+            return redirect()->route('404');
+
+        $name = $_POST['name'];
+        $color = $_POST['color'];
+        $description = $_POST['description'];
+        $id_manager = $_POST['projectManager'];
+
+        $project = new Project;
+
+        $project->name = $name;
+        $project->color = $color;
+        $project->description = $description;
+        $project->id_manager = $id_manager;
+
+        $project->save();
+
+        return redirect()->route('admin-projects');
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -159,6 +186,36 @@ class AdministratorController extends Controller
 
         return View('pages.admin.adminManageProject', ['project' => $project]);
     }
+
+    /**
+     * Edits a project
+     *
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function editProjectAction($id)
+    {
+        if(!Auth::user()->isAdmin())
+            return redirect()->route('404');
+
+        $name = $_POST['name'];
+        $color = $_POST['color'];
+        $description = $_POST['description'];
+        $id_manager = $_POST['projectManager'];
+
+        $project = Project::find($id);
+
+        $project->name = $name;
+        $project->color = $color;
+        $project->description = $description;
+        $project->id_manager = $id_manager;
+
+        $project->save();
+
+        return redirect()->route('admin-projects');
+    }
+
+
 
     /**
      * 
