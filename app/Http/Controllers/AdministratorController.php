@@ -184,12 +184,20 @@ class AdministratorController extends Controller
         $user->save();        
     }
 
-
+    /**
+     * Remove a specific project
+     *
+     * @param $id_project
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function cancelProject($id_project) 
     {
-        $project = Project::find($id_project);
-        $project->status = 'canceled';
-        $project->save();
+        if(!Auth::user()->isAdmin())
+            return redirect()->route('404');
+
+        Project::destroy($id_project);
+
+        return redirect()->route('admin-projects');
     }
 
     /**
