@@ -32,7 +32,7 @@
             <div id="authentication" class="my-1 ml-auto">
                 <a href="{{ route('home') }}" class="pr-2">
                     <img id="admin" class="profile-img d-inline-block rounded-circle my-auto" src="{{ asset('img/admin.png') }}"
-                         width="50" height="50" alt="Website Logo">
+                         width="50" height="50" alt="Admin Tab">
                 </a>
                 <a href="{{ route('logout') }}" class="pr-2">
                     <span class="font-weight-bold px-2">Sign out</span>
@@ -50,7 +50,7 @@
             <div id="authentication" class="ml-auto">
                 @if(\Illuminate\Support\Facades\Auth::user()->isAdmin())
                     <a href="{{ route('admin-users') }}">
-                        <img id="admin" class="profile-img d-inline-block rounded-circle my-auto" src="{{ asset('img/admin.png') }}" width="50" height="50" alt="Website Logo">
+                        <img id="admin" class="profile-img d-inline-block rounded-circle my-auto" src="{{ asset('img/admin.png') }}" width="50" height="50" alt="Admin Tab">
                     </a>
                 @endif
                 <a href="{{ route('logout') }}">

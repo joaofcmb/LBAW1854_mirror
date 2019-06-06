@@ -13,21 +13,21 @@
     <div id="home" class="container">
         <div id="auth-zone" class="container">
             <div class="row align-items-center mx-3">
-                <div class="col-lg-6 mx-auto">
-                    <div id="auth-title" class="row justify-content-center">
+                <fieldset class="col-lg-6 mx-auto">
+                    <legend id="auth-title" class="row justify-content-center">
                         <p>Sign in & <span>Start Working</span></p>
-                    </div>
+                    </legend>
                     <form id="login-form" method="post" action="{{ route('login-action') }}">
                         {{ csrf_field() }}
                         <div class="form-group row justify-content-center">
-                            <div class="col-sm-10 pt-3">
+                            <label class="col-sm-10 pt-3">
                                 <input name="username" type="text" class="form-control" placeholder="Username" required>
-                            </div>
+                            </label>
                         </div>
                         <div class="form-group row justify-content-center">
-                            <div class="col-sm-10">
+                            <label class="col-sm-10">
                                 <input name="password" type="password" class="form-control" placeholder="Password" required>
-                            </div>
+                            </label>
                             @if ($errors->has('username'))
                                 <span class="error mt-4 mx-auto" style="color: red;">
                                 {{ $errors->first('username') }}
@@ -73,7 +73,7 @@
                     <div id="register" class="row justify-content-center pt">
                         <p>Forgot your password ? <a href="{{ route('password.request') }}"><span>Reset Password</span></a></p>
                     </div>
-                </div>
+                </fieldset>
             </div>
         </div>
     </div>

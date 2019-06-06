@@ -21,16 +21,18 @@
             <p>Help</p>
         </div>
         <div class="mx-md-5 px-sm-5" >
-            <p><span>1. </span>Uma team é composta por um líder e membros</p>
-            <p><span>2. </span>Uma equipa é identificada pelo nome, sendo este obrigatório, e pode ser categorizada por skill</p>
-            <p><span>3. </span>É obrigatório a team ter um líder e este tem que ser único, isto é, apenas é líder de uma equipa</p>
-            <p><span>4. </span>No lado esquerdo são apresentados os utilizadores que não têm equipa</p>
-            <p><span>5. </span>No lado direito é apresentada constituição atual da equipa</p>
-            <p><span>6. </span>Para adicionar um utilizador à equipa clica em <i class="fas fa-plus"></i></p>
-            <p><span>7. </span>Para remover um membro da equipa clica em <i class="fas fa-fw fa-times text-danger"></i></p>
-            <p><span>8. </span>Para promover um membro da equipa a lider clica em <i class="fas fa-user-tie" style="color:grey;"></i></p>
-            <p><span>9. </span>Para guardar as alterções efetuadas clica em 
-                <button id="action-btn" class="btn btn-outline-secondary"> Update / Create </a></button></p>
+            <p><span>1. </span>A team is composed by a single Leader and Members</p>
+            <p><span>1. </span>Each Member corresponds to a user on this system. A user may only be Member of one team</p>
+            <p><span>2. </span>A team is identified by its name, a mandatory field, and it may be optionally attributed with a user defined skill.</p>
+            <p><span>3. </span>A team must have a Leader, and this Leader must be exclusive to that team.</p>
+            <p><span>4. </span>On the left hand side of the screen, a list of users without a Team is presented.</p>
+            <p><span>5. </span>The search bar allows you to search for specific users to be potentially added to the Team. This search will override the list on the left hand side and may include Members of other Teams.</p>
+            <p><span>5. </span>On the right hand side of the screen, the current composition of the Team is presented.</p>
+            <p><span>6. </span>In order to add one user to the Team, click on <i class="fas fa-plus"></i> If that user was previously on another Team, it is removed from that Team.</p>
+            <p><span>7. </span>In order to remove a Member from the Team, click on <i class="fas fa-fw fa-times text-danger"></i></p>
+            <p><span>8. </span>In order to promote a Team Member to Leader (thus demoting the current Leader), click on <i class="fas fa-user-tie" style="color:grey;"></i></p>
+            <p><span>9. </span>In order to save the changes and commit the presented composition of the Team, click on
+                <button id="action-btn" class="btn btn-outline-secondary"><a> Update / Create </a></button></p>
         </div>
     </div>
 @endsection
