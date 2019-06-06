@@ -209,9 +209,6 @@ class TaskController extends Controller
             return redirect()->route('404');
         }
 
-        // if(!$this->validateAccess('group', $project, $task, $group))
-        //     return redirect()->route('404');
-
         $task->id_group = $group == null? null : $group->id;
         $task->save();
     }
@@ -231,7 +228,7 @@ class TaskController extends Controller
         $comment['text'] = $text;
         $comment->id_author = Auth::user()->getAuthIdentifier();
         $comment->save();
-        $comment->author_name = Auth::user()->username;
+        $comment->author_name = Auth::user()->first_name.' '.Auth::user()->last_name;
         $comment->id_task = $id_task;
 
         $task_comment = new TaskComment();

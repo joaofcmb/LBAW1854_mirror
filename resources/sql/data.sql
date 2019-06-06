@@ -311,16 +311,16 @@ INSERT INTO follow VALUES (17,47);
 
 INSERT INTO forum(id_project) VALUES (null);
 
-INSERT INTO project(name,color,description,status,id_manager) VALUES ('Macro Web','82b9b8','Development of a website focused on your carbon footprint','active',45); 
-INSERT INTO project(name,color,description,status,id_manager) VALUES ('Shamrock Development','00ac70','Website for stock overview','canceled',26); 
-INSERT INTO project(name,color,description,status,id_manager) VALUES ('Web Campus','57da3a','Development of a website for the whole Campus','closed',23); 
-INSERT INTO project(name,color,description,status,id_manager) VALUES ('Optimal Development','a773af','Study on the Optimization of a cars control response time','closed',18); 
-INSERT INTO project(name,color,description,status,id_manager) VALUES ('Enterprise Hut','4e6de0','Restaurant Enterprise Hut Construction Planning','canceled',12); 
-INSERT INTO project(name,color,description,status,id_manager) VALUES ('Sonata Project','460099','Sonata Music Festival Planning','closed',41); 
-INSERT INTO project(name,color,description,status,id_manager) VALUES ('Eagle Web','f79a43','Wildlife Rescue Center Construction and Planning','closed',20); 
-INSERT INTO project(name,color,description,status,id_manager) VALUES ('Solo Development','ff97b6','Spaceship Solo X Planning and Development','active',33); 
-INSERT INTO project(name,color,description,status,id_manager) VALUES ('Project Sys','e85077','Science Investigation focused on stem cells','canceled',40); 
-INSERT INTO project(name,color,description,status,id_manager) VALUES ('Presence Business','52082f','Social Study on Group Choices and Consequences','canceled',24);
+INSERT INTO project(name,color,description,status,id_manager) VALUES ('Macro Web','#82b9b8','Development of a website focused on your carbon footprint','active',45); 
+INSERT INTO project(name,color,description,status,id_manager) VALUES ('Shamrock Development','#00ac70','Website for stock overview','canceled',26); 
+INSERT INTO project(name,color,description,status,id_manager) VALUES ('Web Campus','#57da3a','Development of a website for the whole Campus','closed',23); 
+INSERT INTO project(name,color,description,status,id_manager) VALUES ('Optimal Development','#a773af','Study on the Optimization of a cars control response time','closed',18); 
+INSERT INTO project(name,color,description,status,id_manager) VALUES ('Enterprise Hut','#4e6de0','Restaurant Enterprise Hut Construction Planning','canceled',12); 
+INSERT INTO project(name,color,description,status,id_manager) VALUES ('Sonata Project','#460099','Sonata Music Festival Planning','closed',41); 
+INSERT INTO project(name,color,description,status,id_manager) VALUES ('Eagle Web','#f79a43','Wildlife Rescue Center Construction and Planning','closed',20); 
+INSERT INTO project(name,color,description,status,id_manager) VALUES ('Solo Development','#ff97b6','Spaceship Solo X Planning and Development','active',33); 
+INSERT INTO project(name,color,description,status,id_manager) VALUES ('Project Sys','#e85077','Science Investigation focused on stem cells','canceled',40); 
+INSERT INTO project(name,color,description,status,id_manager) VALUES ('Presence Business','#52082f','Social Study on Group Choices and Consequences','canceled',24);
 
 INSERT INTO favorite VALUES (4,7);
 INSERT INTO favorite VALUES (31,8);

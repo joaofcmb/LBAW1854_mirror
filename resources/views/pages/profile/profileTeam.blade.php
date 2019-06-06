@@ -27,9 +27,10 @@
             </ul>    
         </div>
     @endif
-    <div id="main-content" class="row mx-auto align-items-center" style="background-image: url({{ file_exists('img/background/' . $user->id . '.png') ? asset('img/background/' . $user->id . '.png') :  asset('img/background/' . $user->id . '.jpg')}});  background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;">
+    <div id="main-content" class="row mx-auto align-items-center" style="background-image: 
+        url({{ file_exists('img/background/' . $user->id . '.png') ? asset('img/background/' . $user->id . '.png') : 
+        (file_exists('img/background/' . $user->id . '.jpg') ? asset('img/background/' . $user->id . '.jpg') : '')}});  
+        background-position: center; background-repeat: no-repeat; background-size: cover;">
         <div class="col-lg-8 px-0 order-12 order-lg-1">
             <div id="content" class="container py-5 align-self-center justify-content-center">
                 @isset($team)
