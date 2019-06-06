@@ -722,6 +722,10 @@ let searchBar = document.getElementsByClassName('search-bar')
 let doneTyping = function () {
 
     let regex = /\w/gm;
+    let loading = document.getElementById('search-bar-loading')
+
+    if(loading != null)
+        loading.remove()
 
     if(this.firstElementChild.firstElementChild.value.search(new RegExp(regex)) === -1)
         return
@@ -809,6 +813,29 @@ for(let i = 0; i < searchBar.length; i++) {
     });
 
     searchBar[i].addEventListener('keydown', function () {
+
+        let loading = document.getElementById('search-bar-loading')
+
+        if(loading == null) {
+            let parentNode = document.createElement('div')
+            parentNode.setAttribute('class', 'd-flex justify-content-center m-3')
+
+            let node = document.createElement("div");
+            node.setAttribute('id', 'search-bar-loading')
+            node.setAttribute('class', 'spinner-grow')
+            node.setAttribute('role', 'status')
+
+            parentNode.appendChild(node)
+
+            searchBar[i].appendChild(parentNode)
+
+            // <div class="d-flex justify-content-center">
+            //     <div class="spinner-border" role="status">
+            //     <span class="sr-only">Loading...</span>
+            // </div>
+            // </div>
+        }
+
         clearTimeout(typingTimer);
     });
 }
