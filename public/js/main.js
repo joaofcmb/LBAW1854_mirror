@@ -1598,7 +1598,7 @@ function printProjects(container, projects, isAdminView) {
     for (const project of projects) {
         let card = document.createElement('div');
         card.setAttribute('id','project -' + project.id);
-        card.setAttribute('class','card py-2 px-3 mt-4 mx-3 mx-sm-5 mb-2');
+        card.setAttribute('class','project card py-2 px-3 mt-4 mx-3 mx-sm-5 mb-2');
         card.setAttribute('style','border-top-width: 0.25em; border-top-color: ' + project.color + ';');
 
         let overview_route = project.isLocked ? '' : "http://" + window.location.hostname + (window.location.port != ""? ":"+window.location.port : "") + "/project/" + project.id;
@@ -1618,7 +1618,7 @@ function printProjects(container, projects, isAdminView) {
         card.innerHTML = '<div class="d-flex justify-content-between"> <a ' + (project.isLocked ? '' : 'href="' + overview_route) + '"> <h5 class="card-title my-1">' +
             project.name + '</h5> </a> <h5 class="flex-grow-1 d-flex justify-content-end align-items-center"> ' + icons +
             ' </h5> </div> <div class="row"> <div class="col-sm-7"> Project Manager: <a href="' + manager_route + '"> <h6 class="d-inline-block mb-3">' +
-            project.manager + '</h6> </a> <br> Brief Description: <h6 class="d-inline">' + project.description + '</h6> </div>' +
+            project.manager.first_name + ' ' + project.manager.last_name + '</h6> </a> <br> Brief Description: <h6 class="d-inline">' + project.description + '</h6> </div>' +
             '<div class="col-sm-5 mt-3 mt-sm-0"> Statistics <h6> <p class="m-0"><i class="far fa-fw fa-user mr-1"></i>' + project.teams +
             ' Teams involved</p> <p class="m-0"><i class="fas fa-fw fa-check text-success mr-1"></i>' + project.tasks_done.length +
             ' Tasks concluded</p> <p class="m-0"><i class="fas fa-fw fa-times text-danger mr-1"></i>' + (project.tasks_ongoing.length + project.tasks_todo.length) +

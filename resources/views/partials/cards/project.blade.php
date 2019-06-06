@@ -1,4 +1,4 @@
-<div id="project -{{ $project->id }}" class="card py-2 px-3 mt-4 mx-3 mx-sm-5 mb-2" style="border-top-width: 0.25em; border-top-color: {{ $project->color }};">
+<div id="project -{{ $project->id }}" class="project card py-2 px-3 mt-4 mx-3 mx-sm-5 mb-2" style="border-top-width: 0.25em; border-top-color: {{ $project->color }};">
     <div class="d-flex justify-content-between">
         <a href="{{ $project->isLocked ? '' : route('project-overview', ['id_project' => $project->id]) }}">
             <h5 class="card-title my-1">{{ $project->name }}</h5>
