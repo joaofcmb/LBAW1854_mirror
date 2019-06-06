@@ -95,7 +95,7 @@
                             @endisset
                         </div>                        
                         <div id="action-button" class="text-center">
-                            <button id="brand-btn" class="btn btn-outline-secondary" type="button">
+                            <button id="action-btn" class="btn btn-outline-secondary" type="button">
                                 @isset($team)
                                     <a id="manageTeam-{{ $team->id }}" class="manage-team" role="button" >
                                         Update
