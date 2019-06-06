@@ -182,14 +182,20 @@ class AdministratorController extends Controller
      * @return RedirectResponse
      */
     public function editTeamAction(Request $request, $id)
-    {// TODO - Finalize
+    {
+        $id_leader = $request->input('id_leader');
+
+        if(Team::where('id_leader',intVal($id_leader))->exists())
+            return redirect()->back()->withErrors("ERROR: A team with the same leader already exists.");
+
         $team = Team::find($id);
         $team->name = $request->input('name');
         $team->skill = $request->input('skill');
-        $team->id_leader = $request->input('id_leader');
+        $team->id_leader = $id_leader;
         $team->save();
 
         $members = explode(',', $request->input('members'));
+        array_push($members, $id_leader);
 
         foreach ($members as $id) {
             $member = Developer::find($id);
@@ -197,7 +203,7 @@ class AdministratorController extends Controller
             $member->save();
         }
 
-        $old_members = Developer::where('id_team',$id)->whereNotIn('id_user', $members)->get();
+        $old_members = Developer::where('id_team',$team->id)->whereNotIn('id_user', $members)->get();
 
         foreach ($old_members as $member) {
             $member->id_team = null;
@@ -318,8 +324,6 @@ class AdministratorController extends Controller
             return redirect()->route('404');
 
         Project::destroy($id_project);
-
-        return redirect()->route('admin-projects');
     }
 
 }

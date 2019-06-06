@@ -109,7 +109,7 @@ Route::get('/admin/projects/create', 'AdministratorController@createProject')->n
 Route::post('/admin/projects/create', 'AdministratorController@createProjectAction')->name('admin-create-project-action');
 Route::get('/admin/projects/{id}/edit', 'AdministratorController@editProject')->name('admin-edit-project');
 Route::post('/admin/projects/{id}/edit', 'AdministratorController@editProjectAction')->name('admin-edit-project-action');
-Route::get('/admin/project/{id}/cancel', 'AdministratorController@cancelProject')->name('cancel-project');
+Route::delete('/admin/project/{id}/cancel', 'AdministratorController@cancelProject');
 
 // API - Project
 Route::post('/api/project/{id_project}/roadmap/changeview', 'ProjectController@changeMilestoneView');

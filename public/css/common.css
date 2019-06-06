@@ -182,6 +182,10 @@ html, body {
     font-size: 1.3em;
 }
 
+a.float-right i.fa-times, a.float-right i.fa-plus, a.float-right i.fa-user-tie {
+    cursor: pointer;
+}
+
 /* Error Page */
 
 #error-text {
