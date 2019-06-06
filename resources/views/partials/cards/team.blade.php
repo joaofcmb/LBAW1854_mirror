@@ -11,12 +11,12 @@
         </div>
         <div class="card-body">
             <a href="{{ route('profile', ['id' => $team->leader->id]) }}">
-                <p style="font-weight: bold;">{{ $team->leader->username }}</p>
+                <p style="font-weight: bold;">{{ $team->leader->first_name . " " . $team->leader->last_name }}</p>
             </a>
             <div class="mt-3">
             @foreach($team->members as $member)
                 <a href="{{ route('profile', ['id' => $member->id]) }}">
-                    <p>{{ $member->username }}</p>
+                    <p>{{ $member->first_name . " " . $member->last_name }}</p>
                 </a>
             @endforeach
             </div>

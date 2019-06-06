@@ -3,38 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Developer;
-use App\Follow;
 use App\Project;
 use App\Team;
 use App\User;
-use Illuminate\Auth\Access\AuthorizationException;
+use Exception;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Symfony\Component\Translation\Dumper\PoFileDumper;
+use Illuminate\View\View;
 
 class AdministratorController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource: team
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function createTeam()
     {
         if(!Auth::user()->isAdmin())
             return redirect()->route('404');
 
-        $users = Developer::select('user.id', 'user.username')
+        $users = Developer::select('id', 'username', 'first_name', 'last_name')
                             ->join('user', 'user.id', '=', 'developer.id_user')
                             ->where([['developer.is_active', 'true'], ['developer.id_team', null]])
                             ->get();
@@ -43,13 +36,16 @@ class AdministratorController extends Controller
     }
 
     /**
-     * Create a new team
+     * Create a new resource: team
      * 
      * @param Request $request
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function createTeamAction(Request $request) 
-    {
+    {// TODO - Finalize
+        if(!Auth::user()->isAdmin())
+            return redirect()->route('404');
+
         $team = new Team();
         $team->name = $request->input('name');
         $team->skill = $request->input('skill');
@@ -70,7 +66,7 @@ class AdministratorController extends Controller
     /**
      * Show the form for creating a new resource: project
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function createProject()
     {
@@ -81,12 +77,13 @@ class AdministratorController extends Controller
     }
 
     /**
-     * Creates a new project
+     * Create a new resource: project
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @return Factory|RedirectResponse|View
      */
     public function createProjectAction()
     {
+        // TODO - Finalize
         if(!Auth::user()->isAdmin())
             return redirect()->route('404');
 
@@ -108,40 +105,24 @@ class AdministratorController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource for users
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function showUsers()
     {
         if(!Auth::user()->isAdmin())
             return redirect()->route('404');
 
-        $users = Developer::select('user.id', 'user.username', 'developer.is_active')
-            ->join('user', 'user.id', '=', 'developer.id_user')
-            ->get();
+        $users = Developer::join('user', 'user.id', '=', 'developer.id_user')->get();
 
         return View('pages.admin.adminUsers', ['users' => $users]);
-
     }
 
     /**
      * Display the specified resource for teams
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function showTeams()
     {
@@ -154,8 +135,7 @@ class AdministratorController extends Controller
     /**
      * Display the specified resource for projects
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function showProjects()
     {
@@ -169,7 +149,7 @@ class AdministratorController extends Controller
      * Show the form for editing the specified resource: team
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function editTeam($id)
     {
@@ -185,7 +165,7 @@ class AdministratorController extends Controller
             array_push($membersIds, $member->id);
         }
 
-        $users = Developer::select('user.id', 'user.username', 'developer.is_active')
+        $users = Developer::select('id', 'username', 'first_name', 'last_name', 'is_active')
                             ->join('user', 'user.id', '=', 'developer.id_user')
                             ->where('developer.is_active', 'true')
                             ->whereNotIn('user.id', $membersIds)
@@ -194,8 +174,15 @@ class AdministratorController extends Controller
         return View('pages.admin.adminManageTeam', ['users' => $users, 'team' => $team]);
     }
 
+    /**
+     * Edits an already created resource: team
+     *
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse
+     */
     public function editTeamAction(Request $request, $id)
-    {
+    {// TODO - Finalize
         $team = Team::find($id);
         $team->name = $request->input('name');
         $team->skill = $request->input('skill');
@@ -224,7 +211,7 @@ class AdministratorController extends Controller
      * Show the form for editing the specified resource: project
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function editProject($id)
     {
@@ -233,7 +220,7 @@ class AdministratorController extends Controller
         if(!Auth::user()->isAdmin() || empty($project))
             return redirect()->route('404');
 
-        $project['manager'] = User::where('id', $project->id_manager)->value('username');
+        $project['manager'] = User::where('id', $project->id_manager)->first();
 
         return View('pages.admin.adminManageProject', ['project' => $project]);
     }
@@ -242,10 +229,10 @@ class AdministratorController extends Controller
      * Edits a project
      *
      * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @return Factory|RedirectResponse|View
      */
     public function editProjectAction($id)
-    {
+    {// TODO - Finalize
         if(!Auth::user()->isAdmin())
             return redirect()->route('404');
 
@@ -267,46 +254,63 @@ class AdministratorController extends Controller
     }
 
 
-
     /**
-     * 
+     * Removes a specific user resource
+     *
+     * @param $id
+     * @return ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function removeUser($id)
     {
+        if(!Auth::user()->isAdmin())
+            return redirect()->route('404');
+
         try {
             $user = Developer::find($id);
             $user->is_active = false;
             $user->save();
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             return response('', 400, []);
         }
     }
 
     /**
-     * 
+     * Restores a specific user resource
+     *
+     * @param $id
+     * @return RedirectResponse
      */
     public function restoreUser($id)
     {
+        if(!Auth::user()->isAdmin())
+            return redirect()->route('404');
+
         $user = Developer::find($id);
         $user->is_active = TRUE;
-        $user->save();        
+        $user->save();
     }
 
+    /**
+     * Removes a specific team resource
+     *
+     * @param $id
+     * @return RedirectResponse
+     */
     public function removeTeam($id)
     {
         $team = Team::find($id);
 
-        if(empty($team))
+        if(!Auth::user()->isAdmin() || empty($team))
             return redirect()->route('404');
 
         $team->delete();
     }
 
     /**
-     * Remove a specific project
+     * Remove a specific project resource
      *
      * @param $id_project
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function cancelProject($id_project) 
     {
@@ -316,29 +320,6 @@ class AdministratorController extends Controller
         Project::destroy($id_project);
 
         return redirect()->route('admin-projects');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 
 }

@@ -17,7 +17,7 @@
         <div class="col-sm-7">
             Project Manager:
             <a href="{{ route('profile', ['id' => $project->id_manager]) }}">
-                <h6 class="d-inline-block mb-3">{{ $project->manager }}</h6>
+                <h6 class="d-inline-block mb-3">{{ $project->manager->first_name . " " . $project->manager->last_name }}</h6>
             </a>
             <br>
             Brief Description:

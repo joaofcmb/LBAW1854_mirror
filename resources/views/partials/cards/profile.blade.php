@@ -13,7 +13,7 @@
                         <img src="{{ file_exists('img/profile/' . $user->id . '.png') ? asset('img/profile/' . $user->id . '.png') :
                         (file_exists('img/profile/' . $user->id . '.jpg') ? asset('img/profile/' . $user->id . '.jpg') : asset('img/profile.png')) }}" width="50" height="50"
                                 class="d-inline-block rounded-circle align-self-center my-auto" alt="User photo">
-                        <span class="pl-2 pl-sm-4">{{ $user->username }}</span>
+                        <span class="pl-2 pl-sm-4">{{ $user->first_name . " " . $user->last_name }}</span>
                     @if($user->is_active)
                         </a>
                     @endif
@@ -39,7 +39,7 @@
                             width="125px" height="125px"
                             class="profile-img-team d-inline-block rounded-circle align-self-center my-3 my-md-1 p-md-0 p-lg-3 p-xl-0 "
                             alt="User photo">
-                    <p class="m-0 pt-2">{{ $leader->username }}</p>
+                    <p class="m-0 pt-2">{{ $leader->first_name . " " . $leader->last_name }}</p>
                 </a>
                 <a class="float-right" style="cursor: pointer;">
                     @if($leader->id != Auth::user()->getAuthIdentifier())
@@ -68,7 +68,7 @@
                         (file_exists('img/profile/' . $user->id . '.jpg') ? asset('img/profile/' . $user->id . '.jpg') : asset('img/profile.png')) }}" width="50" height="50"
                             class="d-inline-block rounded-circle align-self-center my-auto"
                             alt="User photo">
-                    <span class="pl-2 pl-sm-4">{{ $user->username }}</span>
+                    <span class="pl-2 pl-sm-4">{{ $user->first_name . " " . $user->last_name }}</span>
                 </a>
                 <a class="float-right pt-2 pr-2">
                     @isset($manager)

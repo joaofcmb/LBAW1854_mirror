@@ -73,7 +73,7 @@
                             @isset($project)
                                 @include('partials.cards.profile', [
                                     'isLeader' => false,
-                                    'user' => (object) array('id' => $project->id_manager, 'username' => $project->manager),
+                                    'user' => (object) array('id' => $project->id_manager, 'username' => $project->manager->username, 'first_name' => $project->manager->first_name, 'last_name' => $project->manager->last_name),
                                     'manager' => true
                                 ])
                             @endisset

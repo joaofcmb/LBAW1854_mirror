@@ -86,7 +86,7 @@ class Project extends Model
      */
     public static function information($projects) {
         foreach ($projects as $project) {
-            $project['manager'] = Project::join('user', 'user.id', '=', 'project.id_manager')->where('project.id', $project['id'])->value('username');
+            $project['manager'] = Project::select('username', 'first_name', 'last_name')->join('user', 'user.id', '=', 'project.id_manager')->where('project.id', $project['id'])->first();
             $project['teams'] = TeamProject::where('id_project', $project->id)->count();
             $project['tasks_todo'] = Task::information(Task::where([['id_project', $project['id']], ['progress', '=', 0]])->get());
             $project['tasks_ongoing'] = Task::information(Task::where([['id_project', $project['id']], ['progress', '!=', 100], ['progress', '!=', 0]])->get());

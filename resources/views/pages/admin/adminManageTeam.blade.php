@@ -75,7 +75,7 @@
                             @isset($team)
                                 @include('partials.cards.profile', [
                                     'isLeader' => false,
-                                    'user' => (object) array('id' => $team->id_leader, 'username' => $team->leader->username),
+                                    'user' => (object) array('id' => $team->id_leader, 'username' => $team->leader->username, 'first_name' => $team->leader->first_name, 'last_name' => $team->leader->last_name),
                                     'manager' => true,
                                     'teamMember' => false 
                                 ])
