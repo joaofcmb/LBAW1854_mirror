@@ -798,7 +798,7 @@ function manageProject() {
     if(search_content.children.length > 0)
         manager_id = Number(search_content.firstElementChild.getAttribute('id'));
 
-    sendAjaxRequest.call(this, 'post', '/api/search/data', {'query': query, 'data': 'Users', 'constraints': [manager_id]}, editSearch)
+    sendAjaxRequest.call(this, 'post', '/api/search/data', {'query': query, 'data': 'Users', 'constraints': [manager_id], 'manager': true}, editSearch)
 }
 
 function teamAssign() {
@@ -1715,6 +1715,29 @@ function printTeamsInput(container, teams) {
         else
             container.insertBefore(card, first_element);
     }
+}
+
+let submitForm = document.getElementById('submit-project-form')
+let submitManageProjectForm = document.getElementById('submit-manage-project-form')
+
+if(submitManageProjectForm != null) {
+    submitManageProjectForm.addEventListener('click', function () {
+        let name = document.getElementById('projectName')
+        let description = document.getElementById('projectDescription')
+        let managerID = document.getElementsByClassName('remove-member')[0]
+        let searchBar = document.getElementsByClassName('search-bar')[0]
+
+        if(name.value === "")
+            blockHelpNode(name.parentElement, "Project name must be defined !", "red")
+        else if(description.value === "")
+            blockHelpNode(description.parentElement, "Project description must be defined !", "red")
+        else if(managerID == null)
+            blockHelpNode(searchBar, "Project manager must be defined !", "red");
+        else {
+            document.getElementById('project-manager-ID').setAttribute('value', managerID.parentElement.parentElement.parentElement.getAttribute('id'))
+            submitForm.click()
+        }
+    })
 }
 
 //////////

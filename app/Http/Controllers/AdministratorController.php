@@ -102,7 +102,6 @@ class AdministratorController extends Controller
      */
     public function createProjectAction()
     {
-        // TODO - Finalize
         if(!Auth::user()->isAdmin())
             return redirect()->route('404');
 
@@ -272,7 +271,7 @@ class AdministratorController extends Controller
      * @return Factory|RedirectResponse|View
      */
     public function editProjectAction($id)
-    {// TODO - Finalize
+    {
         if(!Auth::user()->isAdmin())
             return redirect()->route('404');
 

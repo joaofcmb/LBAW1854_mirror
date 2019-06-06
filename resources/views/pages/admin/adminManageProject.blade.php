@@ -33,7 +33,7 @@
                         <form id="project-form" method="post" action="{{ isset($project) ? route('admin-edit-project-action', ['id' => $project->id]) : route('admin-create-project-action') }}">
                             {{ csrf_field() }}
 
-                            <input type="hidden" id="project-manager-ID" name="projectManager" value="{{ isset($project) ? $project->id_manager : 45 }}">
+                            <input type="hidden" id="project-manager-ID" name="projectManager" value="{{ isset($project) ? $project->id_manager : "" }}">
 
                             <div class="form-row">
                                 <div class="form-group col-md-9">
@@ -47,7 +47,7 @@
                                         <p class="m-auto px-2">Color</p>
                                         <input type="color" id="inputColor" name="color" class="form-control"
                                             @isset($project)
-                                               value="#{{ $project->color }}"
+                                               value="{{ $project->color }}"
                                             @endisset
                                         />
                                     </div>
