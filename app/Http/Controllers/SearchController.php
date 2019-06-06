@@ -7,48 +7,14 @@ use App\Team;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
-use Illuminate\View\View;
 use App\Developer;
 
 class SearchController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Search for the specified data.
      *
-     * @param  int  $id
+     * @param Request $request
      * @return array
      */
     public function search(Request $request)
@@ -76,6 +42,13 @@ class SearchController extends Controller
             return $this->searchTeams(str_replace_first(':* | ', ':A* | ', (str_replace(" ", ':* | ', $query) . ':*')), $constraints);
     }
 
+    /**
+     * Search for users with certain constraints
+     *
+     * @param $query
+     * @param $constraints
+     * @return mixed
+     */
     public function searchUsers($query, $constraints) {        
         array_push($constraints, Auth::user()->getAuthIdentifier());
 
@@ -105,6 +78,12 @@ class SearchController extends Controller
         return $users;
     }
 
+    /**
+     * Search for projects
+     *
+     * @param $query
+     * @return mixed
+     */
     public function searchProjects($query) {
 
         $projects = Project::selectRaw("id, name, description, color, id_manager")
@@ -113,9 +92,15 @@ class SearchController extends Controller
             ->get();
         
         return Project::information($projects);
-
     }
 
+    /**
+     * Search for teams with certain constraints
+     *
+     * @param $query
+     * @param $constraints
+     * @return mixed
+     */
     public function searchTeams($query, $constraints) {
 
         $teams = Team::selectRaw("id, name, skill, id_leader")
@@ -130,40 +115,5 @@ class SearchController extends Controller
         }
 
         return $teams;
-
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
