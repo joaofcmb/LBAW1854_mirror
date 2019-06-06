@@ -59,6 +59,15 @@ class SearchController extends Controller
         $constraints = $request->input('constraints');
         $constraints = empty($constraints) ? [] : explode(",", $constraints);
 
+        $manager = $request->input('manager');
+
+        if($manager != null && $manager == true) {
+            $users = Project::all();
+
+            foreach ($users as $user)
+                array_push($constraints, $user->id_manager);
+        }
+
         if($data == 'Users')
             return $this->searchUsers(str_replace_first(':* | ', ':A* | ', (str_replace(" ", ':* | ', $query) . ':*')), $constraints);
         else if($data == 'Projects')

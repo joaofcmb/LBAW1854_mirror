@@ -663,7 +663,7 @@ function manageProject() {
     if(search_content.children.length > 0)
         manager_id = Number(search_content.firstElementChild.getAttribute('id'));
 
-    sendAjaxRequest.call(this, 'post', '/api/search/data', {'query': query, 'data': 'Users', 'constraints': [manager_id]}, editSearch)
+    sendAjaxRequest.call(this, 'post', '/api/search/data', {'query': query, 'data': 'Users', 'constraints': [manager_id], 'manager': true}, editSearch)
 }
 
 function teamAssign() {
@@ -1187,7 +1187,7 @@ function editSearch() {
 
     let page = this.prototype.getAttribute('class').split(' ')[1];
     let container = document.getElementById('search-content');
-    console.log(response)
+
     switch (page) {
         case 'globalSearch':
             container.innerHTML = '';
