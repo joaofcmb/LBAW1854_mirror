@@ -28,19 +28,17 @@
                 <div class="card my-2">
                     <div class="card-header">
                         <h4>Users</h4>
-                    </div>
-                    
-                        @include('partials.searchBar', ['page' => 'manageTeam', 'content' => 'Users...', 'searchPage' => 'manageTeam'])
-                        <div id="search-display">
-                            @foreach($users as $user)
-                                @include('partials.cards.profile', [
-                                    'isLeader' => false,
-                                    'user' => $user,
-                                    'manageTeam' => true
-                                ])
-                            @endforeach
-                        </div>
-                    
+                    </div>                    
+                    @include('partials.searchBar', ['page' => 'manageTeam', 'content' => 'Users...', 'searchPage' => 'manageTeam'])
+                    <div id="search-display">
+                        @foreach($users as $user)
+                            @include('partials.cards.profile', [
+                                'isLeader' => false,
+                                'user' => $user,
+                                'manageTeam' => true
+                            ])
+                        @endforeach
+                    </div>                    
                 </div>
             </div>
             <div class="col-lg-6 px-sm-3 px-lg-5 pb-5">
@@ -54,7 +52,7 @@
                                 action="{{ route('admin-edit-team-action', ['id' => $team->id ]) }}"
                             @else
                                 action="{{ route('admin-create-team-action') }}"
-                            @endisset required>
+                            @endisset>
                             {{ csrf_field() }}
                             <div class="form-group">
                                 <input type="text" class="form-control" id="teamName" name="name" placeholder="Name" required
