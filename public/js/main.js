@@ -1664,6 +1664,7 @@ function printTeams(container, teams) {
 
     for (const team of teams) {
         let card = document.createElement('div');
+        card.setAttribute('id', 'team-' + team.id);
         card.setAttribute('class','col-lg-4 col-sm-6 my-3');
         
         let members = '';
@@ -1677,8 +1678,8 @@ function printTeams(container, teams) {
         card.innerHTML = '<div class="card text-center"> <div class="card-header" style="clear: both;"> <p id="team-name" class="m-0" style="float: left;">'
             + team.name + '</p> <p class="m-0" style="float: right;">' + (team.skill == null ? '' : team.skill) + '</p> </div> <div class="card-body">' +
             '<a href="' + leader_route + '"><p style="font-weight: bold;">' + team.leader.first_name + ' ' + team.leader.last_name +
-            '</p></a> <div class="mt-3"> ' + members + '</div> <a id="edit-button" href="' + edit_route + '" class="btn mt-3" role="button">Edit</a>' +
-            ' <a id="edit-button" class="btn mt-3" role="button">Remove</a> </div> </div> </div>';
+            '</p></a> <div class="mt-3"> ' + members + '</div> <a href="' + edit_route + '" class="edit-button btn mt-3" role="button">Edit</a>' +
+            ' <a id="removeTeam-' + team.id + '" class="edit-button remove-team btn mt-3" role="button">Remove</a> </div> </div> </div>';
 
         container.appendChild(card);
     }
