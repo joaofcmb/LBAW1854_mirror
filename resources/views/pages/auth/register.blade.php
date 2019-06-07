@@ -14,9 +14,9 @@
         <div id="auth-zone" class="container">
             <div class="row align-items-center mx-3">
                 <fieldset class="col-lg-7 mx-auto mt-3">
-                    <legend id="auth-title" class="row justify-content-center text-center">
+                    <div id="auth-title" class="row justify-content-center text-center">
                         <p>Register & <span>Make Us Proud</span></p>
-                    </legend>
+                    </div>
                     <form id="register-form" method="post" action="{{ route('register-action') }}">
                         {{ csrf_field() }}
                         <div class="form-group row justify-content-center">
@@ -62,7 +62,7 @@
                         <div id="brand-btn" class="form-group row justify-content-center">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary" form="register-form" type="submit" id="search-button">
-                                    <a> Register </a>
+                                    Register
                                 </button>
                             </div>
                         </div>

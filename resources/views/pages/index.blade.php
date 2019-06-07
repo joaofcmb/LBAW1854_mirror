@@ -13,7 +13,7 @@
 
     <div id="home" class="container-fluid"></div>
     <div id="about" class="container mt-2">
-        <div id="nav-pos" class="row mb-5"></div>
+        <div class="nav-pos row mb-5"></div>
         <div class="row pt-3">
             <div class="row col-12">
                 <div class="about-title col-10 col-lg-6 ml-5 text-center">
@@ -57,7 +57,7 @@
         </div>
     </div>
     <div id="benefits" class="container">
-        <div id="nav-pos" class="row mb-5"></div>
+        <div class="nav-pos row mb-5"></div>
         <div class="row justify-content-center mb-md-5">
             <div class="col-6 col-lg-3  mt-lg-3">
                 <img id="idea-img" class="img-fluid d-block" src="{{ asset('img/idea.png') }}" alt="">
@@ -101,7 +101,7 @@
 
     </div>
     <div id="founders" class="container-fluid">
-        <div id="nav-pos" class="row mb-5"></div>
+        <div class="nav-pos row mb-5"></div>
         <div class="row justify-content-center pt-5">
             <div class="d-flex">A system <span>developed</span> by</div>
         </div>

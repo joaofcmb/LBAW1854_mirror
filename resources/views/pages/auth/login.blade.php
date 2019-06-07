@@ -14,9 +14,9 @@
         <div id="auth-zone" class="container">
             <div class="row align-items-center mx-3">
                 <fieldset class="col-lg-6 mx-auto">
-                    <legend id="auth-title" class="row justify-content-center">
+                    <div id="auth-title" class="row justify-content-center">
                         <p>Sign in & <span>Start Working</span></p>
-                    </legend>
+                    </div>
                     <form id="login-form" method="post" action="{{ route('login-action') }}">
                         {{ csrf_field() }}
                         <div class="form-group row justify-content-center">
@@ -34,10 +34,10 @@
                             </span>
                             @endif
                         </div>
-                        <div id="brand-btn" class="form-group row justify-content-center">
+                        <div class="brand-btn form-group row justify-content-center">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary" form="login-form" type="submit">
-                                    <a> Login </a>
+                                    Login 
                                 </button>
                             </div>
                         </div>
@@ -50,27 +50,25 @@
                             <div class="col-3 col-sm-4 mx-3">
                             </div>
                         </div>
-                        <div id="brand-btn" class="form-group row justify-content-center">
+                        <div class="brand-btn form-group row justify-content-center">
                             <div class="col-10 col-md-9 mt-3 px-3 text-center">
                                 <button class="btn btn-outline-secondary mx-2" type="submit">
-                                    <a href="#">
-                                        <img src="{{ asset('img/github-logo.png') }}" width="25" height="25"
-                                             class="d-inline-block align-self-center" alt="GitHub Logo">
-                                        GitHub</a>
+                                    <img src="{{ asset('img/github-logo.png') }}" width="25" height="25"
+                                            class="d-inline-block align-self-center" alt="GitHub Logo">
+                                    GitHub
                                 </button>
                                 <button class="btn btn-outline-secondary mx-2" type="button">
-                                    <a href="#">
-                                        <img src="{{ asset('img/gitlab-logo.png') }}" width="25" height="25"
-                                             class="d-inline-block align-self-center" alt="GitLab Logo">
-                                        GitLab</a>
+                                    <img src="{{ asset('img/gitlab-logo.png') }}" width="25" height="25"
+                                            class="d-inline-block align-self-center" alt="GitLab Logo">
+                                    GitLab
                                 </button>
                             </div>
                         </div>
                     </form>
-                    <div id="register" class="row justify-content-center pt-3">
+                    <div class="register row justify-content-center pt-3">
                         <p>Don’t have an account ? <a href="{{ route('register') }}"><span>Sign Up</span></a></p>
                     </div>
-                    <div id="register" class="row justify-content-center pt">
+                    <div class="register row justify-content-center pt">
                         <p>Forgot your password ? <a href="{{ route('password.request') }}"><span>Reset Password</span></a></p>
                     </div>
                 </fieldset>

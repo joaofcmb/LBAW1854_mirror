@@ -1,4 +1,4 @@
-<div id="project -{{ $project->id }}" class="project card py-2 px-3 mt-4 mx-3 mx-sm-5 mb-2" style="border-top-width: 0.25em; border-top-color: {{ $project->color }};">
+<div id="project1-{{ $project->id }}" class="project card py-2 px-3 mt-4 mx-3 mx-sm-5 mb-2" style="border-top-width: 0.25em; border-top-color: {{ $project->color }};">
     <div class="d-flex justify-content-between">
         <a href="{{ $project->isLocked ? '' : route('project-overview', ['id_project' => $project->id]) }}">
             <h5 class="card-title my-1">{{ $project->name }}</h5>
@@ -24,14 +24,12 @@
             <h6 class="d-inline">{{ $project->description }}</h6>
         </div>
         <div class="col-sm-5 mt-3 mt-sm-0">
-            Statistics
-            <h6>
-                <p class="m-0"><i class="far fa-fw fa-user mr-1"></i>{{ $project->teams }} Teams involved</p>
-                <p class="m-0"><i class="fas fa-fw fa-check text-success mr-1"></i>{{ sizeof($project->tasks_done) }} Tasks
-                    concluded</p>
-                <p class="m-0"><i class="fas fa-fw fa-times text-danger mr-1"></i>{{ sizeof($project->tasks_ongoing) + sizeof($project->tasks_todo) }} Tasks
-                    remaining</p>
-            </h6>
+            Statistics            
+            <h6 class="mb-0"><i class="far fa-fw fa-user mr-1"></i>{{ $project->teams }} Teams involved</h6>
+            <h6 class="mb-0"><i class="fas fa-fw fa-check text-success mr-1"></i>{{ sizeof($project->tasks_done) }} Tasks
+                concluded</h6>
+            <h6 class="mb-0"><i class="fas fa-fw fa-times text-danger mr-1"></i>{{ sizeof($project->tasks_ongoing) + sizeof($project->tasks_todo) }} Tasks
+                remaining</h6>
         </div>
     </div>
 </div>

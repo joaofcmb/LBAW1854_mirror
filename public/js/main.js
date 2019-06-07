@@ -592,6 +592,29 @@ if(manage_team_submit != null) {
     })
 }
 
+let submitForm = document.getElementById('submit-project-form')
+let submitManageProjectForm = document.getElementById('submit-manage-project-form')
+
+if(submitManageProjectForm != null) {
+    submitManageProjectForm.addEventListener('click', function () {
+        let name = document.getElementById('projectName')
+        let description = document.getElementById('projectDescription')
+        let managerID = document.getElementsByClassName('remove-member')[0]
+        let searchBar = document.getElementsByClassName('search-bar')[0]
+
+        if(name.value === "")
+            blockHelpNode(name.parentElement, "Project name must be defined !", "red")
+        else if(description.value === "")
+            blockHelpNode(description.parentElement, "Project description must be defined !", "red")
+        else if(managerID == null)
+            blockHelpNode(searchBar, "Project manager must be defined !", "red");
+        else {
+            document.getElementById('project-manager-ID').setAttribute('value', managerID.parentElement.parentElement.parentElement.getAttribute('id'))
+            submitForm.click()
+        }
+    })
+}
+
 function addMemberListener() {
     let id_user = this.parentElement.parentElement.parentElement.getAttribute('id');
     let user_card = document.getElementById(id_user);
@@ -1031,7 +1054,7 @@ function editMilestoneHandler() {
             ' class="milestone-switch milestone-info ' + (milestones[i].id == item.currentMilestone.id ? 'active' : 'collapsed') + ' text-center pb-3" ' +
             'style="border-color: rgb(12, 116, 214);"> <h6 class="mb-1">' + milestones[i].deadline.substr(0,10) + '</h6> ' +
             (new Date(milestones[i].deadline) < new Date(item.date) ? 'Elapsed' : milestones[i].timeLeft + ' days left') + ' </a> ';
-        milestones[i];
+        milestones[i];h6
     }
 
     roadmap_bar.innerHTML += '<div class="p-1"></div> ';
@@ -1334,7 +1357,7 @@ function removeTeamHandler() {
 function removeProjectHandler() {
     if(this.status !== 200) return;
 
-    document.getElementById('project -' + this.prototype.getAttribute('id').split('-')[1]).remove();
+    document.getElementById('project1-' + this.prototype.getAttribute('id').split('-')[1]).remove();
 }
 
 function editSearch() {
@@ -1613,7 +1636,7 @@ function printProjects(container, projects, isAdminView) {
 
     for (const project of projects) {
         let card = document.createElement('div');
-        card.setAttribute('id','project -' + project.id);
+        card.setAttribute('id','project1-' + project.id);
         card.setAttribute('class','project card py-2 px-3 mt-4 mx-3 mx-sm-5 mb-2');
         card.setAttribute('style','border-top-width: 0.25em; border-top-color: ' + project.color + ';');
 
@@ -1635,10 +1658,10 @@ function printProjects(container, projects, isAdminView) {
             project.name + '</h5> </a> <h5 class="flex-grow-1 d-flex justify-content-end align-items-center"> ' + icons +
             ' </h5> </div> <div class="row"> <div class="col-sm-7"> Project Manager: <a href="' + manager_route + '"> <h6 class="d-inline-block mb-3">' +
             project.manager.first_name + ' ' + project.manager.last_name + '</h6> </a> <br> Brief Description: <h6 class="d-inline">' + project.description + '</h6> </div>' +
-            '<div class="col-sm-5 mt-3 mt-sm-0"> Statistics <h6> <p class="m-0"><i class="far fa-fw fa-user mr-1"></i>' + project.teams +
-            ' Teams involved</p> <p class="m-0"><i class="fas fa-fw fa-check text-success mr-1"></i>' + project.tasks_done.length +
-            ' Tasks concluded</p> <p class="m-0"><i class="fas fa-fw fa-times text-danger mr-1"></i>' + (project.tasks_ongoing.length + project.tasks_todo.length) +
-            ' Tasks remaining</p> </h6> </div> </div> </div>';
+            '<div class="col-sm-5 mt-3 mt-sm-0"> Statistics <h6 class="m-0"><i class="far fa-fw fa-user mr-1"></i>' + project.teams +
+            ' Teams involved</h6> <h6 class="m-0"><i class="fas fa-fw fa-check text-success mr-1"></i>' + project.tasks_done.length +
+            ' Tasks concluded</h6> <h6 class="m-0"><i class="fas fa-fw fa-times text-danger mr-1"></i>' + (project.tasks_ongoing.length + project.tasks_todo.length) +
+            ' Tasks remaining</h6> </div> </div> </div>';
 
         container.appendChild(card);
     }
@@ -1722,29 +1745,6 @@ function printTeamsInput(container, teams) {
         else
             container.insertBefore(card, first_element);
     }
-}
-
-let submitForm = document.getElementById('submit-project-form')
-let submitManageProjectForm = document.getElementById('submit-manage-project-form')
-
-if(submitManageProjectForm != null) {
-    submitManageProjectForm.addEventListener('click', function () {
-        let name = document.getElementById('projectName')
-        let description = document.getElementById('projectDescription')
-        let managerID = document.getElementsByClassName('remove-member')[0]
-        let searchBar = document.getElementsByClassName('search-bar')[0]
-
-        if(name.value === "")
-            blockHelpNode(name.parentElement, "Project name must be defined !", "red")
-        else if(description.value === "")
-            blockHelpNode(description.parentElement, "Project description must be defined !", "red")
-        else if(managerID == null)
-            blockHelpNode(searchBar, "Project manager must be defined !", "red");
-        else {
-            document.getElementById('project-manager-ID').setAttribute('value', managerID.parentElement.parentElement.parentElement.getAttribute('id'))
-            submitForm.click()
-        }
-    })
 }
 
 //////////
