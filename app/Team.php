@@ -55,12 +55,22 @@ class Team extends Model
     }
 
     /**
-     * Retrieves all tasks associated which the team is working on
+     * Retrieves all tasks associated which the team
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function tasks() {
         return $this->belongsToMany('App\Task', 'team_task', 'id_team', 'id_task');
+    }
+
+    /**
+     * Retrieves all on going tasks associated which the team is working on
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function onGoingTasks() {
+        return $this->belongsToMany('App\Task', 'team_task', 'id_team', 'id_task')
+            ->where('progress', '<', 100);
     }
 
     /**

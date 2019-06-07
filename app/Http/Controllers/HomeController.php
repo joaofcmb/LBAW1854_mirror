@@ -30,7 +30,7 @@ class HomeController extends Controller
         if (isset($team)) {
             return view('pages.home', ['managementProjects' => Project::information($user->manager),
                 'teamProjects' => Project::information($team->projects),
-                'teamTasks' => Task::information($team->tasks),
+                'teamTasks' => Task::information($team->onGoingTasks),
                 'threads' => $threads]);
         }
         else {
