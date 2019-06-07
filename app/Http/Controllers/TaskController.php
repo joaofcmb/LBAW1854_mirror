@@ -40,15 +40,18 @@ class TaskController extends Controller
             return redirect()->route('404');
 
         $teams = $task->teams;
+        $isTeamLeader = false;
 
         foreach ($teams as $team) {
             $team['isTeamLeader'] = $team->leader->id == Auth::user()->getAuthIdentifier();
+            $isTeamLeader = $team->leader->id == Auth::user()->getAuthIdentifier() || $isTeamLeader;
         }
 
         $isProjectManager = Project::isProjectManager($project);
 
         return View('pages.task.task', ['project' => $project,
                                         'isProjectManager' => $isProjectManager,
+                                        'isTeamLeader' => $isTeamLeader,
                                         'teams' => $teams,
                                         'comments' => $task->comments,
                                         'canAddComment' => Developer::canAddTaskComment($task) || $isProjectManager,
@@ -152,7 +155,7 @@ class TaskController extends Controller
         $project = Project::find($id_project);
         $task = Task::find($id_task);
 
-        if(!$this->validateAccess('edit', $project, $task))
+        if(!$this->validateAccess('update', $project, $task))
             return redirect()->route('404');
 
         $task->progress = $request->input('progress');

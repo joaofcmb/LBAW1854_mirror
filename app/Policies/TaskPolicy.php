@@ -10,6 +10,7 @@ use App\User;
 use App\Task;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use App\Comment;
+use App\Team;
 
 class TaskPolicy
 {
@@ -29,7 +30,7 @@ class TaskPolicy
     }
 
     /**
-     * Determine whether the user can view the task.
+     * Determine whether the user can edit the task.
      *
      * @param \App\User $user
      * @param \App\Task $task
@@ -39,6 +40,21 @@ class TaskPolicy
     public function edit(User $user, Task $task, Project $project)
     {
         return $project->id_manager == $user->id && $task->id_project == $project->id;
+    }
+
+    /**
+     * Determine whether the user can update the task progress.
+     *
+     * @param \App\User $user
+     * @param \App\Task $task
+     * @param Project $project
+     * @return mixed
+     */
+    public function update(User $user, Task $task, Project $project)
+    {
+        $team = Developer::find($user->id)->team;
+        return ( (TeamProject::where([ ['id_team', $team->id], ['id_project', $project->id]])->exists() && $user->id == $team->id_leader) 
+                    || $project->id_manager == $user->id) && $task->id_project == $project->id;
     }
 
     /**

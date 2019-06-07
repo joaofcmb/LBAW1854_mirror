@@ -47,7 +47,7 @@
                     </div>
                 </div>
 
-                @if($isProjectManager)
+                @if($isProjectManager || $isTeamLeader)
                     <div id="create" class="container-fluid mx-auto py-2">
                         <div class="row justify-content-around">
                             <a data-toggle="modal" data-target="#updateProgressModal">                            
@@ -55,11 +55,13 @@
                                     Update Progress <i class="far fa-edit"></i>
                                 </div>
                             </a>
-                            <a href="{{ route('task-edit', ['id_project' => $project->id, 'id_task' => $task->id]) }}">
-                                <div class="col-sm- py-1 px-2">
-                                    Edit Task <i class="far fa-edit"></i>
-                                </div>
-                            </a>
+                            @if($isProjectManager)
+                                <a href="{{ route('task-edit', ['id_project' => $project->id, 'id_task' => $task->id]) }}">
+                                    <div class="col-sm- py-1 px-2">
+                                        Edit Task <i class="far fa-edit"></i>
+                                    </div>
+                                </a>
+                            @endif
                         </div>
                     </div>
 
