@@ -894,10 +894,10 @@ INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_proj
 INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('Database schema','Define database schema',70,'2019/04/08','2019/04/09',3,1,18);
 INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('Check database data','Make sure database has good realistic examples',6,'2019/04/07','2019/04/03',10,null,19);
 INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('Database schema','Define database schema',95,'2019/04/09','2019/04/09',2,17,20);
-INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('Testing features','Check if tests are all successiding',82,'2019/04/07','2019/04/04',5,11,21);
+INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('Change heuristics used','Not the most eficient heuristic in place. Change ASAP.',82,'2019/04/07','2019/04/04',5,11,21);
 INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('Testing features','Check if tests are all successiding',68,'2019/04/03','2019/04/04',4,9,22);
 INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('Mockup','Define the product mockups',84,'2019/04/03','2019/04/08',9,13, 23);
-INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('Main features','Develop project main features',70,'2019/04/09','2019/04/05',7,8,24);
+INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('Testing features','Check if tests are all successiding',70,'2019/04/09','2019/04/05',7,8,24);
 INSERT INTO task(title,description,progress,creation_date,last_edit_date,id_project,id_group,id_milestone) VALUES ('Testing features','Check if tests are all successiding',17,'2019/04/06','2019/04/06',10,12,25);
 
 INSERT INTO task_comment VALUES (82,17);
